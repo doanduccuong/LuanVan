@@ -1,0 +1,17 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Quy trình nhận dạng biểu cảm khuôn mặt tổng quát}}{4}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Luồng xử lý ba tầng của MTCNN}}{5}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Minh họa chuỗi quan sát biểu cảm theo hành trình đa điểm chạm}}{9}{figure.caption.13}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Luồng xử lý của phương pháp đề xuất}}{11}{figure.caption.14}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Hai nhiệm vụ được thực hiện trên cùng vùng khuôn mặt}}{12}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Liên kết các bản ghi vào cùng một lượt ghé thăm}}{14}{figure.caption.18}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Tổng quan hệ thống được xây dựng}}{17}{figure.caption.20}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Xử lý ảnh khuôn mặt tại một điểm chạm}}{19}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Liên kết các bản ghi vào cùng một lượt ghé thăm}}{21}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Luồng dữ liệu giữa dịch vụ xử lý ảnh và hệ thống CRM}}{22}{figure.caption.25}%
+\addvspace {10\p@ }
+\contentsfinish 
+\contentsfinish 

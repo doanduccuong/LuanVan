@@ -1,0 +1,340 @@
+\documentclass[../LuanVan.tex]{subfiles}
+\begin{document}
+
+\section{Tổng quan hệ thống}
+\label{section:4.1}
+
+Hệ thống tiếp nhận hình ảnh khuôn mặt tại các điểm chạm trong không gian cửa hàng. Từ cùng một vùng khuôn mặt, hệ thống thực hiện hai nhiệm vụ độc lập. Nhiệm vụ thứ nhất phân loại biểu cảm khuôn mặt thành một trong bảy lớp Angry, Disgust, Fear, Happy, Sad, Surprise và Neutral. Nhiệm vụ thứ hai trích xuất đặc trưng khuôn mặt để tìm khách hàng tương ứng trong danh sách đã đăng ký của CRM. Kết quả của hai nhiệm vụ được chuyển tới khối xử lý nghiệp vụ để tạo hoặc cập nhật một lượt ghé thăm.
+
+Một lượt ghé thăm biểu diễn một lần khách hàng có mặt tại cửa hàng. Mỗi lần hệ thống ghi nhận khách hàng tại một điểm chạm, một bản ghi mới được bổ sung vào lượt ghé thăm đang hoạt động. Bản ghi chứa khách hàng, điểm chạm, thời gian và nhãn biểu cảm quan sát được. Các bản ghi được sắp xếp theo thời gian để tạo thành lịch sử hành trình. Hệ thống CRM sẽ sử dụng dữ liệu này để tra cứu hồ sơ, lịch sử mua hàng, lịch sử điểm chạm và lập báo cáo.
+
+Luồng tổng thể được trình bày tại Hình \ref{fig:proposed_overview}. Kết quả FER chỉ được hiểu là nhãn biểu cảm quan sát được trên ảnh. Hệ thống không coi nhãn này là phép đo trực tiếp cảm xúc bên trong hoặc mức độ hài lòng của khách hàng.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+        node distance=5mm,
+        block/.style={draw, rounded corners=2pt, align=center, minimum height=12mm, text width=2.55cm, font=\small},
+        flow/.style={-{Latex[length=2mm]}, thick}
+    ]
+        \node[block] (image) {Ảnh tại\\điểm chạm};
+        \node[block, right=of image] (face) {Phát hiện và\\chuẩn hóa khuôn mặt};
+        \node[block, right=of face, yshift=9mm] (fer) {Phân loại\\biểu cảm};
+        \node[block, right=of face, yshift=-9mm] (identity) {Tìm kiếm\\khách hàng};
+        \node[block, right=of fer, yshift=-9mm] (visit) {Tạo hoặc cập nhật\\lượt ghé thăm};
+        \node[block, right=of visit] (crm) {Lưu trữ và\\báo cáo trên CRM};
+        \draw[flow] (image) -- (face);
+        \draw[flow] (face) -- (fer);
+        \draw[flow] (face) -- (identity);
+        \draw[flow] (fer) -- (visit);
+        \draw[flow] (identity) -- (visit);
+        \draw[flow] (visit) -- (crm);
+    \end{tikzpicture}
+    }
+    \caption{Tổng quan hệ thống được xây dựng}
+    \label{fig:proposed_overview}
+\end{figure}
+
+Bảng \ref{tab:proposed_blocks} tóm tắt trách nhiệm và đầu ra của ba khối chính. Sự phân tách này giúp tránh sử dụng nhầm kết quả biểu cảm để xác định danh tính khách hàng. Mỗi nhiệm vụ sử dụng một mô hình và một tiêu chí đánh giá riêng.
+
+\begin{table}[H]
+    \centering
+    \caption{Các khối chức năng của hệ thống}
+    \label{tab:proposed_blocks}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|p{3.1cm}|p{6.0cm}|p{5.1cm}|}
+        \hline
+        \textbf{Khối chức năng} & \textbf{Trách nhiệm} & \textbf{Đầu ra chính} \\
+        \hline
+        Nhận dạng biểu cảm & Phát hiện khuôn mặt, chuẩn hóa ảnh và phân loại bảy biểu cảm & Nhãn biểu cảm và độ tin cậy \\
+        \hline
+        Hình thành hành trình & Xác định khách hàng, tạo lượt ghé thăm và gắn các bản ghi điểm chạm & Mã khách hàng, mã lượt ghé thăm và lịch sử điểm chạm \\
+        \hline
+        Hệ thống CRM & Quản lý khách hàng, lịch sử mua hàng, điểm chạm, hành trình và báo cáo & Hồ sơ nghiệp vụ, dữ liệu tra cứu và báo cáo tổng hợp \\
+        \hline
+    \end{tabular}}
+\end{table}
+
+\section{Xây dựng chức năng nhận dạng biểu cảm tại điểm chạm}
+\label{section:4.2}
+
+\subsection{Tiếp nhận ảnh và thông tin điểm chạm}
+\label{subsection:4.2.1}
+
+Mỗi yêu cầu xử lý gồm ảnh khuôn mặt và thông tin ngữ cảnh của lần ghi nhận. Thông tin ngữ cảnh tối thiểu gồm mã điểm chạm và thời gian chụp. Mã điểm chạm xác định khu vực phát sinh dữ liệu, chẳng hạn khu vực tiếp đón, tư vấn hoặc thanh toán. Thời gian chụp được dùng để sắp xếp các bản ghi trong cùng một lượt ghé thăm.
+
+Ảnh đầu vào phải đọc được và có kích thước hợp lệ. Trường hợp tệp hỏng hoặc thiếu thông tin bắt buộc được trả về bằng trạng thái lỗi tương ứng và không tạo bản ghi biểu cảm. Nếu nguồn dữ liệu là video, thành phần thu nhận có trách nhiệm chọn khung hình trước khi gửi yêu cầu; dịch vụ nhận dạng xử lý từng ảnh độc lập. Quy tắc lấy khung hình phải được cố định trong cấu hình triển khai để tránh thay đổi đơn vị quan sát giữa các lần thử nghiệm.
+
+\subsection{Phát hiện và chuẩn hóa khuôn mặt}
+\label{subsection:4.2.2}
+
+Kết quả thực nghiệm ở Chương 5 cho thấy RetinaFace sử dụng mạng nền MobileNet0.25 đạt độ chính xác trung bình cao nhất trên cả ba mức khó của tập xác thực WIDER FACE, đồng thời có độ trễ trung vị thấp nhất trong ba cấu hình được đánh giá. Vì vậy, hệ thống sử dụng RetinaFace--MobileNet0.25 làm bộ phát hiện khuôn mặt. Lựa chọn này chỉ áp dụng cho cấu hình và môi trường thử nghiệm đã trình bày; nó không được xem là kết luận tổng quát cho mọi thiết bị hoặc dữ liệu.
+
+Bộ phát hiện trả về khung bao, điểm tin cậy và năm điểm mốc khuôn mặt. Các khung bao có điểm tin cậy thấp hơn ngưỡng cấu hình bị loại. Phiên bản đầu của hệ thống chỉ tiếp tục xử lý khi ảnh có đúng một khuôn mặt hợp lệ. Nếu không phát hiện được khuôn mặt, hệ thống trả trạng thái \texttt{NO\_FACE}. Nếu ảnh có nhiều khuôn mặt hợp lệ, hệ thống trả trạng thái \texttt{MULTIPLE\_FACES} thay vì tự chọn khuôn mặt lớn nhất hoặc gần tâm ảnh nhất. Quy tắc này hạn chế nguy cơ gắn nhãn biểu cảm và danh tính của nhầm người vào bản ghi CRM.
+
+Năm điểm mốc được sử dụng để căn chỉnh khuôn mặt trước khi tạo đầu vào cho các mô hình sau. Từ cùng một vùng khuôn mặt đã căn chỉnh, hệ thống tạo hai phiên bản ảnh: phiên bản thứ nhất tuân theo kích thước và kênh màu của mô hình FER; phiên bản thứ hai tuân theo yêu cầu của mô hình trích xuất đặc trưng nhận dạng khách hàng. Luồng xử lý được minh họa tại Hình \ref{fig:single_touchpoint_flow}.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+        node distance=5mm and 7mm,
+        block/.style={draw, rounded corners=2pt, align=center, minimum height=10mm, text width=2.6cm, font=\small},
+        decision/.style={draw, diamond, aspect=2.1, align=center, inner sep=1pt, font=\small},
+        flow/.style={-{Latex[length=2mm]}, thick}
+    ]
+        \node[block] (input) {Ảnh đầu vào};
+        \node[block, right=of input] (detect) {RetinaFace--\\MobileNet0.25};
+        \node[decision, right=of detect] (count) {Một khuôn mặt\\hợp lệ?};
+        \node[block, right=of count] (align) {Cắt và căn chỉnh\\khuôn mặt};
+        \node[block, right=of align, yshift=8mm] (emotion) {Tạo đầu vào FER};
+        \node[block, right=of align, yshift=-8mm] (recognition) {Tạo đầu vào\\nhận dạng khách hàng};
+        \node[block, below=8mm of count] (reject) {Trả trạng thái lỗi};
+        \draw[flow] (input) -- (detect);
+        \draw[flow] (detect) -- (count);
+        \draw[flow] (count) -- node[above, font=\scriptsize]{Có} (align);
+        \draw[flow] (count) -- node[right, font=\scriptsize]{Không} (reject);
+        \draw[flow] (align) -- (emotion);
+        \draw[flow] (align) -- (recognition);
+    \end{tikzpicture}
+    }
+    \caption{Xử lý ảnh khuôn mặt tại một điểm chạm}
+    \label{fig:single_touchpoint_flow}
+\end{figure}
+
+\subsection{Phân loại bảy biểu cảm khuôn mặt}
+\label{subsection:4.2.3}
+
+Trong phiên bản hệ thống được xây dựng, khối phân loại biểu cảm sử dụng bộ phân loại bảy lớp có sẵn trong thư viện DeepFace. Trong mã nguồn của thư viện, thành phần này được định danh là \textit{Emotion}. Thành phần nhận ảnh khuôn mặt, chuyển ảnh sang ảnh xám kích thước $48\times48$, sử dụng các tầng tích chập và tầng gộp để trích xuất đặc trưng, sau đó tạo đầu ra cho bảy lớp biểu cảm \cite{serengil2021hyperextended,deepfaceEmotionModel}.
+
+Đầu ra của mô hình gồm bảy giá trị tương ứng với Angry, Disgust, Fear, Happy, Sad, Surprise và Neutral. Nhãn có giá trị đầu ra lớn nhất được chọn làm nhãn dự đoán; giá trị tương ứng được lưu làm độ tin cậy. Ngoài nhãn và độ tin cậy, phiên bản mô hình được lưu cùng bản ghi để có thể xác định chính xác cấu hình đã tạo ra kết quả.
+
+Véc-tơ đầu ra bảy lớp có thể được giữ trong nhật ký kỹ thuật để phân tích lỗi, nhưng hệ thống không gán trọng số số học cho các lớp và không quy đổi chúng thành một điểm tích cực--tiêu cực. Việc lựa chọn ngưỡng chấp nhận kết quả FER chỉ được thực hiện sau khi đánh giá trên dữ liệu kiểm thử. Khi chưa có ngưỡng đã kiểm chứng, hệ thống lưu độ tin cậy để người quản trị nhận biết mức chắc chắn của từng dự đoán, không tự đổi kết quả có độ tin cậy thấp thành lớp Neutral.
+
+\clearpage
+\section{Xây dựng chức năng hình thành hành trình khách hàng}
+\label{section:4.3}
+
+Phần này trình bày cách hệ thống liên kết các lần ghi nhận tại nhiều điểm chạm với cùng một khách hàng và cùng một lần đến cửa hàng. Hệ thống sử dụng hai định danh khác nhau: mã khách hàng dùng để xác định hồ sơ trong CRM, còn mã lượt ghé thăm dùng để phân biệt các lần một khách hàng đến cửa hàng.
+
+\subsection{Xác định khách hàng tại điểm chạm}
+\label{subsection:4.3.1}
+
+Mỗi khách hàng đăng ký chức năng tìm kiếm bằng hình ảnh có một hoặc nhiều ảnh tham chiếu. Khi đăng ký, hệ thống phát hiện, căn chỉnh khuôn mặt và sử dụng ArcFace để tạo véc-tơ đặc trưng. ArcFace học đặc trưng sao cho ảnh của cùng một người nằm gần nhau và ảnh của những người khác nhau được tách biệt trong không gian đặc trưng \cite{deng2019arcface}. Các véc-tơ tham chiếu được gắn với mã khách hàng và lưu trong hệ thống.
+
+Khi có ảnh truy vấn tại một điểm chạm, hệ thống tạo véc-tơ đặc trưng theo cùng quy trình tiền xử lý rồi so sánh với các véc-tơ tham chiếu. Hồ sơ có độ tương đồng cao nhất chỉ được chấp nhận khi đạt ngưỡng đối sánh đã được xác định bằng thực nghiệm. Nếu không có hồ sơ đạt ngưỡng, kết quả được đánh dấu là khách chưa xác định. Ngưỡng đối sánh và chất lượng tìm kiếm phải được đánh giá riêng; chúng không dùng chung với điểm tin cậy của bộ phát hiện hoặc mô hình FER.
+
+\subsection{Khởi tạo lượt ghé thăm}
+\label{subsection:4.3.2}
+
+Sau khi xác định được mã khách hàng, máy chủ CRM kiểm tra khách hàng có lượt ghé thăm đang hoạt động hay không. Nếu chưa có, hệ thống tạo một lượt ghé thăm mới gồm mã lượt ghé thăm, mã khách hàng, thời điểm bắt đầu và trạng thái đang hoạt động. Nếu đã có, bản ghi mới được gắn vào lượt ghé thăm hiện tại. Tại một thời điểm, một khách hàng chỉ có tối đa một lượt ghé thăm đang hoạt động trong cùng một cửa hàng; quy tắc này loại bỏ trường hợp một lần ghi nhận đồng thời bị đưa vào nhiều hành trình.
+
+Việc tách mã khách hàng và mã lượt ghé thăm là cần thiết vì một khách hàng có thể quay lại cửa hàng nhiều lần. Nếu chỉ nhóm dữ liệu theo mã khách hàng, các bản ghi của nhiều ngày khác nhau có thể bị ghép thành một hành trình duy nhất.
+
+\subsection{Gắn kết quả biểu cảm với lượt ghé thăm}
+\label{subsection:4.3.3}
+
+Sau khi hoàn thành bước nhận dạng khách hàng và FER, hệ thống tạo một bản ghi điểm chạm. Cấu trúc logic của bản ghi được trình bày tại Bảng \ref{tab:touchpoint_observation}. Bảng này mô tả thông tin nghiệp vụ; cấu trúc bảng dữ liệu và khóa liên kết được cụ thể hóa trong phần thiết kế cơ sở dữ liệu của hệ thống.
+
+\begin{table}[H]
+    \centering
+    \caption{Thông tin của một bản ghi tại điểm chạm}
+    \label{tab:touchpoint_observation}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|p{6.2cm}|p{8.0cm}|}
+        \hline
+        \textbf{Trường thông tin} & \textbf{Ý nghĩa} \\
+        \hline
+        \texttt{observation\_id} & Mã duy nhất của lần ghi nhận \\
+        \hline
+        \texttt{visit\_id} & Mã lượt ghé thăm chứa bản ghi \\
+        \hline
+        \texttt{customer\_id} & Mã khách hàng đã được đối sánh \\
+        \hline
+        \texttt{touchpoint\_id} & Mã khu vực phát sinh bản ghi \\
+        \hline
+        \texttt{observed\_at} & Thời điểm ghi nhận \\
+        \hline
+        \texttt{predicted\_expression} & Nhãn biểu cảm do mô hình FER dự đoán \\
+        \hline
+        \texttt{expression\_confidence} & Độ tin cậy đi kèm nhãn biểu cảm \\
+        \hline
+        \texttt{model\_version} & Phiên bản các mô hình đã tạo kết quả \\
+        \hline
+    \end{tabular}}
+\end{table}
+
+\subsection{Cập nhật hành trình tại các điểm chạm tiếp theo}
+\label{subsection:4.3.4}
+
+Khi khách hàng xuất hiện tại một điểm chạm tiếp theo, hệ thống lặp lại bước trích xuất đặc trưng và đối sánh. Từ mã khách hàng tìm được, máy chủ lấy lượt ghé thăm đang hoạt động và bổ sung bản ghi mới. Như vậy, cơ chế liên kết không dựa vào sự giống nhau của nhãn biểu cảm mà dựa trên hai bước liên tiếp: xác định mã khách hàng từ ảnh và tìm lượt ghé thăm đang hoạt động của khách hàng đó.
+
+Các bản ghi trong một lượt ghé thăm được sắp xếp theo thời gian ghi nhận. Kết quả có dạng chuỗi điểm chạm, chẳng hạn tiếp đón/Neutral, tư vấn/Happy và thanh toán/Angry. Chuỗi này là lịch sử các nhãn được mô hình quan sát, không phải diễn giải nguyên nhân khiến biểu cảm thay đổi. Hình \ref{fig:visit_linking} mô tả cơ chế liên kết.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=5mm,
+        block/.style={draw, rounded corners=2pt, align=center, minimum height=11mm, text width=2.6cm, font=\small},
+        flow/.style={-{Latex[length=2mm]}, thick}
+    ]
+        \node[block] (obs1) {Tiếp đón\\09:00\\Neutral};
+        \node[block, right=of obs1] (id1) {Nhận dạng\\CUS-001};
+        \node[block, right=of id1] (visit) {Lượt ghé thăm\\VISIT-001};
+        \node[block, below=7mm of obs1] (obs2) {Tư vấn\\09:15\\Happy};
+        \node[block, right=of obs2] (id2) {Nhận dạng\\CUS-001};
+        \node[block, below=7mm of obs2] (obs3) {Thanh toán\\09:40\\Angry};
+        \node[block, right=of obs3] (id3) {Nhận dạng\\CUS-001};
+        \draw[flow] (obs1) -- (id1);
+        \draw[flow] (obs2) -- (id2);
+        \draw[flow] (obs3) -- (id3);
+        \draw[flow] (id1) -- (visit);
+        \draw[flow] (id2) -- (visit);
+        \draw[flow] (id3) -- (visit);
+    \end{tikzpicture}
+    \caption{Liên kết các bản ghi vào cùng một lượt ghé thăm}
+    \label{fig:visit_linking}
+\end{figure}
+
+\subsection{Kết thúc và lưu lịch sử lượt ghé thăm}
+\label{subsection:4.3.5}
+
+Lượt ghé thăm được kết thúc khi khách hàng hoàn tất giao dịch, xuất hiện tại điểm ra hoặc không phát sinh bản ghi mới trong khoảng thời gian được cấu hình. Điều kiện kết thúc phải được xác định thống nhất trong triển khai; hệ thống không thay đổi điều kiện này giữa các lần đánh giá. Khi kết thúc, trạng thái của lượt ghé thăm được cập nhật và thời điểm kết thúc được lưu lại. Các bản ghi đã tạo không bị xóa, nhờ đó CRM có thể hiển thị lại hành trình và liên kết với giao dịch phát sinh trong cùng lần đến cửa hàng.
+
+\subsection{Xử lý khách hàng không xác định được}
+\label{subsection:4.3.6}
+
+Nếu ảnh không đạt chất lượng, không có khuôn mặt hợp lệ hoặc không khớp với khách hàng đã đăng ký, hệ thống không tự gắn dữ liệu vào một hồ sơ bất kỳ. Bản ghi có thể được lưu ở mức điểm chạm dưới nhóm khách chưa xác định để phục vụ thống kê tổng số lượt quan sát, nhưng không được dùng để tạo hành trình đa điểm chạm của một cá nhân. Việc tạo hồ sơ mới hoặc bổ sung ảnh tham chiếu chỉ được thực hiện qua chức năng quản lý khách hàng và phải tuân theo quy trình đồng ý thu thập dữ liệu khuôn mặt.
+
+\section{Tích hợp hệ thống CRM}
+\label{section:4.4}
+
+\subsection{Các thành phần và luồng dữ liệu của hệ thống}
+\label{subsection:4.4.1}
+
+Hệ thống được chia thành ba thành phần. Dịch vụ xử lý ảnh thực hiện phát hiện khuôn mặt, FER và trích xuất đặc trưng nhận dạng khách hàng. Máy chủ CRM thực hiện các quy tắc nghiệp vụ, lưu trữ hồ sơ, giao dịch, lượt ghé thăm và bản ghi điểm chạm. Giao diện CRM cung cấp chức năng quản lý và báo cáo cho người sử dụng.
+
+Sự phân tách trên giúp dịch vụ xử lý ảnh không cần nắm toàn bộ nghiệp vụ khách hàng. Dịch vụ chỉ trả kết quả mô hình và thông tin truy vết; máy chủ CRM quyết định tạo lượt ghé thăm, liên kết giao dịch và cung cấp dữ liệu cho giao diện. Luồng trao đổi giữa các thành phần được thể hiện tại Hình \ref{fig:crm_data_flow}.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+        node distance=8mm,
+        block/.style={draw, rounded corners=2pt, align=center, minimum height=14mm, text width=3.3cm, font=\small},
+        flow/.style={-{Latex[length=2mm]}, thick}
+    ]
+        \node[block] (camera) {Camera hoặc\\ảnh truy vấn};
+        \node[block, right=of camera] (vision) {Dịch vụ\\xử lý ảnh};
+        \node[block, right=of vision] (server) {Máy chủ\\CRM};
+        \node[block, right=of server] (database) {Cơ sở dữ liệu\\CRM};
+        \node[block, below=10mm of server] (dashboard) {Giao diện quản lý\\và báo cáo};
+        \draw[flow] (camera) -- node[above, font=\scriptsize]{ảnh, điểm chạm} (vision);
+        \draw[flow] (vision) -- node[above, font=\scriptsize]{danh tính, biểu cảm} (server);
+        \draw[flow] (server) -- (database);
+        \draw[flow] (database) -- (server);
+        \draw[flow] (server) -- (dashboard);
+        \draw[flow] (dashboard) -- (server);
+    \end{tikzpicture}
+    }
+    \caption{Luồng dữ liệu giữa dịch vụ xử lý ảnh và hệ thống CRM}
+    \label{fig:crm_data_flow}
+\end{figure}
+
+\subsection{Quản lý danh sách khách hàng}
+\label{subsection:4.4.2}
+
+Chức năng quản lý khách hàng cho phép thêm, cập nhật, xem, tìm kiếm và thay đổi trạng thái hồ sơ. Một hồ sơ gồm mã khách hàng và các thông tin nghiệp vụ cần thiết. Với khách hàng đăng ký tìm kiếm bằng hình ảnh, hồ sơ có thêm ảnh tham chiếu và các véc-tơ đặc trưng được tạo từ ảnh. Ảnh tham chiếu không được sử dụng cho mục đích khác với phạm vi đã thông báo cho khách hàng.
+
+Khi cập nhật ảnh tham chiếu, hệ thống phải tạo lại véc-tơ đặc trưng bằng đúng phiên bản mô hình đang sử dụng. Phiên bản mô hình được lưu kèm đặc trưng để tránh so sánh trực tiếp các véc-tơ được tạo bởi những mô hình không tương thích.
+
+\subsection{Quản lý lịch sử mua hàng}
+\label{subsection:4.4.3}
+
+Mỗi giao dịch được gắn với một khách hàng và có thể gắn với một lượt ghé thăm tương ứng. Dữ liệu giao dịch gồm thời gian mua, danh sách sản phẩm, số lượng và giá trị thanh toán khi nguồn dữ liệu bán hàng cung cấp. CRM cho phép xem các giao dịch theo khách hàng và theo khoảng thời gian.
+
+Lịch sử mua hàng là dữ liệu nghiệp vụ độc lập với kết quả FER. Doanh thu, số đơn hàng hoặc tỷ lệ mua hàng chỉ được tính từ giao dịch thực tế; hệ thống không suy ra các chỉ số này từ biểu cảm khuôn mặt. Việc liên kết giao dịch với lượt ghé thăm giúp người quản trị xem thông tin nghiệp vụ và các quan sát tại điểm chạm trong cùng một lần đến cửa hàng mà không biến biểu cảm thành thước đo hiệu quả kinh doanh.
+
+\subsection{Tìm kiếm khách hàng bằng hình ảnh}
+\label{subsection:4.4.4}
+
+Người sử dụng CRM có thể gửi một ảnh truy vấn để tìm hồ sơ khách hàng. Dịch vụ xử lý ảnh phát hiện và căn chỉnh khuôn mặt, tạo véc-tơ đặc trưng ArcFace rồi đối sánh với các véc-tơ đã đăng ký. Nếu ứng viên tốt nhất đạt ngưỡng chấp nhận, CRM trả về hồ sơ tương ứng; nếu không, giao diện thông báo không tìm thấy kết quả phù hợp.
+
+Chức năng tìm kiếm bằng hình ảnh phục vụ hai luồng. Trong luồng tra cứu, nhân viên chủ động tải ảnh và xem hồ sơ được đề xuất. Trong luồng điểm chạm, kết quả đối sánh cung cấp mã khách hàng cho bước tạo hoặc cập nhật lượt ghé thăm. Cả hai luồng sử dụng cùng mô hình và ngưỡng đối sánh đã được kiểm chứng. Hệ thống không sử dụng nhãn biểu cảm hoặc độ tin cậy FER để hỗ trợ quyết định danh tính.
+
+\subsection{Quản lý điểm chạm và lịch sử hành trình}
+\label{subsection:4.4.5}
+
+CRM lưu danh sách điểm chạm, tên khu vực, trạng thái hoạt động và thứ tự nghiệp vụ dự kiến. Người quản trị có thể xem các lượt ghé thăm theo khách hàng, thời gian hoặc điểm chạm. Màn hình chi tiết của một lượt ghé thăm hiển thị các bản ghi theo thời gian, gồm khu vực, biểu cảm, độ tin cậy và giao dịch liên quan nếu có.
+
+Các trường hợp thiếu điểm chạm, bản ghi lỗi hoặc khách hàng không xác định được vẫn được lưu bằng trạng thái phù hợp. Nhờ đó, báo cáo không chỉ dựa trên các trường hợp xử lý thành công mà còn phản ánh mức độ đầy đủ của dữ liệu đầu vào.
+
+\section{Báo cáo và tra cứu trên CRM}
+\label{section:4.5}
+
+\subsection{Tra cứu hồ sơ và lịch sử mua hàng}
+\label{subsection:4.5.1}
+
+CRM hỗ trợ tìm khách hàng bằng thông tin hồ sơ hoặc bằng ảnh. Từ kết quả tìm kiếm, người sử dụng có thể xem hồ sơ, danh sách giao dịch và các lượt ghé thăm đã lưu. Các điều kiện lọc theo thời gian, điểm chạm và trạng thái lượt ghé thăm giúp giới hạn dữ liệu cần xem mà không thay đổi dữ liệu gốc.
+
+\subsection{Hiển thị hành trình của từng lượt ghé thăm}
+\label{subsection:4.5.2}
+
+Màn hình hành trình hiển thị các bản ghi của một lượt ghé thăm theo thứ tự thời gian. Mỗi vị trí trong hành trình gồm tên điểm chạm, thời gian và nhãn biểu cảm. Cách hiển thị này cho phép nhận biết biểu cảm được ghi nhận tại vị trí nào, đồng thời tránh làm mất thông tin thứ tự như khi gộp toàn bộ hành trình thành một giá trị duy nhất.
+
+\subsection{Thống kê biểu cảm tại từng điểm chạm}
+\label{subsection:4.5.3}
+
+Đối với từng điểm chạm, CRM đếm số bản ghi hợp lệ của mỗi lớp biểu cảm và tính tỷ lệ trên tổng số bản ghi hợp lệ tại điểm đó. Kết quả được trình bày bằng bảng số lượng và biểu đồ cột. Báo cáo luôn hiển thị số quan sát hợp lệ để người sử dụng không so sánh tỷ lệ giữa hai điểm chạm có quy mô dữ liệu quá khác nhau mà không nhận biết sự chênh lệch.
+
+Đây là thống kê mô tả dữ liệu phân loại. Báo cáo không tính biểu cảm trung bình, không sắp xếp bảy lớp theo thang điểm và không tự nhóm thành mức hài lòng. Một tỷ lệ Angry hoặc Sad cao tại một điểm chạm chỉ cho biết các nhãn đó xuất hiện nhiều trong dữ liệu đã ghi nhận; kết quả không chứng minh điểm chạm là nguyên nhân tạo ra biểu cảm.
+
+\subsection{Thống kê sự thay đổi biểu cảm giữa các điểm chạm}
+\label{subsection:4.5.4}
+
+Với những lượt ghé thăm có dữ liệu ở hai điểm chạm liên tiếp, CRM đếm các cặp nhãn trước--sau. Kết quả có thể trình bày bằng bảng chéo, trong đó hàng là nhãn tại điểm chạm trước và cột là nhãn tại điểm chạm sau. Các ô trên đường chéo biểu thị trường hợp nhãn giữ nguyên; các ô còn lại biểu thị trường hợp nhãn thay đổi.
+
+Bảng này chỉ được lập từ những bản ghi đã liên kết vào cùng một lượt ghé thăm. Các quan sát của khách chưa xác định hoặc thuộc hai lượt ghé thăm khác nhau không được ghép thành một cặp. Báo cáo mô tả những thay đổi đã quan sát, không diễn giải chúng như quan hệ nhân quả.
+
+\subsection{Báo cáo dữ liệu lỗi hoặc không đầy đủ}
+\label{subsection:4.5.5}
+
+Để đánh giá độ tin cậy của các báo cáo nghiệp vụ, CRM thống kê số ảnh không đọc được, ảnh không phát hiện được khuôn mặt, ảnh có nhiều khuôn mặt, trường hợp không tìm thấy khách hàng và lượt ghé thăm thiếu điểm chạm. Các số liệu này được trình bày cùng khoảng thời gian báo cáo. Nếu chỉ báo cáo các bản ghi thành công, người quản trị không thể nhận biết tỷ lệ dữ liệu đã bị loại trong quá trình xử lý.
+
+Các nhóm báo cáo và nguồn dữ liệu tương ứng được tổng hợp tại Bảng \ref{tab:crm_reports}.
+
+\begin{table}[H]
+    \centering
+    \caption{Các nhóm báo cáo trên hệ thống CRM}
+    \label{tab:crm_reports}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|p{4.0cm}|p{5.1cm}|p{5.2cm}|}
+        \hline
+        \textbf{Nhóm báo cáo} & \textbf{Nguồn dữ liệu} & \textbf{Thông tin hiển thị} \\
+        \hline
+        Hồ sơ và mua hàng & Hồ sơ khách hàng, giao dịch & Thông tin khách hàng và lịch sử giao dịch \\
+        \hline
+        Lượt ghé thăm & Lượt ghé thăm, bản ghi điểm chạm & Chuỗi điểm chạm, thời gian và biểu cảm \\
+        \hline
+        Biểu cảm theo điểm chạm & Các bản ghi FER hợp lệ & Số lượng và tỷ lệ bảy lớp biểu cảm \\
+        \hline
+        Thay đổi giữa điểm chạm & Các cặp bản ghi liên tiếp trong cùng lượt ghé thăm & Số trường hợp giữ nguyên hoặc thay đổi nhãn \\
+        \hline
+        Chất lượng dữ liệu & Nhật ký xử lý và trạng thái bản ghi & Số ảnh lỗi, dữ liệu thiếu và trường hợp không xác định \\
+        \hline
+    \end{tabular}}
+\end{table}
+
+\section{Giới hạn khi triển khai hệ thống}
+\label{section:4.6}
+
+Kết quả của hệ thống phụ thuộc đồng thời vào chất lượng phát hiện khuôn mặt, phân loại biểu cảm và nhận dạng khách hàng. Sai số ở bước phát hiện có thể khiến cả hai nhiệm vụ phía sau không có đầu vào hợp lệ. Sai số đối sánh danh tính có thể gắn bản ghi vào sai hồ sơ và sai lượt ghé thăm; vì vậy ngưỡng ArcFace phải được lựa chọn từ thực nghiệm và trường hợp không đủ chắc chắn phải được trả về dưới dạng không xác định thay vì ép nhận dạng.
+
+Nhãn FER chỉ mô tả mẫu biểu cảm quan sát được trên ảnh. Một nhãn không chứa đầy đủ bối cảnh, lời nói hoặc trải nghiệm chủ quan của khách hàng, do đó không được dùng riêng lẻ để kết luận mức độ hài lòng. Tương tự, sự thay đổi nhãn giữa hai điểm chạm không chứng minh điểm chạm sau là nguyên nhân gây ra thay đổi.
+
+Tìm kiếm khách hàng bằng hình ảnh sử dụng dữ liệu sinh trắc học và làm thay đổi phạm vi riêng tư của hệ thống. Chức năng này chỉ áp dụng đối với khách hàng đã đăng ký và đồng ý cung cấp ảnh tham chiếu. Hệ thống cần giới hạn quyền truy cập, ghi nhật ký thao tác, bảo vệ ảnh và véc-tơ đặc trưng, đồng thời có quy trình xóa dữ liệu khi khách hàng rút lại sự đồng ý. Khách chưa xác định không được tự động tạo hồ sơ hoặc bị ghép vào hành trình của một người khác.
+
+Cuối cùng, các báo cáo CRM phản ánh dữ liệu mà hệ thống thu nhận được trong phạm vi camera và điểm chạm đã cấu hình. Một điểm chạm không có bản ghi có thể do khách hàng không đi qua khu vực, camera không thu được ảnh phù hợp hoặc mô hình xử lý thất bại. Vì vậy, dữ liệu thiếu phải được trình bày riêng và không được tự động thay thế bằng một nhãn biểu cảm giả định.
+
+\end{document}

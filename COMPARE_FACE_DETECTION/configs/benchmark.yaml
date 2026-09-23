@@ -1,0 +1,41 @@
+run:
+  device: cpu
+  repeats: 3
+  warmup_images: 20
+  seed: 20260921
+  torch_threads: 1
+  opencv_threads: 1
+
+paths:
+  dataset_root: data/wider_face
+  annotation_txt: data/wider_face/wider_face_split/wider_face_val_bbx_gt.txt
+  ground_truth_dir: data/wider_face/ground_truth
+  retinaface_vendor: vendor/Pytorch_Retinaface
+  retinaface_weights: weights/mobilenet0.25_Final.pth
+  results_root: results
+
+detectors:
+  haar:
+    cascade: haarcascade_frontalface_default.xml
+    scale_factor: 1.1
+    min_neighbors: 5
+    min_size: [20, 20]
+    max_size: null
+    operating_threshold: null
+  mtcnn:
+    min_face_size: 20
+    thresholds: [0.6, 0.7, 0.7]
+    factor: 0.709
+    operating_threshold: 0.0
+  retinaface_mobilenet025:
+    confidence_threshold: 0.02
+    operating_threshold: 0.6
+    top_k: 5000
+    nms_threshold: 0.4
+    keep_top_k: 750
+    variance: [0.1, 0.2]
+
+evaluation:
+  iou_threshold: 0.5
+  pr_thresholds: 1000
+

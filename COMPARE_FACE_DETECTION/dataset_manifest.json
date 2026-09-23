@@ -1,0 +1,21 @@
+{
+  "annotation_path": "/Users/sotatek/Desktop/Do An/COMPARE_FACE_DETECTION/data/wider_face/wider_face_split/wider_face_val_bbx_gt.txt",
+  "annotation_sha256": "5ca83488f72758ca4826c35212610a8abf04a7af7b17eb407d6284007baba3b6",
+  "image_count": 3226,
+  "face_count": 39708,
+  "warnings": [
+    "Ignored non-positive box in 0--Parade/0_Parade_Parade_0_275.jpg: (0.0, 0.0, 0.0, 0.0)",
+    "Ignored non-positive box in 0--Parade/0_Parade_Parade_0_317.jpg: (706.0, 94.0, 0.0, 1.0)",
+    "Ignored non-positive box in 2--Demonstration/2_Demonstration_Demonstration_Or_Protest_2_476.jpg: (648.0, 397.0, 0.0, 2.0)",
+    "Ignored non-positive box in 2--Demonstration/2_Demonstration_Demonstration_Or_Protest_2_476.jpg: (867.0, 310.0, 2.0, 0.0)",
+    "Ignored non-positive box in 2--Demonstration/2_Demonstration_Political_Rally_2_335.jpg: (541.0, 229.0, 0.0, 2.0)",
+    "Ignored non-positive box in 37--Soccer/37_Soccer_soccer_ball_37_281.jpg: (0.0, 0.0, 0.0, 0.0)",
+    "Ignored non-positive box in 39--Ice_Skating/39_Ice_Skating_iceskiing_39_583.jpg: (1026.0, 474.0, 0.0, 23.0)",
+    "Ignored non-positive box in 50--Celebration_Or_Party/50_Celebration_Or_Party_houseparty_50_715.jpg: (0.0, 0.0, 0.0, 0.0)",
+    "Ignored non-positive box in 7--Cheering/7_Cheering_Cheering_7_426.jpg: (0.0, 0.0, 0.0, 0.0)",
+    "Ignored non-positive box in 7--Cheering/7_Cheering_Cheering_7_171.jpg: (0.0, 0.0, 16.0, 0.0)",
+    "Ignored non-positive box in 7--Cheering/7_Cheering_Cheering_7_171.jpg: (760.0, 207.0, 0.0, 1.0)"
+  ],
+  "errors": [],
+  "valid": true
+}

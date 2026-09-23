@@ -1,0 +1,24 @@
+:root { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #13211f; background: #f4f7f6; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 1180px; min-height: 100vh; }
+.app-shell { min-height: 100vh; }
+.sidebar { background: linear-gradient(180deg, #102a2a 0%, #163d39 100%) !important; }
+.sidebar-brand { height: 72px; display: flex; align-items: center; gap: 12px; padding: 0 24px; color: white; font-weight: 700; font-size: 17px; }
+.brand-mark { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; color: #fff; font-weight: 800; background: linear-gradient(135deg, #0f766e, #22c55e); box-shadow: 0 10px 24px rgba(15,118,110,.25); }
+.brand-mark.small { width: 36px; height: 36px; border-radius: 11px; font-size: 13px; box-shadow: none; }
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 0 28px !important; background: rgba(255,255,255,.92) !important; border-bottom: 1px solid #e7ecea; }
+.content { padding: 30px; background: #f4f7f6; }
+.page-heading { margin-bottom: 20px; }
+.page-heading h2 { margin: 0 0 4px !important; }
+.login-page { min-height: 100vh; display: grid; place-items: center; background: radial-gradient(circle at top left, #d5f5e9, transparent 40%), linear-gradient(140deg, #effaf7, #f7f8fa); }
+.login-card { width: 430px; padding: 28px; box-shadow: 0 26px 70px rgba(15, 54, 49, .14); }
+.login-card .brand-mark { margin-bottom: 24px; }
+.center-page { min-height: 100vh; display: grid; place-items: center; }
+.table-search { max-width: 420px; margin-bottom: 18px; }
+.full-width { width: 100%; }
+.wide-select { width: min(560px, 100%); }
+.result-alert { margin-top: 20px; }
+.section-title { margin-top: 28px !important; }
+.timeline-card { margin-bottom: 12px; border-left: 4px solid #0f766e; }
+.ant-card { box-shadow: 0 8px 24px rgba(31, 54, 50, .05); }
+

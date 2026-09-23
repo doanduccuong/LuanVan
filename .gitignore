@@ -1,0 +1,60 @@
+# ===== macOS =====
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ===== IDE =====
+.vscode/
+.idea/
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+.venv-benchmark/
+.pytest_cache/
+
+# ===== Node.js =====
+node_modules/
+
+# ===== Build artifacts =====
+dist/
+build/
+*.tsbuildinfo
+
+# ===== Temp & Output =====
+tmp/
+output/
+
+# ===== Large reference PDFs (not project output) =====
+/*.pdf
+
+# ===== COMPARE_FACE_DETECTION large data =====
+COMPARE_FACE_DETECTION/data/
+COMPARE_FACE_DETECTION/weights/download/
+COMPARE_FACE_DETECTION/results/
+COMPARE_FACE_DETECTION/vendor/
+
+# ===== SYSTEM build/data artifacts =====
+SYSTEM/apps/web/vite.config.js
+SYSTEM/apps/web/vite.config.d.ts
+SYSTEM/data/raw/
+SYSTEM/fixtures/demo_dataset/enrollment/
+SYSTEM/fixtures/demo_dataset/observations/
+SYSTEM/fixtures/demo_dataset/calibration/
+SYSTEM/artifacts/demo-runs/
+SYSTEM/artifacts/face-threshold.json
+*.db
+
+# ===== Env files =====
+.env
+.env.*
+!.env.example
+
+# ===== Lock files (keep for reproducibility) =====
+# uv.lock and package-lock.json are tracked
+
+# ===== Gemini/Agent =====
+.agents/

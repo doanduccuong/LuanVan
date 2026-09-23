@@ -1,0 +1,50 @@
+\documentclass[../LuanVan.tex]{subfiles}
+\begin{document}
+
+\section{Đặt vấn đề}
+\label{section:1.1}
+
+Trong kỷ nguyên chuyển đổi số và bán lẻ đa kênh hiện đại, khả năng thấu hiểu hành vi và tối ưu hóa trải nghiệm khách hàng (Customer Experience -- CX) đã trở thành năng lực cạnh tranh cốt lõi của mọi doanh nghiệp. Để nâng cao chất lượng dịch vụ và xây dựng sự tin tưởng đối với khách hàng, các doanh nghiệp luôn tìm kiếm các giải pháp đo lường sự hài lòng một cách chính xác, khách quan và tức thời ngay tại các điểm chạm thực tế (Touchpoint) như cổng đón tiếp, khu vực chờ, quầy tư vấn, khu trưng bày sản phẩm hay quầy thu ngân.
+
+Tuy nhiên, các phương pháp khảo sát truyền thống đang bộc lộ nhiều hạn chế lớn:
+
+\begin{itemize}
+    \item \textbf{Gây phiền toái và làm gián đoạn trải nghiệm:} Việc yêu cầu khách hàng điền phiếu đánh giá giấy hoặc bấm máy khảo sát tại chỗ thường gây cảm giác phiền toái, làm đứt gãy mạch cảm xúc tự nhiên của người mua sắm.
+    
+    \item \textbf{Độ trễ thông tin cao và tỷ lệ phản hồi thấp:} Các hình thức khảo sát sau giao dịch (qua tin nhắn SMS, email, ứng dụng di động) có tỷ lệ phản hồi thực tế thường rất thấp và mất nhiều giờ hoặc nhiều ngày để tổng hợp, khiến ban quản lý không thể phát hiện và can thiệp kịp thời các tình huống khách hàng gặp bức xúc.
+    
+    \item \textbf{Độ tin cậy và tính thiên lệch (Survey Bias):} Khách hàng thường chỉ chủ động đánh giá khi có trải nghiệm cực kỳ tiêu cực hoặc rất tích cực, bỏ sót nhóm đa số có cảm xúc trung tính hoặc phân vân.
+\end{itemize}
+
+Sự phát triển của Trí tuệ nhân tạo (AI) và Thị giác máy tính (Computer Vision) mở ra tiềm năng giải quyết triệt để bài toán trên thông qua công nghệ Nhận dạng biểu cảm khuôn mặt (Facial Expression Recognition -- FER). Bằng cách phân tích các chuyển động cơ mặt tự nhiên, hệ thống có thể liên tục ghi nhận biểu hiện cảm xúc quan sát được của khách hàng một cách thụ động, nhất quán và không cần tiếp xúc vật lý. Tuy nhiên, việc thu thập dữ liệu cảm xúc chỉ thực sự phát huy giá trị khi được tích hợp vào hệ thống Quản lý quan hệ khách hàng (Customer Relationship Management -- CRM), cho phép doanh nghiệp không chỉ ghi nhận mà còn phân tích, theo dõi xu hướng và đưa ra hành động cải thiện dịch vụ một cách có hệ thống.
+
+
+\section{Mục tiêu và phạm vi luận văn}
+\label{section:1.2}
+
+\subsection{Mục tiêu nghiên cứu}
+
+Nghiên cứu hướng tới việc thực hiện các mục tiêu cốt lõi sau:
+
+\begin{enumerate}
+    \item \textbf{Xây dựng quy trình nhận dạng biểu cảm khuôn mặt (FER) bảy lớp theo thời gian thực:} Nghiên cứu quy trình phát hiện khuôn mặt, đánh giá chất lượng ảnh và phân loại bảy lớp biểu cảm (Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral) với độ trễ thấp.
+    
+    \item \textbf{Mô hình hóa hành trình khách hàng đa điểm chạm:} Xác định khách hàng đã đăng ký tại các điểm chạm, tạo lượt ghé thăm và sắp xếp các kết quả nhận dạng biểu cảm theo thời gian để hình thành lịch sử hành trình.
+    
+    \item \textbf{Thiết kế và tích hợp hệ thống CRM:} Xây dựng hệ thống gồm dịch vụ xử lý ảnh, khối xử lý nghiệp vụ phía máy chủ và giao diện quản lý, hỗ trợ quản lý khách hàng, lịch sử mua hàng, điểm chạm, lượt ghé thăm và báo cáo biểu cảm.
+\end{enumerate}
+
+\subsection{Phạm vi luận văn}
+
+Luận văn giới hạn phạm vi nghiên cứu và triển khai trong các điều kiện sau:
+
+\begin{itemize}
+    \item Hệ thống được thiết kế và thử nghiệm trong môi trường bán lẻ với hệ thống camera cố định tại các điểm chạm.
+    \item Chỉ sử dụng dữ liệu hình ảnh khuôn mặt từ camera, không kết hợp phân tích giọng nói hay tín hiệu sinh trắc học khác.
+    \item Nhận dạng biểu cảm dựa trên 7 lớp cảm xúc cơ bản theo mô hình Ekman, không mở rộng sang các trạng thái cảm xúc phức hợp.
+    \item Chức năng tìm kiếm bằng hình ảnh chỉ đối sánh với khách hàng đã đăng ký và đồng ý cung cấp ảnh tham chiếu; hệ thống không tự tạo hồ sơ cho khách chưa xác định.
+    \item Hệ thống được thử nghiệm trên mô hình mô phỏng, chưa triển khai tại cửa hàng thực tế.
+    \item Mô hình FER chưa được tối ưu riêng cho đặc trưng khuôn mặt người Việt Nam.
+\end{itemize}
+
+\end{document}

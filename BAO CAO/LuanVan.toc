@@ -1,0 +1,84 @@
+\ttl@change@i {\@ne }{chapter}{0.0cm}{\bfseries \vspace {0.3cm}}{{\bfseries {\scshape } CHƯƠNG \thecontentslabel .\ }}{}{\titlerule *[0.3pc]{.}\contentspage }\relax 
+\ttl@change@v {chapter}{}{}{}\relax 
+\ttl@change@i {\@ne }{section}{0.0cm}{\vspace {0.3cm}}{\thecontentslabel \ }{}{\titlerule *[0.3pc]{.}\contentspage }\relax 
+\ttl@change@v {section}{}{}{}\relax 
+\ttl@change@i {\@ne }{subsection}{1.0cm}{\vspace {0.3cm}}{\thecontentslabel \ }{}{\titlerule *[0.3pc]{.}\contentspage }\relax 
+\ttl@change@v {subsection}{}{}{}\relax 
+\thispagestyle {empty}
+\contentsline {chapter}{DANH MỤC HÌNH VẼ}{v}{section*.5}%
+\contentsline {chapter}{DANH MỤC BẢNG BIỂU}{vi}{section*.7}%
+\contentsline {chapter}{DANH MỤC THUẬT NGỮ VÀ TỪ VIẾT TẮT}{vii}{section*.8}%
+\contentsline {chapter}{\numberline {1}GIỚI THIỆU LUẬN VĂN}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Đặt vấn đề}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Mục tiêu và phạm vi luận văn}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Mục tiêu nghiên cứu}{2}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Phạm vi luận văn}{2}{subsection.1.2.2}%
+\contentsline {chapter}{\numberline {2}NỀN TẢNG LÝ THUYẾT VÀ CÔNG NGHỆ}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Cơ sở lý thuyết về nhận dạng biểu cảm khuôn mặt}{3}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Cảm xúc, biểu cảm khuôn mặt và bài toán FER}{3}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Biểu hiện của cảm xúc trên khuôn mặt}{3}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Quy trình FER tổng quát}{4}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}Các phương pháp phát hiện khuôn mặt}{4}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Haar Cascade theo Viola--Jones}{5}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}MTCNN}{5}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}RetinaFace}{6}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}So sánh về nguyên lý}{6}{subsection.2.2.4}%
+\contentsline {section}{\numberline {2.3}Các phương pháp phân loại biểu cảm}{6}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Đặc trưng thủ công kết hợp bộ phân loại}{7}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Mạng nơ-ron tích chập}{7}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Học chuyển giao}{8}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Cơ sở phân tích hành trình cảm xúc đa điểm chạm}{8}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Hành trình khách hàng và điểm chạm}{8}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Quan sát tại điểm chạm đến chuỗi biểu cảm}{8}{subsection.2.4.2}%
+\contentsline {chapter}{\numberline {3}PHƯƠNG PHÁP ĐỀ XUẤT}{10}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Tổng quan phương pháp đề xuất}{10}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Bài toán cần giải quyết}{10}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Đầu vào và đầu ra}{10}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Luồng xử lý tổng thể}{11}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}Tạo bản ghi biểu cảm tại một điểm chạm}{11}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Phát hiện và chuẩn hóa khuôn mặt}{11}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Phân loại biểu cảm và nhận dạng khách hàng}{12}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Thông tin của một bản ghi điểm chạm}{12}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Liên kết các bản ghi thành hành trình đa điểm chạm}{13}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Xác định khách hàng đã đăng ký}{13}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Xác định lượt ghé thăm}{13}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Gắn và sắp xếp các bản ghi}{14}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Xử lý dữ liệu thiếu và khách hàng không xác định}{14}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}Phân tích kết quả theo hành trình}{15}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Phân bố biểu cảm tại từng điểm chạm}{15}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Sự thay đổi giữa các điểm chạm liên tiếp}{15}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Nguyên tắc diễn giải kết quả}{16}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Phạm vi và giới hạn của phương pháp}{16}{section.3.5}%
+\contentsline {chapter}{\numberline {4}XÂY DỰNG VÀ PHÁT TRIỂN HỆ THỐNG}{17}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Tổng quan hệ thống}{17}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Xây dựng chức năng nhận dạng biểu cảm tại điểm chạm}{18}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Tiếp nhận ảnh và thông tin điểm chạm}{18}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Phát hiện và chuẩn hóa khuôn mặt}{18}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Phân loại bảy biểu cảm khuôn mặt}{19}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Xây dựng chức năng hình thành hành trình khách hàng}{20}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Xác định khách hàng tại điểm chạm}{20}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Khởi tạo lượt ghé thăm}{20}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Gắn kết quả biểu cảm với lượt ghé thăm}{20}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Cập nhật hành trình tại các điểm chạm tiếp theo}{21}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Kết thúc và lưu lịch sử lượt ghé thăm}{21}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}Xử lý khách hàng không xác định được}{22}{subsection.4.3.6}%
+\contentsline {section}{\numberline {4.4}Tích hợp hệ thống CRM}{22}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Các thành phần và luồng dữ liệu của hệ thống}{22}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Quản lý danh sách khách hàng}{22}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Quản lý lịch sử mua hàng}{23}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Tìm kiếm khách hàng bằng hình ảnh}{23}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Quản lý điểm chạm và lịch sử hành trình}{23}{subsection.4.4.5}%
+\contentsline {section}{\numberline {4.5}Báo cáo và tra cứu trên CRM}{24}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Tra cứu hồ sơ và lịch sử mua hàng}{24}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Hiển thị hành trình của từng lượt ghé thăm}{24}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Thống kê biểu cảm tại từng điểm chạm}{24}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}Thống kê sự thay đổi biểu cảm giữa các điểm chạm}{24}{subsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.5.5}Báo cáo dữ liệu lỗi hoặc không đầy đủ}{25}{subsection.4.5.5}%
+\contentsline {section}{\numberline {4.6}Giới hạn khi triển khai hệ thống}{25}{section.4.6}%
+\contentsline {chapter}{\numberline {5}ĐÁNH GIÁ THỰC NGHIỆM}{27}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Thực nghiệm so sánh các phương pháp phát hiện khuôn mặt}{27}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Tập dữ liệu và giao thức đánh giá}{27}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Kết quả thực nghiệm so sánh}{28}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Nhận xét từ kết quả thực nghiệm}{28}{subsection.5.1.3}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{30}{section*.29}%
+\contentsfinish 

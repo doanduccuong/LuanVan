@@ -1,0 +1,82 @@
+\documentclass[../LuanVan.tex]{subfiles}
+\begin{document}
+
+\section{Thực nghiệm so sánh các phương pháp phát hiện khuôn mặt}
+\label{section:5.1}
+
+\subsection{Tập dữ liệu và giao thức đánh giá}
+\label{subsection:5.1.1}
+
+Thực nghiệm sử dụng toàn bộ tập xác thực của WIDER FACE gồm 3.226 ảnh. WIDER FACE được xây dựng cho bài toán phát hiện khuôn mặt; toàn bộ tập dữ liệu chứa 32.203 ảnh với 393.703 khung bao khuôn mặt và có biến thiên lớn về tỷ lệ, tư thế, mức độ che khuất, biểu cảm và điều kiện chiếu sáng \cite{yang2016wider}. Tập xác thực được sử dụng vì bộ dữ liệu công bố kèm nhãn chuẩn, trong đó vị trí khuôn mặt trên mỗi ảnh đã được đánh dấu bằng khung bao, đồng thời quy định ba nhóm độ khó: dễ, trung bình và khó. Các đặc điểm này cho phép đánh giá ba bộ phát hiện trên cùng một dữ liệu và cùng tiêu chuẩn. Tập dữ liệu FER gồm các ảnh đã cắt sát khuôn mặt không thể thay thế tập dữ liệu chuyên dùng để đánh giá phát hiện khuôn mặt.
+
+Cấu hình của ba bộ phát hiện được cố định trước khi đo. Haar Cascade sử dụng tệp \path{haarcascade_frontalface_default.xml} của OpenCV \cite{opencvHaar}. MTCNN sử dụng mô hình tiền huấn luyện của \texttt{facenet-pytorch} phiên bản 2.6.0 \cite{facenetPytorch}, với \texttt{min\_face\_size=20}, các ngưỡng $[0{,}6;0{,}7;0{,}7]$ và hệ số tỷ lệ $0{,}709$. RetinaFace sử dụng mạng nền MobileNet0.25 cùng trọng số tiền huấn luyện trên tập huấn luyện WIDER FACE từ kho mã \path{Pytorch_Retinaface} \cite{pytorchRetinaface}. Việc cố định một cấu hình cho mỗi phương pháp giúp kết quả giữa các lượt chạy có thể tái lập và tránh trộn lẫn ảnh hưởng của nhiều mạng nền hoặc bản cài đặt.
+
+Ba mô hình nhận cùng ảnh gốc và tự thực hiện bước thay đổi kích thước theo quy trình riêng. Trước khi đo chính thức, mỗi mô hình xử lý thử 20 ảnh; kết quả của các ảnh này không được đưa vào số liệu báo cáo. Bước chạy thử giúp hoàn tất việc khởi tạo bộ nhớ và các thành phần tính toán, nhờ đó giảm ảnh hưởng bất thường của những lượt suy luận đầu tiên lên kết quả đo thời gian. Sau đó, mỗi mô hình được chạy ba lượt trên cùng danh sách ảnh và thứ tự mô hình được xoay vòng giữa các lượt. Thời gian đo bao gồm tiền xử lý, suy luận và hậu xử lý của bộ phát hiện khuôn mặt, nhưng không bao gồm thời gian đọc ảnh, ghi tệp hoặc tính các chỉ số đánh giá. Thực nghiệm sử dụng CPU với một luồng PyTorch và một luồng OpenCV trên Apple M4 Pro, RAM 24 GiB, macOS 26.5; môi trường phần mềm gồm Python 3.11.7, OpenCV 4.10.0 và PyTorch 2.2.2.
+
+Chất lượng chính được đánh giá bằng độ chính xác trung bình (AP) trên ba mức khó theo giao thức WIDER FACE, với ngưỡng tỷ lệ phần giao trên phần hợp (IoU) bằng 0,5. Với khung bao dự đoán $B_p$ và khung bao chuẩn $B_g$, IoU được xác định bởi
+
+\begin{equation}
+    \operatorname{IoU}(B_p,B_g)=\frac{|B_p\cap B_g|}{|B_p\cup B_g|}.
+    \label{eq:iou}
+\end{equation}
+
+Mỗi khung bao dự đoán chỉ được ghép với một khung bao chuẩn. Gọi $P$ là độ chính xác và $R$ là độ bao phủ tại ngưỡng đang xét; các chỉ số $P$, $R$ và F1 được tính theo
+
+\begin{equation}
+    P=\frac{TP}{TP+FP},\quad
+    R=\frac{TP}{TP+FN},\quad
+    F1=\frac{2PR}{P+R}.
+    \label{eq:detection_metrics}
+\end{equation}
+
+AP là diện tích dưới đường độ chính xác--độ bao phủ sau nội suy theo giao thức đánh giá đối tượng \cite{everingham2010pascal,yang2016wider}. Đây là chỉ số chất lượng chính vì điểm tin cậy của ba mô hình không được hiệu chỉnh trên cùng một thang xác suất. Các chỉ số $P$, $R$ và F1 chỉ mô tả kết quả tại ngưỡng đã cố định: Haar Cascade không lọc thêm, MTCNN dùng đầu ra sau ngưỡng O-Net 0,7 và RetinaFace dùng ngưỡng tin cậy 0,6. Hiệu năng được báo cáo bằng độ trễ trung vị, độ trễ phân vị 95 và tốc độ xử lý tính theo số khung hình mỗi giây (FPS).
+
+\subsection{Kết quả thực nghiệm so sánh}
+\label{subsection:5.1.2}
+
+Bảng \ref{tab:detector_quality} và Bảng \ref{tab:detector_performance} được sinh từ cùng lần chạy \path{wider-val-cpu-20260921}. Mỗi mô hình có 9.678 bản ghi thời gian tương ứng 3.226 ảnh nhân ba lượt chạy. Kết quả AP đã được đối chiếu lại bằng bộ đánh giá WIDER FACE độc lập và trùng khớp tới sai số làm tròn.
+
+\begin{table}[H]
+    \centering
+    \caption{Kết quả chất lượng phát hiện trên tập xác thực WIDER FACE}
+    \label{tab:detector_quality}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|r|r|r|r|r|r|}
+        \hline
+        \textbf{Mô hình} & \textbf{AP dễ} & \textbf{AP trung bình} & \textbf{AP khó} & \textbf{Độ chính xác} & \textbf{Độ bao phủ} & \textbf{F1} \\
+        \hline
+        Haar Cascade -- OpenCV, cấu hình mặt chính diện mặc định & 0,4252 & 0,3668 & 0,1754 & 0,6906 & 0,1514 & 0,2484 \\
+        \hline
+        MTCNN -- facenet-pytorch & 0,8132 & 0,7706 & 0,4990 & 0,9081 & 0,4063 & 0,5614 \\
+        \hline
+        RetinaFace -- MobileNet0.25 & \textbf{0,9082} & \textbf{0,8830} & \textbf{0,7388} & \textbf{0,9106} & \textbf{0,4784} & \textbf{0,6273} \\
+        \hline
+    \end{tabular}}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Kết quả hiệu năng phát hiện trên CPU}
+    \label{tab:detector_performance}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|r|r|r|r|}
+        \hline
+        \textbf{Mô hình} & \textbf{Trung vị (ms)} & \textbf{Phân vị 95 (ms)} & \textbf{Số ảnh/giây} & \textbf{Tỷ lệ ảnh không phát hiện} \\
+        \hline
+        Haar Cascade & 131,52 & 257,71 & 7,03 & 0,2228 \\
+        \hline
+        MTCNN & 197,95 & 418,26 & 4,55 & 0,0615 \\
+        \hline
+        RetinaFace--MobileNet0.25 & \textbf{64,53} & \textbf{131,99} & \textbf{13,01} & \textbf{0,0320} \\
+        \hline
+    \end{tabular}}
+\end{table}
+
+\subsection{Nhận xét từ kết quả thực nghiệm}
+\label{subsection:5.1.3}
+
+Từ kết quả thực nghiệm có thể thấy khác biệt giữa ba phương pháp không chỉ xuất hiện ở chất lượng phát hiện mà còn ở chi phí suy luận. Haar Cascade có kết quả thấp nhất trên cả ba nhóm dễ, trung bình và khó; mức giảm mạnh ở nhóm khó cho thấy cấu hình phát hiện mặt chính diện mặc định gặp khó khăn khi dữ liệu có nhiều khuôn mặt nhỏ, che khuất hoặc khác tư thế chính diện. MTCNN cải thiện rõ rệt AP và giảm tỷ lệ ảnh không phát hiện so với Haar Cascade. Đổi lại, MTCNN có độ trễ trung vị và độ trễ phân vị 95 cao nhất, phản ánh chi phí của quá trình xử lý nối tiếp qua ba tầng trên tháp ảnh đa tỷ lệ trong cấu hình thực nghiệm.
+
+RetinaFace-MobileNet0.25 duy trì AP cao nhất ở cả ba mức khó, đồng thời đạt độ trễ thấp nhất và số ảnh xử lý trong một giây cao nhất. Khoảng cách 0,2398 AP so với MTCNN trên nhóm khó cho thấy lợi thế của RetinaFace thể hiện rõ hơn khi điều kiện phát hiện trở nên phức tạp. Tỷ lệ ảnh không phát hiện 0,0320 cũng cho thấy đầu vào được chuyển sang bước phân loại biểu cảm ít bị thiếu hơn so với hai phương pháp còn lại. Như vậy, trong phạm vi tập dữ liệu WIDER FACE, trên thiết bị CPU và với bộ tham số đã khóa, RetinaFace-MobileNet0.25 thể hiện sự cân bằng tốt nhất giữa chất lượng phát hiện và tốc độ xử lý. Kết quả này chỉ phản ánh cấu hình thực nghiệm đã mô tả, không phải kết luận khái quát cho mọi dữ liệu hoặc nền tảng phần cứng.
+
+\end{document}

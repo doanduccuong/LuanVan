@@ -1,0 +1,214 @@
+\documentclass[../LuanVan.tex]{subfiles}
+\begin{document}
+
+\section{Cơ sở lý thuyết về nhận dạng biểu cảm khuôn mặt}
+\label{section:2.1}
+
+\subsection{Cảm xúc, biểu cảm khuôn mặt và bài toán FER}
+\label{subsection:2.1.1}
+
+Cảm xúc là trạng thái tâm lý có nhiều thành phần, trong khi biểu cảm khuôn mặt là phần biểu hiện có thể quan sát được qua chuyển động của mắt, lông mày, mũi, miệng và các vùng cơ mặt. Nghiên cứu của Ekman và Friesen cho thấy một số biểu cảm khuôn mặt cơ bản có thể được nhận biết tương đối nhất quán giữa những người thuộc các nền văn hóa khác nhau \cite{ekman1971constants}. Tuy nhiên, một hình ảnh của khuôn mặt không thể đầy đủ các thông tin mục đích và trải nghiệm của người dùng trong quá trình mua sắm. Vì vậy, trong luận văn này, kết quả của mô hình được hiểu là \textit{nhãn biểu cảm quan sát được}, không được xem là phép đo trực tiếp trạng thái tâm lý hoặc mức độ hài lòng của khách hàng.
+
+Nhận dạng biểu cảm khuôn mặt, viết tắt là FER, là bài toán ánh xạ ảnh hoặc chuỗi ảnh khuôn mặt vào một tập lớp biểu cảm. Các hệ thống FER hiện đại thường gồm các bước phát hiện khuôn mặt, căn chỉnh, tiền xử lý, trích xuất đặc trưng và phân loại \cite{li2022deepfer}. Với một ảnh đầu vào $I$, bộ phát hiện trước hết tạo vùng khuôn mặt $B$. Ảnh trong vùng $B$ được chuẩn hóa thành $I_f$ và đưa vào bộ phân loại để thu được véc-tơ xác suất
+
+\begin{equation}
+    \mathbf{p}(I_f)=[p_1,p_2,\ldots,p_K], \qquad \sum_{k=1}^{K}p_k=1.
+    \label{eq:fer_probability_vector}
+\end{equation}
+
+Nhãn dự đoán là lớp có xác suất lớn nhất, $\hat{c}=\arg\max_k p_k$. Với bài toán phân loại bảy biểu cảm, $K=7$ và tập lớp được xác định là
+
+\begin{equation}
+    \mathcal{C}=\{\text{Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral}\}.
+    \label{eq:fer_classes}
+\end{equation}
+
+Sáu lớp đầu ra tương ứng với nhóm biểu cảm cơ bản thường được sử dụng trong các nghiên cứu kế thừa từ Ekman; Ngoài ra \textit{Neutral} được bổ sung để biểu diễn trường hợp không quan sát thấy biểu cảm gì rõ ràng được thể hiện. Việc dùng bảy lớp tạo ra đầu ra rời rạc, thuận tiện cho thống kê theo điểm chạm, nhưng đồng thời làm đơn giản hóa những biểu cảm pha trộn hoặc có cường độ khác nhau.
+
+\subsection{Biểu hiện của cảm xúc trên khuôn mặt}
+\label{subsection:2.1.2}
+
+Hệ thống mã hóa hành động khuôn mặt (FACS) do Ekman và Friesen xây dựng mô tả hoạt động quan sát được của khuôn mặt thông qua các đơn vị hành động (AU) \cite{ekman1978facs}. Mỗi AU gắn với một chuyển động hoặc một nhóm cơ mặt, chẳng hạn nâng lông mày, kéo khóe môi hoặc siết mí mắt. Một mẫu biểu cảm có thể hình thành từ sự xuất hiện đồng thời của nhiều AU. Do đó, FACS cung cấp cơ sở mô tả ở mức chuyển động khuôn mặt thay vì suy luận trực tiếp cảm xúc bên trong.
+
+FACS được sử dụng như nền tảng giải thích vì sao biến đổi cục bộ trên khuôn mặt chứa thông tin cho bài toán FER. Bộ phân loại của hệ thống học trực tiếp ánh xạ từ ảnh khuôn mặt sang bảy lớp ở Công thức \ref{eq:fer_classes}; vì vậy không thể diễn giải đầu ra của mô hình như một bản mã FACS đầy đủ.
+
+\subsection{Quy trình FER tổng quát}
+\label{subsection:2.1.3}
+
+Quy trình FER bắt đầu từ việc thu nhận ảnh từ một camera cố định tại một điểm trong không gian cửa hàng và kết thúc ở một quan sát biểu cảm kèm độ tin cậy. Phát hiện khuôn mặt xác định vùng cần phân tích và ảnh hưởng trực tiếp tới các bước sau: nếu khung bao bỏ sót khuôn mặt hoặc chứa quá nhiều nền, bộ phân loại biểu cảm không nhận được đầu vào phù hợp. Căn chỉnh sử dụng hình học khuôn mặt, thường dựa trên vị trí mắt, mũi hoặc khóe miệng, để giảm biến thiên do góc nghiêng. Tiền xử lý tiếp tục chuẩn hóa kích thước, kênh màu và miền giá trị điểm ảnh theo yêu cầu của mô hình.
+
+Sau tiền xử lý, bộ trích xuất đặc trưng biến ảnh thành biểu diễn có khả năng phân biệt thành các mẫu biểu cảm. Với phương pháp truyền thống, biểu diễn này được thiết kế thủ công; với mạng nơ-ron tích chập, đặc trưng được học từ dữ liệu. Lớp phân loại cuối cùng tạo xác suất của bảy lớp, sau đó hệ thống lưu nhãn dự đoán, độ tin cậy, thời điểm và điểm chạm. Quy trình tổng quát được minh họa ở Hình \ref{fig:fer_pipeline}.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=3mm,
+        stage/.style={draw, rounded corners=2pt, align=center, inner sep=2pt, minimum height=11mm, text width=2.1cm, font=\small},
+        flow/.style={-{Latex[length=2mm]}, thick}
+    ]
+        \node[stage] (input) {Ảnh hoặc\\khung hình};
+        \node[stage, right=of input] (detect) {Phát hiện\\khuôn mặt};
+        \node[stage, right=of detect] (align) {Căn chỉnh và\\tiền xử lý};
+        \node[stage, right=of align] (feature) {Trích xuất\\đặc trưng};
+        \node[stage, right=of feature] (classify) {Phân loại\\7 biểu cảm};
+        \draw[flow] (input) -- (detect);
+        \draw[flow] (detect) -- (align);
+        \draw[flow] (align) -- (feature);
+        \draw[flow] (feature) -- (classify);
+    \end{tikzpicture}
+    \caption{Quy trình nhận dạng biểu cảm khuôn mặt tổng quát}
+    \label{fig:fer_pipeline}
+\end{figure}
+
+Các sai số trong quy trình có tính lan truyền. Một bộ phát hiện chính xác không bảo đảm bộ phân loại FER chính xác, nhưng lỗi phát hiện chắc chắn làm giảm số quan sát hợp lệ hoặc tạo đầu vào sai. Vì vậy, bộ phát hiện cần được kiểm chứng độc lập trước khi đánh giá toàn bộ quy trình.
+
+\section{Các phương pháp phát hiện khuôn mặt}
+\label{section:2.2}
+
+Quá trình phát hiện khuôn mặt là quá trình bao gồm việc nhận việc hình ảnh và trả về vị trí các khung bao khuôn mặt cùng điểm tin cậy tương ứng. Bài toán trở nên khó khăn khi kích thước khuôn mặt thay đổi lớn, khuôn mặt bị che khuất, quay nghiêng hoặc xuất hiện trong điều kiện chiếu sáng không đồng đều \cite{yang2016wider}. Xét theo nguyên lý xử lý, Haar Cascade đại diện cho hướng sử dụng đặc trưng thủ công và bộ phân loại xếp tầng; MTCNN đại diện cho hướng mạng tích chập nhiều giai đoạn; RetinaFace đại diện cho hướng phát hiện một giai đoạn kết hợp học đa nhiệm. Các mục tiếp theo trình bày cơ sở lý thuyết của ba phương pháp này.
+
+\subsection{Haar Cascade theo Viola--Jones}
+\label{subsection:2.2.1}
+
+Phương pháp Viola--Jones mô tả một cửa sổ ảnh bằng các đặc trưng dạng Haar, tức chênh lệch tổng cường độ giữa các vùng chữ nhật sáng và tối. Để tính nhanh tổng điểm ảnh trên nhiều cửa sổ, phương pháp xây dựng ảnh tích phân \cite{viola2001rapid}:
+
+\begin{equation}
+    ii(x,y)=\sum_{x'\leq x,\,y'\leq y} I(x',y').
+    \label{eq:integral_image}
+\end{equation}
+
+Từ bốn giá trị trên ảnh tích phân, tổng cường độ của một vùng chữ nhật được tính với số phép toán không phụ thuộc diện tích vùng. AdaBoost tiếp tục chọn một tập nhỏ đặc trưng phân biệt từ không gian ứng viên lớn và kết hợp các bộ phân loại yếu thành bộ phân loại mạnh. Các bộ phân loại được tổ chức theo cấu trúc xếp tầng: tầng đầu loại nhanh phần lớn cửa sổ nền, các tầng sau chỉ xử lý vùng còn có khả năng chứa khuôn mặt. Cấu trúc này làm giảm số phép tính trung bình trên mỗi cửa sổ.
+
+Hạn chế về nguyên lý là đặc trưng và bộ phân loại xếp tầng được thiết kế chủ yếu cho mẫu khuôn mặt gần chính diện; độ ổn định trước khuôn mặt nhỏ, quay nghiêng, che khuất hoặc có chiếu sáng phức tạp cần được đánh giá bằng dữ liệu thực nghiệm.
+
+\subsection{MTCNN}
+\label{subsection:2.2.2}
+
+MTCNN kết hợp phát hiện và căn chỉnh khuôn mặt bằng ba mạng tích chập nối tiếp gồm P-Net, R-Net và O-Net \cite{zhang2016mtcnn}. P-Net quét tháp ảnh đa tỷ lệ để sinh nhanh các vùng ứng viên. R-Net loại thêm vùng sai và hiệu chỉnh khung bao. O-Net thực hiện quyết định cuối, tiếp tục hiệu chỉnh khung bao và dự đoán năm điểm mốc khuôn mặt. Ở mỗi tầng, thuật toán loại bỏ không cực đại (NMS) loại các khung bao có mức chồng lấn cao.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=7mm,
+        net/.style={draw, rounded corners=2pt, align=center, minimum height=12mm, text width=3cm, font=\small},
+        flow/.style={-{Latex[length=2mm]}, thick}
+    ]
+        \node[net] (pnet) {P-Net\\Sinh vùng ứng viên};
+        \node[net, right=of pnet] (rnet) {R-Net\\Sàng lọc và hiệu chỉnh};
+        \node[net, right=of rnet] (onet) {O-Net\\Hộp cuối và điểm mốc};
+        \draw[flow] (pnet) -- node[above, font=\scriptsize]{NMS} (rnet);
+        \draw[flow] (rnet) -- node[above, font=\scriptsize]{NMS} (onet);
+    \end{tikzpicture}
+    \caption[Luồng xử lý ba tầng của MTCNN]{Luồng xử lý ba tầng của MTCNN, tổng hợp từ \cite{zhang2016mtcnn}}
+    \label{fig:mtcnn_stages}
+\end{figure}
+
+Khác với bộ phân loại xếp tầng dùng đặc trưng Haar, các đặc trưng của MTCNN được học từ dữ liệu; ba nhiệm vụ phân loại khuôn mặt, hồi quy khung bao và định vị điểm mốc được tối ưu đồng thời. Cơ chế nhiều tầng giúp giảm dần số vùng cần xử lý, nhưng tháp ảnh và nhiều lượt suy luận nối tiếp có thể tạo độ trễ đáng kể.
+
+\subsection{RetinaFace}
+\label{subsection:2.2.3}
+
+RetinaFace là bộ phát hiện một giai đoạn: thay vì dùng nhiều mạng nối tiếp như MTCNN, RetinaFace chỉ đưa ảnh qua một mạng duy nhất và nhận về kết quả ngay \cite{deng2020retinaface}. Mạng này tạo ra các bản đồ đặc trưng ở nhiều kích thước khác nhau; bản đồ lớn giúp phát hiện khuôn mặt nhỏ, bản đồ nhỏ giúp phát hiện khuôn mặt lớn. Tại mỗi vị trí trên các bản đồ đặc trưng, mô hình dự đoán đồng thời ba thông tin: khuôn mặt hay không, vị trí khung bao và năm điểm mốc. Việc dự đoán cả ba cùng lúc giúp các nhiệm vụ bổ trợ lẫn nhau: thông tin điểm mốc cung cấp ràng buộc hình học, giúp khung bao chính xác hơn. Sau khi dự đoán trên toàn ảnh, các khung bao có điểm tin cậy thấp bị loại bỏ và thuật toán loại bỏ không cực đại (NMS) giữ lại phát hiện tốt nhất cho mỗi khuôn mặt.
+
+\subsection{So sánh về nguyên lý}
+\label{subsection:2.2.4}
+
+Bảng \ref{tab:detector_theory} tổng hợp sự khác biệt cần thiết cho bài toán. Bảng không xếp hạng phương pháp theo tài liệu, bởi kết quả công bố ở các nghiên cứu khác nhau có thể sử dụng dữ liệu, phần cứng và cấu hình không đồng nhất.
+
+\begin{table}[H]
+    \centering
+    \caption{So sánh nguyên lý của các phương pháp phát hiện khuôn mặt}
+    \label{tab:detector_theory}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|p{2.5cm}|p{5.0cm}|p{3.5cm}|p{4.8cm}|}
+        \hline
+        \textbf{Phương pháp} & \textbf{Cơ sở chính} & \textbf{Đầu ra} & \textbf{Đặc điểm cần kiểm chứng} \\
+        \hline
+        Haar Cascade & Đặc trưng dạng Haar, ảnh tích phân, AdaBoost và bộ phân loại xếp tầng & Khung bao & Khả năng xử lý mặt nhỏ, mặt nghiêng, che khuất và nền phức tạp \\
+        \hline
+        MTCNN & Chuỗi CNN ba tầng và học đa nhiệm & Khung bao, năm điểm mốc & Chất lượng định vị và độ trễ của chuỗi ba mạng trên tháp ảnh \\
+        \hline
+        RetinaFace & Phát hiện một giai đoạn, đặc trưng đa mức và học đa nhiệm & Khung bao, năm điểm mốc & Hiệu quả phát hiện trên các mức độ khó so với chi phí suy luận \\
+        \hline
+    \end{tabular}}
+\end{table}
+
+\section{Các phương pháp phân loại biểu cảm}
+\label{section:2.3}
+
+Sau khi khuôn mặt được phát hiện và chuẩn hóa, bài toán còn lại là học hàm phân loại từ ảnh khuôn mặt sang bảy lớp. Các hướng tiếp cận có thể chia thành phương pháp dựa trên đặc trưng thủ công và phương pháp học đặc trưng bằng mạng nơ-ron sâu. Các kiến trúc như VGG, ResNet hoặc EfficientNet đóng vai trò mạng nền trong nhóm học sâu, không phải những bước độc lập của quy trình. Tương tự, thư viện tích hợp nhiều mô hình chỉ là lớp phần mềm hỗ trợ suy luận, không phải một phương pháp phân loại.
+
+\subsection{Đặc trưng thủ công kết hợp bộ phân loại}
+\label{subsection:2.3.1}
+
+Mẫu nhị phân cục bộ (LBP) mã hóa quan hệ cường độ giữa một điểm ảnh trung tâm và các điểm lân cận thành mẫu nhị phân; biểu đồ tần suất của các mẫu mô tả kết cấu cục bộ \cite{ojala2002lbp}. Biểu đồ hướng gradient (HOG) biểu diễn phân bố hướng biến thiên cường độ trong các ô cục bộ và chuẩn hóa theo từng khối \cite{dalal2005hog}. Đối với FER, các đặc trưng này có thể mô tả nếp nhăn, biên môi, hướng lông mày và biến đổi cục bộ quanh mắt. Véc-tơ đặc trưng sau đó được đưa vào bộ phân loại như máy véc-tơ hỗ trợ (SVM).
+
+Ưu điểm của hướng tiếp cận này là quy trình rõ ràng, mô hình nhỏ và chi phí huấn luyện thấp. Tuy nhiên, đặc trưng được thiết kế cố định nên khó thích nghi với đồng thời nhiều biến thiên về góc mặt, danh tính, che khuất và ánh sáng. Hiệu quả của LBP/HOG kết hợp bộ phân loại vì thế cần được kiểm chứng bằng thực nghiệm trên cùng dữ liệu và cùng tiêu chí đánh giá.
+
+\subsection{Mạng nơ-ron tích chập}
+\label{subsection:2.3.2}
+
+Mạng nơ-ron tích chập (CNN) học các bộ lọc trực tiếp từ dữ liệu. Các tầng đầu thường phản ứng với cạnh và kết cấu đơn giản; các tầng sâu hơn kết hợp chúng thành cấu trúc có mức trừu tượng cao hơn \cite{lecun2015deep}. Đối với FER, cơ chế này cho phép mô hình học đồng thời những thay đổi quanh mắt, lông mày, mũi và miệng thay vì phụ thuộc vào một bộ mô tả cố định. Phép gộp hoặc phép giảm kích thước làm tăng vùng cảm thụ và giảm chi phí, trong khi đầu phân loại chuyển đặc trưng cuối thành các giá trị đầu ra $z_k$.
+
+Xác suất của lớp $k$ thường được tính bằng hàm softmax:
+
+\begin{equation}
+    p_k=\frac{\exp(z_k)}{\sum_{j=1}^{K}\exp(z_j)}, \qquad K=7.
+    \label{eq:softmax}
+\end{equation}
+
+Trong huấn luyện phân loại một nhãn, hàm mất mát entropy chéo cho một mẫu có nhãn thật $y$ là
+
+\begin{equation}
+    \mathcal{L}=-\log p_y.
+    \label{eq:cross_entropy}
+\end{equation}
+
+Các công thức trên mô tả đầu ra phân loại xác suất phổ biến của mạng sâu \cite{lecun2015deep}. Trong dữ liệu FER tự nhiên, thách thức không chỉ nằm ở kiến trúc mà còn ở số lượng mẫu, mất cân bằng lớp, nhãn mơ hồ và các biến thiên không liên quan tới biểu cảm. Tổng quan của Li và Deng chỉ ra rằng thiếu dữ liệu huấn luyện và ảnh hưởng của tư thế, chiếu sáng, danh tính là những vấn đề chính của FER dựa trên học sâu \cite{li2022deepfer}. Do đó, độ chính xác công bố của một mô hình trên một tập dữ liệu không được dùng trực tiếp để suy ra hiệu quả trong bối cảnh camera bán lẻ.
+
+\subsection{Học chuyển giao}
+\label{subsection:2.3.3}
+
+Học chuyển giao sử dụng tri thức học được từ miền nguồn để hỗ trợ nhiệm vụ ở miền đích, đặc biệt khi dữ liệu gán nhãn của miền đích còn hạn chế \cite{pan2010transfer}. Với FER, mạng nền có thể được khởi tạo từ mô hình đã học trên tập ảnh lớn hoặc tập khuôn mặt, sau đó thay đầu phân loại bằng đầu ra bảy lớp. Hai cách sử dụng phổ biến là cố định phần lớn mạng nền để trích xuất đặc trưng hoặc tinh chỉnh một phần hay toàn bộ mạng trên dữ liệu biểu cảm.
+
+Hướng tiếp cận này giảm nhu cầu huấn luyện từ đầu. Tuy nhiên, lợi ích phụ thuộc độ gần giữa miền nguồn và miền đích. Ảnh biểu cảm được cắt sẵn trong bộ dữ liệu có thể khác đáng kể ảnh camera về khoảng cách, chất lượng, góc nhìn và phân bố người dùng; đây là hiện tượng dịch chuyển miền. Vì vậy, hiệu quả của kiến trúc và bộ trọng số dùng cho bước FER cần được kiểm chứng trên cùng tập kiểm thử, cùng bộ phát hiện và cùng quy trình tiền xử lý.
+
+\section{Cơ sở phân tích hành trình cảm xúc đa điểm chạm}
+\label{section:2.4}
+
+\subsection{Hành trình khách hàng và điểm chạm}
+\label{subsection:2.4.1}
+
+Hành trình khách hàng mô tả chuỗi tương tác của khách hàng với doanh nghiệp qua nhiều giai đoạn, kênh và điểm chạm theo thời gian. Lemon và Verhoef nhấn mạnh rằng trải nghiệm khách hàng mang tính động và được hình thành qua nhiều điểm chạm, thay vì chỉ tại một giao dịch đơn lẻ \cite{lemon2016customerjourney}. Điểm chạm có thể là lần khách hàng tiếp xúc với không gian, nhân viên, sản phẩm hoặc hệ thống của doanh nghiệp. Trong bối cảnh bán lẻ của luận văn, camera tại từng khu vực cung cấp một nguồn quan sát biểu cảm tương ứng với điểm chạm, nhưng không tự mô tả toàn bộ trải nghiệm tại khu vực đó.
+
+Halvorsrud, Kvale và Følstad đề xuất khung phân tích hành trình khách hàng, trong đó quá trình cung cấp dịch vụ từ góc nhìn khách hàng được biểu diễn bằng các điểm chạm có thứ tự. Cách biểu diễn này hỗ trợ so sánh hành trình dự kiến với hành trình thực tế \cite{halvorsrud2016journey}. Cơ sở trên phù hợp để đặt các kết quả FER theo trục thời gian. Việc xác định tên khu vực, định danh phiên và liên kết quan sát giữa camera là phần thiết kế của hệ thống, không phải nội dung được suy ra trực tiếp từ khung lý thuyết.
+
+\subsection{Quan sát tại điểm chạm đến chuỗi biểu cảm}
+\label{subsection:2.4.2}
+
+Một kết quả FER tại một thời điểm được xem là một quan sát gồm điểm chạm, thời gian, nhãn biểu cảm và véc-tơ xác suất. Nếu tại một điểm chạm có nhiều khung hình liên tiếp, các dự đoán này chưa thể được xem ngay là nhiều trải nghiệm độc lập, bởi chúng có tương quan theo thời gian và có thể dao động do tư thế hoặc chất lượng ảnh. Cách chọn khung hình, lọc dự đoán độ tin cậy thấp và ổn định nhãn trong một khoảng thời gian phải được mô tả như phương pháp xử lý của luận văn ở chương triển khai.
+
+Sau khi có một quan sát đại diện cho từng điểm chạm, hành trình có thể được tổ chức thành chuỗi theo thời gian như Hình \ref{fig:touchpoint_sequence}. Hình chỉ minh họa cách đặt quan sát FER theo thứ tự; nhãn trong một hành trình thực tế phải do quy trình xử lý suy luận từ dữ liệu.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=5mm,
+        touch/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=2.65cm, font=\small},
+        flow/.style={-{Latex[length=2mm]}, thick}
+    ]
+        \node[touch] (welcome) {Tiếp đón\\\textit{Neutral}};
+        \node[touch, right=of welcome] (consult) {Tư vấn\\\textit{Happy}};
+        \node[touch, right=of consult] (experience) {Trải nghiệm\\\textit{Happy}};
+        \node[touch, right=of experience] (payment) {Thanh toán\\\textit{Angry}};
+        \draw[flow] (welcome) -- (consult);
+        \draw[flow] (consult) -- (experience);
+        \draw[flow] (experience) -- (payment);
+    \end{tikzpicture}
+    \caption{Minh họa chuỗi quan sát biểu cảm theo hành trình đa điểm chạm}
+    \label{fig:touchpoint_sequence}
+\end{figure}
+
+Từ chuỗi này, ta có thể thống kê phân bố lớp biểu cảm tại từng điểm chạm, đếm chuyển đổi giữa hai điểm chạm liên tiếp, xác định vị trí thường bắt đầu xuất hiện biểu cảm tiêu cực và phân tích các trường hợp thiếu quan sát. Cách tiếp cận theo chuỗi giữ lại thứ tự của sự kiện, trong khi một tỷ lệ tổng hợp trên toàn hành trình có thể che mất vị trí xảy ra thay đổi.
+
+\end{document}
