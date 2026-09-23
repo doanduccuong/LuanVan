@@ -1,0 +1,10 @@
+{
+  "dataset": "FairFace validation subset",
+  "homepage": "https://github.com/MilaNLProc/fairface",
+  "download_url": "https://huggingface.co/datasets/nateraw/fairface/resolve/main/val.pt",
+  "license": "CC BY 4.0",
+  "selected_images": 100,
+  "selection": "first 100 validation records",
+  "source_sha256": "84872ed6677728e503cef760ae012a49a7c643144313fce2d03fe660a0ebc437",
+  "purpose": "offline non-production CRM simulation"
+}

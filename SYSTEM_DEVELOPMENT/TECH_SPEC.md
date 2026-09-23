@@ -2,9 +2,9 @@
 
 ## 1. Trạng thái tài liệu
 
-- **Phiên bản:** 0.1
-- **Mục đích:** Làm hợp đồng kỹ thuật trước khi viết mã
-- **Phạm vi:** Giao diện CRM, API nghiệp vụ, dịch vụ xử lý ảnh và cơ sở dữ liệu
+- **Phiên bản:** 0.2, cập nhật theo mã đã triển khai
+- **Mục đích:** Ghi lại hợp đồng kỹ thuật của phiên bản demo đang chạy
+- **Phạm vi:** Giao diện CRM, API nghiệp vụ, dịch vụ xử lý ảnh, dịch vụ mô phỏng và cơ sở dữ liệu
 - **Thay thế giả định cũ:** Hệ thống không còn nhận `journey_id` từ nguồn bên ngoài. Hành trình được tạo từ khách hàng đã nhận dạng và quy tắc lượt ghé thăm.
 
 Tệp `PROPOSED_METHOD/TECH_SPEC.md` mô tả một thử nghiệm cũ không nhận dạng danh tính. Không dùng tệp đó để triển khai hệ thống CRM này.
@@ -20,7 +20,8 @@ Hệ thống phải:
 5. Nhóm các bản ghi của cùng khách hàng vào đúng lượt ghé thăm.
 6. Cho phép xem lại hành trình theo thứ tự thời gian.
 7. Tạo thống kê phân bố biểu cảm và bảng thay đổi nhãn giữa các điểm chạm.
-8. Bảo vệ dữ liệu khuôn mặt bằng đồng ý sử dụng, phân quyền và nhật ký truy cập.
+8. Theo dõi biến thiên nhãn trong cùng ngày, cùng khu vực và khoảng thời gian đã chọn.
+9. Bảo vệ dữ liệu khuôn mặt bằng đồng ý sử dụng, phân quyền và nhật ký truy cập.
 
 ## 3. Ngoài phạm vi
 
@@ -32,7 +33,7 @@ Hệ thống phải:
 - Không suy diễn nguyên nhân thay đổi biểu cảm.
 - Không lưu ảnh truy vấn mặc định.
 - Không xây dựng màn hình quản lý tài khoản người dùng hoặc thay đổi vai trò. Tài khoản ban đầu được tạo bằng dữ liệu khởi tạo của hệ thống.
-- Không tích hợp camera vật lý trong phiên bản đầu. Chương trình mô phỏng camera phải gọi cùng API tiếp nhận quan sát như thiết bị thật.
+- Không tích hợp camera vật lý trong phiên bản đầu. Dịch vụ mô phỏng dùng đường dẫn theo lô riêng và mọi bản ghi phải có `source_type=SIMULATOR` cùng `simulation_run_id`.
 
 ## 4. Kiến trúc
 
@@ -40,6 +41,7 @@ Hệ thống phải:
 flowchart LR
     B[Trình duyệt] -->|HTTPS| A[API nghiệp vụ]
     C[Thiết bị tại điểm chạm] -->|Ảnh và thông tin điểm chạm| A
+    S[Dịch vụ mô phỏng] -->|Sự kiện mô phỏng theo lô| A
     A -->|Ảnh tạm thời| V[Dịch vụ xử lý ảnh]
     V -->|Biểu cảm và véc-tơ khuôn mặt| A
     A -->|Dữ liệu nghiệp vụ và truy vấn véc-tơ| D[(PostgreSQL + pgvector)]
@@ -73,6 +75,13 @@ flowchart LR
 - Tạo véc-tơ ArcFace.
 - Không truy cập bảng khách hàng và không tự kết luận danh tính.
 - Không lưu ảnh hoặc véc-tơ sau khi trả kết quả.
+
+#### Dịch vụ `simulator`
+
+- Chỉ tạo đúng 100 khách hàng trong một lần chạy demo.
+- Tạo lượt ghé thăm, quan sát, trường hợp lỗi và đơn hàng bằng hạt giống cố định.
+- Gửi dữ liệu qua API nghiệp vụ, không ghi trực tiếp vào PostgreSQL.
+- Đánh dấu rõ nguồn mô phỏng để không bị dùng như đầu ra mô hình thật.
 
 #### PostgreSQL
 
@@ -193,6 +202,8 @@ Tại một thời điểm chỉ có tối đa một lượt `ACTIVE` cho một 
 | `image_status` | enum | Kết quả kiểm tra và phát hiện khuôn mặt |
 | `expression_status` | enum | Kết quả phân loại biểu cảm |
 | `identity_status` | enum | Kết quả nhận dạng khách hàng |
+| `source_type` | text | `CAMERA` hoặc `SIMULATOR` |
+| `simulation_run_id` | text | Có giá trị với dữ liệu mô phỏng |
 | `detector_version` | text | Phiên bản detector |
 | `emotion_model_version` | text | Phiên bản mô hình biểu cảm |
 | `recognition_model_version` | text | Phiên bản ArcFace |
@@ -379,8 +390,10 @@ Các số trong ví dụ chỉ minh họa cấu trúc, không phải kết quả
 | `GET` | `/reports/expression-distribution` | Phân bố nhãn theo điểm chạm |
 | `GET` | `/reports/expression-changes` | Bảng nhãn trước–sau |
 | `GET` | `/reports/data-quality` | Số bản ghi theo trạng thái |
+| `GET` | `/reports/expression-timeline` | Số nhãn theo khoảng thời gian tại một điểm chạm |
+| `POST` | `/simulation/observations/batch` | Tiếp nhận lô quan sát từ dịch vụ mô phỏng |
 
-Bộ lọc chung: `from`, `to`; báo cáo phân bố có thể lọc `touchpoint_id`, còn báo cáo thay đổi có thêm `from_touchpoint_id`, `to_touchpoint_id`.
+Bộ lọc chung: `from`, `to`; báo cáo phân bố có thể lọc `touchpoint_id`, còn báo cáo thay đổi có thêm `from_touchpoint_id`, `to_touchpoint_id`. Báo cáo theo thời gian bắt buộc có `touchpoint_id` và nhận `bucket_minutes` trong khoảng 5 đến 120 phút.
 
 ### 8.8. API nội bộ của dịch vụ xử lý ảnh
 
@@ -505,6 +518,14 @@ Quy tắc này phải được viết thành một truy vấn có kiểm thử. 
 
 Bảng này chỉ mô tả sự thay đổi nhãn quan sát được. Không gọi nó là bằng chứng về nguyên nhân hoặc thay đổi trạng thái tâm lý.
 
+### 10.5. Biến thiên theo thời gian và khu vực
+
+1. Chỉ lấy quan sát có ảnh và kết quả biểu cảm hợp lệ tại một `touchpoint_id`.
+2. Quy thời gian về đầu khoảng 5, 15, 30, 60 phút hoặc giá trị hợp lệ khác do API nhận.
+3. Nhóm theo đầu khoảng thời gian và nhãn biểu cảm, sau đó trả số quan sát.
+4. Giao diện yêu cầu chọn ngày để các mốc giờ hiển thị thuộc cùng một ngày và cùng khu vực.
+5. Kết quả là số đếm mô tả, không phải điểm cảm xúc hay phép đo hài lòng.
+
 ## 11. Giao diện CRM
 
 ### 11.1. Tuyến trang
@@ -540,6 +561,7 @@ Hiển thị theo bộ lọc thời gian:
 - Số bản ghi biểu cảm hợp lệ.
 - Số bản ghi lỗi hoặc không xác định.
 - Phân bố nhãn theo điểm chạm.
+- Thẻ chọn điểm chạm, ngày và khoảng thời gian để xem biến thiên nhãn trong cùng khu vực.
 
 Không hiển thị “điểm hài lòng” vì hệ thống không có phép đo này.
 

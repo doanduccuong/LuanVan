@@ -164,9 +164,26 @@ def prepare(source: Path) -> None:
 
 
 def write_static_crm_data() -> None:
-    customers = [{"customer_code": f"CUS-DEMO-{index:03d}", "full_name": f"Khách hàng mô phỏng {index:02d}", "phone": f"090000{index:04d}", "email": f"customer{index:02d}@example.com", "subject_id": subject} for index, subject in enumerate(REGISTERED_SUBJECTS, 1)]
+    customers = [
+        {
+            "customer_code": f"CUS-DEMO-{index:03d}",
+            "full_name": f"Khách hàng mô phỏng {index:03d}",
+            "phone": f"0900{index:06d}",
+            "email": f"customer{index:03d}@example.com",
+            "subject_id": f"fairface-{index:04d}",
+            "profile_image_url": f"/demo/customers/CUS-DEMO-{index:03d}.jpg",
+        }
+        for index in range(1, 101)
+    ]
     write_csv("customers.csv", customers, list(customers[0]))
-    categories = [{"category_code": "BEVERAGE", "name": "Đồ uống"}, {"category_code": "SNACK", "name": "Đồ ăn nhẹ"}, {"category_code": "CARE", "name": "Chăm sóc cá nhân"}]
+    categories = [
+        {"category_code": "BEVERAGE", "name": "Đồ uống"},
+        {"category_code": "SNACK", "name": "Đồ ăn nhẹ"},
+        {"category_code": "CARE", "name": "Chăm sóc cá nhân"},
+        {"category_code": "HOUSEHOLD", "name": "Đồ dùng gia đình"},
+        {"category_code": "DAIRY", "name": "Sữa và sản phẩm lạnh"},
+        {"category_code": "STATIONERY", "name": "Văn phòng phẩm"},
+    ]
     write_csv("product_categories.csv", categories, list(categories[0]))
     products = [
         {"sku": "BEV-001", "name": "Nước khoáng", "category_code": "BEVERAGE", "current_price": "12000"},
@@ -175,6 +192,24 @@ def write_static_crm_data() -> None:
         {"sku": "SNK-002", "name": "Hạt dinh dưỡng", "category_code": "SNACK", "current_price": "45000"},
         {"sku": "CAR-001", "name": "Khăn giấy", "category_code": "CARE", "current_price": "15000"},
         {"sku": "CAR-002", "name": "Nước rửa tay", "category_code": "CARE", "current_price": "38000"},
+        {"sku": "BEV-003", "name": "Nước cam", "category_code": "BEVERAGE", "current_price": "22000"},
+        {"sku": "BEV-004", "name": "Cà phê lon", "category_code": "BEVERAGE", "current_price": "21000"},
+        {"sku": "SNK-003", "name": "Khoai tây lát", "category_code": "SNACK", "current_price": "28000"},
+        {"sku": "SNK-004", "name": "Kẹo bạc hà", "category_code": "SNACK", "current_price": "16000"},
+        {"sku": "CAR-003", "name": "Dầu gội gói", "category_code": "CARE", "current_price": "9000"},
+        {"sku": "CAR-004", "name": "Kem đánh răng", "category_code": "CARE", "current_price": "42000"},
+        {"sku": "HOU-001", "name": "Nước rửa chén", "category_code": "HOUSEHOLD", "current_price": "36000"},
+        {"sku": "HOU-002", "name": "Túi đựng rác", "category_code": "HOUSEHOLD", "current_price": "24000"},
+        {"sku": "HOU-003", "name": "Miếng rửa bát", "category_code": "HOUSEHOLD", "current_price": "12000"},
+        {"sku": "HOU-004", "name": "Nước lau sàn", "category_code": "HOUSEHOLD", "current_price": "52000"},
+        {"sku": "DAI-001", "name": "Sữa tươi", "category_code": "DAIRY", "current_price": "34000"},
+        {"sku": "DAI-002", "name": "Sữa chua", "category_code": "DAIRY", "current_price": "26000"},
+        {"sku": "DAI-003", "name": "Bơ lạt", "category_code": "DAIRY", "current_price": "59000"},
+        {"sku": "DAI-004", "name": "Phô mai lát", "category_code": "DAIRY", "current_price": "48000"},
+        {"sku": "STA-001", "name": "Bút bi", "category_code": "STATIONERY", "current_price": "7000"},
+        {"sku": "STA-002", "name": "Sổ tay", "category_code": "STATIONERY", "current_price": "32000"},
+        {"sku": "STA-003", "name": "Băng keo", "category_code": "STATIONERY", "current_price": "11000"},
+        {"sku": "STA-004", "name": "Bút đánh dấu", "category_code": "STATIONERY", "current_price": "15000"},
     ]
     write_csv("products.csv", products, list(products[0]))
     touchpoints = [{"touchpoint_code": code, "name": name, "sequence_order": order} for code, name, order in TOUCHPOINTS]

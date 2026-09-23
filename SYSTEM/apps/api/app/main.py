@@ -49,6 +49,7 @@ class CustomerInput(BaseModel):
     full_name: str = Field(min_length=1, max_length=255)
     phone: str | None = None
     email: EmailStr | None = None
+    profile_image_url: str | None = Field(default=None, max_length=512)
     face_consent: bool = False
     demo_data: bool = False
 
@@ -57,6 +58,7 @@ class CustomerPatch(BaseModel):
     full_name: str | None = None
     phone: str | None = None
     email: EmailStr | None = None
+    profile_image_url: str | None = Field(default=None, max_length=512)
     status: RecordStatus | None = None
 
 
@@ -119,6 +121,7 @@ class OrderItemInput(BaseModel):
 class OrderInput(BaseModel):
     external_code: str
     customer_id: str
+    visit_id: str | None = None
     ordered_at: datetime
     status: OrderStatus = OrderStatus.CONFIRMED
     items: list[OrderItemInput] = Field(min_length=1)
@@ -127,6 +130,27 @@ class OrderInput(BaseModel):
 
 class OrderStatusInput(BaseModel):
     status: OrderStatus
+
+
+EXPRESSION_LABELS = {"Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"}
+
+
+class SimulatedObservationInput(BaseModel):
+    event_id: str = Field(min_length=1, max_length=128)
+    simulation_run_id: str = Field(min_length=1, max_length=64)
+    touchpoint_id: str
+    customer_id: str | None = None
+    observed_at: datetime
+    expression_label: str | None = None
+    expression_confidence: float | None = Field(default=None, ge=0, le=1)
+    image_status: str = "VALID"
+    expression_status: str = "VALID"
+    identity_status: str = "MATCHED"
+    end_of_visit: bool = False
+
+
+class SimulatedObservationBatchInput(BaseModel):
+    observations: list[SimulatedObservationInput] = Field(min_length=1, max_length=2000)
 
 
 def to_dict(obj, *fields: str) -> dict:
@@ -250,6 +274,7 @@ def create_customer(payload: CustomerInput, db: Session = Depends(get_db), user:
         full_name=payload.full_name.strip(),
         phone=payload.phone,
         email=str(payload.email).lower() if payload.email else None,
+        profile_image_url=payload.profile_image_url,
         face_consent=payload.face_consent,
         face_consent_at=datetime.now(timezone.utc) if payload.face_consent else None,
         demo_data=payload.demo_data,
@@ -578,7 +603,13 @@ def create_order(payload: OrderInput, db: Session = Depends(get_db), _user: User
     if not customer:
         raise HTTPException(status_code=404, detail="Không tìm thấy khách hàng")
     ordered_at = ensure_aware(payload.ordered_at)
-    active_visit = db.scalar(select(Visit).where(Visit.customer_id == customer.id, Visit.status == VisitStatus.ACTIVE))
+    active_visit = None
+    if payload.visit_id:
+        active_visit = db.get(Visit, payload.visit_id)
+        if not active_visit or active_visit.customer_id != customer.id:
+            raise HTTPException(status_code=422, detail="Lượt ghé thăm không thuộc khách hàng")
+    else:
+        active_visit = db.scalar(select(Visit).where(Visit.customer_id == customer.id, Visit.status == VisitStatus.ACTIVE))
     order = Order(
         external_code=payload.external_code,
         customer_id=customer.id,
@@ -684,6 +715,72 @@ async def create_observation(
     return observation
 
 
+@app.post("/api/v1/simulation/observations/batch", status_code=201)
+def create_simulated_observations(
+    payload: SimulatedObservationBatchInput,
+    db: Session = Depends(get_db),
+    user: User = Depends(require_roles(Role.MANAGER, Role.ADMIN)),
+):
+    created = []
+    skipped = 0
+    for item in payload.observations:
+        existing = db.scalar(select(Observation).where(Observation.event_id == item.event_id))
+        if existing:
+            skipped += 1
+            created.append({"event_id": existing.event_id, "observation_id": existing.id, "visit_id": existing.visit_id})
+            continue
+        touchpoint = db.get(Touchpoint, item.touchpoint_id)
+        if not touchpoint or not touchpoint.active:
+            raise HTTPException(status_code=422, detail=f"Điểm chạm không hợp lệ: {item.touchpoint_id}")
+        customer = db.get(Customer, item.customer_id) if item.customer_id else None
+        if item.customer_id and not customer:
+            raise HTTPException(status_code=422, detail=f"Khách hàng không tồn tại: {item.customer_id}")
+        if item.expression_label and item.expression_label not in EXPRESSION_LABELS:
+            raise HTTPException(status_code=422, detail=f"Nhãn biểu cảm không hợp lệ: {item.expression_label}")
+        observed_at = ensure_aware(item.observed_at)
+        visit = get_or_create_visit(db, customer, observed_at, True) if customer else None
+        observation = Observation(
+            event_id=item.event_id,
+            touchpoint_id=touchpoint.id,
+            observed_at=observed_at,
+            customer_id=customer.id if customer else None,
+            visit_id=visit.id if visit else None,
+            expression_label=item.expression_label,
+            expression_confidence=item.expression_confidence,
+            expression_scores=None,
+            image_status=item.image_status,
+            expression_status=item.expression_status,
+            identity_status=item.identity_status,
+            detector_version="simulator",
+            emotion_model_version="simulator",
+            recognition_model_version="simulator",
+            source_type="SIMULATOR",
+            simulation_run_id=item.simulation_run_id,
+            demo_data=True,
+        )
+        db.add(observation)
+        db.flush()
+        if visit and item.end_of_visit:
+            visit.status = VisitStatus.CLOSED
+            visit.ended_at = observed_at
+            visit.last_seen_at = observed_at
+            visit.close_reason = "SIMULATED_END"
+            # Ghi trạng thái đóng trước khi tạo lượt tiếp theo của cùng khách hàng.
+            # PostgreSQL dùng chỉ mục duy nhất cho lượt ACTIVE nên thứ tự ghi là bắt buộc.
+            db.flush()
+        created.append({"event_id": observation.event_id, "observation_id": observation.id, "visit_id": observation.visit_id})
+    audit(
+        db,
+        user,
+        "SIMULATION_BATCH_INGESTED",
+        "simulation_run",
+        None,
+        {"created": len(created) - skipped, "skipped": skipped, "run_ids": sorted({item.simulation_run_id for item in payload.observations})},
+    )
+    db.commit()
+    return {"items": created, "created": len(created) - skipped, "skipped": skipped}
+
+
 @app.get("/api/v1/visits")
 def list_visits(
     customer_id: str | None = None,
@@ -756,6 +853,61 @@ def expression_distribution(
             "percentage": count / totals[touchpoint] if totals[touchpoint] else None,
         }
         for touchpoint, name, label, count in rows
+    ]
+
+
+@app.get("/api/v1/reports/expression-timeline")
+def expression_timeline(
+    touchpoint_id: str,
+    bucket_minutes: int = Query(15, ge=5, le=120),
+    from_time: datetime | None = Query(None, alias="from"),
+    to_time: datetime | None = Query(None, alias="to"),
+    db: Session = Depends(get_db),
+    _user: User = Depends(get_current_user),
+):
+    touchpoint = db.get(Touchpoint, touchpoint_id)
+    if not touchpoint:
+        raise HTTPException(status_code=404, detail="Không tìm thấy điểm chạm")
+
+    stmt = (
+        select(Observation.observed_at, Observation.expression_label)
+        .where(
+            Observation.touchpoint_id == touchpoint_id,
+            Observation.image_status == "VALID",
+            Observation.expression_status == "VALID",
+            Observation.expression_label.is_not(None),
+        )
+        .order_by(Observation.observed_at, Observation.id)
+    )
+    if from_time:
+        stmt = stmt.where(Observation.observed_at >= ensure_aware(from_time))
+    if to_time:
+        stmt = stmt.where(Observation.observed_at <= ensure_aware(to_time))
+
+    bucket_seconds = bucket_minutes * 60
+    counts: dict[tuple[datetime, str], int] = {}
+    for observed_at, label in db.execute(stmt).all():
+        # SQLite trong bộ kiểm thử không giữ thông tin múi giờ.
+        # Thời gian quan sát được lưu theo UTC nên chỉ khôi phục UTC cho dữ liệu đọc từ cơ sở dữ liệu.
+        if observed_at.tzinfo is None:
+            observed_at = observed_at.replace(tzinfo=timezone.utc)
+        else:
+            observed_at = observed_at.astimezone(timezone.utc)
+        bucket_epoch = int(observed_at.timestamp()) // bucket_seconds * bucket_seconds
+        bucket_start = datetime.fromtimestamp(bucket_epoch, tz=timezone.utc)
+        key = (bucket_start, label)
+        counts[key] = counts.get(key, 0) + 1
+
+    return [
+        {
+            "touchpoint_id": touchpoint.id,
+            "touchpoint_name": touchpoint.name,
+            "bucket_start": bucket_start,
+            "bucket_minutes": bucket_minutes,
+            "label": label,
+            "count": count,
+        }
+        for (bucket_start, label), count in sorted(counts.items())
     ]
 
 

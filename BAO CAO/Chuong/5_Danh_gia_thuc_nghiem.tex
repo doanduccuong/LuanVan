@@ -79,4 +79,94 @@ Từ kết quả thực nghiệm có thể thấy khác biệt giữa ba phươn
 
 RetinaFace-MobileNet0.25 duy trì AP cao nhất ở cả ba mức khó, đồng thời đạt độ trễ thấp nhất và số ảnh xử lý trong một giây cao nhất. Khoảng cách 0,2398 AP so với MTCNN trên nhóm khó cho thấy lợi thế của RetinaFace thể hiện rõ hơn khi điều kiện phát hiện trở nên phức tạp. Tỷ lệ ảnh không phát hiện 0,0320 cũng cho thấy đầu vào được chuyển sang bước phân loại biểu cảm ít bị thiếu hơn so với hai phương pháp còn lại. Như vậy, trong phạm vi tập dữ liệu WIDER FACE, trên thiết bị CPU và với bộ tham số đã khóa, RetinaFace-MobileNet0.25 thể hiện sự cân bằng tốt nhất giữa chất lượng phát hiện và tốc độ xử lý. Kết quả này chỉ phản ánh cấu hình thực nghiệm đã mô tả, không phải kết luận khái quát cho mọi dữ liệu hoặc nền tảng phần cứng.
 
+\section{Thực nghiệm vận hành hệ thống khi chưa có camera}
+\label{section:5.2}
+
+\subsection{Mục tiêu và dữ liệu thực nghiệm}
+\label{subsection:5.2.1}
+
+Thực nghiệm này kiểm tra luồng dữ liệu của hệ thống trong điều kiện chưa có camera vật lý. Phạm vi kiểm tra gồm việc tạo lượt ghé thăm, ghi nhận quan sát tại các điểm chạm, gắn đơn hàng với khách hàng và hiển thị các báo cáo trên CRM. Thực nghiệm không được dùng để đo độ chính xác của mô hình nhận dạng biểu cảm hoặc nhận dạng khách hàng.
+
+Bộ dữ liệu gồm đúng 100 hồ sơ khách hàng. Mã khách hàng có dạng \texttt{CUS-DEMO-001} đến \texttt{CUS-DEMO-100}; tên, số điện thoại và thư điện tử đều là dữ liệu giả. Mỗi hồ sơ có một ảnh đại diện lấy từ 100 bản ghi đầu tiên của tập kiểm tra FairFace. FairFace được công bố để nghiên cứu thuộc tính khuôn mặt \cite{karkkainen2021fairface}. Tệp kê khai của bộ dữ liệu thử nghiệm lưu chỉ số ảnh nguồn, mã kiểm tra SHA-256, đường dẫn nguồn và giấy phép CC BY 4.0 \cite{fairfaceRepository}. Các ảnh này chỉ dùng làm ảnh đại diện CRM, không đóng vai trò nhãn đúng cho nhận dạng biểu cảm hoặc nhận dạng khách hàng.
+
+Ngoài hồ sơ khách hàng, dữ liệu ban đầu gồm sáu nhóm sản phẩm, 24 sản phẩm và bốn điểm chạm trong một cửa hàng. Danh sách khách hàng sau khi nạp được minh họa tại Hình~\ref{fig:customer_list_ch5}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_02_danh_sach_khach_hang.png}
+    \caption{Danh sách 100 khách hàng dùng trong thực nghiệm hệ thống}
+    \label{fig:customer_list_ch5}
+\end{figure}
+
+\subsection{Dịch vụ tạo dữ liệu và kịch bản chạy}
+\label{subsection:5.2.2}
+
+Do chưa có camera, một dịch vụ riêng được dùng để tạo các sự kiện đầu vào. Dịch vụ đăng nhập vào máy chủ nghiệp vụ, đọc danh sách khách hàng, điểm chạm và sản phẩm, sau đó gửi dữ liệu qua API giống như một nguồn thu thập bên ngoài. Thành phần này không ghi trực tiếp vào PostgreSQL.
+
+Mỗi khách hàng có ít nhất một lượt ghé thăm; cứ bốn khách hàng có một người được tạo thêm lượt thứ hai. Mỗi lượt gồm từ hai đến bốn điểm chạm. Dịch vụ gửi mã khách hàng, điểm chạm, thời gian, nhãn biểu cảm và độ tin cậy. Mỗi bản ghi có mã lần chạy và được đánh dấu là dữ liệu tạo tự động để phân biệt với kết quả xử lý ảnh thật. Hình~\ref{fig:simulator_api_ch5} cho thấy tài liệu API của dịch vụ.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_12_dich_vu_mo_phong.png}
+    \caption{Tài liệu API của dịch vụ tạo dữ liệu thực nghiệm}
+    \label{fig:simulator_api_ch5}
+\end{figure}
+
+Lần chạy ngày 23/09/2026 sử dụng hạt giống \texttt{20260923} để có thể tạo lại cùng một chuỗi dữ liệu. Nhãn bảy lớp và độ tin cậy được sinh bằng bộ tạo số giả ngẫu nhiên. Vì vậy, phân bố nhãn trong thực nghiệm chỉ dùng để kiểm tra khả năng lưu trữ, tổng hợp và hiển thị của hệ thống; đây không phải phân bố biểu cảm thu được từ khách hàng thật.
+
+\subsection{Kết quả thực nghiệm hệ thống}
+\label{subsection:5.2.3}
+
+Sau lần chạy, số lượng bản ghi trong PostgreSQL được đối chiếu với phản hồi của dịch vụ. Kết quả được trình bày tại Bảng~\ref{tab:simulation_output_ch5}.
+
+\begin{table}[H]
+    \centering
+    \caption{Dữ liệu sau khi chạy kịch bản tạo dữ liệu}
+    \label{tab:simulation_output_ch5}
+    \begin{tabular}{|l|r|}
+        \hline
+        \textbf{Loại dữ liệu} & \textbf{Số lượng} \\
+        \hline
+        Khách hàng & 100 \\
+        \hline
+        Nhóm sản phẩm & 6 \\
+        \hline
+        Sản phẩm & 24 \\
+        \hline
+        Điểm chạm & 4 \\
+        \hline
+        Lượt ghé thăm & 125 \\
+        \hline
+        Quan sát & 397 \\
+        \hline
+        Đơn hàng & 93 \\
+        \hline
+        Dòng sản phẩm trong đơn & 232 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Trong 93 đơn hàng, có ba đơn thuộc dữ liệu khởi tạo và 90 đơn được tạo trong lần chạy. Trong 397 quan sát, 385 bản ghi có trạng thái hợp lệ, tám bản ghi mang trạng thái không phát hiện khuôn mặt và bốn bản ghi mang trạng thái ảnh không hợp lệ. Mười hai trường hợp lỗi được tạo có kiểm soát để kiểm tra khả năng tách dữ liệu hợp lệ và dữ liệu lỗi. Hình~\ref{fig:simulation_dashboard_ch5} và Hình~\ref{fig:simulation_quality_ch5} lần lượt thể hiện dữ liệu trên trang tổng quan và báo cáo chất lượng.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_01_tong_quan.png}
+    \caption{Trang tổng quan sau lần chạy thực nghiệm}
+    \label{fig:simulation_dashboard_ch5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_10_chat_luong_du_lieu.png}
+    \caption{Kết quả phân loại trạng thái dữ liệu đầu vào}
+    \label{fig:simulation_quality_ch5}
+\end{figure}
+
+Kết quả cho thấy máy chủ tiếp nhận đủ số sự kiện, lưu được quan hệ giữa khách hàng, lượt ghé thăm, quan sát và đơn hàng, đồng thời trả dữ liệu cho các màn hình CRM. Việc sử dụng mã lần chạy cho phép truy vết các bản ghi thuộc cùng một lần thực nghiệm.
+
+\subsection{Giới hạn của thực nghiệm}
+\label{subsection:5.2.4}
+
+Thực nghiệm xác nhận luồng dữ liệu và chức năng phần mềm, nhưng chưa phản ánh điều kiện hoạt động với camera thật. Thời gian, thứ tự điểm chạm và nhãn biểu cảm đều được tạo tự động. Các ảnh FairFace chỉ đóng vai trò ảnh đại diện và không chứng minh khả năng nhận dạng một người qua nhiều camera. Cấu hình mô hình nhận dạng biểu cảm, ngưỡng đối sánh khuôn mặt và độ chính xác của toàn bộ luồng xử lý ảnh cần được đánh giá bằng một thực nghiệm riêng có ảnh đầu vào và nhãn đúng.
+
 \end{document}

@@ -1,4 +1,4 @@
-.PHONY: install test build-web run-api run-vision demo-prepare demo-calibrate demo-reset demo-seed demo-enroll demo-replay demo-verify
+.PHONY: install test build-web run-api run-vision run-simulator demo-portraits demo-prepare demo-calibrate demo-reset demo-seed demo-simulate demo-enroll demo-replay demo-verify
 
 install:
 	cd apps/api && uv sync --dev
@@ -19,6 +19,12 @@ run-api:
 run-vision:
 	cd services/vision && uv run uvicorn app.main:app --reload --port 8001
 
+run-simulator:
+	cd services/simulator && uv run uvicorn app.main:app --reload --port 8002
+
+demo-portraits:
+	cd services/vision && uv run python ../../scripts/prepare_customer_portraits.py --count 100
+
 demo-prepare:
 	cd services/vision && uv run python ../../scripts/prepare_demo_dataset.py --source "$(DEMO_SOURCE)"
 
@@ -30,6 +36,9 @@ demo-reset:
 
 demo-seed:
 	cd services/vision && uv run python ../../scripts/seed_demo_crm.py
+
+demo-simulate:
+	curl --fail --show-error --request POST http://localhost:8002/api/v1/runs --header 'Content-Type: application/json' --data '{"customer_count":100,"seed":20260923}'
 
 demo-enroll:
 	cd services/vision && uv run python ../../scripts/enroll_demo_faces.py

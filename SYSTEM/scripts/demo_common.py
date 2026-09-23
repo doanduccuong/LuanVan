@@ -3,7 +3,9 @@ from __future__ import annotations
 import csv
 import json
 import os
+from contextlib import contextmanager
 from pathlib import Path
+from typing import Iterator
 
 import httpx
 
@@ -28,17 +30,18 @@ def write_csv(name: str, rows: list[dict], fieldnames: list[str]) -> None:
         writer.writerows(rows)
 
 
-def login_client() -> httpx.Client:
-    client = httpx.Client(base_url=API_URL, timeout=60.0)
-    response = client.post(
-        "/auth/login",
-        json={
-            "email": os.getenv("DEMO_USER_EMAIL", "manager@example.com"),
-            "password": os.getenv("DEMO_USER_PASSWORD", "demo1234"),
-        },
-    )
-    response.raise_for_status()
-    return client
+@contextmanager
+def login_client() -> Iterator[httpx.Client]:
+    with httpx.Client(base_url=API_URL, timeout=60.0) as client:
+        response = client.post(
+            "/auth/login",
+            json={
+                "email": os.getenv("DEMO_USER_EMAIL", "manager@example.com"),
+                "password": os.getenv("DEMO_USER_PASSWORD", "demo1234"),
+            },
+        )
+        response.raise_for_status()
+        yield client
 
 
 def save_json(path: Path, payload) -> None:

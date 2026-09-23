@@ -13,6 +13,7 @@ apps/web/vite.config.d.ts
 apps/web/dist/
 *.db
 data/raw/
+fixtures/demo_dataset/customer_images/
 fixtures/demo_dataset/enrollment/
 fixtures/demo_dataset/observations/
 fixtures/demo_dataset/calibration/

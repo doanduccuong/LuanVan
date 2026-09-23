@@ -16,6 +16,8 @@ services:
   vision:
     build:
       context: services/vision
+      args:
+        INSTALL_MODEL_DEPS: ${INSTALL_MODEL_DEPS:-false}
     env_file: ${ENV_FILE:-.env.example}
     volumes:
       - ../COMPARE_FACE_DETECTION/vendor/Pytorch_Retinaface:/models/Pytorch_Retinaface:ro
@@ -51,11 +53,31 @@ services:
     ports:
       - "8000:8000"
 
+  simulator:
+    build:
+      context: services/simulator
+    env_file: ${ENV_FILE:-.env.example}
+    environment:
+      API_BASE_URL: http://api:8000/api/v1
+    depends_on:
+      api:
+        condition: service_started
+    ports:
+      - "8002:8002"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8002/health/live')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   web:
     build:
       context: apps/web
     depends_on:
       - api
+      - simulator
+    volumes:
+      - ./fixtures/demo_dataset/customer_images:/usr/share/nginx/html/demo/customers:ro
     ports:
       - "8080:80"
 

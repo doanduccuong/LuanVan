@@ -82,3 +82,57 @@ def test_touchpoints_are_global_for_single_store():
     assert response.status_code == 201, response.text
     payload = response.json()
     assert "store_id" not in payload
+
+
+def test_simulated_observations_are_marked_and_form_a_closed_visit():
+    client = make_client()
+    suffix = datetime.now(timezone.utc).strftime("%H%M%S%f")
+    customer = client.post(
+        "/api/v1/customers",
+        json={
+            "customer_code": f"SIM-CUS-{suffix}",
+            "full_name": "Khách mô phỏng",
+            "profile_image_url": "/demo/customers/CUS-DEMO-001.jpg",
+        },
+    ).json()
+    touchpoint = client.post(
+        "/api/v1/touchpoints",
+        json={
+            "touchpoint_code": f"SIM-TP-{suffix}",
+            "name": "Điểm chạm mô phỏng",
+            "sequence_order": int(suffix[-7:]),
+        },
+    ).json()
+    observed_at = datetime.now(timezone.utc).isoformat()
+    response = client.post(
+        "/api/v1/simulation/observations/batch",
+        json={
+            "observations": [
+                {
+                    "event_id": f"SIM-EVENT-{suffix}",
+                    "simulation_run_id": f"SIM-RUN-{suffix}",
+                    "touchpoint_id": touchpoint["id"],
+                    "customer_id": customer["id"],
+                    "observed_at": observed_at,
+                    "expression_label": "Happy",
+                    "expression_confidence": 0.9,
+                    "end_of_visit": True,
+                }
+            ]
+        },
+    )
+    assert response.status_code == 201, response.text
+    visit_id = response.json()["items"][0]["visit_id"]
+    detail = client.get(f"/api/v1/visits/{visit_id}").json()
+    assert detail["visit"]["status"] == "CLOSED"
+    assert detail["observations"][0]["source_type"] == "SIMULATOR"
+    assert detail["observations"][0]["simulation_run_id"] == f"SIM-RUN-{suffix}"
+
+    timeline = client.get(
+        "/api/v1/reports/expression-timeline",
+        params={"touchpoint_id": touchpoint["id"], "bucket_minutes": 15},
+    )
+    assert timeline.status_code == 200, timeline.text
+    timeline_rows = timeline.json()
+    assert any(row["label"] == "Happy" and row["count"] >= 1 for row in timeline_rows)
+    assert all(row["touchpoint_id"] == touchpoint["id"] for row in timeline_rows)

@@ -2,16 +2,33 @@ from __future__ import annotations
 
 from collections import defaultdict
 
-from demo_common import login_client, read_csv
+from demo_common import DATASET_ROOT, login_client, read_csv
+from prepare_demo_dataset import write_static_crm_data
 
 
 def main() -> None:
+    required_files = (
+        "customers.csv",
+        "product_categories.csv",
+        "products.csv",
+        "touchpoints.csv",
+        "orders.csv",
+        "order_items.csv",
+    )
+    if any(not (DATASET_ROOT / name).exists() for name in required_files):
+        write_static_crm_data()
+
     with login_client() as client:
         existing_customers = {row["customer_code"]: row for row in client.get("/customers?page_size=100").raise_for_status().json()["items"]}
         for row in read_csv("customers.csv"):
             if row["customer_code"] in existing_customers:
+                if row.get("profile_image_url") and existing_customers[row["customer_code"]].get("profile_image_url") != row["profile_image_url"]:
+                    client.patch(
+                        f"/customers/{existing_customers[row['customer_code']]['id']}",
+                        json={"profile_image_url": row["profile_image_url"]},
+                    ).raise_for_status()
                 continue
-            response = client.post("/customers", json={"customer_code": row["customer_code"], "full_name": row["full_name"], "phone": row["phone"], "email": row["email"], "face_consent": True, "demo_data": True})
+            response = client.post("/customers", json={"customer_code": row["customer_code"], "full_name": row["full_name"], "phone": row["phone"], "email": row["email"], "profile_image_url": row.get("profile_image_url") or None, "face_consent": True, "demo_data": True})
             response.raise_for_status()
 
         existing_categories = {row["category_code"]: row for row in client.get("/product-categories").raise_for_status().json()}
@@ -51,4 +68,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -76,6 +76,7 @@ class Customer(Base):
     full_name: Mapped[str] = mapped_column(String(255), index=True)
     phone: Mapped[str | None] = mapped_column(String(32), nullable=True)
     email: Mapped[str | None] = mapped_column(String(320), nullable=True)
+    profile_image_url: Mapped[str | None] = mapped_column(String(512), nullable=True)
     status: Mapped[RecordStatus] = mapped_column(Enum(RecordStatus, native_enum=False), default=RecordStatus.ACTIVE)
     face_consent: Mapped[bool] = mapped_column(Boolean, default=False)
     face_consent_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
@@ -191,6 +192,8 @@ class Observation(Base):
     detector_version: Mapped[str | None] = mapped_column(String(255), nullable=True)
     emotion_model_version: Mapped[str | None] = mapped_column(String(255), nullable=True)
     recognition_model_version: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    source_type: Mapped[str] = mapped_column(String(32), default="CAMERA", index=True)
+    simulation_run_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
     demo_data: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
@@ -243,4 +246,3 @@ class AuditLog(Base):
     request_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
     details: Mapped[dict] = mapped_column(JSON, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
-

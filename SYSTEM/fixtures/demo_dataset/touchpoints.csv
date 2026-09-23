@@ -1,0 +1,5 @@
+touchpoint_code,name,sequence_order
+TP-ENTRANCE,Cửa vào,1
+TP-DISPLAY,Khu trưng bày sản phẩm,2
+TP-CONSULT,Khu tư vấn,3
+TP-CHECKOUT,Quầy thanh toán,4

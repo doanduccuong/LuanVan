@@ -9,9 +9,9 @@
 
 Tại mỗi điểm chạm trong cửa hàng, camera tạo ra các ảnh quan sát độc lập. Từ một ảnh, mô hình nhận dạng biểu cảm khuôn mặt chỉ cho biết biểu cảm được quan sát tại thời điểm chụp. Kết quả này chưa cho biết ảnh thuộc khách hàng nào, có nằm trong cùng một lần đến cửa hàng với những ảnh trước đó hay không và biểu cảm thay đổi như thế nào giữa các điểm chạm.
 
-Hành trình khách hàng được hình thành từ nhiều lần tương tác theo thời gian, thay vì từ một điểm chạm riêng lẻ \cite{lemon2016customerjourney}. Khung biểu diễn hành trình theo các điểm chạm có thứ tự của Halvorsrud, Kvale và Følstad cũng cho thấy cần giữ lại vị trí và thứ tự xảy ra của từng tương tác \cite{halvorsrud2016journey}. Trên cơ sở đó, luận văn đề xuất phương pháp liên kết kết quả nhận dạng biểu cảm tại nhiều điểm chạm với cùng một khách hàng và cùng một lượt ghé thăm.
+Hành trình mua sắm của một khách hàng được hình thành từ nhiều lần tương tác với các điểm chạm theo thời gian, thay vì từ một điểm chạm riêng lẻ \cite{lemon2016customerjourney}. Khung biểu diễn hành trình theo các điểm chạm có thứ tự của Halvorsrud, Kvale và Følstad cũng cho thấy cần giữ lại vị trí và thứ tự xảy ra của từng tương tác \cite{halvorsrud2016journey}. Trên cơ sở đó, luận văn đề xuất phương pháp liên kết kết quả nhận dạng biểu cảm tại nhiều điểm chạm với cùng một khách hàng và cùng một lượt ghé thăm.
 
-Phương pháp không tạo ra một kiến trúc học sâu mới. Các mô hình phát hiện khuôn mặt, phân loại biểu cảm và nhận dạng khách hàng là những thành phần đầu vào của phương pháp. Nội dung được đề xuất nằm ở cách phối hợp các thành phần này để tạo bản ghi tại điểm chạm, liên kết các bản ghi thành một hành trình có thứ tự và tạo dữ liệu phục vụ phân tích.
+Các mô hình phát hiện khuôn mặt, phân loại biểu cảm và nhận dạng khách hàng là những thành phần đầu vào của phương pháp. Nội dung được đề xuất nằm ở cách phối hợp các thành phần này để tạo bản ghi tại điểm chạm, liên kết các bản ghi thành một hành trình có thứ tự và tạo dữ liệu phục vụ phân tích.
 
 \subsection{Đầu vào và đầu ra}
 \label{subsection:3.1.2}
@@ -59,7 +59,7 @@ Phương pháp gồm bốn công đoạn: tạo vùng khuôn mặt hợp lệ, t
     \label{fig:proposed_method_overview}
 \end{figure}
 
-Bảng~\ref{tab:method_stages} tóm tắt vai trò của từng công đoạn. Bảng chỉ mô tả dữ liệu ở mức phương pháp; cấu trúc lưu trữ cụ thể thuộc nội dung xây dựng hệ thống.
+Bảng~\ref{tab:method_stages} tóm tắt vai trò cũng như đầu ra và đầu vào của từng công đoạn.
 
 \begin{table}[H]
     \centering

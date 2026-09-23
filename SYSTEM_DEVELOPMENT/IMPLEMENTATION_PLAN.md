@@ -8,11 +8,12 @@ Chỉ bắt đầu viết phần triển khai trong luận văn sau khi các mô
 
 ## 2. Phạm vi hệ thống cần xây dựng
 
-Hệ thống gồm ba phần chính:
+Hệ thống gồm bốn phần chính:
 
 1. **Máy chủ nghiệp vụ:** xác thực người dùng, quản lý khách hàng, sản phẩm, lịch sử mua hàng, điểm chạm, lượt ghé thăm, bản ghi biểu cảm và báo cáo.
 2. **Dịch vụ xử lý ảnh:** phát hiện khuôn mặt, nhận dạng biểu cảm, tạo đặc trưng khuôn mặt để nhận dạng khách hàng.
 3. **Giao diện CRM:** cung cấp các màn hình quản lý và tra cứu dữ liệu.
+4. **Dịch vụ mô phỏng:** tạo dữ liệu hành trình, lỗi và đơn hàng khi chưa có camera.
 
 Các chức năng phải có trong phiên bản đầu:
 
@@ -33,10 +34,11 @@ Các chức năng phải có trong phiên bản đầu:
 - Thống kê phân bố biểu cảm tại từng điểm chạm.
 - Thống kê thay đổi nhãn biểu cảm giữa các điểm chạm liên tiếp.
 - Theo dõi số bản ghi hợp lệ và không hợp lệ.
+- Theo dõi biến thiên nhãn trong cùng ngày, cùng khu vực và khoảng thời gian đã chọn.
 
 Phiên bản đầu không xử lý video trực tiếp, không theo dõi người chưa đăng ký giữa nhiều camera, không suy luận cảm xúc thật và không tính điểm hài lòng.
 
-Do không có camera thật, phiên bản demo sử dụng một chương trình mô phỏng thiết bị. Chương trình đọc ảnh và thời gian từ bộ dữ liệu mô phỏng, sau đó gửi vào đúng API tiếp nhận quan sát mà camera thật sẽ sử dụng. Không tạo một đường API riêng chỉ dành cho dữ liệu giả.
+Do không có camera thật, phiên bản demo dùng một dịch vụ mô phỏng độc lập. Dịch vụ gửi sự kiện theo lô qua API nghiệp vụ; mọi bản ghi có `source_type=SIMULATOR` và `simulation_run_id` để không bị nhầm với dữ liệu camera. Nhãn mô phỏng chỉ kiểm tra lưu trữ, hành trình và giao diện, không dùng để đánh giá FER.
 
 ## 3. Kiến trúc triển khai
 
@@ -47,6 +49,7 @@ Do không có camera thật, phiên bản demo sử dụng một chương trình
 | `web` | Giao diện CRM chạy trên trình duyệt |
 | `api` | Xử lý nghiệp vụ CRM, phân quyền, lưu dữ liệu và tạo báo cáo |
 | `vision` | Phát hiện khuôn mặt, phân loại biểu cảm và tạo véc-tơ đặc trưng khuôn mặt |
+| `simulator` | Tạo và gửi dữ liệu trình diễn cho đúng 100 khách hàng |
 | `postgres` | Lưu dữ liệu nghiệp vụ và véc-tơ đặc trưng |
 | `docker-compose` | Khởi động các thành phần trong môi trường phát triển |
 
@@ -317,16 +320,13 @@ Mã benchmark tại `COMPARE_FACE_DETECTION` được giữ độc lập. Trọn
 - Các bảng có phân trang phía máy chủ.
 - Các thao tác nhạy cảm yêu cầu xác nhận.
 
-### Giai đoạn 9 – Xây dựng bộ dữ liệu và chương trình mô phỏng camera
+### Giai đoạn 9 – Xây dựng bộ dữ liệu và dịch vụ mô phỏng
 
-#### Nguồn ảnh dự kiến
+#### Nguồn ảnh đã sử dụng
 
-- Nguồn chính: Yale Face Database từ trang chính thức của Yale.
-- Lý do: dung lượng nhỏ, có mã người rõ ràng và nhiều ảnh của cùng một người trong các điều kiện như bình thường, vui, buồn, ngạc nhiên, đeo kính và thay đổi ánh sáng.
-- Phạm vi sử dụng: chỉ dùng cho học tập, nghiên cứu phi thương mại và trình diễn hệ thống.
-- Nguồn dự phòng: DigiFace-1M nếu cần ảnh khuôn mặt tổng hợp; chỉ lấy một tập con và tuân thủ giấy phép nghiên cứu phi thương mại.
-
-Ảnh nguồn không đưa vào kho mã. Kho mã chỉ chứa chương trình chuẩn bị dữ liệu, tệp danh mục nguồn, mã kiểm tra tệp và hướng dẫn tải dữ liệu.
+- Chọn đúng 100 ảnh từ tập kiểm tra FairFace để làm ảnh đại diện CRM.
+- Lưu URL nguồn, giấy phép, chỉ số ảnh và mã kiểm tra trong manifest.
+- Không dùng ảnh đại diện làm nhãn đúng cho FER hoặc bằng chứng nhận dạng khách hàng.
 
 #### Cấu trúc bộ dữ liệu mô phỏng
 
@@ -352,30 +352,27 @@ SYSTEM/fixtures/demo_dataset/
 - Viết chương trình kiểm tra giấy phép, cấu trúc và mã kiểm tra của tệp dữ liệu nguồn.
 - Chọn các mã người cố định để kết quả có thể lặp lại.
 - Tách người dùng cho hiệu chỉnh ngưỡng và người dùng cho demo; không dùng ảnh demo để chọn ngưỡng.
-- Tạo khách hàng mô phỏng, không dùng tên hoặc thông tin thật của người trong ảnh.
-- Tạo ảnh đăng ký và ảnh quan sát từ các ảnh khác nhau của cùng mã người.
-- Chuyển ảnh xám sang ba kênh màu và đặt khuôn mặt lên khung ảnh mô phỏng kích thước thống nhất.
-- Tạo có kiểm soát các trường hợp không có khuôn mặt, nhiều khuôn mặt và ảnh hỏng.
-- Tạo bốn điểm chạm, sản phẩm, đơn hàng và lịch sử mua hàng mô phỏng.
-- Tạo tệp sự kiện có `event_id`, điểm chạm, thời gian và đường dẫn ảnh.
-- Viết chương trình gửi lần lượt các sự kiện vào `POST /api/v1/observations`.
-- Viết chương trình đối chiếu kết quả thực tế với lượt ghé thăm mong đợi.
+- Tạo đúng 100 khách hàng mô phỏng, không dùng tên hoặc thông tin thật của người trong ảnh.
+- Tạo bốn điểm chạm, 24 sản phẩm, đơn hàng và lịch sử mua hàng mô phỏng.
+- Tạo có kiểm soát trường hợp không có khuôn mặt và ảnh hỏng.
+- Gửi các sự kiện theo lô vào API nghiệp vụ và đánh dấu nguồn mô phỏng.
+- Dùng hạt giống cố định để tái lập hành trình, nhãn và đơn hàng.
+- Chụp ảnh giao diện sau khi kiểm tra số liệu trong PostgreSQL.
 
 #### Nguyên tắc dữ liệu
 
-- Không gán trước nhãn FER từ tên ảnh nguồn. Nhãn FER trong demo phải do mô hình tạo.
-- Tên như `happy`, `sad` hoặc `surprised` chỉ được lưu ở cột điều kiện nguồn để truy vết.
+- Nhãn trong demo do dịch vụ mô phỏng tạo và phải được ghi rõ trên giao diện, báo cáo.
 - Không dùng kết quả demo làm kết luận về độ chính xác của mô hình.
 - Mọi ảnh dẫn xuất phải truy ngược được tới mã người, tên tệp nguồn, URL và giấy phép.
 - Phép biến đổi ảnh phải được ghi trong tệp manifest và dùng hạt giống cố định.
-- Không nhận dạng khách hàng nếu chưa có tệp ngưỡng được tạo từ phần hiệu chỉnh độc lập.
+- Không tuyên bố đã nhận dạng khách hàng thật nếu chưa có ngưỡng được hiệu chỉnh độc lập.
 
 #### Điều kiện hoàn thành
 
-- Có thể tạo lại toàn bộ bộ dữ liệu từ dữ liệu nguồn bằng một lệnh.
+- Có thể tạo lại đúng 100 ảnh đại diện và dữ liệu CRM bằng lệnh trong Makefile.
 - Có thể xóa dữ liệu demo và chạy lại mà không sửa mã.
-- Chương trình mô phỏng gửi dữ liệu qua API công khai, không ghi trực tiếp vào cơ sở dữ liệu.
-- Tối thiểu có các tình huống: khách đã đăng ký, khách quay lại, khách không xác định, thiếu điểm chạm, ảnh không có mặt và ảnh nhiều mặt.
+- Dịch vụ mô phỏng gửi dữ liệu qua API nghiệp vụ, không ghi trực tiếp vào cơ sở dữ liệu.
+- Có khách quay lại, hành trình thiếu điểm chạm, ảnh không có mặt và ảnh hỏng.
 - Bộ dữ liệu có sản phẩm, đơn hàng và lịch sử mua hàng liên kết với khách hàng mô phỏng.
 - Kết quả đối chiếu được ghi thành tệp JSON để kiểm tra lại.
 

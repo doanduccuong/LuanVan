@@ -26,8 +26,22 @@ export type Customer = {
   full_name: string
   phone?: string
   email?: string
+  profile_image_url?: string
   status: 'ACTIVE' | 'INACTIVE'
   face_consent: boolean
+}
+
+export async function runSimulation(seed = 20260923) {
+  const response = await fetch('/simulator/api/v1/runs', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ customer_count: 100, seed })
+  })
+  if (!response.ok) {
+    const payload = await response.json().catch(() => ({}))
+    throw new Error(payload.detail ?? `Không tạo được dữ liệu mô phỏng (${response.status})`)
+  }
+  return response.json()
 }
 
 export type Category = { id: string; category_code: string; name: string; active: boolean }
@@ -69,4 +83,3 @@ export type Touchpoint = {
   sequence_order: number
   active: boolean
 }
-

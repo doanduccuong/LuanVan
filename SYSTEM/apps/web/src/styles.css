@@ -18,7 +18,16 @@ body { margin: 0; min-width: 1180px; min-height: 100vh; }
 .full-width { width: 100%; }
 .wide-select { width: min(560px, 100%); }
 .result-alert { margin-top: 20px; }
+.page-heading + .result-alert { margin-top: 0; margin-bottom: 16px; }
 .section-title { margin-top: 28px !important; }
 .timeline-card { margin-bottom: 12px; border-left: 4px solid #0f766e; }
 .ant-card { box-shadow: 0 8px 24px rgba(31, 54, 50, .05); }
-
+.customer-profile { margin-bottom: 22px; }
+.customer-profile h3 { margin: 0 0 4px !important; }
+.stat-row { margin: 16px 0; }
+.selected-row td { background: #e8f7f2 !important; }
+.ant-table-row { cursor: pointer; }
+.table-card { margin-top: 16px; }
+.dashboard-filter-row { margin: 4px 0 14px; }
+.dashboard-touchpoint-select { min-width: 220px; }
+.dashboard-timeline-note { margin-bottom: 8px; }

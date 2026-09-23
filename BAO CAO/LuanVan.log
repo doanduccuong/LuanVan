@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.31)  22 SEP 2026 20:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.31)  23 SEP 2026 19:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1306,19 +1306,11 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [8]) [9]
 Ch\uhorn \ohorn ng 3.
 (./Chuong/3_Phuong_an_de_xuat.tex
-
-LaTeX Warning: Reference `fig:proposed_method_overview' on page 10 undefined on input line 32.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [10
 
 ]
-
-LaTeX Warning: Reference `tab:method_stages' on page 11 undefined on input line 62.
-
-
 Underfull \hbox (badness 1946) in paragraph at lines 83--83
 []|\T5/ptm/m/n/13 Ph¡t hi»n v  chu©n
  []
@@ -1335,25 +1327,12 @@ Underfull \hbox (badness 4279) in paragraph at lines 83--83
 
 [11]
 
-LaTeX Warning: Reference `fig:two_tasks' on page 12 undefined on input line 101.
-
-
 LaTeX Warning: Citation `deng2019arcface' on page 12 undefined on input line 129.
-
-
-LaTeX Warning: Reference `tab:observation_information' on page 12 undefined on input line 134.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [12] [13]
-
-LaTeX Warning: Reference `fig:visit_linking_method' on page 14 undefined on input line 191.
-
-
-LaTeX Warning: Reference `tab:linking_cases' on page 14 undefined on input line 221.
-
-[14]
+ [12] [13] [14]
 Underfull \hbox (badness 3428) in paragraph at lines 242--242
 []|\T5/ptm/b/n/13 Thèng k¶ t¤i ^^_iºm
  []
@@ -1381,11 +1360,28 @@ Underfull \hbox (badness 4713) in paragraph at lines 242--242
 [15]) [16]
 Ch\uhorn \ohorn ng 4.
 (./Chuong/4_Xay_dung_va_phat_trien_he_thong.tex
+LaTeX Font Info:    Trying to load font information for T5+pcr on input line 41.
+ (/usr/local/texlive/2026basic/texmf-dist/tex/latex/vntex/t5pcr.fd
+File: t5ucr.fd 2005/08/24 Fontinst v1.929 font definitions for T5/pcr.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 41--41
+[]|\T5/ptm/m/n/13 React, Type-Script,
+ []
 
-LaTeX Warning: Reference `fig:proposed_overview' on page 17 undefined on input line 11.
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--41
+[]|\T5/ptm/m/n/13 FastAPI,
+ []
 
 
-LaTeX Warning: Reference `tab:proposed_blocks' on page 17 undefined on input line 39.
+Underfull \hbox (badness 10000) in paragraph at lines 41--41
+\T5/ptm/m/n/13 Reti-naFace, Deep-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--41
+[]|\T5/ptm/m/n/13 PostgreSQL 16,
+ []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1393,70 +1389,151 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [17
 
 ]
-LaTeX Font Info:    Trying to load font information for T5+pcr on input line 74.
- (/usr/local/texlive/2026basic/texmf-dist/tex/latex/vntex/t5pcr.fd
-File: t5ucr.fd 2005/08/24 Fontinst v1.929 font definitions for T5/pcr.
-)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [18]
-
-LaTeX Warning: Reference `fig:single_touchpoint_flow' on page 19 undefined on input line 76.
-
-
-LaTeX Warning: Citation `serengil2021hyperextended' on page 19 undefined on input line 109.
-
-
-LaTeX Warning: Citation `deepfaceEmotionModel' on page 19 undefined on input line 109.
-
-[19]
-
-LaTeX Warning: Citation `deng2019arcface' on page 20 undefined on input line 124.
-
-
-LaTeX Warning: Reference `tab:touchpoint_observation' on page 20 undefined on input line 138.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [20
-
-]
-
-LaTeX Warning: Reference `fig:visit_linking' on page 21 undefined on input line 173.
-
-[21]
-
-LaTeX Warning: Reference `fig:crm_data_flow' on page 22 undefined on input line 218.
-
-[22]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [23]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [24]
-
-LaTeX Warning: Reference `tab:crm_reports' on page 25 undefined on input line 305.
-
-
-Underfull \hbox (badness 2894) in paragraph at lines 326--326
-[]|\T5/ptm/m/n/13 L÷ñt gh² th«m, b£n ghi
+ [18] [19]
+Underfull \hbox (badness 1320) in paragraph at lines 186--186
+[]|\T5/ptm/m/n/13 Ng÷íi qu£n lþ ^^_¢ ^^_«ng
  []
 
-[25]) [26]
+
+Underfull \hbox (badness 1845) in paragraph at lines 186--186
+\T5/ptm/m/n/13 x¸p theo thíi gian còng
+ []
+
+[20
+
+]
+<Hinhve/Chuong4/4_11_tai_lieu_api.png, id=732, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_11_tai_lieu_api.png Graphic file (type png)
+<use Hinhve/Chuong4/4_11_tai_lieu_api.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_11_tai_lieu_api.png  used on input line 198.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+ [21 <./Hinhve/Chuong4/4_11_tai_lieu_api.png (PNG copy)>]
+<Hinhve/Chuong4/4_01_tong_quan.png, id=739, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_01_tong_quan.png Graphic file (type png)
+<use Hinhve/Chuong4/4_01_tong_quan.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_01_tong_quan.png  used on input line 246.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+<Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png, id=741, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png Graphic file (type png)
+<use Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png  used on input line 255.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [22 <./Hinhve/Chuong4/4_01_tong_quan.png (PNG copy)>]
+<Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png, id=747, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png Graphic file (type png)
+<use Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png  used on input line 267.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [23 <./Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png (PNG copy)> <./Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png (PNG copy)>]
+<Hinhve/Chuong4/4_04_danh_muc_san_pham.png, id=754, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_04_danh_muc_san_pham.png Graphic file (type png)
+<use Hinhve/Chuong4/4_04_danh_muc_san_pham.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_04_danh_muc_san_pham.png  used on input line 281.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+<Hinhve/Chuong4/4_05_lich_su_mua_hang.png, id=755, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_05_lich_su_mua_hang.png Graphic file (type png)
+<use Hinhve/Chuong4/4_05_lich_su_mua_hang.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_05_lich_su_mua_hang.png  used on input line 288.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [24 <./Hinhve/Chuong4/4_04_danh_muc_san_pham.png (PNG copy)>]
+<Hinhve/Chuong4/4_06_diem_cham.png, id=762, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_06_diem_cham.png Graphic file (type png)
+<use Hinhve/Chuong4/4_06_diem_cham.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_06_diem_cham.png  used on input line 300.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+ [25 <./Hinhve/Chuong4/4_05_lich_su_mua_hang.png (PNG copy)> <./Hinhve/Chuong4/4_06_diem_cham.png (PNG copy)>]
+<Hinhve/Chuong4/4_07_theo_doi_hanh_trinh.png, id=769, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_07_theo_doi_hanh_trinh.png Graphic file (type png)
+<use Hinhve/Chuong4/4_07_theo_doi_hanh_trinh.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_07_theo_doi_hanh_trinh.png  used on input line 309.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+<Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png, id=771, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png Graphic file (type png)
+<use Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png  used on input line 321.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [26 <./Hinhve/Chuong4/4_07_theo_doi_hanh_trinh.png (PNG copy)>]
+<Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png, id=777, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png Graphic file (type png)
+<use Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png  used on input line 330.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+ [27 <./Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png (PNG copy)> <./Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png (PNG copy)>]
+<Hinhve/Chuong4/4_10_chat_luong_du_lieu.png, id=783, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png Graphic file (type png)
+<use Hinhve/Chuong4/4_10_chat_luong_du_lieu.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png  used on input line 339.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 369--369
+[]|\T5/ptm/m/n/13 T¤o gâi ph¡t h nh
+ []
+
+
+Underfull \hbox (badness 3291) in paragraph at lines 369--369
+[]|\T5/ptm/m/n/13 Cªp nhªt ^^_¸n phi¶n
+ []
+
+[28 <./Hinhve/Chuong4/4_10_chat_luong_du_lieu.png (PNG copy)>]) [29]
 Ch\uhorn \ohorn ng 5.
 (./Chuong/5_Danh_gia_thuc_nghiem.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [27
-
-] [28]) [29] (./LuanVan.bbl
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [30
 
-]) [31] (./LuanVan.aux)
+] [31]
+
+LaTeX Warning: Citation `karkkainen2021fairface' on page 32 undefined on input line 90.
+
+
+LaTeX Warning: Citation `fairfaceRepository' on page 32 undefined on input line 90.
+
+<Hinhve/Chuong4/4_02_danh_sach_khach_hang.png, id=817, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_02_danh_sach_khach_hang.png Graphic file (type png)
+<use Hinhve/Chuong4/4_02_danh_sach_khach_hang.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_02_danh_sach_khach_hang.png  used on input line 96.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [32]
+<Hinhve/Chuong4/4_12_dich_vu_mo_phong.png, id=823, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong4/4_12_dich_vu_mo_phong.png Graphic file (type png)
+<use Hinhve/Chuong4/4_12_dich_vu_mo_phong.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_12_dich_vu_mo_phong.png  used on input line 110.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [33 <./Hinhve/Chuong4/4_02_danh_sach_khach_hang.png (PNG copy)>] [34 <./Hinhve/Chuong4/4_12_dich_vu_mo_phong.png (PNG copy)>]
+File: Hinhve/Chuong4/4_01_tong_quan.png Graphic file (type png)
+<use Hinhve/Chuong4/4_01_tong_quan.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_01_tong_quan.png  used on input line 153.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+File: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png Graphic file (type png)
+<use Hinhve/Chuong4/4_10_chat_luong_du_lieu.png>
+Package pdftex.def Info: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png  used on input line 160.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+ [35]) [36] (./LuanVan.bbl
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [37
+
+]) [38] (./LuanVan.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1469,70 +1546,22 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `LuanVan.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `LuanVan.out':
-(rerunfilecheck)             Before: 0935C8F77786D30293937B135F364AF7;15730
-(rerunfilecheck)             After:  0A2354E563AEAF81CE7395327F40A09C;19199.
+Package rerunfilecheck Info: File `LuanVan.out' has not changed.
+(rerunfilecheck)             Checksum: B082D447EF25A8D72DB033C2DC14A5D3;17190.
  ) 
 Here is how much of TeX's memory you used:
- 38691 strings out of 469006
- 747789 string characters out of 5454813
- 1242180 words of memory out of 5000000
- 66540 multiletter control sequences out of 15000+600000
+ 38934 strings out of 469006
+ 755328 string characters out of 5454813
+ 1244070 words of memory out of 5000000
+ 66759 multiletter control sequences out of 15000+600000
  672567 words of font info for 84 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 108i,12n,107p,2543b,986s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{table.caption.25} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{table.caption.24} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{table.caption.18} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{figure.caption.19} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{section*.27} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{section.3.6} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.3.5.4} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.3.5.3} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.3.5.2} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.3.5.1} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.3.4.4} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.3.2.5} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.3.2.4} has been referenced but does not exist, replaced by a fixed one
-
+ 108i,12n,107p,2543b,978s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/ucrr8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmb8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmr8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmri8v.pfb>
-Output written on LuanVan.pdf (44 pages, 306906 bytes).
+Output written on LuanVan.pdf (51 pages, 1986186 bytes).
 PDF statistics:
- 818 PDF objects out of 1000 (max. 8388607)
- 678 compressed objects within 7 object streams
- 183 named destinations out of 1000 (max. 500000)
- 477 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 982 PDF objects out of 1000 (max. 8388607)
+ 805 compressed objects within 9 object streams
+ 191 named destinations out of 1000 (max. 500000)
+ 662 words of extra memory for PDF output out of 10000 (max. 10000000)
 

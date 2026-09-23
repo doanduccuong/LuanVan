@@ -8,10 +8,26 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Hai nhiệm vụ được thực hiện trên cùng vùng khuôn mặt}}{12}{figure.caption.16}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Liên kết các bản ghi vào cùng một lượt ghé thăm}}{14}{figure.caption.18}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Tổng quan hệ thống được xây dựng}}{17}{figure.caption.20}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Xử lý ảnh khuôn mặt tại một điểm chạm}}{19}{figure.caption.22}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Liên kết các bản ghi vào cùng một lượt ghé thăm}}{21}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Luồng dữ liệu giữa dịch vụ xử lý ảnh và hệ thống CRM}}{22}{figure.caption.25}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Kiến trúc của hệ thống đã xây dựng}}{18}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Luồng dữ liệu chính trong hệ thống}}{18}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Ca sử dụng tổng quan của hệ thống}}{19}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Phân rã các nhóm chức năng của hệ thống}}{20}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Các API chính của máy chủ nghiệp vụ}}{21}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Luồng tiếp nhận và xử lý một ảnh tại điểm chạm}}{21}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Trang tổng quan CRM}}{22}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Theo dõi biến thiên nhãn theo thời gian trong cùng khu vực}}{23}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Hồ sơ khách hàng và lịch sử mua hàng}}{23}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Danh mục sản phẩm trong hệ thống CRM}}{24}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Danh sách đơn hàng trong hệ thống CRM}}{25}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Danh sách điểm chạm của cửa hàng}}{25}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Màn hình theo dõi hành trình của từng khách hàng}}{26}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Phân bố nhãn biểu cảm tại bốn điểm chạm}}{27}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Luồng thay đổi nhãn giữa các điểm chạm liên tiếp}}{27}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Báo cáo trạng thái xử lý dữ liệu đầu vào}}{28}{figure.caption.37}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Danh sách 100 khách hàng dùng trong thực nghiệm hệ thống}}{33}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Tài liệu API của dịch vụ tạo dữ liệu thực nghiệm}}{34}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Trang tổng quan sau lần chạy thực nghiệm}}{35}{figure.caption.44}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Kết quả phân loại trạng thái dữ liệu đầu vào}}{35}{figure.caption.45}%
 \contentsfinish 
 \contentsfinish 
