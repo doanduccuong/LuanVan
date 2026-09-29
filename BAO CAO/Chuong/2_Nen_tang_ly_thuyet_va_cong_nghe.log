@@ -1,13 +1,18 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.31)  24 SEP 2026 15:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.31)  24 SEP 2026 11:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/sotatek/Desktop/Do An/BAO CAO/LuanVan"
-(/Users/sotatek/Desktop/Do An/BAO CAO/LuanVan.tex
+**"/Users/sotatek/Desktop/Do An/BAO CAO/Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex"
+(/Users/sotatek/Desktop/Do An/BAO CAO/Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/report.cls
+(/Users/sotatek/Library/texmf/tex/latex/subfiles/subfiles.cls
+Document Class: subfiles 2020/11/14 v2.2 Multi-file projects (class)
+Preamble taken from file `../LuanVan.tex'
+(/Users/sotatek/Library/texmf/tex/latex/import/import.sty
+Package: import 2020/04/01  v 6.2
+) (Chuong/../LuanVan.tex (/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2025/01/22 v1.4n Standard LaTeX document class
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
@@ -381,9 +386,7 @@ Package: enumitem 2025/02/06 v3.11 Customized lists
 Package: outlines 2012/1/23 1.1 Ch. Pecheur
 ) (/Users/sotatek/Library/texmf/tex/latex/subfiles/subfiles.sty
 Package: subfiles 2020/11/14 v2.2 Multi-file projects (package)
- (/Users/sotatek/Library/texmf/tex/latex/import/import.sty
-Package: import 2020/04/01  v 6.2
-)) (/Users/sotatek/Library/texmf/tex/latex/titlesec/titlesec.sty
+) (/Users/sotatek/Library/texmf/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \ttl@box=\box60
 \beforetitleunit=\skip60
@@ -1029,7 +1032,8 @@ Package: hypcap 2024-07-26 v1.13 Adjusting the anchors of captions (HO)
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 ))
 \c@example=\count409
-LaTeX Font Info:    Trying to load font information for T5+ptm on input line 168.
+))
+LaTeX Font Info:    Trying to load font information for T5+ptm on input line 3.
  (/usr/local/texlive/2026basic/texmf-dist/tex/latex/vntex/t5ptm.fd
 File: t5utm.fd 2005/08/24 Fontinst v1.929 font definitions for T5/ptm.
 ) (/usr/local/texlive/2026basic/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -1040,31 +1044,29 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 LaTeX Warning: Unused global option(s):
     [13pt,3p].
 
-(./LuanVan.aux
-\g__glossaries_gls_ref_acronym_int=\count411
-)
-\openout1 = `LuanVan.aux'.
+(Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.aux)
+\openout1 = `2_Nen_tang_ly_thuyet_va_cong_nghe.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 168.
-LaTeX Font Info:    ... okay on input line 168.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1102,16 +1104,16 @@ LaTeX Font Info:    ... okay on input line 168.
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count412
+\scratchcounter=\count411
 \scratchdimen=\dimen337
 \scratchbox=\box94
-\nofMPsegments=\count413
-\nofMParguments=\count414
+\nofMPsegments=\count412
+\nofMParguments=\count413
 \everyMPshowfont=\toks68
-\MPscratchCnt=\count415
+\MPscratchCnt=\count414
 \MPscratchDim=\dimen338
-\MPnumerator=\count416
-\makeMPintoPDFobject=\count417
+\MPnumerator=\count415
+\makeMPintoPDFobject=\count416
 \everyMPtoPDFconversion=\toks69
 ) (/usr/local/texlive/2026basic/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1136,358 +1138,320 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: supertabular package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count418
+\c@lstlisting=\count417
 Package tocbasic Info: omitting babel extension for `lol'
-(tocbasic)             because of missing \bbl@set@language on input line 168.
-Package hyperref Info: Link coloring OFF on input line 168.
- (./LuanVan.out) (./LuanVan.out)
+(tocbasic)             because of missing \bbl@set@language on input line 3.
+Package hyperref Info: Link coloring OFF on input line 3.
 \@outlinefile=\write5
-\openout5 = `LuanVan.out'.
+\openout5 = `2_Nen_tang_ly_thuyet_va_cong_nghe.out'.
 
- (./Bia.tex
-LaTeX Font Info:    Calculating math sizes for size <13> on input line 42.
 
+
+LaTeX Warning: Citation `lemon2016customerjourney' on page 1 undefined on input line 6.
+
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 10.
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+
+LaTeX Warning: Citation `halvorsrud2016journey' on page 1 undefined on input line 10.
+
+[1
+
+{/usr/local/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2026basic/texmf-dist/fonts/enc/dvips/vntex/t5.enc}{/usr/local/texlive/2026basic/texmf-dist/fonts/enc/dvips/base/8r.enc}]
+
+LaTeX Warning: Citation `ekman1971constants' on page 2 undefined on input line 24.
+
+
+LaTeX Warning: Citation `li2022deepfer' on page 2 undefined on input line 26.
+
+
+LaTeX Warning: Citation `li2022deepfer' on page 2 undefined on input line 28.
+
+LaTeX Font Info:    Calculating math sizes for size <13> on input line 28.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 42.
+(Font)              size <6> substituted on input line 28.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <13> not available
-(Font)              size <12> substituted on input line 42.
+(Font)              size <12> substituted on input line 28.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <6.5> not available
-(Font)              size <6> substituted on input line 42.
+(Font)              size <6> substituted on input line 28.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <13> not available
-(Font)              size <12> substituted on input line 42.
+(Font)              size <12> substituted on input line 28.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 42.
+(Font)              size <6> substituted on input line 28.
 
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 42.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 28.
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 
 LaTeX Font Warning: Font shape `U/lasy/m/n' in size <13> not available
-(Font)              size <12> substituted on input line 42.
+(Font)              size <12> substituted on input line 28.
 
 
 LaTeX Font Warning: Font shape `U/lasy/m/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 42.
+(Font)              size <6> substituted on input line 28.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 42.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 28.
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 42.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 28.
  (/usr/local/texlive/2026basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
-
-{/usr/local/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2026basic/texmf-dist/fonts/enc/dvips/vntex/t5.enc}]) (./Bia_lot.tex
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.44 \end{titlepage}
-                     [1]) (./Chuong/0_2_Loi_cam_on.tex) [1] (./Chuong/0_3_Tom_tat_noi_dung.tex)
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.189 \newpage
-               [1] (./Chuong/0_4_Tom_tat_noi_dung_English.tex)
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.195 \newpage
-               [1] (./LuanVan.toc [1
-
-] [2])
-\tf@toc=\write6
-\openout6 = `LuanVan.toc'.
-
- [3] (./LuanVan.lof)
-\tf@lof=\write7
-\openout7 = `LuanVan.lof'.
-
- [4
-
-
-
-] (./LuanVan.lot)
-\tf@lot=\write8
-\openout8 = `LuanVan.lot'.
-
-
-
-Package glossaries Info: Preparing to sort glossary `acronym' (total number of
-(glossaries)             referenced entries: 26)
-
-[5
-
-] [6
-
-
-] [7]
-Ch\uhorn \ohorn ng 1.
-(./Chuong/1_Gioi_thieu.tex
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 12.
- (/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.20 
-      [1
 
-{/usr/local/texlive/2026basic/texmf-dist/fonts/enc/dvips/base/8r.enc}]) [2]
-Ch\uhorn \ohorn ng 2.
-(./Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 10.
- (/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/ot1ptm.fd
-File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-) [3
+LaTeX Warning: Reference `fig:deep_fer_pipeline_li_deng' on page 2 undefined on input line 28.
 
-] [4]
-<Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png, id=608, 460.72125pt x 225.09094pt>
+
+LaTeX Warning: Citation `goodfellow2013challenges' on page 2 undefined on input line 30.
+
+[2]
+<Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png, id=25, 460.72125pt x 225.09094pt>
 File: Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png Graphic file (type png)
 <use Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png>
 Package pdftex.def Info: Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png  used on input line 34.
 (pdftex.def)             Requested size: 384.1096pt x 187.66003pt.
- [5 <./Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png>]
-<Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png, id=619, 687.56876pt x 291.0875pt>
+
+
+LaTeX Warning: Citation `li2022deepfer' on page 3 undefined on input line 41.
+
+
+LaTeX Warning: Citation `li2022deepfer' on page 3 undefined on input line 43.
+
+
+LaTeX Warning: Citation `li2022deepfer' on page 3 undefined on input line 45.
+
+[3 <./Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png>]
+
+LaTeX Warning: Reference `fig:deep_fer_pipeline_li_deng' on page 4 undefined on input line 47.
+
+
+LaTeX Warning: Citation `li2022deepfer' on page 4 undefined on input line 47.
+
+<Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png, id=32, 687.56876pt x 291.0875pt>
 File: Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png Graphic file (type png)
 <use Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png>
 Package pdftex.def Info: Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png  used on input line 51.
 (pdftex.def)             Requested size: 426.79135pt x 171.33974pt.
- [6 <./Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png>] [7]
-LaTeX Font Info:    Calculating math sizes for size <11.86258> on input line 85.
- [8] [9] [10] [11]
-<Hinhve/Chuong2/mtcnn_pnet.png, id=685, 702.625pt x 285.065pt>
-File: Hinhve/Chuong2/mtcnn_pnet.png Graphic file (type png)
-<use Hinhve/Chuong2/mtcnn_pnet.png>
-Package pdftex.def Info: Hinhve/Chuong2/mtcnn_pnet.png  used on input line 207.
-(pdftex.def)             Requested size: 349.97203pt x 141.99278pt.
- [12]
-<Hinhve/Chuong2/mtcnn_rnet.png, id=690, 727.71875pt x 272.01625pt>
-File: Hinhve/Chuong2/mtcnn_rnet.png Graphic file (type png)
-<use Hinhve/Chuong2/mtcnn_rnet.png>
-Package pdftex.def Info: Hinhve/Chuong2/mtcnn_rnet.png  used on input line 216.
-(pdftex.def)             Requested size: 349.97203pt x 130.8195pt.
-<Hinhve/Chuong2/mtcnn_onet.png, id=691, 721.69624pt x 133.49875pt>
-File: Hinhve/Chuong2/mtcnn_onet.png Graphic file (type png)
-<use Hinhve/Chuong2/mtcnn_onet.png>
-Package pdftex.def Info: Hinhve/Chuong2/mtcnn_onet.png  used on input line 225.
-(pdftex.def)             Requested size: 392.64725pt x 72.63211pt.
- [13 <./Hinhve/Chuong2/mtcnn_pnet.png> <./Hinhve/Chuong2/mtcnn_rnet.png> <./Hinhve/Chuong2/mtcnn_onet.png>] [14] [15]
-Underfull \hbox (badness 10000) in paragraph at lines 306--306
+
+LaTeX Warning: Citation `li2022deepfer' on page 4 undefined on input line 52.
+
+
+LaTeX Warning: Citation `li2022deepfer' on page 4 undefined on input line 52.
+
+
+LaTeX Warning: Citation `viola2001rapid' on page 4 undefined on input line 59.
+
+
+LaTeX Warning: Citation `zhang2016mtcnn' on page 4 undefined on input line 59.
+
+
+LaTeX Warning: Citation `deng2020retinaface' on page 4 undefined on input line 59.
+
+
+LaTeX Warning: Citation `viola2001rapid' on page 4 undefined on input line 61.
+
+
+LaTeX Warning: Citation `zhang2016mtcnn' on page 4 undefined on input line 61.
+
+
+LaTeX Warning: Citation `deng2020retinaface' on page 4 undefined on input line 61.
+
+[4 <./Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png>]
+
+LaTeX Warning: Citation `viola2001rapid' on page 5 undefined on input line 66.
+
+
+LaTeX Warning: Reference `fig:viola_jones_pipeline' on page 5 undefined on input line 68.
+
+
+/Users/sotatek/Desktop/Do An/BAO CAO/Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex:79: Package pgfkeys Error: The key '/tikz/step' requires a value. I am going to ignore this key.
+
+See the pgfkeys package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.79         \node[step]
+                         (input) {·∫¢nh x√°m ƒë·∫ßu v√†o};
+This error message was generated by an \errmessage
+command, so I can't give any explicit help.
+Pretend that you're Hercule Poirot: Examine all clues,
+and deduce the truth by order and method.
+
+
+/Users/sotatek/Desktop/Do An/BAO CAO/Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex:80: Package pgfkeys Error: The key '/tikz/step' requires a value. I am going to ignore this key.
+
+See the pgfkeys package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.80         \node[step, below=of input]
+                                         (integral) {T·∫°o ·∫£nh t√≠ch ph√¢n};
+(That was another \errmessage.)
+
+
+/Users/sotatek/Desktop/Do An/BAO CAO/Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex:81: Package pgfkeys Error: The key '/tikz/step' requires a value. I am going to ignore this key.
+
+See the pgfkeys package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.81         \node[step, below=of integral]
+                                            (scan) {Qu√©t c·ª≠a s·ªï $24\tim...
+(That was another \errmessage.)
+
+
+/Users/sotatek/Desktop/Do An/BAO CAO/Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex:82: Package pgfkeys Error: The key '/tikz/step' requires a value. I am going to ignore this key.
+
+See the pgfkeys package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.82         \node[step, below=of scan]
+                                        (haar) {T√≠nh c√°c ƒë·∫∑c tr∆∞ng Haa...
+(That was another \errmessage.)
+
+
+/Users/sotatek/Desktop/Do An/BAO CAO/Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex:83: Package pgfkeys Error: The key '/tikz/step' requires a value. I am going to ignore this key.
+
+See the pgfkeys package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.83         \node[step, below=of haar]
+                                        (cascade) {ƒê√°nh gi√° c·ª≠a s·ªï qu...
+(That was another \errmessage.)
+
+
+/Users/sotatek/Desktop/Do An/BAO CAO/Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex:87: Package pgfkeys Error: The key '/tikz/step' requires a value. I am going to ignore this key.
+
+See the pgfkeys package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.87         \node[step, below=of candidate]
+                                             (merge) {H·ª£p nh·∫•t c√°c khun...
+(That was another \errmessage.)
+
+
+LaTeX Warning: Citation `viola2001rapid' on page 5 undefined on input line 98.
+
+
+LaTeX Warning: Citation `viola2001rapid' on page 5 undefined on input line 98.
+
+[5]
+
+LaTeX Warning: Citation `viola2001rapid' on page 6 undefined on input line 104.
+
+
+LaTeX Warning: Citation `viola2001rapid' on page 6 undefined on input line 111.
+
+
+LaTeX Warning: Reference `eq:integral_image' on page 6 undefined on input line 111.
+
+[6]
+
+LaTeX Warning: Reference `eq:rectangle_sum' on page 7 undefined on input line 120.
+
+
+LaTeX Warning: Reference `eq:viola_weak_classifier' on page 7 undefined on input line 122.
+
+
+LaTeX Warning: Citation `viola2001rapid' on page 7 undefined on input line 122.
+
+
+LaTeX Warning: Reference `eq:viola_strong_classifier' on page 7 undefined on input line 135.
+
+[7]
+
+LaTeX Warning: Reference `eq:viola_strong_classifier' on page 8 undefined on input line 150.
+
+
+LaTeX Warning: Citation `viola2001rapid' on page 8 undefined on input line 154.
+
+[8]
+
+LaTeX Warning: Citation `zhang2016mtcnn' on page 9 undefined on input line 161.
+
+
+LaTeX Warning: Citation `zhang2016mtcnn' on page 9 undefined on input line 176.
+
+
+LaTeX Warning: Citation `zhang2016mtcnn' on page 9 undefined on input line 176.
+
+
+LaTeX Warning: Citation `deng2020retinaface' on page 9 undefined on input line 185.
+
+
+LaTeX Warning: Reference `tab:detector_theory' on page 9 undefined on input line 190.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 207--207
 []|\T5/ptm/b/n/13 Ph˜Ïng
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--306
+Underfull \hbox (badness 10000) in paragraph at lines 207--207
 []|\T5/ptm/b/n/13 ^^^∞c ^^_i∫m c¶n ki∫m
  []
 
 
-Underfull \hbox (badness 3954) in paragraph at lines 306--306
+Underfull \hbox (badness 3954) in paragraph at lines 207--207
 []|\T5/ptm/m/n/13 Khung bao, n´m
  []
 
 
-Underfull \hbox (badness 3954) in paragraph at lines 306--306
+Underfull \hbox (badness 3954) in paragraph at lines 207--207
 []|\T5/ptm/m/n/13 Khung bao, n´m
  []
 
-[16] [17] [18] [19]) [20]
-Ch\uhorn \ohorn ng 3.
-(./Chuong/3_Phuong_an_de_xuat.tex [21
+[9]
 
-]
-Underfull \hbox (badness 1946) in paragraph at lines 83--83
-[]|\T5/ptm/m/n/13 Ph°t hiªn v† chu©n
- []
+LaTeX Warning: Citation `ojala2002lbp' on page 10 undefined on input line 218.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--83
-[]|\T5/ptm/m/n/13 Nh™n d§ng kh°ch
- []
+LaTeX Warning: Citation `dalal2005hog' on page 10 undefined on input line 218.
 
 
-Underfull \hbox (badness 4279) in paragraph at lines 83--83
-[]|\T5/ptm/m/n/13 Ph•n tΩch ^^_a ^^_i∫m
- []
+LaTeX Warning: Citation `lecun2015deep' on page 10 undefined on input line 225.
 
-[22] [23] [24] [25]
-Underfull \hbox (badness 3428) in paragraph at lines 242--242
-[]|\T5/ptm/b/n/13 ThËng k∂ t§i ^^_i∫m
- []
+[10]
+
+LaTeX Warning: Citation `lecun2015deep' on page 11 undefined on input line 241.
 
 
-Underfull \hbox (badness 2961) in paragraph at lines 242--242
-[]|\T5/ptm/b/n/13 Li∂n k∏t h†nh trºnh c°
- []
+LaTeX Warning: Citation `li2022deepfer' on page 11 undefined on input line 241.
 
 
-Underfull \hbox (badness 5908) in paragraph at lines 242--242
-[]|\T5/ptm/m/n/13 Nh™n d§ng ^^_˜Òc kh°ch
- []
+LaTeX Warning: Citation `pan2010transfer' on page 11 undefined on input line 246.
 
 
-Underfull \hbox (badness 5908) in paragraph at lines 242--242
-[]|\T5/ptm/m/n/13 Nh™n d§ng ^^_˜Òc kh°ch
- []
+LaTeX Warning: Citation `lemon2016customerjourney' on page 11 undefined on input line 256.
+
+[11]
+
+LaTeX Warning: Citation `halvorsrud2016journey' on page 12 undefined on input line 258.
 
 
-Underfull \hbox (badness 4713) in paragraph at lines 242--242
-[]|\T5/ptm/m/n/13 KhÊng nh™n d§ng ^^_˜Òc
- []
+LaTeX Warning: Reference `fig:touchpoint_sequence' on page 12 undefined on input line 265.
 
-[26]) [27]
-Ch\uhorn \ohorn ng 4.
-(./Chuong/4_Xay_dung_va_phat_trien_he_thong.tex
-LaTeX Font Info:    Trying to load font information for T5+pcr on input line 41.
- (/usr/local/texlive/2026basic/texmf-dist/tex/latex/vntex/t5pcr.fd
-File: t5ucr.fd 2005/08/24 Fontinst v1.929 font definitions for T5/pcr.
-)
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T5/ptm/m/n/13 React, Type-Script,
- []
+[12]
 
+Package glossaries Warning: No \printnoidxglossary or \printnoidxglossaries
+ found. (Remove \makenoidxglossaries if you don't want any glossaries.)
+This document will not have a glossary.
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T5/ptm/m/n/13 FastAPI,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-\T5/ptm/m/n/13 Reti-naFace, Deep-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-[]|\T5/ptm/m/n/13 PostgreSQL 16,
- []
-
-[28
-
-] [29] [30]
-Underfull \hbox (badness 1320) in paragraph at lines 186--186
-[]|\T5/ptm/m/n/13 Ng˜Ìi qu£n l˛ ^^_¢ ^^_´ng
- []
-
-
-Underfull \hbox (badness 1845) in paragraph at lines 186--186
-\T5/ptm/m/n/13 x∏p theo thÌi gian cÚng
- []
-
-[31
-
-]
-<Hinhve/Chuong4/4_11_tai_lieu_api.png, id=824, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_11_tai_lieu_api.png Graphic file (type png)
-<use Hinhve/Chuong4/4_11_tai_lieu_api.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_11_tai_lieu_api.png  used on input line 198.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [32 <./Hinhve/Chuong4/4_11_tai_lieu_api.png (PNG copy)>]
-<Hinhve/Chuong4/4_01_tong_quan.png, id=831, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_01_tong_quan.png Graphic file (type png)
-<use Hinhve/Chuong4/4_01_tong_quan.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_01_tong_quan.png  used on input line 246.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
-<Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png, id=833, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png Graphic file (type png)
-<use Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png  used on input line 255.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [33 <./Hinhve/Chuong4/4_01_tong_quan.png (PNG copy)>]
-<Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png, id=839, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png Graphic file (type png)
-<use Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png  used on input line 267.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [34 <./Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png (PNG copy)> <./Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png (PNG copy)>]
-<Hinhve/Chuong4/4_04_danh_muc_san_pham.png, id=846, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_04_danh_muc_san_pham.png Graphic file (type png)
-<use Hinhve/Chuong4/4_04_danh_muc_san_pham.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_04_danh_muc_san_pham.png  used on input line 281.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
-<Hinhve/Chuong4/4_05_lich_su_mua_hang.png, id=847, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_05_lich_su_mua_hang.png Graphic file (type png)
-<use Hinhve/Chuong4/4_05_lich_su_mua_hang.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_05_lich_su_mua_hang.png  used on input line 288.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [35 <./Hinhve/Chuong4/4_04_danh_muc_san_pham.png (PNG copy)>]
-<Hinhve/Chuong4/4_06_diem_cham.png, id=853, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_06_diem_cham.png Graphic file (type png)
-<use Hinhve/Chuong4/4_06_diem_cham.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_06_diem_cham.png  used on input line 300.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [36 <./Hinhve/Chuong4/4_05_lich_su_mua_hang.png (PNG copy)> <./Hinhve/Chuong4/4_06_diem_cham.png (PNG copy)>]
-<Hinhve/Chuong4/4_07_theo_doi_hanh_trinh.png, id=859, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_07_theo_doi_hanh_trinh.png Graphic file (type png)
-<use Hinhve/Chuong4/4_07_theo_doi_hanh_trinh.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_07_theo_doi_hanh_trinh.png  used on input line 309.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
-<Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png, id=861, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png Graphic file (type png)
-<use Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png  used on input line 321.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [37 <./Hinhve/Chuong4/4_07_theo_doi_hanh_trinh.png (PNG copy)>]
-<Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png, id=868, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png Graphic file (type png)
-<use Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png  used on input line 330.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [38 <./Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png (PNG copy)> <./Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png (PNG copy)>]
-<Hinhve/Chuong4/4_10_chat_luong_du_lieu.png, id=876, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png Graphic file (type png)
-<use Hinhve/Chuong4/4_10_chat_luong_du_lieu.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png  used on input line 339.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 369--369
-[]|\T5/ptm/m/n/13 T§o g‚i ph°t h†nh
- []
-
-
-Underfull \hbox (badness 3291) in paragraph at lines 369--369
-[]|\T5/ptm/m/n/13 C™p nh™t ^^_∏n phi∂n
- []
-
-[39 <./Hinhve/Chuong4/4_10_chat_luong_du_lieu.png (PNG copy)>]) [40]
-Ch\uhorn \ohorn ng 5.
-(./Chuong/5_Danh_gia_thuc_nghiem.tex [41
-
-] [42]
-<Hinhve/Chuong4/4_02_danh_sach_khach_hang.png, id=916, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_02_danh_sach_khach_hang.png Graphic file (type png)
-<use Hinhve/Chuong4/4_02_danh_sach_khach_hang.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_02_danh_sach_khach_hang.png  used on input line 96.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [43]
-<Hinhve/Chuong4/4_12_dich_vu_mo_phong.png, id=925, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_12_dich_vu_mo_phong.png Graphic file (type png)
-<use Hinhve/Chuong4/4_12_dich_vu_mo_phong.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_12_dich_vu_mo_phong.png  used on input line 110.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [44 <./Hinhve/Chuong4/4_02_danh_sach_khach_hang.png (PNG copy)>] [45 <./Hinhve/Chuong4/4_12_dich_vu_mo_phong.png (PNG copy)>]
-File: Hinhve/Chuong4/4_01_tong_quan.png Graphic file (type png)
-<use Hinhve/Chuong4/4_01_tong_quan.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_01_tong_quan.png  used on input line 153.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
-File: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png Graphic file (type png)
-<use Hinhve/Chuong4/4_10_chat_luong_du_lieu.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png  used on input line 160.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [46]) [47] (./LuanVan.bbl [48
-
-] [49]) [50] (./LuanVan.aux)
+[13] (Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1498,72 +1462,33 @@ LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
 
+LaTeX Warning: There were undefined references.
+
+
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 
-Package rerunfilecheck Warning: File `LuanVan.out' has changed.
+Package rerunfilecheck Warning: File `2_Nen_tang_ly_thuyet_va_cong_nghe.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
 (rerunfilecheck)                or use package `bookmark'.
 
-Package rerunfilecheck Info: Checksums for `LuanVan.out':
-(rerunfilecheck)             Before: 51767F32F53E984BD0C228367BB5FF92;16904
-(rerunfilecheck)             After:  4F038BCAF30327F6DE86B5019185436A;16904.
+Package rerunfilecheck Info: Checksums for `2_Nen_tang_ly_thuyet_va_cong_nghe.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  B0DA60EEE065F4559D7B5CC107D04B1E;3731.
  ) 
 Here is how much of TeX's memory you used:
- 39113 strings out of 469006
- 759147 string characters out of 5454813
- 1246247 words of memory out of 5000000
- 66894 multiletter control sequences out of 15000+600000
- 674566 words of font info for 94 fonts, out of 8000000 for 9000
+ 37957 strings out of 469006
+ 735151 string characters out of 5454813
+ 1228363 words of memory out of 5000000
+ 65999 multiletter control sequences out of 15000+600000
+ 655542 words of font info for 73 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 108i,12n,107p,2543b,985s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{table.caption.42} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{table.caption.41} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{table.caption.40} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{table.caption.27} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{table.caption.21} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{table.caption.19} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{table.caption.14} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{figure.caption.44} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{figure.caption.43} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{figure.caption.30} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{figure.caption.25} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{figure.caption.24} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{figure.caption.20} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{section*.48} has been referenced but does not exist, replaced by a fixed one
-
-</usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/ucrr8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmb8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmr8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmri8v.pfb>
-Output written on LuanVan.pdf (62 pages, 2465240 bytes).
+ 128i,11n,124p,2620b,757s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmb8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmr8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmri8v.pfb>
+Output written on Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.pdf (13 pages, 430422 bytes).
 PDF statistics:
- 1105 PDF objects out of 1200 (max. 8388607)
- 907 compressed objects within 10 object streams
- 224 named destinations out of 1000 (max. 500000)
- 685 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 173 PDF objects out of 1000 (max. 8388607)
+ 128 compressed objects within 2 object streams
+ 42 named destinations out of 1000 (max. 500000)
+ 29 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,177 +1,381 @@
+% !TeX root = ../LuanVan.tex
 \documentclass[../LuanVan.tex]{subfiles}
 \begin{document}
 
+\section{Bối cảnh bài toán}
+Trong môi trường bán lẻ, quá trình mua sắm của khách hàng thường diễn ra qua nhiều khu vực như cửa vào, khu trưng bày sản phẩm, khu tư vấn và quầy thanh toán. Trải nghiệm của khách hàng được hình thành qua nhiều lần tương tác theo thời gian, thay vì chỉ tại một thời điểm riêng lẻ \cite{lemon2016customerjourney}. Vì vậy, một kết quả nhận dạng biểu cảm tại một khu vực chưa thể hiện được diễn biến biểu cảm trong toàn bộ quá trình mua sắm.
+
+Các hệ thống CRM thường lưu trữ hồ sơ khách hàng, đơn hàng và lịch sử mua hàng. Những dữ liệu này cho biết khách hàng là ai và đã mua sản phẩm nào, nhưng chưa phản ánh được biểu cảm và phản ứng quan sát được của khách hàng trong quá trình mua sắm. Phương pháp nhận dạng biểu cảm khuôn mặt có thể bổ sung thông tin này từ hình ảnh được ghi nhận tại từng khu vực. Tuy nhiên, nếu các kết quả chỉ được lưu thành những bản ghi riêng biệt, hệ thống không xác định được chúng thuộc khách hàng nào, được tạo ra trong phiên mua sắm nào và liên hệ với nhau theo thứ tự ra sao.
+
+Halvorsrud, Kvale và Følstad cho rằng quá trình tương tác thực tế của khách hàng có thể được dựng lại từ các sự kiện quan sát được và được sắp xếp theo thời gian \cite{halvorsrud2016journey}. Vận dụng cách tiếp cận này, mỗi phiên mua sắm trong luận văn được biểu diễn thành một chuỗi lần ghi nhận tại những khu vực được xác định từ trước. Mỗi lần ghi nhận bao gồm mã khách hàng, mã phiên mua sắm, khu vực, thời gian và kết quả nhận dạng biểu cảm.
+
+Việc liên kết các bản ghi cho phép theo dõi diễn biến biểu cảm của từng khách hàng trong một phiên mua sắm. Trên cơ sở đó, dữ liệu có thể được tổng hợp để xác định biểu cảm xuất hiện phổ biến tại từng khu vực, đồng thời ghi nhận trường hợp nhãn biểu cảm được giữ nguyên hoặc thay đổi giữa hai khu vực liên tiếp. Khi kết hợp với thông tin đơn hàng và lịch sử mua hàng trong CRM, kết quả này cung cấp thêm dữ liệu để xem xét phản ứng của khách hàng trong từng giai đoạn của quá trình mua sắm.
+
+Từ bối cảnh trên, luận văn giải quyết ba nội dung: nhận dạng biểu cảm khuôn mặt; liên kết kết quả theo khách hàng và phiên mua sắm; tích hợp dữ liệu phiên mua sắm vào CRM để tra cứu và thống kê. Qua đó, kết quả từ các ảnh riêng lẻ được sắp xếp để theo dõi diễn biến biểu cảm trong quá trình mua sắm.
+
 \section{Cơ sở lý thuyết về nhận dạng biểu cảm khuôn mặt}
-\label{section:2.1}
+\label{section:fer_theory}
 
 \subsection{Cảm xúc, biểu cảm khuôn mặt và bài toán FER}
-\label{subsection:2.1.1}
+\label{subsection:emotion_and_fer}
 
-Cảm xúc là trạng thái tâm lý có nhiều thành phần, trong khi biểu cảm khuôn mặt là phần biểu hiện có thể quan sát được qua chuyển động của mắt, lông mày, mũi, miệng và các vùng cơ mặt. Nghiên cứu của Ekman và Friesen cho thấy một số biểu cảm khuôn mặt cơ bản có thể được nhận biết tương đối nhất quán giữa những người thuộc các nền văn hóa khác nhau \cite{ekman1971constants}. Tuy nhiên, một hình ảnh của khuôn mặt không thể đầy đủ các thông tin mục đích và trải nghiệm của người dùng trong quá trình mua sắm. Vì vậy, trong luận văn này, kết quả của mô hình được hiểu là \textit{nhãn biểu cảm quan sát được}, không được xem là phép đo trực tiếp trạng thái tâm lý hoặc mức độ hài lòng của khách hàng.
+Cảm xúc có thể được biểu hiện một phần qua những thay đổi trên khuôn mặt. Hoạt động của các vùng cơ làm thay đổi hình dạng và vị trí tương đối của mắt, lông mày, mũi, miệng và má. Khi khuôn mặt được ghi lại bằng ảnh, những thay đổi này tạo thành các mẫu thị giác thể hiện qua đường nét, hình dạng và sự phân bố điểm ảnh. Vì vậy, ảnh khuôn mặt có thể được sử dụng làm đầu vào để mô hình trích xuất đặc trưng và phân loại biểu cảm.
 
-Nhận dạng biểu cảm khuôn mặt, viết tắt là FER, là bài toán ánh xạ ảnh hoặc chuỗi ảnh khuôn mặt vào một tập lớp biểu cảm. Các hệ thống FER hiện đại thường gồm các bước phát hiện khuôn mặt, căn chỉnh, tiền xử lý, trích xuất đặc trưng và phân loại \cite{li2022deepfer}. Với một ảnh đầu vào $I$, bộ phát hiện trước hết tạo vùng khuôn mặt $B$. Ảnh trong vùng $B$ được chuẩn hóa thành $I_f$ và đưa vào bộ phân loại để thu được véc-tơ xác suất
+Năm 1971, Paul Ekman và Wallace V. Friesen công bố nghiên cứu \textit{Constants Across Cultures in the Face and Emotion} nhằm kiểm tra khả năng nhận biết biểu cảm giữa các nền văn hóa. Nghiên cứu thu thập dữ liệu từ cộng đồng Fore tại New Guinea, là nhóm có mức độ tiếp xúc hạn chế với truyền thông phương Tây. Người tham gia nghe các tình huống mô tả cảm xúc và lựa chọn ảnh khuôn mặt phù hợp. Kết quả cho thấy nhiều mẫu biểu cảm được gắn với các nhóm cảm xúc tương tự giữa cộng đồng này và những nhóm đã được khảo sát trước đó; tuy nhiên, sợ hãi và ngạc nhiên có mức độ nhầm lẫn cao hơn các nhóm còn lại \cite{ekman1971constants}. Kết quả này cung cấp cơ sở thực nghiệm cho việc sử dụng sáu nhóm biểu cảm gồm tức giận, ghê tởm, sợ hãi, vui vẻ, buồn bã và ngạc nhiên trong các nghiên cứu nhận dạng biểu cảm khuôn mặt.
 
-\begin{equation}
-    \mathbf{p}(I_f)=[p_1,p_2,\ldots,p_K], \qquad \sum_{k=1}^{K}p_k=1.
-    \label{eq:fer_probability_vector}
-\end{equation}
+Nhận dạng biểu cảm khuôn mặt, viết tắt là FER, là bài toán xác định lớp biểu cảm từ ảnh hoặc chuỗi ảnh khuôn mặt. Shan Li và Weihong Deng trình bày một nghiên cứu tổng quan về FER dựa trên học sâu, bao gồm các bộ dữ liệu, phương pháp xử lý ảnh tĩnh, phương pháp xử lý chuỗi ảnh và những khó khăn thường gặp. Hai tác giả chỉ ra hai nhóm vấn đề chính là hiện tượng quá khớp (overfitting) do dữ liệu huấn luyện còn hạn chế và các biến thiên không liên quan trực tiếp đến biểu cảm như điều kiện chiếu sáng, tư thế đầu và đặc điểm nhận dạng của từng người \cite{li2022deepfer}.
 
-Nhãn dự đoán là lớp có xác suất lớn nhất, $\hat{c}=\arg\max_k p_k$. Với bài toán phân loại bảy biểu cảm, $K=7$ và tập lớp được xác định là
+Trong bài báo tổng quan \textit{Deep Facial Expression Recognition: A Survey} \cite{li2022deepfer} công bố năm 2022, Shan Li và Weihong Deng đã tổng hợp quy trình của một hệ thống FER. Theo quy trình được hai tác giả tổng hợp, một hệ thống FER thường gồm phát hiện khuôn mặt, căn chỉnh, tiền xử lý, trích xuất đặc trưng và phân loại. Với ảnh đầu vào $I$, bộ phát hiện xác định vùng khuôn mặt $B$. Vùng này được cắt và chuẩn hóa thành ảnh $I_f$. Mạng phân loại tiếp nhận $I_f$, trích xuất đặc trưng và tạo điểm số cho từng lớp biểu cảm. Các bước xử lý và một số nhóm mạng sâu được hai tác giả tổng hợp được minh họa ở Hình \ref{fig:deep_fer_pipeline_li_deng}.
 
-\begin{equation}
-    \mathcal{C}=\{\text{Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral}\}.
-    \label{eq:fer_classes}
-\end{equation}
-
-Sáu lớp đầu ra tương ứng với nhóm biểu cảm cơ bản thường được sử dụng trong các nghiên cứu kế thừa từ Ekman; Ngoài ra \textit{Neutral} được bổ sung để biểu diễn trường hợp không quan sát thấy biểu cảm gì rõ ràng được thể hiện. Việc dùng bảy lớp tạo ra đầu ra rời rạc, thuận tiện cho thống kê theo điểm chạm, nhưng đồng thời làm đơn giản hóa những biểu cảm pha trộn hoặc có cường độ khác nhau.
-
-\subsection{Biểu hiện của cảm xúc trên khuôn mặt}
-\label{subsection:2.1.2}
-
-Hệ thống mã hóa hành động khuôn mặt (FACS) do Ekman và Friesen xây dựng mô tả hoạt động quan sát được của khuôn mặt thông qua các đơn vị hành động (AU) \cite{ekman1978facs}. Mỗi AU gắn với một chuyển động hoặc một nhóm cơ mặt, chẳng hạn nâng lông mày, kéo khóe môi hoặc siết mí mắt. Một mẫu biểu cảm có thể hình thành từ sự xuất hiện đồng thời của nhiều AU. Do đó, FACS cung cấp cơ sở mô tả ở mức chuyển động khuôn mặt thay vì suy luận trực tiếp cảm xúc bên trong.
-
-FACS được sử dụng như nền tảng giải thích vì sao biến đổi cục bộ trên khuôn mặt chứa thông tin cho bài toán FER. Bộ phân loại của hệ thống học trực tiếp ánh xạ từ ảnh khuôn mặt sang bảy lớp ở Công thức \ref{eq:fer_classes}; vì vậy không thể diễn giải đầu ra của mô hình như một bản mã FACS đầy đủ.
-
-\subsection{Quy trình FER tổng quát}
-\label{subsection:2.1.3}
-
-Quy trình FER bắt đầu từ việc thu nhận ảnh từ một camera cố định tại một điểm trong không gian cửa hàng và kết thúc ở một quan sát biểu cảm kèm độ tin cậy. Phát hiện khuôn mặt xác định vùng cần phân tích và ảnh hưởng trực tiếp tới các bước sau: nếu khung bao bỏ sót khuôn mặt hoặc chứa quá nhiều nền, bộ phân loại biểu cảm không nhận được đầu vào phù hợp. Căn chỉnh sử dụng hình học khuôn mặt, thường dựa trên vị trí mắt, mũi hoặc khóe miệng, để giảm biến thiên do góc nghiêng. Tiền xử lý tiếp tục chuẩn hóa kích thước, kênh màu và miền giá trị điểm ảnh theo yêu cầu của mô hình.
-
-Sau tiền xử lý, bộ trích xuất đặc trưng biến ảnh thành biểu diễn có khả năng phân biệt thành các mẫu biểu cảm. Với phương pháp truyền thống, biểu diễn này được thiết kế thủ công; với mạng nơ-ron tích chập, đặc trưng được học từ dữ liệu. Lớp phân loại cuối cùng tạo xác suất của bảy lớp, sau đó hệ thống lưu nhãn dự đoán, độ tin cậy, thời điểm và điểm chạm. Quy trình tổng quát được minh họa ở Hình \ref{fig:fer_pipeline}.
+Đầu ra của mô hình được sử dụng trong hệ thống gồm bảy nhãn: \textit{Angry}, \textit{Disgust}, \textit{Fear}, \textit{Happy}, \textit{Sad}, \textit{Surprise} và \textit{Neutral}. Sáu nhãn đầu tương ứng với sáu nhóm biểu cảm cơ bản trong nghiên cứu của Ekman và Friesen. Nhãn \textit{Neutral} được sử dụng theo cách phân chia bảy lớp của bộ dữ liệu FER-2013, do Pierre Luc Carrier và Aaron Courville xây dựng và được Goodfellow cùng cộng sự công bố. Nhãn này giúp mô hình xử lý những khuôn mặt không thể hiện rõ một trong sáu biểu cảm cơ bản, thay vì bắt buộc gán chúng vào một lớp biểu cảm không phù hợp \cite{goodfellow2013challenges}. Với mỗi ảnh khuôn mặt, mô hình trả về nhãn dự đoán và độ tin cậy tương ứng.
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[
-        node distance=3mm,
-        stage/.style={draw, rounded corners=2pt, align=center, inner sep=2pt, minimum height=11mm, text width=2.1cm, font=\small},
-        flow/.style={-{Latex[length=2mm]}, thick}
-    ]
-        \node[stage] (input) {Ảnh hoặc\\khung hình};
-        \node[stage, right=of input] (detect) {Phát hiện\\khuôn mặt};
-        \node[stage, right=of detect] (align) {Căn chỉnh và\\tiền xử lý};
-        \node[stage, right=of align] (feature) {Trích xuất\\đặc trưng};
-        \node[stage, right=of feature] (classify) {Phân loại\\7 biểu cảm};
-        \draw[flow] (input) -- (detect);
-        \draw[flow] (detect) -- (align);
-        \draw[flow] (align) -- (feature);
-        \draw[flow] (feature) -- (classify);
-    \end{tikzpicture}
-    \caption{Quy trình nhận dạng biểu cảm khuôn mặt tổng quát}
-    \label{fig:fer_pipeline}
+    \includegraphics[width=0.9\textwidth]{Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png}
+    \caption{Bảy biểu cảm khuôn mặt}
+    \label{fig:seven_facial_expressions}
 \end{figure}
 
-Các sai số trong quy trình có tính lan truyền. Một bộ phát hiện chính xác không bảo đảm bộ phân loại FER chính xác, nhưng lỗi phát hiện chắc chắn làm giảm số quan sát hợp lệ hoặc tạo đầu vào sai. Vì vậy, bộ phát hiện cần được kiểm chứng độc lập trước khi đánh giá toàn bộ quy trình.
+\subsection{Quy trình FER tổng quát}
+\label{subsection:fer_pipeline}
+Li và Deng mô tả quy trình nhận dạng biểu cảm khuôn mặt dựa trên học sâu gồm ba giai đoạn chính: tiền xử lý ảnh khuôn mặt, học đặc trưng và phân loại biểu cảm \cite{li2022deepfer}. Đối với ảnh đầu vào, bước đầu tiên là phát hiện khuôn mặt để xác định vùng ảnh chứa khuôn mặt và loại bỏ phần lớn thông tin nền không liên quan. Đây là bước cần thiết vì mô hình nhận dạng biểu cảm chỉ có thể trích xuất đặc trưng phù hợp khi vùng khuôn mặt được xác định chính xác.
+
+Sau khi khuôn mặt được phát hiện, ảnh được căn chỉnh và chuẩn hóa. Căn chỉnh khuôn mặt dựa trên các điểm đặc trưng đã xác định nhằm giảm sự khác biệt về kích thước, vị trí và góc xoay của khuôn mặt. Chuẩn hóa ảnh tiếp tục hạn chế ảnh hưởng của điều kiện chiếu sáng và tư thế đầu trước khi ảnh được đưa vào mạng học sâu. Trong giai đoạn huấn luyện, dữ liệu còn có thể được tăng cường bằng các phép biến đổi như xoay, dịch chuyển, thay đổi tỷ lệ, độ tương phản hoặc bổ sung nhiễu. Theo Li và Deng, việc tăng cường dữ liệu giúp mở rộng số lượng mẫu huấn luyện và hạn chế hiện tượng quá khớp khi dữ liệu biểu cảm khuôn mặt còn hạn chế \cite{li2022deepfer}.
+
+Ảnh khuôn mặt sau khi tiền xử lý được đưa vào mạng học sâu để trích xuất đặc trưng. Khác với phương pháp truyền thống sử dụng các đặc trưng được thiết kế thủ công, mạng học sâu hình thành biểu diễn đặc trưng thông qua nhiều lớp biến đổi phi tuyến. Đối với ảnh tĩnh, mạng nơ-ron tích chập thường được sử dụng để học các đặc trưng từ những vùng cục bộ đến biểu diễn tổng thể của khuôn mặt. Những đặc trưng thu được cần thể hiện được sự khác biệt giữa các mẫu biểu cảm, đồng thời hạn chế ảnh hưởng của các yếu tố không liên quan như đặc điểm riêng của từng người, điều kiện chiếu sáng và tư thế khuôn mặt \cite{li2022deepfer}.
+
+Phân loại biểu cảm là bước cuối cùng của quy trình. Li và Deng cho biết trong các mô hình học sâu, bước trích xuất đặc trưng và phân loại có thể được huấn luyện đồng thời theo phương pháp đầu cuối. Lớp phân loại tiếp nhận đặc trưng đã học, tạo giá trị dự đoán cho từng lớp và xác định nhãn biểu cảm của ảnh đầu vào. Số lượng và tên các lớp đầu ra phụ thuộc vào bộ dữ liệu cũng như mô hình được sử dụng. Quy trình gồm phát hiện khuôn mặt, căn chỉnh và chuẩn hóa, trích xuất đặc trưng và phân loại biểu cảm được minh họa tại Hình \ref{fig:deep_fer_pipeline_li_deng} \cite{li2022deepfer}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,trim=0 0 0 15,clip]{Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png}
+    \caption[Quy trình tổng quát của hệ thống FER dựa trên học sâu]{Quy trình tổng quát của hệ thống FER dựa trên học sâu (Nguồn: Li và Deng \cite{li2022deepfer})}
+    \label{fig:deep_fer_pipeline_li_deng}
+\end{figure}
 
 \section{Các phương pháp phát hiện khuôn mặt}
 \label{section:2.2}
 
-Quá trình phát hiện khuôn mặt là quá trình bao gồm việc nhận việc hình ảnh và trả về vị trí các khung bao khuôn mặt cùng điểm tin cậy tương ứng. Bài toán trở nên khó khăn khi kích thước khuôn mặt thay đổi lớn, khuôn mặt bị che khuất, quay nghiêng hoặc xuất hiện trong điều kiện chiếu sáng không đồng đều \cite{yang2016wider}. Xét theo nguyên lý xử lý, Haar Cascade đại diện cho hướng sử dụng đặc trưng thủ công và bộ phân loại xếp tầng; MTCNN đại diện cho hướng mạng tích chập nhiều giai đoạn; RetinaFace đại diện cho hướng phát hiện một giai đoạn kết hợp học đa nhiệm. Các mục tiếp theo trình bày cơ sở lý thuyết của ba phương pháp này.
+Phát hiện khuôn mặt là bài toán xác định trong ảnh có khuôn mặt hay không và định vị từng khuôn mặt bằng một khung bao. Qua ba công trình của Viola và Jones, Zhang và cộng sự, cùng Deng và cộng sự, quy trình phát hiện có thể được khái quát thành bốn thao tác: khảo sát ảnh tại nhiều vị trí và tỷ lệ; phân biệt vùng khuôn mặt với vùng nền; hiệu chỉnh vị trí khung bao; và loại bỏ các khung dự đoán trùng lặp \cite{viola2001rapid,zhang2016mtcnn,deng2020retinaface}. Điểm tin cậy biểu thị mức độ mô hình cho rằng một khung dự đoán chứa khuôn mặt. Với các phương pháp có dự đoán điểm mốc, vị trí mắt, mũi và khóe miệng còn được xác định để hỗ trợ căn chỉnh khuôn mặt trước bước nhận dạng biểu cảm.
+
+Ba công trình trên xây dựng các thao tác này theo những nguyên lý khác nhau. Viola và Jones khảo sát ảnh bằng cửa sổ trượt ở nhiều tỷ lệ, mô tả mỗi cửa sổ bằng đặc trưng Haar, sử dụng AdaBoost để chọn đặc trưng phân biệt và tổ chức các bộ phân loại theo cấu trúc xếp tầng nhằm loại nhanh vùng nền \cite{viola2001rapid}. Zhang và cộng sự đề xuất MTCNN gồm ba mạng tích chập nối tiếp; vùng ứng viên được sàng lọc và hiệu chỉnh dần từ P-Net đến R-Net và O-Net, đồng thời mô hình dự đoán năm điểm mốc khuôn mặt \cite{zhang2016mtcnn}. Deng và cộng sự đề xuất RetinaFace theo hướng phát hiện một giai đoạn: các khung khuôn mặt được dự đoán trực tiếp trên những mức đặc trưng có độ phân giải khác nhau, kết hợp nhiệm vụ phân loại khuôn mặt, hồi quy khung bao và xác định điểm mốc \cite{deng2020retinaface}. Các mục tiếp theo trình bày chi tiết cơ sở lý thuyết của từng phương pháp.
 
 \subsection{Haar Cascade theo Viola--Jones}
 \label{subsection:2.2.1}
 
-Phương pháp Viola--Jones mô tả một cửa sổ ảnh bằng các đặc trưng dạng Haar, tức chênh lệch tổng cường độ giữa các vùng chữ nhật sáng và tối. Để tính nhanh tổng điểm ảnh trên nhiều cửa sổ, phương pháp xây dựng ảnh tích phân \cite{viola2001rapid}:
+Năm 2001, Paul Viola và Michael Jones công bố phương pháp phát hiện đối tượng nhanh dựa trên ba thành phần chính: ảnh tích phân để tính đặc trưng hình chữ nhật, AdaBoost để lựa chọn đặc trưng và bộ phân loại xếp tầng để giảm số phép tính khi quét ảnh. Phương pháp được hai tác giả xây dựng và kiểm chứng cho bài toán phát hiện khuôn mặt chính diện từ ảnh xám \cite{viola2001rapid}.
 
-\begin{equation}
-    ii(x,y)=\sum_{x'\leq x,\,y'\leq y} I(x',y').
-    \label{eq:integral_image}
-\end{equation}
+\noindent\textbf{Đầu vào và đầu ra của phương pháp.} Trong giai đoạn phát hiện, đầu vào là một ảnh xám có thể chứa một hoặc nhiều khuôn mặt. Ảnh được khảo sát bằng các cửa sổ tại nhiều vị trí và tỷ lệ khác nhau. Đầu ra là tập khung bao của những cửa sổ được xác định có chứa khuôn mặt. Các vùng nằm trong khung bao này có thể được cắt và chuyển sang bước nhận dạng biểu cảm.
 
-Từ bốn giá trị trên ảnh tích phân, tổng cường độ của một vùng chữ nhật được tính với số phép toán không phụ thuộc diện tích vùng. AdaBoost tiếp tục chọn một tập nhỏ đặc trưng phân biệt từ không gian ứng viên lớn và kết hợp các bộ phân loại yếu thành bộ phân loại mạnh. Các bộ phân loại được tổ chức theo cấu trúc xếp tầng: tầng đầu loại nhanh phần lớn cửa sổ nền, các tầng sau chỉ xử lý vùng còn có khả năng chứa khuôn mặt. Cấu trúc này làm giảm số phép tính trung bình trên mỗi cửa sổ.
+\noindent\textbf{Giai đoạn huấn luyện.} Dữ liệu huấn luyện gồm các cửa sổ chứa khuôn mặt và các cửa sổ không chứa khuôn mặt. Mỗi cửa sổ được chuẩn hóa về kích thước cơ sở $24\times24$ điểm ảnh. Phương pháp tính các đặc trưng Haar trên từng cửa sổ, sau đó tìm ngưỡng và chiều so sánh giúp mỗi đặc trưng phân biệt hai nhóm mẫu với sai số có trọng số nhỏ nhất. Một đặc trưng cùng ngưỡng và chiều so sánh tạo thành một bộ phân loại yếu. AdaBoost lựa chọn các bộ phân loại yếu có khả năng phân biệt tốt và gán trọng số cho chúng. Nhiều bộ phân loại yếu được kết hợp thành một bộ phân loại mạnh; nhiều bộ phân loại mạnh tiếp tục được tổ chức thành các tầng. Kết quả của giai đoạn huấn luyện là các đặc trưng Haar được chọn, ngưỡng so sánh, trọng số biểu quyết và cấu trúc bộ phân loại xếp tầng.
 
-Hạn chế về nguyên lý là đặc trưng và bộ phân loại xếp tầng được thiết kế chủ yếu cho mẫu khuôn mặt gần chính diện; độ ổn định trước khuôn mặt nhỏ, quay nghiêng, che khuất hoặc có chiếu sáng phức tạp cần được đánh giá bằng dữ liệu thực nghiệm.
-
-\subsection{MTCNN}
-\label{subsection:2.2.2}
-
-MTCNN kết hợp phát hiện và căn chỉnh khuôn mặt bằng ba mạng tích chập nối tiếp gồm P-Net, R-Net và O-Net \cite{zhang2016mtcnn}. P-Net quét tháp ảnh đa tỷ lệ để sinh nhanh các vùng ứng viên. R-Net loại thêm vùng sai và hiệu chỉnh khung bao. O-Net thực hiện quyết định cuối, tiếp tục hiệu chỉnh khung bao và dự đoán năm điểm mốc khuôn mặt. Ở mỗi tầng, thuật toán loại bỏ không cực đại (NMS) loại các khung bao có mức chồng lấn cao.
+\noindent\textbf{Giai đoạn phát hiện.} Khi xử lý một ảnh mới, phần lớn cửa sổ được tạo ra chỉ chứa vùng nền. Vì vậy, các tầng đầu sử dụng ít đặc trưng để nhanh chóng loại bỏ những cửa sổ không có khả năng chứa khuôn mặt. Cửa sổ vượt qua tầng trước mới được kiểm tra tại tầng sau bằng nhiều đặc trưng hơn. Một cửa sổ bị loại ngay khi không vượt qua một tầng; chỉ cửa sổ vượt qua tất cả các tầng mới được giữ lại như một ứng viên khuôn mặt. Nhờ đó, phương pháp tập trung phần lớn phép tính vào số ít vùng ảnh có khả năng chứa khuôn mặt. Luồng xử lý của giai đoạn phát hiện được tổng hợp tại Hình \ref{fig:viola_jones_pipeline}.
 
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[
-        node distance=7mm,
-        net/.style={draw, rounded corners=2pt, align=center, minimum height=12mm, text width=3cm, font=\small},
+        node distance=5mm and 10mm,
+        block/.style={draw, rounded corners=2pt, align=center, minimum height=9mm, text width=6.0cm, font=\small},
+        decision/.style={diamond, draw, aspect=2.2, align=center, inner sep=1pt, text width=3.1cm, font=\small},
+        result/.style={draw, rounded corners=2pt, align=center, minimum height=9mm, text width=3.4cm, font=\small},
         flow/.style={-{Latex[length=2mm]}, thick}
     ]
-        \node[net] (pnet) {P-Net\\Sinh vùng ứng viên};
-        \node[net, right=of pnet] (rnet) {R-Net\\Sàng lọc và hiệu chỉnh};
-        \node[net, right=of rnet] (onet) {O-Net\\Hộp cuối và điểm mốc};
-        \draw[flow] (pnet) -- node[above, font=\scriptsize]{NMS} (rnet);
-        \draw[flow] (rnet) -- node[above, font=\scriptsize]{NMS} (onet);
+        \node[block] (input) {Ảnh xám đầu vào};
+        \node[block, below=of input] (integral) {Tạo ảnh tích phân};
+        \node[block, below=of integral] (scan) {Quét cửa sổ $24\times24$ tại nhiều vị trí và tỷ lệ};
+        \node[block, below=of scan] (haar) {Tính các đặc trưng Haar đã được AdaBoost lựa chọn};
+        \node[block, below=of haar] (cascade) {Đánh giá cửa sổ qua chuỗi bộ phân loại xếp tầng};
+        \node[decision, below=7mm of cascade] (pass) {Vượt qua tất cả các tầng?};
+        \node[result, right=15mm of pass] (reject) {Loại bỏ vùng nền};
+        \node[result, below=7mm of pass] (candidate) {Giữ khung ứng viên khuôn mặt};
+        \node[block, below=of candidate] (merge) {Hợp nhất các khung bao chồng lấn};
+
+        \draw[flow] (input) -- (integral);
+        \draw[flow] (integral) -- (scan);
+        \draw[flow] (scan) -- (haar);
+        \draw[flow] (haar) -- (cascade);
+        \draw[flow] (cascade) -- (pass);
+        \draw[flow] (pass) -- node[above, font=\scriptsize]{Không} (reject);
+        \draw[flow] (pass) -- node[right, font=\scriptsize]{Có} (candidate);
+        \draw[flow] (candidate) -- (merge);
     \end{tikzpicture}
-    \caption[Luồng xử lý ba tầng của MTCNN]{Luồng xử lý ba tầng của MTCNN, tổng hợp từ \cite{zhang2016mtcnn}}
+    \caption[Quy trình phát hiện khuôn mặt theo Viola--Jones]{Quy trình phát hiện khuôn mặt theo Viola--Jones, tổng hợp từ \cite{viola2001rapid}}
+    \label{fig:viola_jones_pipeline}
+\end{figure}
+
+Mỗi vùng ảnh cần kiểm tra được chuẩn hóa về cửa sổ cơ sở có kích thước $24\times24$ điểm ảnh. Thay vì so sánh trực tiếp từng điểm ảnh, Viola và Jones biểu diễn cửa sổ bằng các đặc trưng hình chữ nhật tương tự đặc trưng Haar. Đặc trưng hai vùng lấy chênh lệch tổng cường độ của hai hình chữ nhật kề nhau; đặc trưng ba vùng so sánh vùng trung tâm với hai vùng ngoài; đặc trưng bốn vùng so sánh hai cặp hình chữ nhật nằm trên hai đường chéo. Có thể hiểu mỗi đặc trưng là một phép kiểm tra quan hệ sáng--tối trong một phần khuôn mặt, chẳng hạn vùng mắt thường tối hơn vùng má. Với cửa sổ $24\times24$, bài báo tạo ra hơn 180.000 đặc trưng ứng viên, vì vậy cần có một cách tính nhanh và một cơ chế chỉ giữ lại các đặc trưng hữu ích.
+
+\noindent\textbf{Công thức tạo ảnh tích phân.} Để tính nhanh tổng cường độ của một vùng chữ nhật, Viola và Jones chuyển ảnh gốc thành ảnh tích phân. Giá trị ảnh tích phân tại một vị trí được xác định bởi \cite{viola2001rapid}:
+
+\begin{equation}
+    ii(x,y)=\sum_{x'=0}^{x}\sum_{y'=0}^{y} i(x',y').
+    \label{eq:integral_image}
+\end{equation}
+
+Trong Công thức \ref{eq:integral_image}:
+\begin{itemize}
+    \item $i(x',y')$ là giá trị cường độ của điểm ảnh tại tọa độ $(x',y')$ trong ảnh gốc;
+    \item $x'$ và $y'$ là các chỉ số dùng để duyệt những điểm ảnh nằm trong miền tính tổng;
+    \item $ii(x,y)$ là tổng cường độ của tất cả điểm ảnh từ góc trên bên trái của ảnh đến vị trí $(x,y)$, bao gồm cả điểm ảnh tại vị trí này.
+\end{itemize}
+
+Mục đích của Công thức \ref{eq:integral_image} là tính trước các tổng tích lũy cho toàn ảnh. Ảnh tích phân chỉ cần được tạo một lần, sau đó tổng cường độ của nhiều vùng chữ nhật có thể được lấy từ các giá trị đã tính mà không phải cộng lại từng điểm ảnh.
+
+\noindent\textbf{Công thức tính tổng cường độ của vùng chữ nhật.} Giả sử vùng chữ nhật $R$ có góc trên bên trái là $(x_1,y_1)$ và góc dưới bên phải là $(x_2,y_2)$, tổng cường độ trong vùng được tính từ bốn giá trị của ảnh tích phân:
+
+\begin{equation}
+    S(R)=ii(x_2,y_2)-ii(x_1-1,y_2)-ii(x_2,y_1-1)+ii(x_1-1,y_1-1).
+    \label{eq:rectangle_sum}
+\end{equation}
+
+Trong Công thức \ref{eq:rectangle_sum}:
+\begin{itemize}
+    \item $R$ là vùng chữ nhật cần tính tổng cường độ;
+    \item $(x_1,y_1)$ và $(x_2,y_2)$ lần lượt là tọa độ góc trên bên trái và góc dưới bên phải của vùng $R$;
+    \item $S(R)$ là tổng cường độ của các điểm ảnh nằm trong vùng $R$;
+    \item các giá trị $ii(\cdot,\cdot)$ được lấy từ ảnh tích phân đã tạo bằng Công thức \ref{eq:integral_image}.
+\end{itemize}
+
+Giá trị $ii(x_2,y_2)$ chứa vùng cần tính cùng phần ảnh nằm phía trên và bên trái. Hai số hạng tiếp theo loại bỏ hai phần nằm ngoài vùng $R$; số hạng cuối được cộng lại vì phần giao của hai miền này đã bị trừ hai lần. Nhờ đó, tổng của một vùng chữ nhật chỉ cần bốn giá trị trên ảnh tích phân và không phụ thuộc vào số điểm ảnh trong vùng. Tổng cường độ này được dùng để tính đặc trưng Haar bằng cách lấy chênh lệch giữa các vùng sáng và tối của đặc trưng.
+
+\noindent\textbf{Công thức của bộ phân loại yếu.} Ảnh tích phân giúp tính đặc trưng nhanh nhưng chưa giải quyết vấn đề có quá nhiều đặc trưng ứng viên. Vì vậy, phương pháp sử dụng AdaBoost, viết tắt của \textit{Adaptive Boosting}, để lựa chọn những đặc trưng có khả năng phân biệt khuôn mặt và vùng nền. Mỗi đặc trưng Haar cùng một ngưỡng tạo thành một bộ phân loại yếu theo Công thức \ref{eq:viola_weak_classifier} \cite{viola2001rapid}:
+
+\begin{equation}
+    h_j(X)=
+    \begin{cases}
+        1, & \text{nếu } p_j f_j(X)<p_j\theta_j,\\
+        0, & \text{ngược lại.}
+    \end{cases}
+    \label{eq:viola_weak_classifier}
+\end{equation}
+
+Trong Công thức \ref{eq:viola_weak_classifier}:
+\begin{itemize}
+    \item $X$ là cửa sổ ảnh $24\times24$ đang được kiểm tra;
+    \item $f_j(X)$ là giá trị của đặc trưng Haar thứ $j$ trên cửa sổ $X$;
+    \item $\theta_j$ là ngưỡng dùng để phân chia hai lớp;
+    \item $p_j\in\{-1,1\}$ xác định chiều của phép so sánh với ngưỡng;
+    \item $h_j(X)$ trả về $1$ khi cửa sổ được bộ phân loại yếu đánh giá là khuôn mặt và trả về $0$ trong trường hợp còn lại.
+\end{itemize}
+
+Hệ số $p_j$ cần thiết vì một số đặc trưng nhận biết khuôn mặt khi giá trị nhỏ hơn ngưỡng, trong khi những đặc trưng khác nhận biết khuôn mặt khi giá trị lớn hơn ngưỡng. Mỗi bộ phân loại yếu chỉ dựa trên một đặc trưng nên chưa đủ tin cậy. Trong quá trình huấn luyện, AdaBoost chọn các bộ phân loại yếu có sai số có trọng số nhỏ và tăng trọng số của những mẫu đang bị phân loại sai để các vòng sau tập trung xử lý những trường hợp khó hơn.
+
+\noindent\textbf{Công thức của bộ phân loại mạnh.} Sau $T$ vòng lặp, AdaBoost kết hợp kết quả của $T$ bộ phân loại yếu thành một bộ phân loại mạnh. Mỗi bộ phân loại yếu sử dụng một đặc trưng Haar và một ngưỡng đã học để đưa ra quyết định nhị phân: giá trị $1$ biểu thị đặc trưng đang xét phù hợp với mẫu khuôn mặt, còn giá trị $0$ biểu thị trường hợp ngược lại. Vì một quyết định riêng lẻ chỉ dựa trên một quan hệ sáng--tối nên chưa đủ tin cậy, bộ phân loại mạnh tổng hợp nhiều quyết định bằng cơ chế biểu quyết có trọng số. Trong cấu trúc xếp tầng, mỗi tầng sử dụng một bộ phân loại mạnh để quyết định cửa sổ bị loại hay được chuyển sang tầng tiếp theo. Đầu vào của bộ phân loại mạnh là cửa sổ $X$, các kết quả $h_t(X)$ của những bộ phân loại yếu đã chọn và các trọng số $\alpha_t$ được học trong quá trình huấn luyện. Công thức \ref{eq:viola_strong_classifier} thực hiện biểu quyết có trọng số, trong đó bộ phân loại yếu có sai số nhỏ được trao ảnh hưởng lớn hơn:
+
+\begin{equation}
+    H(X)=
+    \begin{cases}
+        1, & \displaystyle\sum_{t=1}^{T}\alpha_t h_t(X)
+        \geq \frac{1}{2}\sum_{t=1}^{T}\alpha_t,\\
+        0, & \text{ngược lại,}
+    \end{cases}
+    \qquad
+    \alpha_t=\ln\!\left(\frac{1}{\beta_t}\right),\quad
+    \beta_t=\frac{\varepsilon_t}{1-\varepsilon_t}.
+    \label{eq:viola_strong_classifier}
+\end{equation}
+
+Trong Công thức \ref{eq:viola_strong_classifier}:
+\begin{itemize}
+    \item $T$ là số bộ phân loại yếu được AdaBoost lựa chọn;
+    \item $h_t(X)$ là kết quả của bộ phân loại yếu thứ $t$ đối với cửa sổ $X$;
+    \item $\varepsilon_t$ là sai số có trọng số của bộ phân loại yếu thứ $t$ trên tập huấn luyện;
+    \item $\beta_t$ là hệ số trung gian được tính từ sai số $\varepsilon_t$;
+    \item $\alpha_t$ là trọng số biểu quyết của bộ phân loại yếu thứ $t$;
+    \item $H(X)$ là kết quả của bộ phân loại mạnh, trong đó giá trị $1$ biểu thị cửa sổ có khả năng chứa khuôn mặt và giá trị $0$ biểu thị trường hợp còn lại.
+\end{itemize}
+
+Khi $\varepsilon_t$ nhỏ, $\beta_t$ nhỏ và $\alpha_t$ lớn, do đó bộ phân loại yếu hoạt động tốt có ảnh hưởng nhiều hơn đến kết quả cuối cùng. Khi $\varepsilon_t$ tiến gần $0{,}5$, $\alpha_t$ tiến gần $0$, nghĩa là một bộ phân loại gần với dự đoán ngẫu nhiên hầu như không đóng góp vào kết quả. Ngưỡng $\frac{1}{2}\sum_{t=1}^{T}\alpha_t$ thể hiện điều kiện đa số có trọng số: tổng mức ủng hộ lớp khuôn mặt phải đạt ít nhất một nửa tổng trọng số. Nếu $H(X)=0$, cửa sổ bị loại tại tầng hiện tại. Nếu $H(X)=1$, cửa sổ chỉ được chuyển sang tầng kế tiếp; kết quả này chưa đủ để kết luận cửa sổ chứa khuôn mặt. Kết luận khuôn mặt chỉ được đưa ra khi cửa sổ nhận giá trị $1$ tại tất cả các tầng.
+
+Bộ phân loại mạnh cho biết cách kết hợp các đặc trưng, nhưng nếu áp dụng toàn bộ cho mọi cửa sổ thì chi phí vẫn lớn. Viola và Jones giải quyết vấn đề này bằng cấu trúc xếp tầng. Các tầng đầu sử dụng ít đặc trưng để loại nhanh những vùng chắc chắn là nền; các tầng sau sử dụng nhiều đặc trưng hơn để kiểm tra những trường hợp khó. Cửa sổ bị từ chối tại bất kỳ tầng nào sẽ không được xử lý tiếp. Nhờ vậy, phần lớn vùng ảnh chỉ phải đi qua một hoặc hai tầng đầu, còn toàn bộ chuỗi chỉ được thực hiện trên số ít vùng có khả năng chứa khuôn mặt.
+
+Khi xử lý ảnh hoàn chỉnh, cửa sổ dò được quét tại nhiều vị trí và nhiều tỷ lệ để tìm các khuôn mặt có kích thước khác nhau. Trong cấu hình thực nghiệm của bài báo, tỷ lệ giữa hai kích thước cửa sổ liên tiếp là $1{,}25$. Mỗi cửa sổ còn được chuẩn hóa phương sai để giảm ảnh hưởng của chiếu sáng. Một khuôn mặt có thể tạo ra nhiều khung dự đoán gần nhau, do đó các khung chồng lấn được nhóm lại và tọa độ trung bình của nhóm được dùng làm kết quả cuối cùng \cite{viola2001rapid}.
+
+Phương pháp gốc chủ yếu được huấn luyện cho khuôn mặt chính diện và sử dụng các đặc trưng hình chữ nhật theo một số hướng cố định. Vì vậy, khả năng xử lý khuôn mặt nhỏ, quay nghiêng, che khuất hoặc xuất hiện trong điều kiện chiếu sáng phức tạp cần được đánh giá bằng thực nghiệm trên dữ liệu phù hợp với bài toán.
+
+\subsection{MTCNN}
+\label{subsection:2.2.2}
+
+Năm 2016, Zhang và cộng sự đề xuất MTCNN, viết tắt của \textit{Multi-task Cascaded Convolutional Networks}, một phương pháp phát hiện khuôn mặt dựa trên ba mạng nơ-ron tích chập xếp tầng gồm P-Net, R-Net và O-Net \cite{zhang2016mtcnn}. Ba mạng lần lượt tạo, sàng lọc và hiệu chỉnh các vùng ứng viên để xác định khung bao khuôn mặt. Ngoài ra, O-Net còn xác định năm điểm mốc gồm hai mắt, mũi và hai khóe miệng để hỗ trợ bước chuẩn hóa ảnh khuôn mặt. Các bộ lọc của mạng được học từ dữ liệu để tạo đặc trưng hình ảnh, thay vì sử dụng các đặc trưng Haar được xác định trước như Viola--Jones.
+
+\noindent\textbf{Đầu vào và đầu ra của phương pháp.} Đầu vào là một ảnh có thể chứa một hoặc nhiều khuôn mặt với kích thước khác nhau. Ảnh ban đầu được thay đổi về nhiều tỷ lệ để tạo thành tháp ảnh; nhờ đó, cùng một mạng có thể khảo sát khuôn mặt ở nhiều kích thước. Đầu ra cuối cùng của MTCNN gồm khung bao khuôn mặt, điểm tin cậy của khung và năm điểm mốc tương ứng với hai mắt, mũi và hai khóe miệng. Khung bao xác định vùng khuôn mặt cần cắt; các điểm mốc là thông tin bổ sung để bước xử lý sau có thể xoay và chuẩn hóa ảnh trước khi nhận dạng biểu cảm.
+
+\noindent\textbf{Giai đoạn P-Net.} Mỗi mức của tháp ảnh được đưa qua Proposal Network (P-Net), là một mạng tích chập có nhiệm vụ khảo sát nhanh toàn ảnh. Tại các vị trí đang xét, P-Net tạo điểm xác suất khuôn mặt và véc-tơ hiệu chỉnh khung bao. Những vị trí có điểm thấp bị loại; các khung còn lại được dịch chuyển và thay đổi kích thước theo véc-tơ hiệu chỉnh. Sau đó, thuật toán loại bỏ không cực đại (NMS) gộp hoặc loại các khung chồng lấn mạnh. Đầu ra của giai đoạn này là một tập vùng ứng viên, chưa phải kết quả phát hiện cuối cùng.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{Hinhve/Chuong2/mtcnn_pnet.png}
+    \caption{Kiến trúc P-Net của MTCNN}
+    \label{fig:mtcnn_pnet}
+\end{figure}
+
+\noindent\textbf{Giai đoạn R-Net.} Các vùng ứng viên do P-Net tạo ra được cắt từ ảnh, chuẩn hóa theo đầu vào của Refinement Network (R-Net) và kiểm tra lại bằng một mạng có khả năng biểu diễn chi tiết hơn. R-Net tiếp tục dự đoán điểm khuôn mặt và véc-tơ hiệu chỉnh khung bao. Những ứng viên không đạt ngưỡng bị loại; những ứng viên còn lại được hiệu chỉnh và tiếp tục xử lý bằng NMS. Đầu ra của R-Net là một tập ứng viên ít hơn nhưng có vị trí chính xác hơn.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{Hinhve/Chuong2/mtcnn_rnet.png}
+    \caption{Kiến trúc R-Net của MTCNN}
+    \label{fig:mtcnn_rnet}
+\end{figure}
+
+\noindent\textbf{Giai đoạn O-Net.} Các ứng viên vượt qua R-Net được đưa vào Output Network (O-Net). Mạng này thực hiện lần kiểm tra cuối, tiếp tục dự đoán điểm khuôn mặt và hiệu chỉnh khung bao, đồng thời xác định năm điểm mốc trên khuôn mặt. Sau bước NMS cuối cùng, các khung được giữ lại trở thành kết quả phát hiện của phương pháp.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{Hinhve/Chuong2/mtcnn_onet.png}
+    \caption{Kiến trúc O-Net của MTCNN}
+    \label{fig:mtcnn_onet}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=3.5mm,
+        net/.style={draw, rounded corners=2pt, align=center, minimum height=8mm, text width=7.2cm, font=\small},
+        output/.style={draw, rounded corners=2pt, align=center, minimum height=8mm, text width=7.2cm, font=\small, double},
+        flow/.style={-{Latex[length=2mm]}, thick}
+    ]
+        \node[net] (input) {Ảnh đầu vào};
+        \node[net, below=of input] (pyramid) {Tạo tháp ảnh ở nhiều tỷ lệ};
+        \node[net, below=of pyramid] (pnet) {P-Net: tạo điểm khuôn mặt và véc-tơ hiệu chỉnh khung};
+        \node[net, below=of pnet] (pnms) {Loại ứng viên điểm thấp, hiệu chỉnh khung và thực hiện NMS};
+        \node[net, below=of pnms] (rnet) {R-Net: kiểm tra lại ứng viên và tiếp tục hiệu chỉnh khung};
+        \node[net, below=of rnet] (rnms) {Loại ứng viên không đạt ngưỡng và thực hiện NMS};
+        \node[net, below=of rnms] (onet) {O-Net: quyết định cuối, hiệu chỉnh khung và xác định năm điểm mốc};
+        \node[net, below=of onet] (onms) {Thực hiện NMS lần cuối};
+        \node[output, below=of onms] (result) {Khung bao khuôn mặt, điểm tin cậy và năm điểm mốc};
+
+        \draw[flow] (input) -- (pyramid);
+        \draw[flow] (pyramid) -- (pnet);
+        \draw[flow] (pnet) -- (pnms);
+        \draw[flow] (pnms) -- (rnet);
+        \draw[flow] (rnet) -- (rnms);
+        \draw[flow] (rnms) -- (onet);
+        \draw[flow] (onet) -- (onms);
+        \draw[flow] (onms) -- (result);
+    \end{tikzpicture}
+    \caption[Quy trình phát hiện khuôn mặt của MTCNN]{Quy trình phát hiện khuôn mặt của MTCNN, do luận văn tổng hợp dựa trên \cite{zhang2016mtcnn}}
     \label{fig:mtcnn_stages}
 \end{figure}
 
-Khác với bộ phân loại xếp tầng dùng đặc trưng Haar, các đặc trưng của MTCNN được học từ dữ liệu; ba nhiệm vụ phân loại khuôn mặt, hồi quy khung bao và định vị điểm mốc được tối ưu đồng thời. Cơ chế nhiều tầng giúp giảm dần số vùng cần xử lý, nhưng tháp ảnh và nhiều lượt suy luận nối tiếp có thể tạo độ trễ đáng kể.
+\noindent\textbf{Cơ chế học đa nhiệm.} Trong quá trình huấn luyện, các mạng được học với ba nhiệm vụ: phân loại khuôn mặt và vùng nền, hồi quy độ lệch của khung bao, và định vị điểm mốc khuôn mặt. Nhiệm vụ phân loại cho biết một vùng có phải khuôn mặt hay không; nhiệm vụ hồi quy khung bao xác định cách dịch chuyển và thay đổi kích thước khung để khớp khuôn mặt tốt hơn; nhiệm vụ định vị điểm mốc xác định tọa độ của hai mắt, mũi và hai khóe miệng. Zhang và cộng sự còn sử dụng cơ chế chọn mẫu khó trực tuyến: trong mỗi lô huấn luyện, các mẫu có giá trị mất mát cao được ưu tiên khi cập nhật mạng, giúp mô hình tập trung vào những trường hợp đang bị phân loại sai \cite{zhang2016mtcnn}.
+
+\noindent\textbf{Cách hình thành kết quả.} Một vùng do P-Net tạo ra chỉ là ứng viên. Vùng này phải tiếp tục đạt ngưỡng tại R-Net và O-Net mới được giữ lại. Điểm tin cậy do O-Net tạo ra cho biết mức độ mạng đánh giá vùng đang xét là khuôn mặt; véc-tơ hồi quy được dùng để tạo khung bao cuối cùng; năm điểm mốc mô tả vị trí các bộ phận chính trên khuôn mặt. NMS loại các khung trùng lặp để một khuôn mặt không tạo ra nhiều kết quả gần nhau. Vì vậy, kết quả cuối cùng của MTCNN là tập các khung bao khuôn mặt kèm điểm tin cậy và năm điểm mốc, không phải nhãn biểu cảm. Hệ thống sử dụng các thông tin này để cắt và chuẩn hóa ảnh khuôn mặt trước khi chuyển sang bộ phân loại biểu cảm.
+
+Việc tạo tháp ảnh và thực hiện ba lượt xử lý nối tiếp qua P-Net, R-Net và O-Net làm cho thời gian thực hiện phụ thuộc vào số lượng vùng ứng viên còn lại sau từng giai đoạn. Do đó, chất lượng phát hiện và thời gian xử lý của MTCNN cần được đo trên cùng dữ liệu và phần cứng với các phương pháp còn lại.
 
 \subsection{RetinaFace}
 \label{subsection:2.2.3}
 
-RetinaFace là bộ phát hiện một giai đoạn: thay vì dùng nhiều mạng nối tiếp như MTCNN, RetinaFace chỉ đưa ảnh qua một mạng duy nhất và nhận về kết quả ngay \cite{deng2020retinaface}. Mạng này tạo ra các bản đồ đặc trưng ở nhiều kích thước khác nhau; bản đồ lớn giúp phát hiện khuôn mặt nhỏ, bản đồ nhỏ giúp phát hiện khuôn mặt lớn. Tại mỗi vị trí trên các bản đồ đặc trưng, mô hình dự đoán đồng thời ba thông tin: khuôn mặt hay không, vị trí khung bao và năm điểm mốc. Việc dự đoán cả ba cùng lúc giúp các nhiệm vụ bổ trợ lẫn nhau: thông tin điểm mốc cung cấp ràng buộc hình học, giúp khung bao chính xác hơn. Sau khi dự đoán trên toàn ảnh, các khung bao có điểm tin cậy thấp bị loại bỏ và thuật toán loại bỏ không cực đại (NMS) giữ lại phát hiện tốt nhất cho mỗi khuôn mặt.
+Năm 2020, Deng và cộng sự công bố RetinaFace, một phương pháp định vị khuôn mặt một giai đoạn dựa trên mạng nơ-ron tích chập \cite{deng2020retinaface}. Khác với MTCNN sử dụng ba mạng nối tiếp để sàng lọc vùng ứng viên, RetinaFace tổ chức toàn bộ quá trình phát hiện trong một mạng thống nhất. Ảnh lần lượt được xử lý bởi mạng nền, tháp đặc trưng và các nhánh dự đoán. Tại các nhánh đầu ra, mô hình đồng thời tính điểm khuôn mặt, độ lệch của khung bao và vị trí năm điểm mốc. Vì vùng ứng viên không phải lần lượt đi qua ba mạng phát hiện riêng biệt, RetinaFace được xếp vào nhóm phương pháp phát hiện một giai đoạn.
 
-\subsection{So sánh về nguyên lý}
+\noindent\textbf{Đầu vào và đầu ra của phương pháp.} Đầu vào của RetinaFace là một ảnh có thể chứa một hoặc nhiều khuôn mặt với kích thước khác nhau. Đối với nhiệm vụ phát hiện khuôn mặt, kết quả của mỗi khuôn mặt gồm khung bao, điểm tin cậy và năm điểm mốc tương ứng với hai mắt, mũi và hai khóe miệng. Khung bao xác định vùng ảnh cần cắt, còn các điểm mốc cung cấp thông tin hình học để bước xử lý sau có thể chuẩn hóa khuôn mặt. RetinaFace không tạo nhãn biểu cảm; ảnh khuôn mặt sau khi được phát hiện phải tiếp tục được đưa vào bộ phân loại biểu cảm.
+
+\noindent\textbf{Trích xuất đặc trưng ở nhiều mức.} Ảnh đầu vào trước hết được đưa qua một mạng tích chập làm mạng nền. Các lớp của mạng nền tạo ra những bản đồ đặc trưng có độ phân giải khác nhau. Bản đồ có độ phân giải cao giữ lại nhiều chi tiết vị trí và phù hợp với khuôn mặt nhỏ; bản đồ sâu hơn có độ phân giải thấp hơn nhưng có vùng quan sát rộng hơn, phù hợp với khuôn mặt lớn. RetinaFace kết hợp các bản đồ này bằng mạng tháp đặc trưng, viết tắt là FPN từ \textit{Feature Pyramid Network}. Trong kiến trúc được công bố, tháp đặc trưng tạo năm mức từ P2 đến P6 để cùng một mạng có thể tìm khuôn mặt ở nhiều kích thước \cite{deng2020retinaface}.
+
+Trên mỗi mức của tháp đặc trưng, RetinaFace sử dụng một mô-đun ngữ cảnh. Mô-đun này tổng hợp thông tin từ vùng rộng hơn xung quanh vị trí đang xét, nhờ đó quyết định phát hiện không chỉ phụ thuộc vào một vùng ảnh rất nhỏ. Bài báo sử dụng các phép tích chập có khả năng điều chỉnh vị trí lấy mẫu trong mô-đun ngữ cảnh, nhằm thích nghi tốt hơn với sự thay đổi về hình dạng và tư thế khuôn mặt.
+
+\noindent\textbf{Khung tham chiếu và các nhánh dự đoán.} Trên các bản đồ đặc trưng, phương pháp đặt các khung tham chiếu tại nhiều vị trí và kích thước. Khung tham chiếu chưa phải là khung khuôn mặt cuối cùng mà chỉ cung cấp vị trí ban đầu để mạng đánh giá. Với mỗi khung, mạng thực hiện đồng thời ba nhiệm vụ liên quan trực tiếp đến phát hiện khuôn mặt: phân loại khuôn mặt và vùng nền, dự đoán độ lệch của khung bao, và dự đoán tọa độ năm điểm mốc. Nhánh phân loại tạo điểm tin cậy cho biết khung đang xét có khả năng chứa khuôn mặt hay không. Nhánh hồi quy khung bao xác định cách dịch chuyển và thay đổi kích thước khung tham chiếu để khớp với khuôn mặt. Nhánh điểm mốc xác định mười giá trị tọa độ của hai mắt, mũi và hai khóe miệng.
+
+Trong phương pháp gốc, Deng và cộng sự còn bổ sung nhánh dự đoán các đỉnh của mô hình khuôn mặt ba chiều và huấn luyện các nhiệm vụ trong cùng một mạng \cite{deng2020retinaface}. Nhánh này cung cấp thêm thông tin hình học trong quá trình nghiên cứu phương pháp, nhưng không phải đầu ra cần sử dụng trong quy trình nhận dạng biểu cảm của luận văn. Đối với công đoạn phát hiện khuôn mặt, ba kết quả cần thiết vẫn là điểm phân loại, khung bao và năm điểm mốc.
+
+\noindent\textbf{Cách hình thành kết quả.} Khi RetinaFace xử lý xong ảnh đầu vào, các nhánh đầu ra tạo dự đoán tại những khung tham chiếu trên tất cả các mức của tháp đặc trưng. Mỗi dự đoán gồm điểm khuôn mặt, độ lệch của khung bao và tọa độ năm điểm mốc. Độ lệch được dùng để điều chỉnh khung tham chiếu thành khung bao khuôn mặt; những khung có điểm tin cậy thấp bị loại bỏ. Do nhiều khung có thể cùng bao quanh một khuôn mặt, thuật toán loại bỏ không cực đại (NMS) tiếp tục so sánh mức chồng lấn và giữ lại khung có điểm tin cậy cao hơn. Đầu ra cuối cùng là tập các khung bao khuôn mặt kèm điểm tin cậy và năm điểm mốc.
+
+RetinaFace tạo số lượng lớn dự đoán trên nhiều mức đặc trưng, vì vậy kết quả phụ thuộc vào khả năng phát hiện khuôn mặt ở từng kích thước, ngưỡng điểm tin cậy và bước loại khung trùng lặp. Các yếu tố này cần được giữ thống nhất khi đánh giá phương pháp bằng thực nghiệm.
+
+\subsection{So sánh giữa các phương pháp}
 \label{subsection:2.2.4}
 
-Bảng \ref{tab:detector_theory} tổng hợp sự khác biệt cần thiết cho bài toán. Bảng không xếp hạng phương pháp theo tài liệu, bởi kết quả công bố ở các nghiên cứu khác nhau có thể sử dụng dữ liệu, phần cứng và cấu hình không đồng nhất.
+Ba phương pháp đều nhận ảnh làm đầu vào và trả về các khung bao khuôn mặt, nhưng khác nhau ở cách biểu diễn ảnh và cách hình thành kết quả. Viola--Jones sử dụng đặc trưng Haar được thiết kế trước và kiểm tra cửa sổ ảnh bằng chuỗi bộ phân loại xếp tầng. MTCNN học đặc trưng bằng mạng tích chập, sau đó giảm dần số vùng ứng viên qua ba mạng P-Net, R-Net và O-Net. RetinaFace cũng học đặc trưng bằng mạng tích chập nhưng tạo dự đoán trên nhiều mức của tháp đặc trưng trong một mạng phát hiện thống nhất. Bảng \ref{tab:detector_theory} đối chiếu các khác biệt này.
 
 \begin{table}[H]
     \centering
-    \caption{So sánh nguyên lý của các phương pháp phát hiện khuôn mặt}
+    \caption{So sánh giữa các phương pháp phát hiện khuôn mặt}
     \label{tab:detector_theory}
     \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|p{2.5cm}|p{5.0cm}|p{3.5cm}|p{4.8cm}|}
+    \begin{tabular}{|p{2.4cm}|p{4.2cm}|p{6.0cm}|p{3.8cm}|}
         \hline
-        \textbf{Phương pháp} & \textbf{Cơ sở chính} & \textbf{Đầu ra} & \textbf{Đặc điểm cần kiểm chứng} \\
+        \textbf{Phương pháp} & \textbf{Cách biểu diễn ảnh} & \textbf{Cách hình thành kết quả} & \textbf{Đầu ra} \\
         \hline
-        Haar Cascade & Đặc trưng dạng Haar, ảnh tích phân, AdaBoost và bộ phân loại xếp tầng & Khung bao & Khả năng xử lý mặt nhỏ, mặt nghiêng, che khuất và nền phức tạp \\
+        Haar Cascade & Đặc trưng Haar được tính nhanh bằng ảnh tích phân & Quét cửa sổ ở nhiều vị trí và tỷ lệ; mỗi cửa sổ phải vượt qua chuỗi bộ phân loại mạnh được AdaBoost lựa chọn và tổ chức theo cấu trúc xếp tầng & Khung bao khuôn mặt \\
         \hline
-        MTCNN & Chuỗi CNN ba tầng và học đa nhiệm & Khung bao, năm điểm mốc & Chất lượng định vị và độ trễ của chuỗi ba mạng trên tháp ảnh \\
+        MTCNN & Đặc trưng được học bằng ba mạng tích chập trên tháp ảnh nhiều tỷ lệ & P-Net tạo vùng ứng viên, R-Net sàng lọc và hiệu chỉnh, O-Net tạo kết quả cuối; NMS được sử dụng sau các giai đoạn để loại khung trùng lặp & Khung bao, điểm tin cậy và năm điểm mốc \\
         \hline
-        RetinaFace & Phát hiện một giai đoạn, đặc trưng đa mức và học đa nhiệm & Khung bao, năm điểm mốc & Hiệu quả phát hiện trên các mức độ khó so với chi phí suy luận \\
+        RetinaFace & Đặc trưng được học bằng mạng tích chập và kết hợp bằng tháp đặc trưng nhiều mức & Dự đoán đồng thời điểm khuôn mặt, độ lệch khung bao và điểm mốc tại các khung tham chiếu; sau đó lọc theo điểm tin cậy và thực hiện NMS & Khung bao, điểm tin cậy và năm điểm mốc \\
         \hline
     \end{tabular}}
 \end{table}
 
+Viola--Jones và MTCNN đều sử dụng cơ chế loại dần các trường hợp không phù hợp, nhưng thành phần xử lý khác nhau. Viola--Jones loại cửa sổ bằng các bộ phân loại sử dụng đặc trưng Haar, còn MTCNN chuyển vùng ứng viên qua ba mạng tích chập có độ phức tạp tăng dần. RetinaFace không tổ chức thành ba mạng sàng lọc nối tiếp mà tạo dự đoán trên các mức đặc trưng trong cùng một mạng. MTCNN và RetinaFace còn cung cấp năm điểm mốc, trong khi đầu ra cơ bản của Viola--Jones là khung bao khuôn mặt.
+
+So sánh trên chỉ phản ánh sự khác nhau về nguyên lý. Nó chưa cho biết phương pháp nào phát hiện chính xác hơn hoặc xử lý nhanh hơn trong điều kiện của luận văn. Việc lựa chọn phương pháp phải dựa trên kết quả thực nghiệm khi cùng sử dụng một tập dữ liệu, một cách tính chỉ số và một cấu hình phần cứng.
+
 \section{Các phương pháp phân loại biểu cảm}
 \label{section:2.3}
 
-Sau khi khuôn mặt được phát hiện và chuẩn hóa, bài toán còn lại là học hàm phân loại từ ảnh khuôn mặt sang bảy lớp. Các hướng tiếp cận có thể chia thành phương pháp dựa trên đặc trưng thủ công và phương pháp học đặc trưng bằng mạng nơ-ron sâu. Các kiến trúc như VGG, ResNet hoặc EfficientNet đóng vai trò mạng nền trong nhóm học sâu, không phải những bước độc lập của quy trình. Tương tự, thư viện tích hợp nhiều mô hình chỉ là lớp phần mềm hỗ trợ suy luận, không phải một phương pháp phân loại.
+Sau khi khuôn mặt được phát hiện và chuẩn hóa, ảnh khuôn mặt được đưa vào bộ phân loại để xác định một trong bảy nhãn biểu cảm. Các phương pháp phân loại có thể chia thành hai nhóm chính. Nhóm thứ nhất sử dụng các đặc trưng được xây dựng theo quy tắc xác định trước, sau đó đưa các đặc trưng này vào bộ phân loại. Nhóm thứ hai sử dụng mạng nơ-ron sâu để tự học đặc trưng trực tiếp từ dữ liệu ảnh. Các mục tiếp theo trình bày nguyên lý của hai hướng tiếp cận này.
 
-\subsection{Đặc trưng thủ công kết hợp bộ phân loại}
+\subsection{Phân loại biểu cảm bằng LBP kết hợp SVM}
 \label{subsection:2.3.1}
 
-Mẫu nhị phân cục bộ (LBP) mã hóa quan hệ cường độ giữa một điểm ảnh trung tâm và các điểm lân cận thành mẫu nhị phân; biểu đồ tần suất của các mẫu mô tả kết cấu cục bộ \cite{ojala2002lbp}. Biểu đồ hướng gradient (HOG) biểu diễn phân bố hướng biến thiên cường độ trong các ô cục bộ và chuẩn hóa theo từng khối \cite{dalal2005hog}. Đối với FER, các đặc trưng này có thể mô tả nếp nhăn, biên môi, hướng lông mày và biến đổi cục bộ quanh mắt. Véc-tơ đặc trưng sau đó được đưa vào bộ phân loại như máy véc-tơ hỗ trợ (SVM).
+LBP kết hợp SVM là một hướng phân loại biểu cảm dựa trên đặc trưng được xác định trước. LBP mô tả kết cấu cục bộ trên ảnh khuôn mặt, còn SVM sử dụng các đặc trưng đó để phân chia ảnh vào các lớp biểu cảm. Trong bài báo \textit{Facial Expression Recognition Based on Local Binary Patterns: A Comprehensive Study}, Shan, Gong và McOwan đã nghiên cứu việc sử dụng đặc trưng LBP kết hợp với SVM để phân loại biểu cảm khuôn mặt \cite{shan2009lbp}.
 
-Ưu điểm của hướng tiếp cận này là quy trình rõ ràng, mô hình nhỏ và chi phí huấn luyện thấp. Tuy nhiên, đặc trưng được thiết kế cố định nên khó thích nghi với đồng thời nhiều biến thiên về góc mặt, danh tính, che khuất và ánh sáng. Hiệu quả của LBP/HOG kết hợp bộ phân loại vì thế cần được kiểm chứng bằng thực nghiệm trên cùng dữ liệu và cùng tiêu chí đánh giá.
+\noindent\textbf{Đầu vào của phương pháp.} Đầu vào là ảnh khuôn mặt đã được phát hiện, căn chỉnh, chuyển về ảnh xám và chuẩn hóa kích thước. Căn chỉnh giúp các bộ phận như mắt, lông mày và miệng nằm ở vị trí tương đối tương ứng giữa các ảnh. Nhờ đó, đặc trưng được trích xuất từ cùng một vùng có thể được so sánh với nhau.
 
-\subsection{Mạng nơ-ron tích chập}
+\noindent\textbf{Trích xuất đặc trưng LBP.} Tại mỗi vị trí trên ảnh, LBP so sánh cường độ của điểm ảnh trung tâm với các điểm ảnh lân cận. Điểm lân cận có cường độ lớn hơn hoặc bằng điểm trung tâm được biểu diễn bằng giá trị $1$; trường hợp còn lại được biểu diễn bằng giá trị $0$. Chuỗi giá trị nhị phân thu được tạo thành một mã mô tả quan hệ sáng--tối trong vùng nhỏ quanh điểm đang xét. Nguyên lý này được Ojala, Pietikäinen và Mäenpää phát triển thành toán tử LBP có thể lấy mẫu các điểm lân cận ở những bán kính khác nhau \cite{ojala2002lbp}.
+
+Để giữ thông tin về vị trí của đặc trưng, ảnh khuôn mặt được chia thành nhiều vùng nhỏ. Hệ thống thống kê số lần xuất hiện của các mã LBP trong từng vùng, sau đó ghép các kết quả theo một thứ tự cố định để tạo thành véc-tơ đặc trưng của toàn bộ khuôn mặt. Vì vậy, véc-tơ không chỉ phản ánh loại kết cấu xuất hiện mà còn cho biết kết cấu đó nằm ở vùng nào trên khuôn mặt. Quá trình này được minh họa trong Hình \ref{fig:lbp_spatial_histogram}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{Hinhve/Chuong2/lbp_spatial_histogram.png}
+    \caption[Quy trình tạo véc-tơ đặc trưng LBP theo vùng]{Quy trình tạo véc-tơ đặc trưng LBP theo vùng (Nguồn: Shan và cộng sự \cite{shan2009lbp})}
+    \label{fig:lbp_spatial_histogram}
+\end{figure}
+
+\noindent\textbf{Phân loại bằng SVM.} Trong giai đoạn huấn luyện, mỗi ảnh được chuyển thành một véc-tơ LBP và gắn với nhãn biểu cảm tương ứng. SVM sử dụng các véc-tơ này để tìm ranh giới phân chia giữa các lớp sao cho khoảng cách từ ranh giới đến những mẫu gần nhất là lớn nhất. Với bài toán nhiều lớp, có thể huấn luyện nhiều bộ phân loại nhị phân theo cách một lớp so với các lớp còn lại \cite{shan2009lbp}.
+
+\noindent\textbf{Đầu ra của phương pháp.} Khi nhận một ảnh mới, hệ thống thực hiện lại các bước chuẩn hóa và trích xuất đặc trưng LBP, sau đó đưa véc-tơ thu được vào SVM. Các bộ phân loại tạo điểm quyết định cho từng lớp và lớp có điểm phù hợp nhất được chọn làm kết quả. Đầu ra là nhãn biểu cảm dự đoán; điểm quyết định của SVM chỉ phản ánh mức độ của mẫu đối với ranh giới phân loại và không mặc nhiên là xác suất.
+
+Như vậy, LBP đảm nhiệm việc mô tả kết cấu trên khuôn mặt theo một quy tắc cố định, còn SVM học ranh giới phân loại từ các véc-tơ đặc trưng. Khả năng phân loại phụ thuộc vào chất lượng căn chỉnh khuôn mặt và mức độ mà đặc trưng LBP biểu diễn được sự khác nhau giữa các biểu cảm.
+
+\subsection{Phân loại biểu cảm bằng mạng nơ-ron tích chập}
 \label{subsection:2.3.2}
 
-Mạng nơ-ron tích chập (CNN) học các bộ lọc trực tiếp từ dữ liệu. Các tầng đầu thường phản ứng với cạnh và kết cấu đơn giản; các tầng sâu hơn kết hợp chúng thành cấu trúc có mức trừu tượng cao hơn \cite{lecun2015deep}. Đối với FER, cơ chế này cho phép mô hình học đồng thời những thay đổi quanh mắt, lông mày, mũi và miệng thay vì phụ thuộc vào một bộ mô tả cố định. Phép gộp hoặc phép giảm kích thước làm tăng vùng cảm thụ và giảm chi phí, trong khi đầu phân loại chuyển đặc trưng cuối thành các giá trị đầu ra $z_k$.
+CNN là phương pháp học sâu thường được sử dụng để phân loại hình ảnh. Khác với LBP kết hợp SVM, CNN không sử dụng một quy tắc cố định để tạo đặc trưng mà học trực tiếp các đặc trưng cần thiết từ dữ liệu huấn luyện. Trong bài báo \textit{Deep Learning}, LeCun, Bengio và Hinton trình bày nguyên lý học biểu diễn qua nhiều lớp của mạng học sâu \cite{lecun2015deep}. Trên cơ sở đó, Li và Deng hệ thống hóa việc áp dụng mạng học sâu cho nhận dạng biểu cảm khuôn mặt trong bài báo \textit{Deep Facial Expression Recognition: A Survey} \cite{li2022deepfer}.
 
-Xác suất của lớp $k$ thường được tính bằng hàm softmax:
+\noindent\textbf{Đầu vào của phương pháp.} Đầu vào là ảnh khuôn mặt đã được phát hiện, căn chỉnh và chuẩn hóa. Các ảnh được đưa về cùng kích thước, số kênh màu và miền giá trị điểm ảnh để phù hợp với cấu trúc đầu vào của mạng. Việc chuẩn hóa hạn chế sự khác biệt về vị trí và kích thước khuôn mặt, giúp mạng tập trung học những đặc điểm có liên quan đến biểu cảm.
 
-\begin{equation}
-    p_k=\frac{\exp(z_k)}{\sum_{j=1}^{K}\exp(z_j)}, \qquad K=7.
-    \label{eq:softmax}
-\end{equation}
+\noindent\textbf{Trích xuất đặc trưng bằng phép tích chập.} Thành phần chính của CNN là các lớp tích chập. Mỗi lớp sử dụng nhiều bộ lọc có kích thước nhỏ để xử lý lần lượt các vùng trên ảnh. Kết quả của mỗi bộ lọc tạo thành một bản đồ đặc trưng, thể hiện vị trí và mức độ xuất hiện của đặc điểm mà bộ lọc phản ứng.
 
-Trong huấn luyện phân loại một nhãn, hàm mất mát entropy chéo cho một mẫu có nhãn thật $y$ là
+Các bộ lọc không được thiết lập thủ công mà được điều chỉnh trong quá trình huấn luyện. Những lớp đầu thường học các đặc trưng đơn giản như đường biên, hướng cạnh và sự thay đổi cường độ điểm ảnh. Những lớp sâu hơn kết hợp các đặc trưng này thành biểu diễn phức tạp hơn, qua đó mô tả sự thay đổi tại các vùng như mắt, lông mày và miệng. Vì vậy, đặc trưng cuối cùng được hình thành từ dữ liệu thay vì được xác định trước như trong phương pháp LBP.
 
-\begin{equation}
-    \mathcal{L}=-\log p_y.
-    \label{eq:cross_entropy}
-\end{equation}
+\noindent\textbf{Biến đổi và giảm kích thước đặc trưng.} Sau phép tích chập, hàm kích hoạt phi tuyến được sử dụng để mạng biểu diễn các quan hệ phức tạp trong ảnh. Các lớp gộp hoặc lớp tích chập có bước dịch lớn hơn có thể được sử dụng để giảm kích thước bản đồ đặc trưng. Quá trình này làm giảm số lượng phép tính, đồng thời giữ lại những thông tin nổi bật phục vụ phân loại. Khi ảnh đi qua nhiều lớp liên tiếp, mạng có thể kết hợp thông tin từ nhiều vùng để hình thành biểu diễn tổng thể của khuôn mặt.
 
-Các công thức trên mô tả đầu ra phân loại xác suất phổ biến của mạng sâu \cite{lecun2015deep}. Trong dữ liệu FER tự nhiên, thách thức không chỉ nằm ở kiến trúc mà còn ở số lượng mẫu, mất cân bằng lớp, nhãn mơ hồ và các biến thiên không liên quan tới biểu cảm. Tổng quan của Li và Deng chỉ ra rằng thiếu dữ liệu huấn luyện và ảnh hưởng của tư thế, chiếu sáng, danh tính là những vấn đề chính của FER dựa trên học sâu \cite{li2022deepfer}. Do đó, độ chính xác công bố của một mô hình trên một tập dữ liệu không được dùng trực tiếp để suy ra hiệu quả trong bối cảnh camera bán lẻ.
+\noindent\textbf{Phân loại biểu cảm.} Các bản đồ đặc trưng cuối cùng được chuyển thành một véc-tơ biểu diễn ảnh khuôn mặt. Véc-tơ này được đưa vào lớp phân loại để tạo điểm dự đoán cho từng lớp biểu cảm. Với bài toán bảy lớp, đầu ra tương ứng với các nhãn \textit{Angry}, \textit{Disgust}, \textit{Fear}, \textit{Happy}, \textit{Sad}, \textit{Surprise} và \textit{Neutral}. Các điểm dự đoán có thể được chuẩn hóa thành mức tin cậy của từng lớp; lớp có giá trị lớn nhất được chọn làm nhãn dự đoán.
 
-\subsection{Học chuyển giao}
+\noindent\textbf{Quá trình huấn luyện.} Mỗi ảnh trong tập huấn luyện được cung cấp cùng nhãn biểu cảm tương ứng. Kết quả dự đoán của mạng được so sánh với nhãn thật để xác định mức sai lệch. Sai lệch này được truyền ngược qua các lớp nhằm điều chỉnh trọng số của bộ lọc và lớp phân loại. Quá trình được lặp lại trên tập dữ liệu huấn luyện để mạng dần học được những đặc trưng giúp phân biệt các lớp biểu cảm.
+
+\noindent\textbf{Đầu ra của phương pháp.} Khi nhận một ảnh mới, mạng sử dụng các trọng số đã học để thực hiện liên tiếp quá trình trích xuất đặc trưng và phân loại. Đầu ra gồm nhãn biểu cảm dự đoán và mức tin cậy tương ứng. Toàn bộ quá trình từ ảnh đầu vào đến kết quả phân loại được thực hiện trong cùng một mô hình.
+
+So với LBP kết hợp SVM, CNN có khả năng tự học đặc trưng từ dữ liệu nhưng phụ thuộc nhiều hơn vào số lượng và chất lượng mẫu huấn luyện. Li và Deng chỉ ra rằng sự thay đổi về tư thế khuôn mặt, điều kiện chiếu sáng, đặc điểm riêng của từng người, hiện tượng che khuất và mất cân bằng giữa các lớp có thể ảnh hưởng đến kết quả nhận dạng biểu cảm \cite{li2022deepfer}.
+
+\subsection{Học chuyển giao trong phân loại biểu cảm}
 \label{subsection:2.3.3}
 
-Học chuyển giao sử dụng tri thức học được từ miền nguồn để hỗ trợ nhiệm vụ ở miền đích, đặc biệt khi dữ liệu gán nhãn của miền đích còn hạn chế \cite{pan2010transfer}. Với FER, mạng nền có thể được khởi tạo từ mô hình đã học trên tập ảnh lớn hoặc tập khuôn mặt, sau đó thay đầu phân loại bằng đầu ra bảy lớp. Hai cách sử dụng phổ biến là cố định phần lớn mạng nền để trích xuất đặc trưng hoặc tinh chỉnh một phần hay toàn bộ mạng trên dữ liệu biểu cảm.
+Học chuyển giao không phải là một bộ phân loại độc lập mà là cách xây dựng mô hình bằng việc sử dụng lại tri thức từ một nhiệm vụ đã được học trước. Trong bài báo \textit{A Survey on Transfer Learning}, Pan và Yang mô tả học chuyển giao là việc sử dụng tri thức từ miền nguồn để hỗ trợ nhiệm vụ ở miền đích \cite{pan2010transfer}. Đối với nhận dạng biểu cảm, miền nguồn có thể là một tập dữ liệu ảnh lớn hoặc tập dữ liệu khuôn mặt, còn miền đích là tập ảnh khuôn mặt đã được gắn nhãn biểu cảm.
 
-Hướng tiếp cận này giảm nhu cầu huấn luyện từ đầu. Tuy nhiên, lợi ích phụ thuộc độ gần giữa miền nguồn và miền đích. Ảnh biểu cảm được cắt sẵn trong bộ dữ liệu có thể khác đáng kể ảnh camera về khoảng cách, chất lượng, góc nhìn và phân bố người dùng; đây là hiện tượng dịch chuyển miền. Vì vậy, hiệu quả của kiến trúc và bộ trọng số dùng cho bước FER cần được kiểm chứng trên cùng tập kiểm thử, cùng bộ phát hiện và cùng quy trình tiền xử lý.
+\noindent\textbf{Mô hình được huấn luyện trước.} Một mạng CNN sau khi được huấn luyện trên lượng dữ liệu lớn đã hình thành các bộ lọc có khả năng nhận biết những đặc điểm phổ biến của ảnh như đường biên, kết cấu và hình dạng. Thay vì khởi tạo toàn bộ trọng số ngẫu nhiên, học chuyển giao sử dụng các trọng số này làm điểm bắt đầu cho nhiệm vụ nhận dạng biểu cảm. Phần mạng thực hiện trích xuất đặc trưng thường được gọi là mạng nền.
+
+\noindent\textbf{Thay lớp phân loại.} Lớp phân loại của mô hình nguồn được thiết kế cho các nhãn của nhiệm vụ ban đầu nên không thể sử dụng trực tiếp cho bài toán biểu cảm. Lớp này được thay bằng một lớp phân loại mới có số đầu ra tương ứng với bảy nhãn biểu cảm. Khi đó, mạng nền tạo véc-tơ đặc trưng từ ảnh khuôn mặt, còn lớp mới sử dụng véc-tơ này để đưa ra kết quả phân loại.
+
+\noindent\textbf{Cố định mạng nền.} Ở cách thứ nhất, trọng số của mạng nền được giữ nguyên và chỉ lớp phân loại mới được huấn luyện trên dữ liệu biểu cảm. Mạng nền đóng vai trò bộ trích xuất đặc trưng cố định. Cách này giảm số lượng tham số cần cập nhật và phù hợp khi dữ liệu của nhiệm vụ mới còn hạn chế, nhưng khả năng thích nghi với đặc điểm riêng của ảnh biểu cảm cũng bị giới hạn.
+
+\noindent\textbf{Tinh chỉnh mô hình.} Ở cách thứ hai, một phần hoặc toàn bộ mạng nền tiếp tục được huấn luyện cùng lớp phân loại mới. Quá trình này điều chỉnh các đặc trưng đã học để phù hợp hơn với sự thay đổi trên khuôn mặt. Việc tinh chỉnh thường bắt đầu từ các trọng số đã được huấn luyện trước thay vì học lại toàn bộ mô hình từ đầu. Phạm vi các lớp được tinh chỉnh phụ thuộc vào lượng dữ liệu và mức độ tương đồng giữa nhiệm vụ nguồn với nhiệm vụ nhận dạng biểu cảm.
+
+\noindent\textbf{Đầu ra của mô hình sau khi chuyển giao.} Học chuyển giao không làm thay đổi dạng đầu ra của CNN. Sau khi được huấn luyện cho nhiệm vụ mới, mô hình vẫn nhận ảnh khuôn mặt đã chuẩn hóa và trả về nhãn biểu cảm cùng mức tin cậy tương ứng. Điểm khác biệt nằm ở cách khởi tạo và huấn luyện trọng số của mạng, không nằm ở cách biểu diễn kết quả.
+
+Học chuyển giao giúp giảm nhu cầu huấn luyện mô hình từ đầu, nhưng hiệu quả phụ thuộc vào mức độ phù hợp giữa dữ liệu nguồn và dữ liệu biểu cảm. Nếu hai miền dữ liệu khác nhau đáng kể về chất lượng ảnh, góc nhìn, điều kiện chiếu sáng hoặc đặc điểm khuôn mặt, các đặc trưng được học trước có thể không chuyển sang nhiệm vụ mới một cách hiệu quả. Vì vậy, mô hình sau khi chuyển giao vẫn cần được đánh giá trên dữ liệu phù hợp với điều kiện sử dụng.
 
 \section{Cơ sở phân tích hành trình cảm xúc đa điểm chạm}
 \label{section:2.4}

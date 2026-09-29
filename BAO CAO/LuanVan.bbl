@@ -21,6 +21,21 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{lemon2016customerjourney}
+\BIBentryALTinterwordspacing
+K.~N. Lemon and P.~C. Verhoef, ``Understanding customer experience throughout
+  the customer journey,'' \emph{Journal of Marketing}, vol.~80, no.~6, pp.
+  69--96, 2016. [Online]. Available: \url{https://doi.org/10.1509/jm.15.0420}
+\BIBentrySTDinterwordspacing
+
+\bibitem{halvorsrud2016journey}
+\BIBentryALTinterwordspacing
+R.~Halvorsrud, K.~Kvale, and A.~Folstad, ``Improving service quality through
+  customer journey analysis,'' \emph{Journal of Service Theory and Practice},
+  vol.~26, no.~6, pp. 840--867, 2016. [Online]. Available:
+  \url{https://doi.org/10.1108/JSTP-05-2015-0111}
+\BIBentrySTDinterwordspacing
+
 \bibitem{ekman1971constants}
 \BIBentryALTinterwordspacing
 P.~Ekman and W.~V. Friesen, ``Constants across cultures in the face and
@@ -33,23 +48,15 @@ P.~Ekman and W.~V. Friesen, ``Constants across cultures in the face and
 \BIBentryALTinterwordspacing
 S.~Li and W.~Deng, ``Deep facial expression recognition: A survey,'' \emph{IEEE
   Transactions on Affective Computing}, vol.~13, no.~3, pp. 1195--1215, 2022.
-  [Online]. Available: \url{https://doi.org/10.1109/TAFFC.2020.2981446}
+  [Online]. Available: \url{https://arxiv.org/abs/1804.08348}
 \BIBentrySTDinterwordspacing
 
-\bibitem{ekman1978facs}
+\bibitem{goodfellow2013challenges}
 \BIBentryALTinterwordspacing
-P.~Ekman and W.~V. Friesen, \emph{Facial Action Coding System: A Technique for
-  the Measurement of Facial Movement}.\hskip 1em plus 0.5em minus 0.4em\relax
-  Palo Alto, CA: Consulting Psychologists Press, 1978. [Online]. Available:
-  \url{https://search.worldcat.org/title/605256401}
-\BIBentrySTDinterwordspacing
-
-\bibitem{yang2016wider}
-\BIBentryALTinterwordspacing
-S.~Yang, P.~Luo, C.-C. Loy, and X.~Tang, ``Wider face: A face detection
-  benchmark,'' in \emph{Proceedings of the IEEE Conference on Computer Vision
-  and Pattern Recognition}, 2016, pp. 5525--5533. [Online]. Available:
-  \url{https://openaccess.thecvf.com/content_cvpr_2016/html/Yang_WIDER_FACE_A_CVPR_2016_paper.html}
+I.~J. Goodfellow, D.~Erhan, P.~L. Carrier, A.~Courville, M.~Mirza
+  \emph{et~al.}, ``Challenges in representation learning: A report on three
+  machine learning contests,'' \emph{Neural Networks}, vol.~64, pp. 59--63,
+  2015. [Online]. Available: \url{https://doi.org/10.1016/j.neunet.2014.09.005}
 \BIBentrySTDinterwordspacing
 
 \bibitem{viola2001rapid}
@@ -109,19 +116,21 @@ S.~J. Pan and Q.~Yang, ``A survey on transfer learning,'' \emph{IEEE
   \url{https://doi.org/10.1109/TKDE.2009.191}
 \BIBentrySTDinterwordspacing
 
-\bibitem{lemon2016customerjourney}
+\bibitem{deng2019arcface}
 \BIBentryALTinterwordspacing
-K.~N. Lemon and P.~C. Verhoef, ``Understanding customer experience throughout
-  the customer journey,'' \emph{Journal of Marketing}, vol.~80, no.~6, pp.
-  69--96, 2016. [Online]. Available: \url{https://doi.org/10.1509/jm.15.0420}
+J.~Deng, J.~Guo, N.~Xue, and S.~Zafeiriou, ``Arcface: Additive angular margin
+  loss for deep face recognition,'' in \emph{Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition}, 2019, pp. 4690--4699.
+  [Online]. Available:
+  \url{https://openaccess.thecvf.com/content_CVPR_2019/html/Deng_ArcFace_Additive_Angular_Margin_Loss_for_Deep_Face_Recognition_CVPR_2019_paper.html}
 \BIBentrySTDinterwordspacing
 
-\bibitem{halvorsrud2016journey}
+\bibitem{yang2016wider}
 \BIBentryALTinterwordspacing
-R.~Halvorsrud, K.~Kvale, and A.~Folstad, ``Improving service quality through
-  customer journey analysis,'' \emph{Journal of Service Theory and Practice},
-  vol.~26, no.~6, pp. 840--867, 2016. [Online]. Available:
-  \url{https://doi.org/10.1108/JSTP-05-2015-0111}
+S.~Yang, P.~Luo, C.-C. Loy, and X.~Tang, ``Wider face: A face detection
+  benchmark,'' in \emph{Proceedings of the IEEE Conference on Computer Vision
+  and Pattern Recognition}, 2016, pp. 5525--5533. [Online]. Available:
+  \url{https://openaccess.thecvf.com/content_cvpr_2016/html/Yang_WIDER_FACE_A_CVPR_2016_paper.html}
 \BIBentrySTDinterwordspacing
 
 \bibitem{opencvHaar}
@@ -151,6 +160,22 @@ M.~Everingham, L.~Van~Gool, C.~K.~I. Williams, J.~Winn, and A.~Zisserman, ``The
   pascal visual object classes (voc) challenge,'' \emph{International Journal
   of Computer Vision}, vol.~88, no.~2, pp. 303--338, 2010. [Online]. Available:
   \url{https://doi.org/10.1007/s11263-009-0275-4}
+\BIBentrySTDinterwordspacing
+
+\bibitem{karkkainen2021fairface}
+\BIBentryALTinterwordspacing
+K.~Karkkainen and J.~Joo, ``Fairface: Face attribute dataset for balanced race,
+  gender, and age for bias measurement and mitigation,'' in \emph{Proceedings
+  of the IEEE/CVF Winter Conference on Applications of Computer Vision}, 2021,
+  pp. 1548--1558. [Online]. Available:
+  \url{https://openaccess.thecvf.com/content/WACV2021/html/Karkkainen_FairFace_Face_Attribute_Dataset_for_Balanced_Race_Gender_and_Age_WACV_2021_paper.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{fairfaceRepository}
+\BIBentryALTinterwordspacing
+J.~Joo and Contributors, ``Fairface dataset repository,'' 2021, giấy phép CC
+  BY 4.0, truy cập ngày 23-09-2026. [Online]. Available:
+  \url{https://github.com/joojs/fairface}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}
