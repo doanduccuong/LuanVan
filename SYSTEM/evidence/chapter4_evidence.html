@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bằng chứng vận hành hệ thống</title>
+  <style>
+    :root { font-family: Inter, Arial, sans-serif; color: #15332f; background: #eef5f3; }
+    body { margin: 0; padding: 44px; }
+    main { max-width: 1250px; margin: auto; }
+    h1 { margin: 0 0 8px; font-size: 34px; }
+    .lead { color: #59706c; margin-bottom: 28px; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .card, section { background: white; border: 1px solid #dbe8e5; border-radius: 14px; box-shadow: 0 8px 24px rgba(20, 65, 58, .06); }
+    .card { padding: 20px; }
+    .ok { color: #087f5b; font-weight: 700; }
+    .name { font-weight: 750; font-size: 19px; margin-bottom: 8px; }
+    section { margin-top: 22px; padding: 24px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 13px 14px; border-bottom: 1px solid #e5eeec; text-align: left; }
+    th { background: #f4f9f8; }
+    code { background: #edf7f4; color: #086c59; padding: 2px 6px; border-radius: 5px; }
+    .metric { font-size: 30px; font-weight: 800; margin: 7px 0; }
+    .tests { margin-top: 22px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Trạng thái phiên bản tích hợp</h1>
+  <div class="lead">Kết quả kiểm tra ngày 01/10/2026 trên môi trường cục bộ</div>
+  <div class="grid">
+    <div class="card"><div class="name">Giao diện CRM</div><div class="metric">8080</div><div class="ok">Đang hoạt động</div></div>
+    <div class="card"><div class="name">Máy chủ API</div><div class="metric">8000</div><div class="ok">READY</div></div>
+    <div class="card"><div class="name">Xử lý ảnh</div><div class="metric">8001</div><div class="ok">HEALTHY</div></div>
+    <div class="card"><div class="name">PostgreSQL</div><div class="metric">16</div><div class="ok">HEALTHY</div></div>
+  </div>
+  <section>
+    <h2>Các phần đã tích hợp</h2>
+    <table>
+      <thead><tr><th>Nhóm</th><th>Kết quả đã kiểm tra</th><th>Trạng thái</th></tr></thead>
+      <tbody>
+        <tr><td>Cơ sở dữ liệu</td><td>Đã áp dụng <code>c8f31b7b2a19</code> và bản cập nhật đầu hiện tại <code>e7b4a91d2c60</code></td><td class="ok">Đạt</td></tr>
+        <tr><td>Quan sát</td><td>RetinaFace, DeepFace và ArcFace; một khung hình có thể tạo nhiều quan sát</td><td class="ok">Đạt</td></tr>
+        <tr><td>Lần mua sắm</td><td>Sắp xếp thời gian; đóng thủ công; phát hiện khu vực thiếu và xung đột</td><td class="ok">Đạt</td></tr>
+        <tr><td>Báo cáo</td><td>Phân bố, thay đổi giữa khu vực, biến thiên thời gian và chất lượng dữ liệu</td><td class="ok">Đạt</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="tests">
+    <h2>Kết quả kiểm thử tự động</h2>
+    <div class="grid">
+      <div class="card"><div class="name">API và CRM</div><div class="metric">9/9</div><div class="ok">Kiểm thử đạt</div></div>
+      <div class="card"><div class="name">Xử lý ảnh</div><div class="metric">3/3</div><div class="ok">Kiểm thử đạt</div></div>
+      <div class="card"><div class="name">React + TypeScript</div><div class="metric">BUILD</div><div class="ok">Thành công</div></div>
+      <div class="card"><div class="name">Phát lại ảnh</div><div class="metric">120/120</div><div class="ok">Sự kiện đạt</div></div>
+    </div>
+  </section>
+  <section class="limits">
+    <h2>Phạm vi cấu hình đang kiểm tra</h2>
+    <table>
+      <tbody>
+        <tr><th>Nguồn ảnh</th><td>Khung hình 640×480 được dựng có kiểm soát từ cùng một tập con FairFace; chưa truyền trực tiếp từ camera vật lý.</td></tr>
+        <tr><th>Theo dõi liên khung hình</th><td>Chưa theo dõi người chưa xác định qua video liên tục; nguồn thu nhận phải kiểm soát tần suất lấy mẫu.</td></tr>
+        <tr><th>Cấu hình xử lý ảnh</th><td><code>VISION_BACKEND=deepface_retinaface</code>; mô hình thật được dùng cho toàn bộ 120 sự kiện ảnh.</td></tr>
+        <tr><th>Ngưỡng nhận dạng</th><td>Khoảng cách cosine 0,269958, hiệu chỉnh từ 8 danh tính tách rời; kết quả chỉ chứng minh tính hoạt động trong điều kiện đã xây dựng.</td></tr>
+        <tr><th>Phạm vi cửa hàng</th><td>Một cửa hàng; không triển khai quản lý nhiều chi nhánh.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>

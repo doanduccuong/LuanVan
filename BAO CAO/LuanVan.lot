@@ -1,17 +1,15 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces So sánh nguyên lý của các phương pháp phát hiện khuôn mặt}}{17}{table.caption.17}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces So sánh giữa các phương pháp phát hiện khuôn mặt}}{17}{table.caption.17}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Đầu vào và đầu ra của các công đoạn}}{22}{table.caption.20}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Thông tin của một bản ghi tại điểm chạm}}{24}{table.caption.22}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces Cách xử lý các trường hợp khi liên kết hành trình}}{26}{table.caption.24}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Đầu vào và kết quả của các công đoạn trong giải pháp}}{26}{table.caption.21}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Thông tin của một bản ghi quan sát}}{30}{table.caption.23}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Cách xử lý bản ghi theo kết quả đối sánh khách hàng}}{33}{table.caption.24}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Các thành phần đã triển khai}}{28}{table.caption.25}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Đặc tả các chức năng chính}}{31}{table.caption.30}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Kết quả kiểm tra phiên bản triển khai}}{39}{table.caption.43}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Các thành phần của hệ thống}}{40}{table.caption.26}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Kết quả chất lượng phát hiện trên tập xác thực WIDER FACE}}{42}{table.caption.44}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Kết quả hiệu năng phát hiện trên CPU}}{42}{table.caption.45}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Dữ liệu sau khi chạy kịch bản tạo dữ liệu}}{45}{table.caption.48}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Kết quả chất lượng phát hiện trên tập xác thực WIDER FACE}}{53}{table.caption.40}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Kết quả hiệu năng phát hiện trên CPU}}{53}{table.caption.41}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Dữ liệu sau khi chạy kịch bản tạo dữ liệu}}{56}{table.caption.44}%
 \contentsfinish 
 \contentsfinish 

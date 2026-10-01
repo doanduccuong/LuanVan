@@ -14,20 +14,28 @@ import numpy as np
 from .settings import get_settings
 
 
-LABELS = ("ANGRY", "DISGUST", "FEAR", "HAPPY", "SAD", "SURPRISE", "NEUTRAL")
+LABELS = ("Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral")
+
+
+@dataclass
+class FaceAnalysis:
+    face_index: int
+    image_status: str
+    box: list[float]
+    detection_score: float | None = None
+    expression_status: str = "NOT_RUN"
+    identity_status: str = "NOT_RUN"
+    expression_label: str | None = None
+    expression_confidence: float | None = None
+    expression_scores: dict[str, float] | None = None
+    embedding: list[float] | None = None
 
 
 @dataclass
 class Analysis:
     image_status: str
     face_count: int
-    box: list[float] | None = None
-    detection_score: float | None = None
-    expression_status: str = "NOT_RUN"
-    expression_label: str | None = None
-    expression_confidence: float | None = None
-    expression_scores: dict[str, float] | None = None
-    embedding: list[float] | None = None
+    faces: list[FaceAnalysis]
     models: dict[str, str] | None = None
 
 
@@ -64,17 +72,24 @@ class OpenCVDemoEngine(VisionEngine):
         try:
             image = decode_image(image_bytes)
         except ValueError:
-            return Analysis(image_status="INVALID_IMAGE", face_count=0, models=self._models())
+            return Analysis(image_status="INVALID_IMAGE", face_count=0, faces=[], models=self._models())
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         boxes = self.detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(32, 32))
         if len(boxes) == 0:
-            return Analysis(image_status="NO_FACE", face_count=0, models=self._models())
-        if len(boxes) > 1:
-            return Analysis(image_status="MULTIPLE_FACES", face_count=len(boxes), models=self._models())
-        x, y, width, height = [int(v) for v in boxes[0]]
+            return Analysis(image_status="NO_FACE", face_count=0, faces=[], models=self._models())
+        ordered_boxes = sorted(boxes, key=lambda box: (int(box[1]), int(box[0])))
+        faces = [self._analyze_crop(gray, box, face_index) for face_index, box in enumerate(ordered_boxes)]
+        return Analysis(image_status="VALID", face_count=len(faces), faces=faces, models=self._models())
+
+    def _analyze_crop(self, gray: np.ndarray, box, face_index: int) -> FaceAnalysis:
+        x, y, width, height = [int(v) for v in box]
         crop = gray[y : y + height, x : x + width]
         if crop.size == 0:
-            return Analysis(image_status="INVALID_FACE_CROP", face_count=1, models=self._models())
+            return FaceAnalysis(
+                face_index=face_index,
+                image_status="INVALID_FACE_CROP",
+                box=[float(x), float(y), float(x + width), float(y + height)],
+            )
         # This deterministic output keeps API tests runnable. It is explicitly marked DEMO.
         resized = cv2.resize(crop, (32, 16), interpolation=cv2.INTER_AREA)
         embedding = normalize_embedding(resized.astype(np.float32) - float(resized.mean()))
@@ -83,17 +98,17 @@ class OpenCVDemoEngine(VisionEngine):
         scores_array = raw / raw.sum()
         best = int(scores_array.argmax())
         scores = {label: float(scores_array[index]) for index, label in enumerate(LABELS)}
-        return Analysis(
+        return FaceAnalysis(
+            face_index=face_index,
             image_status="VALID",
-            face_count=1,
             box=[float(x), float(y), float(x + width), float(y + height)],
             detection_score=1.0,
             expression_status="VALID",
+            identity_status="VALID",
             expression_label=LABELS[best],
             expression_confidence=float(scores_array[best]),
             expression_scores=scores,
             embedding=embedding,
-            models=self._models(),
         )
 
     @staticmethod
@@ -172,64 +187,92 @@ class RetinaFaceMobileNetDetector:
 
 class DeepFaceRetinaFaceEngine(VisionEngine):
     def __init__(self) -> None:
+        # Khởi tạo PyTorch/RetinaFace trước TensorFlow/DeepFace. Trên Linux ARM,
+        # thứ tự ngược lại có thể làm xung đột thư viện native khi suy luận.
+        self.detector = RetinaFaceMobileNetDetector()
         try:
             from deepface import DeepFace
         except ImportError as exc:
             raise RuntimeError("Chưa cài nhóm phụ thuộc models của dịch vụ vision") from exc
         self.DeepFace = DeepFace
-        self.detector = RetinaFaceMobileNetDetector()
 
     def analyze(self, image_bytes: bytes) -> Analysis:
         try:
             image = decode_image(image_bytes)
         except ValueError:
-            return Analysis(image_status="INVALID_IMAGE", face_count=0, models=self._models())
+            return Analysis(image_status="INVALID_IMAGE", face_count=0, faces=[], models=self._models())
         detections = self.detector.detect(image)
         if not detections:
-            return Analysis(image_status="NO_FACE", face_count=0, models=self._models())
-        if len(detections) > 1:
-            return Analysis(image_status="MULTIPLE_FACES", face_count=len(detections), models=self._models())
-        detection = detections[0]
+            return Analysis(image_status="NO_FACE", face_count=0, faces=[], models=self._models())
+        ordered_detections = sorted(detections, key=lambda item: (float(item["box"][1]), float(item["box"][0])))
+        faces = [self._analyze_detection(image, detection, face_index) for face_index, detection in enumerate(ordered_detections)]
+        return Analysis(image_status="VALID", face_count=len(faces), faces=faces, models=self._models())
+
+    def _analyze_detection(self, image: np.ndarray, detection: dict, face_index: int) -> FaceAnalysis:
         height, width = image.shape[:2]
         x1, y1, x2, y2 = detection["box"]
         x1, y1 = max(0, int(x1)), max(0, int(y1))
         x2, y2 = min(width, int(x2)), min(height, int(y2))
         crop = image[y1:y2, x1:x2]
         if crop.size == 0:
-            return Analysis(image_status="INVALID_FACE_CROP", face_count=1, models=self._models())
-        emotion_result = self.DeepFace.analyze(
-            img_path=crop,
-            actions=["emotion"],
-            detector_backend="skip",
-            enforce_detection=False,
-            align=False,
-            silent=True,
-        )
-        if isinstance(emotion_result, list):
-            emotion_result = emotion_result[0]
-        raw_scores = emotion_result["emotion"]
-        scores = {key.upper(): float(value) / 100.0 for key, value in raw_scores.items()}
-        label = str(emotion_result["dominant_emotion"]).upper()
-        representations = self.DeepFace.represent(
-            img_path=crop,
-            model_name="ArcFace",
-            detector_backend="skip",
-            enforce_detection=False,
-            align=False,
-            normalization="ArcFace",
-        )
-        representation = representations[0]["embedding"]
-        return Analysis(
+            return FaceAnalysis(
+                face_index=face_index,
+                image_status="INVALID_FACE_CROP",
+                box=[float(x1), float(y1), float(x2), float(y2)],
+                detection_score=detection["score"],
+            )
+        expression_status = "MODEL_ERROR"
+        label = None
+        confidence = None
+        scores = None
+        try:
+            emotion_result = self.DeepFace.analyze(
+                img_path=crop,
+                actions=["emotion"],
+                detector_backend="skip",
+                enforce_detection=False,
+                align=False,
+                silent=True,
+            )
+            if isinstance(emotion_result, list):
+                emotion_result = emotion_result[0]
+            raw_scores = emotion_result["emotion"]
+            scores = {key.title(): float(value) / 100.0 for key, value in raw_scores.items()}
+            label = str(emotion_result["dominant_emotion"]).title()
+            confidence = scores[label]
+            expression_status = "VALID"
+        except Exception:
+            # Hai nhánh được giữ độc lập: lỗi FER không làm mất kết quả nhận dạng.
+            pass
+
+        identity_status = "MODEL_ERROR"
+        embedding = None
+        try:
+            representations = self.DeepFace.represent(
+                img_path=crop,
+                model_name="ArcFace",
+                detector_backend="skip",
+                enforce_detection=False,
+                align=False,
+                normalization="ArcFace",
+            )
+            representation = representations[0]["embedding"]
+            embedding = normalize_embedding(np.asarray(representation, dtype=np.float32))
+            identity_status = "VALID"
+        except Exception:
+            # Lỗi ArcFace không làm mất kết quả biểu cảm đã tạo được.
+            pass
+        return FaceAnalysis(
+            face_index=face_index,
             image_status="VALID",
-            face_count=1,
             box=[float(x1), float(y1), float(x2), float(y2)],
             detection_score=detection["score"],
-            expression_status="VALID",
+            expression_status=expression_status,
+            identity_status=identity_status,
             expression_label=label,
-            expression_confidence=scores[label],
+            expression_confidence=confidence,
             expression_scores=scores,
-            embedding=normalize_embedding(np.asarray(representation, dtype=np.float32)),
-            models=self._models(),
+            embedding=embedding,
         )
 
     @staticmethod
@@ -249,4 +292,3 @@ def get_engine() -> VisionEngine:
     if backend == "deepface_retinaface":
         return DeepFaceRetinaFaceEngine()
     raise RuntimeError(f"VISION_BACKEND không được hỗ trợ: {backend}")
-

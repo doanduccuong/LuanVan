@@ -184,12 +184,18 @@ Không lưu ảnh đăng ký trong bảng này. Nếu sau này cần lưu ảnh,
 
 Tại một thời điểm chỉ có tối đa một lượt `ACTIVE` cho một khách hàng. Ràng buộc này phải được bảo vệ bằng chỉ mục duy nhất có điều kiện và giao dịch cơ sở dữ liệu.
 
-### 6.6. `observations`
+### 6.6. `capture_events` và `observations`
+
+`capture_events` lưu một khung hình do nguồn thu nhận gửi đến. `event_id` là duy nhất tại bảng này; các trường còn lại gồm khu vực, thời gian ghi nhận, thời gian tiếp nhận, trạng thái ảnh, số khuôn mặt, phiên bản bộ phát hiện và thông tin nguồn. Khung hình không có khuôn mặt vẫn được lưu tại đây để báo cáo chất lượng dữ liệu.
+
+`observations` lưu từng khuôn mặt được phát hiện trong một sự kiện thu nhận:
 
 | Trường | Kiểu | Quy tắc |
 |---|---|---|
 | `id` | UUID | Khóa chính |
-| `event_id` | text | Duy nhất, do nguồn gửi tạo |
+| `capture_event_id` | UUID | Tham chiếu sự kiện thu nhận |
+| `event_id` | text | Mã khung hình do nguồn gửi tạo |
+| `face_index` | integer | Chỉ số khuôn mặt trong khung hình; duy nhất cùng `event_id` |
 | `touchpoint_id` | UUID | Bắt buộc và phải đang hoạt động |
 | `observed_at` | timestamptz | Thời gian nguồn ghi ảnh |
 | `received_at` | timestamptz | Thời gian API nhận yêu cầu |
@@ -199,6 +205,8 @@ Tại một thời điểm chỉ có tối đa một lượt `ACTIVE` cho một 
 | `expression_confidence` | double precision | Trong khoảng `[0,1]` |
 | `expression_scores` | jsonb | Bảy xác suất để kiểm tra kỹ thuật |
 | `face_match_distance` | double precision | Có thể trống |
+| `bounding_box` | jsonb | Bốn tọa độ của khuôn mặt trong ảnh nguồn |
+| `detection_score` | double precision | Mức tin cậy phát hiện khuôn mặt |
 | `image_status` | enum | Kết quả kiểm tra và phát hiện khuôn mặt |
 | `expression_status` | enum | Kết quả phân loại biểu cảm |
 | `identity_status` | enum | Kết quả nhận dạng khách hàng |
@@ -262,10 +270,9 @@ Thứ tự ánh xạ với mô hình phải nằm trong một tệp cấu hình 
 
 `image_status` nhận một trong các giá trị:
 
-- `VALID`: có đúng một khuôn mặt hợp lệ.
+- `VALID`: ảnh giải mã được và có ít nhất một khuôn mặt hợp lệ.
 - `INVALID_IMAGE`: không giải mã được ảnh.
 - `NO_FACE`: không phát hiện khuôn mặt đạt điều kiện.
-- `MULTIPLE_FACES`: có nhiều hơn một khuôn mặt hợp lệ.
 - `INVALID_FACE_CROP`: vùng khuôn mặt sau cắt/căn chỉnh không hợp lệ.
 - `MODEL_ERROR`: detector không chạy được.
 
@@ -349,32 +356,37 @@ Mã truy cập và mã làm mới đặt trong cookie `HttpOnly`, `Secure`, `Sam
 
 | Trường | Bắt buộc | Quy tắc |
 |---|---:|---|
-| `event_id` | Có | Duy nhất |
+| `event_id` | Có | Duy nhất ở cấp khung hình |
 | `touchpoint_id` | Có | Điểm chạm đang hoạt động |
 | `observed_at` | Có | ISO 8601 có múi giờ |
 | `image` | Có | JPEG hoặc PNG, kiểm tra cả nội dung và kích thước |
 
-Phản hồi thành công về mặt tiếp nhận dùng HTTP `201` cho sự kiện mới và `200` cho lần gửi lại cùng nội dung. Cùng `event_id` nhưng nội dung khác trả `409`.
+Một sự kiện mới tạo một bản ghi `capture_event` và từ không đến nhiều `observation`. Lần gửi lại cùng `event_id` trả tập kết quả đã có và không chạy lại mô hình.
 
 Ví dụ phản hồi:
 
 ```json
 {
-  "observation_id": "7ef1c03d-8611-4fdc-bec9-b5de80c6a8f2",
+  "capture_event_id": "12b1c03d-8611-4fdc-bec9-b5de80c6a8f2",
   "event_id": "device-01-000001",
   "image_status": "VALID",
-  "expression_status": "VALID",
-  "expression": {
-    "label": "NEUTRAL",
-    "confidence": 0.73
-  },
-  "identity": {
-    "status": "MATCHED",
-    "customer_id": "01a02f1b-202e-4ada-b0a8-020413eb46ca",
-    "distance": 0.31,
-    "threshold_version": "arcface-local-v1"
-  },
-  "visit_id": "6c00b143-6ff3-43f4-a762-d8478f9e809b"
+  "face_count": 2,
+  "observations": [
+    {
+      "face_index": 0,
+      "bounding_box": [120.0, 50.0, 310.0, 280.0],
+      "expression_label": "Neutral",
+      "identity_status": "MATCHED",
+      "customer_id": "01a02f1b-202e-4ada-b0a8-020413eb46ca"
+    },
+    {
+      "face_index": 1,
+      "bounding_box": [340.0, 60.0, 500.0, 270.0],
+      "expression_label": "Happy",
+      "identity_status": "NO_MATCH",
+      "customer_id": null
+    }
+  ]
 }
 ```
 
@@ -401,23 +413,34 @@ Bộ lọc chung: `from`, `to`; báo cáo phân bố có thể lọc `touchpoint
 
 ```json
 {
-  "face_count": 1,
-  "box": [120.0, 50.0, 310.0, 280.0],
-  "detection_score": 0.98,
-  "expression": {
-    "label": "NEUTRAL",
-    "confidence": 0.73,
-    "scores": {
-      "ANGRY": 0.03,
-      "DISGUST": 0.01,
-      "FEAR": 0.02,
-      "HAPPY": 0.15,
-      "SAD": 0.03,
-      "SURPRISE": 0.03,
-      "NEUTRAL": 0.73
+  "image_status": "VALID",
+  "face_count": 2,
+  "faces": [
+    {
+      "face_index": 0,
+      "box": [120.0, 50.0, 310.0, 280.0],
+      "detection_score": 0.98,
+      "expression_status": "VALID",
+      "identity_status": "VALID",
+      "expression": {
+        "label": "NEUTRAL",
+        "confidence": 0.73
+      },
+      "embedding": [0.012, -0.031]
+    },
+    {
+      "face_index": 1,
+      "box": [340.0, 60.0, 500.0, 270.0],
+      "detection_score": 0.96,
+      "expression_status": "VALID",
+      "identity_status": "VALID",
+      "expression": {
+        "label": "HAPPY",
+        "confidence": 0.81
+      },
+      "embedding": [0.021, -0.018]
     }
-  },
-  "embedding": [0.012, -0.031],
+  ],
   "models": {
     "detector": "retinaface-mobilenet025:<checksum>",
     "emotion": "deepface-emotion:<checksum>",
@@ -426,7 +449,7 @@ Bộ lọc chung: `from`, `to`; báo cáo phân bố có thể lọc `touchpoint
 }
 ```
 
-Trong dữ liệu thật, `embedding` phải đủ 512 phần tử. Ví dụ đã rút gọn để dễ đọc.
+Trong dữ liệu thật, mỗi `embedding` phải đủ 512 phần tử. Ví dụ đã rút gọn để dễ đọc.
 
 ## 9. Quy tắc nghiệp vụ
 

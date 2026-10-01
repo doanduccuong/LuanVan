@@ -17,11 +17,14 @@ services:
     build:
       context: services/vision
       args:
-        INSTALL_MODEL_DEPS: ${INSTALL_MODEL_DEPS:-false}
+        INSTALL_MODEL_DEPS: ${INSTALL_MODEL_DEPS:-true}
     env_file: ${ENV_FILE:-.env.example}
     volumes:
       - ../COMPARE_FACE_DETECTION/vendor/Pytorch_Retinaface:/models/Pytorch_Retinaface:ro
       - ../COMPARE_FACE_DETECTION/weights/mobilenet0.25_Final.pth:/models/mobilenet0.25_Final.pth:ro
+      - ${HOME}/.deepface:/root/.deepface:ro
+    ports:
+      - "8001:8001"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health/ready')"]
       interval: 10s

@@ -1,0 +1,346 @@
+{
+  "customers": {
+    "CUS-EXP-001": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-002": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-003": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-004": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-005": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-006": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-007": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-008": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-009": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-010": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-011": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-012": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-013": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-014": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-015": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-016": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-017": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-018": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-019": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-020": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-021": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-022": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-023": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-024": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-025": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-026": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-027": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-028": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-029": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-030": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-031": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-032": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-033": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-034": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-035": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-036": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-037": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-038": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-039": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-040": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-041": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-042": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-043": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-044": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-045": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-046": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-047": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-048": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-049": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-050": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-051": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-052": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-053": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-054": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-055": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-056": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-057": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-058": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-059": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-060": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-061": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-062": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-063": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-064": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-065": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-066": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-067": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-068": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-069": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-070": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-071": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-072": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-073": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-074": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-075": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-076": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-077": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-078": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-079": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-080": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-081": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-082": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-083": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-084": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-085": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-086": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-087": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-088": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-089": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-090": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-091": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-092": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-093": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-094": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-095": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-096": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-097": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-098": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-099": {
+      "minimum_visits": 1
+    },
+    "CUS-EXP-100": {
+      "minimum_visits": 1
+    }
+  },
+  "scenarios": {
+    "EXP-IDENTITY-001": {
+      "touchpoints": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    "EXP-IDENTITY-002": {
+      "touchpoints": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    "EXP-IDENTITY-003": {
+      "touchpoints": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    "EXP-IDENTITY-004": {
+      "touchpoints": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    "EXP-IDENTITY-005": {
+      "touchpoints": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    }
+  }
+}

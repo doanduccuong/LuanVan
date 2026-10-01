@@ -4,21 +4,21 @@
 \section{Đặt vấn đề}
 \label{section:1.1}
 
-Sự phát triển trong quá trình chuyển đổi số và bán lẻ đa kênh hiện đại, khả năng thấu hiểu hành vi và tối ưu hóa trải nghiệm khách hàng (Customer Experience -- CX) đã trở thành năng lực cạnh tranh cốt lõi của mọi doanh nghiệp. Để nâng cao chất lượng dịch vụ và xây dựng sự tin tưởng đối với khách hàng, các doanh nghiệp luôn tìm kiếm các giải pháp đo lường trải nghiệm cũng như sự hài lòng của khách hàng một cách khách quan và tức thời ngay tại các gian hàng mua sắm, cổng đón tiếp, khu vực chờ, quầy tư vấn, khu trưng bày sản phẩm hay quầy thu ngân.
+Trong quá trình chuyển đổi số và phát triển bán lẻ đa kênh, khả năng thấu hiểu hành vi và cải thiện trải nghiệm khách hàng (Customer Experience -- CX) ngày càng có vai trò quan trọng đối với doanh nghiệp. Để nâng cao chất lượng dịch vụ và củng cố sự tin tưởng của khách hàng, doanh nghiệp cần những phương pháp ghi nhận trải nghiệm và mức độ hài lòng một cách khách quan, kịp thời tại các khu vực như cửa đón tiếp, khu vực chờ, quầy tư vấn, khu trưng bày sản phẩm và quầy thanh toán.
 
 Tuy nhiên, các phương pháp khảo sát truyền thống đang bộc lộ nhiều hạn chế lớn:
 
 \begin{itemize}
-    \item \textbf{Gây ra cảm giác phiền toái và làm gián đoạn trải nghiệm mua sắm:} Việc yêu cầu khách hàng điền phiếu đánh giá hoặc bấm máy khảo sát tại chỗ thường gây cảm giác khó chịu nhiều khi còn làm cho cảm giác hứng thú với mua sắm bị giảm đi.
+    \item \textbf{Có thể gây bất tiện và làm gián đoạn quá trình mua sắm:} Việc yêu cầu khách hàng điền phiếu đánh giá hoặc thực hiện khảo sát tại chỗ có thể gây khó chịu và làm giảm sự hứng thú trong quá trình mua sắm.
     
-    \item \textbf{Độ trễ về mặt tiếp nhận thông tin cao cũng như tỷ lệ phản hồi thấp:} Các hình thức khảo sát sau giao dịch (qua tin nhắn SMS, email, ứng dụng di động) có tỷ lệ phản hồi thực tế thường rất thấp và mất nhiều giờ hoặc nhiều ngày để tổng hợp, khiến nhân viên cũng như ban quản lý không thể phát hiện và có các biện pháp can thiệp kịp thời với các tình huống khách hàng gặp bức xúc.
+    \item \textbf{Thời gian tiếp nhận thông tin dài và tỷ lệ phản hồi thấp:} Các hình thức khảo sát sau giao dịch qua tin nhắn SMS, thư điện tử hoặc ứng dụng di động thường có tỷ lệ phản hồi thấp và cần nhiều thời gian để tổng hợp. Vì vậy, nhân viên và người quản lý khó phát hiện kịp thời những trường hợp khách hàng có trải nghiệm không tốt.
     
-    \item \textbf{Độ tin cậy và tính thiên lệch (Survey Bias):} Khách hàng thường chỉ chủ động đánh giá khi có trải nghiệm cực kỳ tiêu cực hoặc rất tiêu cực, bỏ sót nhóm đa số các nhóm cảm khác.
+    \item \textbf{Tính thiên lệch của kết quả khảo sát (Survey Bias):} Khách hàng thường chủ động phản hồi khi có trải nghiệm rất tiêu cực. Vì vậy, kết quả có thể không phản ánh đầy đủ ý kiến của phần lớn khách hàng.
 \end{itemize}
 
-Sự phát triển của Trí tuệ nhân tạo (AI) và Thị giác máy tính (Computer Vision) mở ra tiềm năng giải quyết triệt để bài toán trên thông qua công nghệ Nhận dạng biểu cảm khuôn mặt (Facial Expression Recognition -- FER). Bằng cách phân tích các chuyển động cơ mặt tự nhiên, giờ đây chúng ta có thể liên tục ghi nhận biểu hiện cảm xúc quan sát được của khách hàng một cách thụ động, nhất quán và không cần tiếp xúc vật lý. Tuy nhiên, việc thu thập dữ liệu cảm xúc chỉ thực sự phát huy giá trị khi được tích hợp vào hệ thống Quản lý quan hệ khách hàng (Customer Relationship Management -- CRM), cho phép doanh nghiệp không chỉ ghi nhận mà còn phân tích, theo dõi xu hướng cảm xúc cũng như tâm trạng của khách hàng và từ đó đưa ra hành động cải thiện dịch vụ một cách có hệ thống hơn. Tuy nhiên, việc đánh giá biểu cảm của khách hàng tại một thời điểm đôi khi chưa phản ánh đầy đủ tâm trạng cũng như cảm xúc của khách hàng trong suốt quá trình mua sắm, vì biểu cảm có thể khác nhau giữa các khu vực và các giai đoạn trong suốt quá trình mua sắm. Luận văn này nghiên cứu và đề xuất một phương án liên kết việc nhận dạng biểu cảm khuôn mặt tại nhiều điểm đồng thời tích hợp vào hệ thống CRM để hỗ trợ theo dõi toàn bộ quá trình mua sắm của khách hàng tại cửa hàng 
+Sự phát triển của trí tuệ nhân tạo (AI) và thị giác máy tính (Computer Vision) tạo điều kiện ứng dụng công nghệ nhận dạng biểu cảm khuôn mặt (Facial Expression Recognition -- FER) vào bài toán trên. Thông qua việc phân tích hình ảnh khuôn mặt, hệ thống có thể ghi nhận biểu cảm quan sát được của khách hàng mà không làm gián đoạn quá trình mua sắm. Dữ liệu này có thể được tích hợp vào hệ thống quản lý quan hệ khách hàng (Customer Relationship Management -- CRM) để hỗ trợ lưu trữ, tra cứu và phân tích cùng với hồ sơ và lịch sử mua hàng. Tuy nhiên, biểu cảm được ghi nhận tại một thời điểm riêng lẻ chưa phản ánh đầy đủ sự thay đổi trong suốt quá trình mua sắm, vì kết quả có thể khác nhau giữa các khu vực và các giai đoạn. Vì vậy, luận văn nghiên cứu và đề xuất phương án liên kết kết quả nhận dạng biểu cảm tại nhiều khu vực, đồng thời tích hợp các kết quả này vào hệ thống CRM để theo dõi quá trình mua sắm của khách hàng tại cửa hàng.
 
-Về mặt lý luận, luận văn hệ thống hóa cơ sở lý thuyết về phát hiện khuôn mặt, nhận dạng biểu cảm và hành trình khách hàng đa điểm chạm. Trên cơ sở đó, luận văn xác lập cách tiếp cận sử dụng biểu cảm khuôn mặt như một dấu hiệu quan sát để ước lượng phản ứng cảm xúc của khách hàng tại từng điểm ghi nhận cảm xúc. Việc liên kết các kết quả cảm xúc của từng khách hàng, lượt ghé thăm và thứ tự thời gian cho phép phân tích sự phân bố và xu hướng thay đổi biểu cảm trong suốt quá trình mua sắm, thay vì chỉ đánh giá biểu cảm khách hàng tại một thời điểm riêng lẻ
+Về mặt lý luận, luận văn hệ thống hóa cơ sở lý thuyết về phát hiện khuôn mặt, nhận dạng biểu cảm và hành trình khách hàng đa điểm chạm. Trên cơ sở đó, luận văn sử dụng biểu cảm khuôn mặt như một dấu hiệu quan sát để xem xét phản ứng của khách hàng tại từng khu vực. Việc liên kết kết quả theo khách hàng, lần mua sắm và thứ tự thời gian cho phép phân tích sự phân bố và thay đổi của biểu cảm trong quá trình mua sắm, thay vì chỉ xem xét một thời điểm riêng lẻ.
 \section{Mục tiêu và phạm vi luận văn}
 \label{section:1.2}
 
@@ -29,9 +29,9 @@ Nghiên cứu hướng tới việc thực hiện các mục tiêu cốt lõi sa
 \begin{enumerate}
     \item \textbf{Xây dựng quy trình nhận dạng biểu cảm khuôn mặt (FER) bảy lớp theo thời gian thực:} Nghiên cứu quy trình phát hiện khuôn mặt, phân loại bảy lớp biểu cảm (Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral).
     
-    \item \textbf{Mô hình hóa hành trình khách hàng đa điểm chạm:} Xác định khách hàng đã đăng ký tại các điểm chạm, tạo lượt ghé thăm và sắp xếp các kết quả nhận dạng biểu cảm theo thời gian để hình thành lịch sử hành trình mua sắm.
+    \item \textbf{Mô hình hóa quá trình mua sắm tại nhiều khu vực:} Xác định khách hàng đã đăng ký tại các khu vực, tạo lần mua sắm và sắp xếp kết quả nhận dạng biểu cảm theo thời gian để hình thành lịch sử mua sắm.
     
-    \item \textbf{Thiết kế và tích hợp hệ thống CRM:} Xây dựng hệ thống gồm tính năng xử lý ảnh hình ảnh, BE xử lí nghiệp vụ, giao diện quản lí, lịch sử mua hàng, cài đặt điểm chạm,  thống kê lượt ghé thăm và báo cáo biểu cảm theo từng điểm chạm khác nhau.
+    \item \textbf{Thiết kế và tích hợp hệ thống CRM:} Xây dựng hệ thống gồm tính năng xử lý hình ảnh, máy chủ xử lý nghiệp vụ, giao diện quản lý, lịch sử mua hàng, quản lý khu vực, thống kê lần mua sắm và báo cáo biểu cảm theo từng khu vực.
 \end{enumerate}
 
 \end{document}

@@ -172,11 +172,36 @@ class Visit(Base):
     customer: Mapped[Customer] = relationship()
 
 
-class Observation(Base):
-    __tablename__ = "observations"
+class CaptureEvent(Base):
+    """Một khung hình được nguồn thu nhận gửi đến hệ thống."""
+
+    __tablename__ = "capture_events"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
     event_id: Mapped[str] = mapped_column(String(128), unique=True, index=True)
+    touchpoint_id: Mapped[str] = mapped_column(ForeignKey("touchpoints.id"), index=True)
+    observed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    received_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    image_status: Mapped[str] = mapped_column(String(32), default="NOT_RUN", index=True)
+    face_count: Mapped[int] = mapped_column(Integer, default=0)
+    detector_version: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    source_type: Mapped[str] = mapped_column(String(32), default="CAMERA", index=True)
+    simulation_run_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
+    demo_data: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    touchpoint: Mapped[Touchpoint] = relationship()
+    observations: Mapped[list[Observation]] = relationship(back_populates="capture_event", cascade="all, delete-orphan")
+
+
+class Observation(Base):
+    __tablename__ = "observations"
+    __table_args__ = (UniqueConstraint("event_id", "face_index", name="uq_observation_event_face"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    capture_event_id: Mapped[str] = mapped_column(ForeignKey("capture_events.id", ondelete="CASCADE"), index=True)
+    event_id: Mapped[str] = mapped_column(String(128), index=True)
+    face_index: Mapped[int] = mapped_column(Integer, default=0)
     touchpoint_id: Mapped[str] = mapped_column(ForeignKey("touchpoints.id"), index=True)
     observed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     received_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
@@ -186,6 +211,8 @@ class Observation(Base):
     expression_confidence: Mapped[float | None] = mapped_column(nullable=True)
     expression_scores: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     face_match_distance: Mapped[float | None] = mapped_column(nullable=True)
+    bounding_box: Mapped[list[float] | None] = mapped_column(JSON, nullable=True)
+    detection_score: Mapped[float | None] = mapped_column(nullable=True)
     image_status: Mapped[str] = mapped_column(String(32), default="NOT_RUN", index=True)
     expression_status: Mapped[str] = mapped_column(String(32), default="NOT_RUN", index=True)
     identity_status: Mapped[str] = mapped_column(String(32), default="NOT_RUN", index=True)
@@ -197,8 +224,39 @@ class Observation(Base):
     demo_data: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
+    capture_event: Mapped[CaptureEvent] = relationship(back_populates="observations")
     touchpoint: Mapped[Touchpoint] = relationship()
     customer: Mapped[Customer | None] = relationship()
+
+
+class ObservationRevision(Base):
+    """Lưu lại kết quả cũ trước khi một quan sát được xử lý hoặc gán lại."""
+
+    __tablename__ = "observation_revisions"
+    __table_args__ = (UniqueConstraint("observation_id", "revision_number", name="uq_observation_revision"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    observation_id: Mapped[str] = mapped_column(ForeignKey("observations.id", ondelete="CASCADE"), index=True)
+    revision_number: Mapped[int] = mapped_column(Integer)
+    reason: Mapped[str] = mapped_column(String(64))
+    snapshot: Mapped[dict] = mapped_column(JSON)
+    created_by: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class IngestionIssue(Base):
+    """Ghi nhận yêu cầu không đủ điều kiện để tạo Observation."""
+
+    __tablename__ = "ingestion_issues"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    event_id: Mapped[str | None] = mapped_column(String(128), nullable=True, index=True)
+    touchpoint_reference: Mapped[str | None] = mapped_column(String(128), nullable=True, index=True)
+    observed_at_text: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    issue_code: Mapped[str] = mapped_column(String(64), index=True)
+    detail: Mapped[str] = mapped_column(String(512))
+    source_type: Mapped[str] = mapped_column(String(32), default="CAMERA", index=True)
+    received_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, index=True)
 
 
 class Order(Base):

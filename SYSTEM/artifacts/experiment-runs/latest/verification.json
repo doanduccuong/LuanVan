@@ -1,0 +1,712 @@
+{
+  "created_at": "2026-10-01T09:53:38.759876+00:00",
+  "passed": true,
+  "checks": [
+    {
+      "name": "minimum visits for CUS-EXP-001",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-002",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-003",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-004",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-005",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-006",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-007",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-008",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-009",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-010",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-011",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-012",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-013",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-014",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-015",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-016",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-017",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-018",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-019",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-020",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-021",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-022",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-023",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-024",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-025",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-026",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-027",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-028",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-029",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-030",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-031",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-032",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-033",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-034",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-035",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-036",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-037",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-038",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-039",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-040",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-041",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-042",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-043",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-044",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-045",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-046",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-047",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-048",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-049",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-050",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-051",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-052",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-053",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-054",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-055",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-056",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-057",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-058",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-059",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-060",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-061",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-062",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-063",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-064",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-065",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-066",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-067",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-068",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-069",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-070",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-071",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-072",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-073",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-074",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-075",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-076",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-077",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-078",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-079",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-080",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-081",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-082",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-083",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-084",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-085",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-086",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-087",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-088",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-089",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-090",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-091",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-092",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-093",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-094",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-095",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-096",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-097",
+      "passed": true,
+      "actual": 3,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-098",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-099",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "minimum visits for CUS-EXP-100",
+      "passed": true,
+      "actual": 2,
+      "expected": 1
+    },
+    {
+      "name": "touchpoint sequence EXP-IDENTITY-005",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "touchpoint sequence EXP-IDENTITY-004",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "touchpoint sequence EXP-IDENTITY-003",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "touchpoint sequence EXP-IDENTITY-002",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "touchpoint sequence EXP-IDENTITY-001",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    }
+  ],
+  "quality": [
+    {
+      "image_status": "INVALID_IMAGE",
+      "expression_status": "NOT_RUN",
+      "identity_status": "NOT_RUN",
+      "count": 5
+    },
+    {
+      "image_status": "NO_FACE",
+      "expression_status": "NOT_RUN",
+      "identity_status": "NOT_RUN",
+      "count": 9
+    },
+    {
+      "image_status": "VALID",
+      "expression_status": "VALID",
+      "identity_status": "MATCHED",
+      "count": 500
+    },
+    {
+      "image_status": "VALID",
+      "expression_status": "VALID",
+      "identity_status": "NO_MATCH",
+      "count": 16
+    }
+  ]
+}

@@ -33,19 +33,26 @@ async def analyze_face(image: UploadFile = File(...)):
     return {
         "image_status": result.image_status,
         "face_count": result.face_count,
-        "box": result.box,
-        "detection_score": result.detection_score,
-        "expression_status": result.expression_status,
-        "expression": (
+        "faces": [
             {
-                "label": result.expression_label,
-                "confidence": result.expression_confidence,
-                "scores": result.expression_scores,
+                "face_index": face.face_index,
+                "image_status": face.image_status,
+                "box": face.box,
+                "detection_score": face.detection_score,
+                "expression_status": face.expression_status,
+                "identity_status": face.identity_status,
+                "expression": (
+                    {
+                        "label": face.expression_label,
+                        "confidence": face.expression_confidence,
+                        "scores": face.expression_scores,
+                    }
+                    if face.expression_label
+                    else None
+                ),
+                "embedding": face.embedding,
             }
-            if result.expression_label
-            else None
-        ),
-        "embedding": result.embedding,
+            for face in result.faces
+        ],
         "models": result.models or {},
     }
-

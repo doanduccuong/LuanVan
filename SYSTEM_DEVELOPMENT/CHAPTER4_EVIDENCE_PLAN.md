@@ -48,7 +48,7 @@ Tất cả ảnh nằm tại `BAO CAO/Hinhve/Chuong4/` và được tạo bằng
 ## Kết quả kiểm tra đi kèm
 
 - 6/6 kiểm thử API đạt.
-- 2/2 kiểm thử dịch vụ ảnh cấu hình nhẹ đạt.
+- 3/3 kiểm thử dịch vụ ảnh cấu hình nhẹ đạt, gồm trường hợp nhiều khuôn mặt.
 - Giao diện biên dịch thành công.
 - Docker Compose chạy đủ PostgreSQL, API, vision, simulator và web.
 - PostgreSQL có 100 khách hàng, 24 sản phẩm, 125 lượt ghé thăm, 397 quan sát và 93 đơn hàng.

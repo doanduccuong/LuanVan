@@ -21,6 +21,8 @@ body { margin: 0; min-width: 1180px; min-height: 100vh; }
 .page-heading + .result-alert { margin-top: 0; margin-bottom: 16px; }
 .section-title { margin-top: 28px !important; }
 .timeline-card { margin-bottom: 12px; border-left: 4px solid #0f766e; }
+.observation-card { cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; }
+.observation-card:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(15,118,110,.12); }
 .ant-card { box-shadow: 0 8px 24px rgba(31, 54, 50, .05); }
 .customer-profile { margin-bottom: 22px; }
 .customer-profile h3 { margin: 0 0 4px !important; }
@@ -31,3 +33,9 @@ body { margin: 0; min-width: 1180px; min-height: 100vh; }
 .dashboard-filter-row { margin: 4px 0 14px; }
 .dashboard-touchpoint-select { min-width: 220px; }
 .dashboard-timeline-note { margin-bottom: 8px; }
+.unknown-note { margin-bottom: 16px; }
+.revision-table { margin-top: 16px; }
+.report-filter-card { margin-bottom: 16px; }
+.report-area-select { min-width: 220px; }
+.change-method { margin-bottom: 16px; }
+.quality-stat-row { margin-bottom: 16px; }

@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import uuid
 from contextlib import asynccontextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 
 from fastapi import Depends, FastAPI, File, Form, HTTPException, Query, Response, UploadFile
+from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 from sqlalchemy import func, or_, select, text
@@ -14,12 +15,15 @@ from sqlalchemy.orm import Session, selectinload
 
 from .config import get_settings
 from .database import Base, SessionLocal, engine, get_db
-from .logic import create_order_items, ensure_aware, get_or_create_visit, load_face_threshold, match_customer
+from .logic import create_order_items, ensure_aware, find_visit_for_order, get_or_create_visit, load_face_threshold, match_customer
 from .models import (
     AuditLog,
+    CaptureEvent,
     Customer,
     FaceTemplate,
+    IngestionIssue,
     Observation,
+    ObservationRevision,
     Order,
     OrderStatus,
     Product,
@@ -132,6 +136,14 @@ class OrderStatusInput(BaseModel):
     status: OrderStatus
 
 
+class ObservationCustomerInput(BaseModel):
+    customer_id: str
+
+
+class ReprocessReasonInput(BaseModel):
+    reason: str = Field(default="MANUAL_REPROCESS", min_length=1, max_length=64)
+
+
 EXPRESSION_LABELS = {"Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"}
 
 
@@ -168,6 +180,90 @@ def audit(db: Session, user: User | None, action: str, entity_type: str, entity_
             details=details or {},
         )
     )
+
+
+OBSERVATION_SNAPSHOT_FIELDS = (
+    "customer_id",
+    "visit_id",
+    "expression_label",
+    "expression_confidence",
+    "expression_scores",
+    "face_match_distance",
+    "bounding_box",
+    "detection_score",
+    "image_status",
+    "expression_status",
+    "identity_status",
+    "detector_version",
+    "emotion_model_version",
+    "recognition_model_version",
+)
+
+
+def save_observation_revision(db: Session, observation: Observation, reason: str, user: User | None) -> ObservationRevision:
+    number = (db.scalar(select(func.max(ObservationRevision.revision_number)).where(ObservationRevision.observation_id == observation.id)) or 0) + 1
+    revision = ObservationRevision(
+        observation_id=observation.id,
+        revision_number=number,
+        reason=reason,
+        snapshot=jsonable_encoder(to_dict(observation, *OBSERVATION_SNAPSHOT_FIELDS)),
+        created_by=user.id if user else None,
+    )
+    db.add(revision)
+    return revision
+
+
+def record_ingestion_issue(
+    db: Session,
+    *,
+    event_id: str | None,
+    touchpoint_reference: str | None,
+    observed_at_text: str | None,
+    issue_code: str,
+    detail: str,
+) -> None:
+    db.add(
+        IngestionIssue(
+            event_id=event_id,
+            touchpoint_reference=touchpoint_reference,
+            observed_at_text=observed_at_text,
+            issue_code=issue_code,
+            detail=detail,
+        )
+    )
+    db.commit()
+
+
+def parse_observed_at(value: str | None) -> datetime:
+    if not value:
+        raise ValueError("Thiếu thời gian ghi nhận")
+    try:
+        return ensure_aware(datetime.fromisoformat(value.replace("Z", "+00:00")))
+    except (ValueError, TypeError) as exc:
+        raise ValueError("Thời gian ghi nhận không hợp lệ hoặc thiếu múi giờ") from exc
+
+
+def attach_visit(db: Session, customer: Customer, observed_at: datetime, demo_data: bool) -> Visit:
+    existing = find_visit_for_order(db, customer.id, observed_at)
+    if existing:
+        return existing
+    active = db.scalar(select(Visit).where(Visit.customer_id == customer.id, Visit.status == VisitStatus.ACTIVE))
+    if active:
+        active_start = active.started_at.replace(tzinfo=timezone.utc) if active.started_at.tzinfo is None else active.started_at.astimezone(timezone.utc)
+        if observed_at < active_start:
+            historical = Visit(
+                customer_id=customer.id,
+                started_at=observed_at,
+                last_seen_at=observed_at,
+                ended_at=observed_at,
+                status=VisitStatus.CLOSED,
+                close_reason="HISTORICAL_ASSIGNMENT",
+                demo_data=demo_data,
+            )
+            db.add(historical)
+            db.flush()
+            return historical
+    return get_or_create_visit(db, customer, observed_at, demo_data)
 
 
 def seed_initial_user() -> None:
@@ -350,14 +446,16 @@ async def enroll_face(
     if not customer.face_consent:
         raise HTTPException(status_code=409, detail="Khách hàng chưa đồng ý sử dụng dữ liệu khuôn mặt")
     result = await vision.analyze(await read_image(image), image.filename or "image.jpg", image.content_type)
-    if result.image_status != "VALID" or not result.embedding:
-        raise HTTPException(status_code=422, detail=f"Không thể tạo mẫu khuôn mặt: {result.image_status}")
+    face = result.single_face()
+    if result.image_status != "VALID" or not face or not face.embedding:
+        status = "MULTIPLE_FACES" if result.face_count > 1 else result.image_status
+        raise HTTPException(status_code=422, detail=f"Không thể tạo mẫu khuôn mặt: {status}")
     template = FaceTemplate(
         customer_id=customer.id,
-        embedding=result.embedding,
+        embedding=face.embedding,
         model_name="ArcFace",
         model_version=result.models.get("embedding", "unknown"),
-        quality_score=result.detection_score,
+        quality_score=face.detection_score,
         created_by=user.id,
     )
     db.add(template)
@@ -397,9 +495,11 @@ async def search_customer_by_face(
     vision: VisionClient = Depends(get_vision_client),
 ):
     result = await vision.analyze(await read_image(image), image.filename or "image.jpg", image.content_type)
-    if result.image_status != "VALID" or not result.embedding:
-        return {"status": result.image_status, "customer": None}
-    customer, distance, identity_status = match_customer(db, result.embedding)
+    face = result.single_face()
+    if result.image_status != "VALID" or not face or not face.embedding:
+        status = "MULTIPLE_FACES" if result.face_count > 1 else result.image_status
+        return {"status": status, "customer": None}
+    customer, distance, identity_status = match_customer(db, face.embedding)
     audit(db, user, "FACE_SEARCH", "customer", customer.id if customer else None, {"status": identity_status})
     db.commit()
     threshold = load_face_threshold()
@@ -603,17 +703,21 @@ def create_order(payload: OrderInput, db: Session = Depends(get_db), _user: User
     if not customer:
         raise HTTPException(status_code=404, detail="Không tìm thấy khách hàng")
     ordered_at = ensure_aware(payload.ordered_at)
-    active_visit = None
+    linked_visit = None
     if payload.visit_id:
-        active_visit = db.get(Visit, payload.visit_id)
-        if not active_visit or active_visit.customer_id != customer.id:
-            raise HTTPException(status_code=422, detail="Lượt ghé thăm không thuộc khách hàng")
+        linked_visit = db.get(Visit, payload.visit_id)
+        if not linked_visit or linked_visit.customer_id != customer.id:
+            raise HTTPException(status_code=422, detail="Lần mua sắm không thuộc khách hàng")
+        allowance = timedelta(seconds=get_settings().visit_idle_timeout_seconds)
+        end_time = linked_visit.ended_at or linked_visit.last_seen_at
+        if ordered_at < ensure_aware(linked_visit.started_at) or ordered_at > ensure_aware(end_time) + allowance:
+            raise HTTPException(status_code=422, detail="Thời gian đơn hàng nằm ngoài lần mua sắm đã chọn")
     else:
-        active_visit = db.scalar(select(Visit).where(Visit.customer_id == customer.id, Visit.status == VisitStatus.ACTIVE))
+        linked_visit = find_visit_for_order(db, customer.id, ordered_at)
     order = Order(
         external_code=payload.external_code,
         customer_id=customer.id,
-        visit_id=active_visit.id if active_visit else None,
+        visit_id=linked_visit.id if linked_visit else None,
         ordered_at=ordered_at,
         status=payload.status,
         demo_data=payload.demo_data,
@@ -650,69 +754,127 @@ def update_order_status(payload: OrderStatusInput, order_id: str, db: Session = 
 
 @app.post("/api/v1/observations", status_code=201)
 async def create_observation(
-    event_id: str = Form(...),
-    touchpoint_id: str = Form(...),
-    observed_at: datetime = Form(...),
+    event_id: str | None = Form(None),
+    touchpoint_id: str | None = Form(None),
+    observed_at: str | None = Form(None),
     demo_data: bool = Form(False),
-    image: UploadFile = File(...),
+    image: UploadFile | None = File(None),
     db: Session = Depends(get_db),
-    _user: User = Depends(get_current_user),
+    user: User = Depends(get_current_user),
     vision: VisionClient = Depends(get_vision_client),
 ):
-    existing = db.scalar(select(Observation).where(Observation.event_id == event_id))
+    event_id = event_id.strip() if event_id else None
+    if not event_id:
+        record_ingestion_issue(db, event_id=None, touchpoint_reference=touchpoint_id, observed_at_text=observed_at, issue_code="MISSING_EVENT_ID", detail="Thiếu mã sự kiện")
+        raise HTTPException(status_code=422, detail="Thiếu mã sự kiện")
+    existing = db.scalar(
+        select(CaptureEvent)
+        .options(selectinload(CaptureEvent.observations))
+        .where(CaptureEvent.event_id == event_id)
+    )
     if existing:
-        return existing
+        return {
+            "capture_event_id": existing.id,
+            "event_id": existing.event_id,
+            "image_status": existing.image_status,
+            "face_count": existing.face_count,
+            "observations": existing.observations,
+        }
+    if not touchpoint_id:
+        record_ingestion_issue(db, event_id=event_id, touchpoint_reference=None, observed_at_text=observed_at, issue_code="MISSING_TOUCHPOINT", detail="Thiếu mã khu vực")
+        raise HTTPException(status_code=422, detail="Thiếu mã khu vực")
     touchpoint = db.get(Touchpoint, touchpoint_id)
     if not touchpoint or not touchpoint.active:
-        raise HTTPException(status_code=422, detail="Điểm chạm không tồn tại hoặc đã ngừng hoạt động")
-    observed_at = ensure_aware(observed_at)
+        record_ingestion_issue(db, event_id=event_id, touchpoint_reference=touchpoint_id, observed_at_text=observed_at, issue_code="INVALID_TOUCHPOINT", detail="Khu vực không tồn tại hoặc đã ngừng hoạt động")
+        raise HTTPException(status_code=422, detail="Khu vực không tồn tại hoặc đã ngừng hoạt động")
+    try:
+        parsed_observed_at = parse_observed_at(observed_at)
+    except ValueError as exc:
+        record_ingestion_issue(db, event_id=event_id, touchpoint_reference=touchpoint_id, observed_at_text=observed_at, issue_code="INVALID_OBSERVED_AT", detail=str(exc))
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    if image is None:
+        record_ingestion_issue(db, event_id=event_id, touchpoint_reference=touchpoint_id, observed_at_text=observed_at, issue_code="MISSING_IMAGE", detail="Thiếu dữ liệu ảnh")
+        raise HTTPException(status_code=422, detail="Thiếu dữ liệu ảnh")
     image_bytes = await read_image(image)
     try:
         result = await vision.analyze(image_bytes, image.filename or "image.jpg", image.content_type)
     except Exception as exc:
-        observation = Observation(
+        capture = CaptureEvent(
             event_id=event_id,
             touchpoint_id=touchpoint.id,
-            observed_at=observed_at,
+            observed_at=parsed_observed_at,
             image_status="MODEL_ERROR",
-            expression_status="NOT_RUN",
-            identity_status="NOT_RUN",
+            face_count=0,
             demo_data=demo_data,
         )
-        db.add(observation)
+        db.add(capture)
+        audit(db, user, "CAPTURE_EVENT_FAILED", "capture_event", capture.id, {"event_id": event_id})
         db.commit()
         raise HTTPException(status_code=502, detail="Dịch vụ xử lý ảnh không phản hồi") from exc
 
-    customer = None
-    distance = None
-    identity_status = "NOT_RUN"
-    visit = None
-    if result.image_status == "VALID" and result.embedding:
-        customer, distance, identity_status = match_customer(db, result.embedding)
-        if customer:
-            visit = get_or_create_visit(db, customer, observed_at, demo_data)
-    observation = Observation(
+    capture = CaptureEvent(
         event_id=event_id,
         touchpoint_id=touchpoint.id,
-        observed_at=observed_at,
-        customer_id=customer.id if customer else None,
-        visit_id=visit.id if visit else None,
-        expression_label=result.expression_label,
-        expression_confidence=result.expression_confidence,
-        expression_scores=result.expression_scores,
-        face_match_distance=distance,
+        observed_at=parsed_observed_at,
         image_status=result.image_status,
-        expression_status=result.expression_status,
-        identity_status=identity_status,
+        face_count=result.face_count,
         detector_version=result.models.get("detector"),
-        emotion_model_version=result.models.get("emotion"),
-        recognition_model_version=result.models.get("embedding"),
         demo_data=demo_data,
     )
-    db.add(observation)
+    db.add(capture)
+    db.flush()
+    observations = []
+    for face in result.faces:
+        customer = None
+        distance = None
+        identity_status = face.identity_status
+        visit = None
+        if face.image_status == "VALID" and face.identity_status == "VALID" and face.embedding:
+            customer, distance, identity_status = match_customer(db, face.embedding)
+            if customer:
+                visit = get_or_create_visit(db, customer, parsed_observed_at, demo_data)
+        observation = Observation(
+            capture_event_id=capture.id,
+            event_id=event_id,
+            face_index=face.face_index,
+            touchpoint_id=touchpoint.id,
+            observed_at=parsed_observed_at,
+            customer_id=customer.id if customer else None,
+            visit_id=visit.id if visit else None,
+            expression_label=face.expression_label,
+            expression_confidence=face.expression_confidence,
+            expression_scores=face.expression_scores,
+            face_match_distance=distance,
+            bounding_box=face.box,
+            detection_score=face.detection_score,
+            image_status=face.image_status,
+            expression_status=face.expression_status,
+            identity_status=identity_status,
+            detector_version=result.models.get("detector"),
+            emotion_model_version=result.models.get("emotion"),
+            recognition_model_version=result.models.get("embedding"),
+            demo_data=demo_data,
+        )
+        db.add(observation)
+        observations.append(observation)
+    audit(
+        db,
+        user,
+        "CAPTURE_EVENT_CREATED",
+        "capture_event",
+        capture.id,
+        {"event_id": event_id, "face_count": result.face_count},
+    )
     db.commit()
-    db.refresh(observation)
-    return observation
+    for observation in observations:
+        db.refresh(observation)
+    return {
+        "capture_event_id": capture.id,
+        "event_id": capture.event_id,
+        "image_status": capture.image_status,
+        "face_count": capture.face_count,
+        "observations": observations,
+    }
 
 
 @app.post("/api/v1/simulation/observations/batch", status_code=201)
@@ -724,9 +886,14 @@ def create_simulated_observations(
     created = []
     skipped = 0
     for item in payload.observations:
-        existing = db.scalar(select(Observation).where(Observation.event_id == item.event_id))
-        if existing:
+        existing_capture = db.scalar(
+            select(CaptureEvent)
+            .options(selectinload(CaptureEvent.observations))
+            .where(CaptureEvent.event_id == item.event_id)
+        )
+        if existing_capture:
             skipped += 1
+            existing = existing_capture.observations[0] if existing_capture.observations else None
             created.append({"event_id": existing.event_id, "observation_id": existing.id, "visit_id": existing.visit_id})
             continue
         touchpoint = db.get(Touchpoint, item.touchpoint_id)
@@ -739,8 +906,26 @@ def create_simulated_observations(
             raise HTTPException(status_code=422, detail=f"Nhãn biểu cảm không hợp lệ: {item.expression_label}")
         observed_at = ensure_aware(item.observed_at)
         visit = get_or_create_visit(db, customer, observed_at, True) if customer else None
-        observation = Observation(
+        capture = CaptureEvent(
             event_id=item.event_id,
+            touchpoint_id=touchpoint.id,
+            observed_at=observed_at,
+            image_status=item.image_status,
+            face_count=1 if item.image_status == "VALID" else 0,
+            detector_version="simulator",
+            source_type="SIMULATOR",
+            simulation_run_id=item.simulation_run_id,
+            demo_data=True,
+        )
+        db.add(capture)
+        db.flush()
+        if item.image_status != "VALID":
+            created.append({"event_id": item.event_id, "observation_id": None, "visit_id": None})
+            continue
+        observation = Observation(
+            capture_event_id=capture.id,
+            event_id=item.event_id,
+            face_index=0,
             touchpoint_id=touchpoint.id,
             observed_at=observed_at,
             customer_id=customer.id if customer else None,
@@ -781,6 +966,32 @@ def create_simulated_observations(
     return {"items": created, "created": len(created) - skipped, "skipped": skipped}
 
 
+@app.get("/api/v1/observations")
+def list_observations(
+    customer_scope: str = Query("all", pattern="^(all|registered|unidentified)$"),
+    touchpoint_id: str | None = None,
+    page: int = Query(1, ge=1),
+    page_size: int = Query(20, ge=1, le=100),
+    db: Session = Depends(get_db),
+    _user: User = Depends(get_current_user),
+):
+    stmt = select(Observation).options(selectinload(Observation.touchpoint), selectinload(Observation.customer))
+    count_stmt = select(func.count()).select_from(Observation)
+    conditions = []
+    if customer_scope == "registered":
+        conditions.append(Observation.customer_id.is_not(None))
+    elif customer_scope == "unidentified":
+        conditions.append(Observation.customer_id.is_(None))
+    if touchpoint_id:
+        conditions.append(Observation.touchpoint_id == touchpoint_id)
+    if conditions:
+        stmt = stmt.where(*conditions)
+        count_stmt = count_stmt.where(*conditions)
+    total = db.scalar(count_stmt) or 0
+    rows = db.scalars(stmt.order_by(Observation.observed_at.desc()).offset((page - 1) * page_size).limit(page_size)).all()
+    return {"items": rows, "page": page, "page_size": page_size, "total": total}
+
+
 @app.get("/api/v1/visits")
 def list_visits(
     customer_id: str | None = None,
@@ -804,24 +1015,171 @@ def get_visit(visit_id: str, db: Session = Depends(get_db), _user: User = Depend
         .where(Observation.visit_id == visit_id)
         .order_by(Observation.observed_at, Observation.id)
     ).all()
-    return {"visit": visit, "observations": observations}
+    orders = db.scalars(select(Order).options(selectinload(Order.items)).where(Order.visit_id == visit_id).order_by(Order.ordered_at)).all()
+    return {"visit": visit, "observations": observations, "orders": orders}
 
 
 @app.post("/api/v1/visits/{visit_id}/close")
-def close_visit(visit_id: str, db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
+def close_visit(visit_id: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     visit = db.get(Visit, visit_id)
     if not visit:
         raise HTTPException(status_code=404, detail="Không tìm thấy lượt ghé thăm")
     visit.status = VisitStatus.CLOSED
     visit.ended_at = visit.last_seen_at
     visit.close_reason = "MANUAL"
+    audit(db, user, "VISIT_CLOSED", "visit", visit.id)
     db.commit()
     return visit
+
+
+@app.get("/api/v1/visits/{visit_id}/analysis")
+def visit_analysis(visit_id: str, db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
+    visit = db.get(Visit, visit_id)
+    if not visit:
+        raise HTTPException(status_code=404, detail="Không tìm thấy lần mua sắm")
+    observations = db.scalars(
+        select(Observation)
+        .options(selectinload(Observation.touchpoint))
+        .where(Observation.visit_id == visit_id)
+        .order_by(Observation.observed_at, Observation.id)
+    ).all()
+    conflict_ids: set[str] = set()
+    by_time: dict[datetime, list[Observation]] = {}
+    for item in observations:
+        by_time.setdefault(item.observed_at, []).append(item)
+    for same_time in by_time.values():
+        if len({item.touchpoint_id for item in same_time}) > 1:
+            conflict_ids.update(item.id for item in same_time)
+
+    valid_orders = sorted({item.touchpoint.sequence_order for item in observations if item.touchpoint})
+    missing = []
+    if valid_orders:
+        present_ids = {item.touchpoint_id for item in observations}
+        missing = db.scalars(
+            select(Touchpoint)
+            .where(
+                Touchpoint.active.is_(True),
+                Touchpoint.sequence_order >= valid_orders[0],
+                Touchpoint.sequence_order <= valid_orders[-1],
+                Touchpoint.id.not_in(present_ids),
+            )
+            .order_by(Touchpoint.sequence_order)
+        ).all()
+
+    late_limit = timedelta(seconds=get_settings().late_event_tolerance_seconds)
+    rows = []
+    late_count = 0
+    for item in observations:
+        observed = item.observed_at.replace(tzinfo=timezone.utc) if item.observed_at.tzinfo is None else item.observed_at.astimezone(timezone.utc)
+        received = item.received_at.replace(tzinfo=timezone.utc) if item.received_at.tzinfo is None else item.received_at.astimezone(timezone.utc)
+        late = received - observed > late_limit
+        late_count += int(late)
+        flags = []
+        if item.id in conflict_ids:
+            flags.extend(["TIME_CONFLICT", "IDENTITY_CONFLICT"])
+        if late:
+            flags.append("LATE_ARRIVAL")
+        rows.append({"observation_id": item.id, "flags": flags, "eligible_for_change_analysis": item.id not in conflict_ids})
+    return {
+        "visit_id": visit_id,
+        "observation_flags": rows,
+        "missing_touchpoints": [to_dict(item, "id", "touchpoint_code", "name", "sequence_order") for item in missing],
+        "summary": {
+            "observations": len(observations),
+            "missing_touchpoints": len(missing),
+            "time_conflicts": len(conflict_ids),
+            "late_arrivals": late_count,
+        },
+    }
+
+
+@app.patch("/api/v1/observations/{observation_id}/customer")
+def assign_observation_customer(
+    payload: ObservationCustomerInput,
+    observation_id: str,
+    db: Session = Depends(get_db),
+    user: User = Depends(require_roles(Role.MANAGER, Role.ADMIN)),
+):
+    observation = db.get(Observation, observation_id)
+    if not observation:
+        raise HTTPException(status_code=404, detail="Không tìm thấy bản ghi quan sát")
+    customer = db.get(Customer, payload.customer_id)
+    if not customer or customer.status != RecordStatus.ACTIVE:
+        raise HTTPException(status_code=404, detail="Không tìm thấy khách hàng đang hoạt động")
+    observed_at = observation.observed_at.replace(tzinfo=timezone.utc) if observation.observed_at.tzinfo is None else observation.observed_at.astimezone(timezone.utc)
+    save_observation_revision(db, observation, "MANUAL_CUSTOMER_ASSIGNMENT", user)
+    visit = attach_visit(db, customer, observed_at, observation.demo_data)
+    observation.customer_id = customer.id
+    observation.visit_id = visit.id
+    observation.identity_status = "MANUALLY_ASSIGNED"
+    audit(db, user, "OBSERVATION_CUSTOMER_ASSIGNED", "observation", observation.id, {"customer_id": customer.id, "visit_id": visit.id})
+    db.commit()
+    db.refresh(observation)
+    return observation
+
+
+@app.get("/api/v1/observations/{observation_id}/revisions")
+def list_observation_revisions(observation_id: str, db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
+    if not db.get(Observation, observation_id):
+        raise HTTPException(status_code=404, detail="Không tìm thấy bản ghi quan sát")
+    return db.scalars(
+        select(ObservationRevision)
+        .where(ObservationRevision.observation_id == observation_id)
+        .order_by(ObservationRevision.revision_number.desc())
+    ).all()
+
+
+@app.post("/api/v1/observations/{observation_id}/reprocess")
+async def reprocess_observation(
+    observation_id: str,
+    image: UploadFile = File(...),
+    reason: str = Form("MANUAL_REPROCESS"),
+    db: Session = Depends(get_db),
+    user: User = Depends(require_roles(Role.MANAGER, Role.ADMIN)),
+    vision: VisionClient = Depends(get_vision_client),
+):
+    observation = db.get(Observation, observation_id)
+    if not observation:
+        raise HTTPException(status_code=404, detail="Không tìm thấy bản ghi quan sát")
+    result = await vision.analyze(await read_image(image), image.filename or "image.jpg", image.content_type)
+    face = result.single_face()
+    if result.image_status != "VALID" or not face:
+        status = "MULTIPLE_FACES" if result.face_count > 1 else result.image_status
+        raise HTTPException(status_code=422, detail=f"Ảnh xử lý lại phải chứa đúng một khuôn mặt hợp lệ: {status}")
+    save_observation_revision(db, observation, reason[:64], user)
+    customer = None
+    distance = None
+    identity_status = face.identity_status
+    visit = None
+    if face.image_status == "VALID" and face.identity_status == "VALID" and face.embedding:
+        customer, distance, identity_status = match_customer(db, face.embedding)
+        if customer:
+            observed_at = observation.observed_at.replace(tzinfo=timezone.utc) if observation.observed_at.tzinfo is None else observation.observed_at.astimezone(timezone.utc)
+            visit = attach_visit(db, customer, observed_at, observation.demo_data)
+    observation.customer_id = customer.id if customer else None
+    observation.visit_id = visit.id if visit else None
+    observation.expression_label = face.expression_label
+    observation.expression_confidence = face.expression_confidence
+    observation.expression_scores = face.expression_scores
+    observation.face_match_distance = distance
+    observation.bounding_box = face.box
+    observation.detection_score = face.detection_score
+    observation.image_status = face.image_status
+    observation.expression_status = face.expression_status
+    observation.identity_status = identity_status
+    observation.detector_version = result.models.get("detector")
+    observation.emotion_model_version = result.models.get("emotion")
+    observation.recognition_model_version = result.models.get("embedding")
+    audit(db, user, "OBSERVATION_REPROCESSED", "observation", observation.id, {"reason": reason[:64]})
+    db.commit()
+    db.refresh(observation)
+    return observation
 
 
 @app.get("/api/v1/reports/expression-distribution")
 def expression_distribution(
     touchpoint_id: str | None = None,
+    customer_scope: str = Query("all", pattern="^(all|registered|unidentified)$"),
     from_time: datetime | None = Query(None, alias="from"),
     to_time: datetime | None = Query(None, alias="to"),
     db: Session = Depends(get_db),
@@ -836,6 +1194,10 @@ def expression_distribution(
     )
     if touchpoint_id:
         stmt = stmt.where(Touchpoint.id == touchpoint_id)
+    if customer_scope == "registered":
+        stmt = stmt.where(Observation.customer_id.is_not(None))
+    elif customer_scope == "unidentified":
+        stmt = stmt.where(Observation.customer_id.is_(None))
     if from_time:
         stmt = stmt.where(Observation.observed_at >= ensure_aware(from_time))
     if to_time:
@@ -913,21 +1275,140 @@ def expression_timeline(
 
 @app.get("/api/v1/reports/data-quality")
 def data_quality(
+    touchpoint_id: str | None = None,
     from_time: datetime | None = Query(None, alias="from"),
     to_time: datetime | None = Query(None, alias="to"),
     db: Session = Depends(get_db),
     _user: User = Depends(get_current_user),
 ):
-    stmt = select(Observation.image_status, Observation.expression_status, Observation.identity_status, func.count(Observation.id))
+    observation_conditions = []
+    capture_conditions = []
+    if touchpoint_id:
+        observation_conditions.append(Observation.touchpoint_id == touchpoint_id)
+        capture_conditions.append(CaptureEvent.touchpoint_id == touchpoint_id)
     if from_time:
-        stmt = stmt.where(Observation.observed_at >= ensure_aware(from_time))
+        start = ensure_aware(from_time)
+        observation_conditions.append(Observation.observed_at >= start)
+        capture_conditions.append(CaptureEvent.observed_at >= start)
     if to_time:
-        stmt = stmt.where(Observation.observed_at <= ensure_aware(to_time))
-    rows = db.execute(stmt.group_by(Observation.image_status, Observation.expression_status, Observation.identity_status)).all()
+        end = ensure_aware(to_time)
+        observation_conditions.append(Observation.observed_at <= end)
+        capture_conditions.append(CaptureEvent.observed_at <= end)
+    return quality_status_rows(db, observation_conditions, capture_conditions)
+
+
+def quality_status_rows(db: Session, observation_conditions: list, capture_conditions: list) -> list[dict]:
+    counts: dict[tuple[str, str, str], int] = {}
+    observation_stmt = select(
+        Observation.image_status,
+        Observation.expression_status,
+        Observation.identity_status,
+        func.count(Observation.id),
+    )
+    if observation_conditions:
+        observation_stmt = observation_stmt.where(*observation_conditions)
+    for image, expression, identity, count in db.execute(
+        observation_stmt.group_by(Observation.image_status, Observation.expression_status, Observation.identity_status)
+    ).all():
+        counts[(image, expression, identity)] = count
+
+    capture_stmt = select(CaptureEvent.image_status, func.count(CaptureEvent.id)).where(CaptureEvent.face_count == 0)
+    if capture_conditions:
+        capture_stmt = capture_stmt.where(*capture_conditions)
+    for image, count in db.execute(capture_stmt.group_by(CaptureEvent.image_status)).all():
+        key = (image, "NOT_RUN", "NOT_RUN")
+        counts[key] = counts.get(key, 0) + count
+
     return [
-        {"image_status": image, "expression_status": expression, "identity_status": identity, "count": count}
-        for image, expression, identity, count in rows
+        {"image_status": key[0], "expression_status": key[1], "identity_status": key[2], "count": count}
+        for key, count in sorted(counts.items())
     ]
+
+
+@app.get("/api/v1/reports/data-quality-summary")
+def data_quality_summary(
+    touchpoint_id: str | None = None,
+    from_time: datetime | None = Query(None, alias="from"),
+    to_time: datetime | None = Query(None, alias="to"),
+    db: Session = Depends(get_db),
+    _user: User = Depends(get_current_user),
+):
+    conditions = []
+    capture_conditions = []
+    issue_conditions = []
+    if touchpoint_id:
+        conditions.append(Observation.touchpoint_id == touchpoint_id)
+        capture_conditions.append(CaptureEvent.touchpoint_id == touchpoint_id)
+        issue_conditions.append(IngestionIssue.touchpoint_reference == touchpoint_id)
+    if from_time:
+        start = ensure_aware(from_time)
+        conditions.append(Observation.observed_at >= start)
+        capture_conditions.append(CaptureEvent.observed_at >= start)
+        issue_conditions.append(IngestionIssue.received_at >= start)
+    if to_time:
+        end = ensure_aware(to_time)
+        conditions.append(Observation.observed_at <= end)
+        capture_conditions.append(CaptureEvent.observed_at <= end)
+        issue_conditions.append(IngestionIssue.received_at <= end)
+
+    statuses = quality_status_rows(db, conditions, capture_conditions)
+    issue_stmt = select(IngestionIssue.issue_code, func.count(IngestionIssue.id))
+    if issue_conditions:
+        issue_stmt = issue_stmt.where(*issue_conditions)
+    issues = [{"issue_code": code, "count": count} for code, count in db.execute(issue_stmt.group_by(IngestionIssue.issue_code)).all()]
+
+    observation_stmt = select(Observation)
+    if conditions:
+        observation_stmt = observation_stmt.where(*conditions)
+    observations = db.scalars(observation_stmt).all()
+    capture_stmt = select(CaptureEvent)
+    if capture_conditions:
+        capture_stmt = capture_stmt.where(*capture_conditions)
+    captures = db.scalars(capture_stmt).all()
+    late_limit = timedelta(seconds=get_settings().late_event_tolerance_seconds)
+    late_count = sum(
+        int(
+            (item.received_at.replace(tzinfo=timezone.utc) if item.received_at.tzinfo is None else item.received_at.astimezone(timezone.utc))
+            - (item.observed_at.replace(tzinfo=timezone.utc) if item.observed_at.tzinfo is None else item.observed_at.astimezone(timezone.utc))
+            > late_limit
+        )
+        for item in captures
+    )
+    by_visit_time: dict[tuple[str, datetime], set[str]] = {}
+    for item in observations:
+        if item.visit_id:
+            by_visit_time.setdefault((item.visit_id, item.observed_at), set()).add(item.touchpoint_id)
+    time_conflicts = sum(len(points) for points in by_visit_time.values() if len(points) > 1)
+
+    visits_stmt = select(Visit.id)
+    if from_time:
+        visits_stmt = visits_stmt.where(Visit.started_at >= ensure_aware(from_time))
+    if to_time:
+        visits_stmt = visits_stmt.where(Visit.started_at <= ensure_aware(to_time))
+    visit_ids = db.scalars(visits_stmt).all()
+    missing_total = 0
+    eligible_visits = 0
+    for visit_id in visit_ids:
+        visit_observations = [item for item in observations if item.visit_id == visit_id]
+        if not visit_observations:
+            continue
+        eligible_visits += int(len(visit_observations) >= 2 and not any(len(points) > 1 for (candidate, _), points in by_visit_time.items() if candidate == visit_id))
+        orders = sorted({item.touchpoint.sequence_order for item in db.scalars(select(Observation).options(selectinload(Observation.touchpoint)).where(Observation.visit_id == visit_id)).all() if item.touchpoint})
+        if orders:
+            present = {item.touchpoint_id for item in db.scalars(select(Observation).where(Observation.visit_id == visit_id)).all()}
+            missing_total += db.scalar(select(func.count()).select_from(Touchpoint).where(Touchpoint.active.is_(True), Touchpoint.sequence_order >= orders[0], Touchpoint.sequence_order <= orders[-1], Touchpoint.id.not_in(present))) or 0
+    return {
+        "statuses": statuses,
+        "ingestion_issues": issues,
+        "summary": {
+            "capture_events": len(captures),
+            "observations": len(observations),
+            "late_arrivals": late_count,
+            "time_conflicts": time_conflicts,
+            "missing_touchpoints": missing_total,
+            "eligible_visits": eligible_visits,
+        },
+    }
 
 
 @app.get("/api/v1/reports/expression-changes")
@@ -936,6 +1417,7 @@ def expression_changes(
     to_touchpoint_id: str | None = None,
     from_time: datetime | None = Query(None, alias="from"),
     to_time: datetime | None = Query(None, alias="to"),
+    representative: str = Query("highest_confidence", pattern="^(first|last|highest_confidence)$"),
     db: Session = Depends(get_db),
     _user: User = Depends(get_current_user),
 ):
@@ -953,22 +1435,44 @@ def expression_changes(
     if to_time:
         stmt = stmt.where(Observation.observed_at <= ensure_aware(to_time))
     rows = db.scalars(stmt).all()
-    first_per_touchpoint: dict[tuple[str, str], Observation] = {}
-    for row in rows:
-        first_per_touchpoint.setdefault((row.visit_id, row.touchpoint_id), row)
     by_visit: dict[str, list[Observation]] = {}
-    for row in first_per_touchpoint.values():
+    for row in rows:
         by_visit.setdefault(row.visit_id, []).append(row)
     counts: dict[tuple[str, str, str, str], int] = {}
     for observations in by_visit.values():
         observations.sort(key=lambda item: (item.observed_at, item.id))
-        for before, after in zip(observations, observations[1:]):
+        conflict_ids: set[str] = set()
+        at_time: dict[datetime, list[Observation]] = {}
+        for item in observations:
+            at_time.setdefault(item.observed_at, []).append(item)
+        for items in at_time.values():
+            if len({item.touchpoint_id for item in items}) > 1:
+                conflict_ids.update(item.id for item in items)
+        clean = [item for item in observations if item.id not in conflict_ids]
+        groups: list[list[Observation]] = []
+        for item in clean:
+            if not groups or groups[-1][-1].touchpoint_id != item.touchpoint_id:
+                groups.append([item])
+            else:
+                groups[-1].append(item)
+        representatives = []
+        for group in groups:
+            if representative == "first":
+                representatives.append(group[0])
+            elif representative == "last":
+                representatives.append(group[-1])
+            else:
+                representatives.append(max(group, key=lambda item: item.expression_confidence or 0.0))
+        for before, after in zip(representatives, representatives[1:]):
             if from_touchpoint_id and before.touchpoint_id != from_touchpoint_id:
                 continue
             if to_touchpoint_id and after.touchpoint_id != to_touchpoint_id:
                 continue
             key = (before.touchpoint_id, after.touchpoint_id, before.expression_label, after.expression_label)
             counts[key] = counts.get(key, 0) + 1
+    pair_totals: dict[tuple[str, str], int] = {}
+    for key, count in counts.items():
+        pair_totals[(key[0], key[1])] = pair_totals.get((key[0], key[1]), 0) + count
     return [
         {
             "from_touchpoint_id": key[0],
@@ -976,6 +1480,8 @@ def expression_changes(
             "from_label": key[2],
             "to_label": key[3],
             "count": count,
+            "percentage": count / pair_totals[(key[0], key[1])],
+            "representative": representative,
         }
         for key, count in sorted(counts.items())
     ]

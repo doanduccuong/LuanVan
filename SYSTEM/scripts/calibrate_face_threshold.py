@@ -21,9 +21,10 @@ def analyze(path):
         response = httpx.post(f"{VISION_URL}/internal/v1/analyze-face", files={"image": (path.name, handle, "image/jpeg")}, timeout=120)
     response.raise_for_status()
     data = response.json()
-    if data["image_status"] != "VALID" or not data.get("embedding"):
+    faces = data.get("faces", [])
+    if data["image_status"] != "VALID" or len(faces) != 1 or not faces[0].get("embedding"):
         raise RuntimeError(f"Không tạo được embedding cho {path}: {data['image_status']}")
-    return data["embedding"], data["models"]["embedding"]
+    return faces[0]["embedding"], data["models"]["embedding"]
 
 
 def main() -> None:
@@ -53,7 +54,7 @@ def main() -> None:
             best = candidate
     assert best is not None
     artifact = {
-        "version": f"demo-calibration-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}",
+        "version": f"fairface-operational-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}",
         "threshold": best[2],
         "selection_rule": "maximum balanced accuracy; ties choose the smaller threshold",
         "true_positive_rate": best[3],
@@ -62,12 +63,11 @@ def main() -> None:
         "negative_pairs": len(negatives),
         "subjects": sorted(embeddings),
         "embedding_model": model_version,
-        "scope": "demo only; not a thesis evaluation result",
+        "scope": "operational validation with transformed FairFace images; not a recognition-accuracy claim",
     }
     save_json(ARTIFACT_ROOT / "face-threshold.json", artifact)
-    print(f"Đã tạo ngưỡng demo: {artifact['threshold']:.6f}")
+    print(f"Đã tạo ngưỡng đối sánh cho thực nghiệm vận hành: {artifact['threshold']:.6f}")
 
 
 if __name__ == "__main__":
     main()
-

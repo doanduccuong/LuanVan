@@ -36,7 +36,7 @@ def main() -> None:
         "checks": checks,
         "quality": quality,
     }
-    output = ARTIFACT_ROOT / "demo-runs" / "latest"
+    output = ARTIFACT_ROOT / "experiment-runs" / "latest"
     save_json(output / "verification.json", payload)
     save_json(output / "report_distribution.json", distribution)
     save_json(output / "report_changes.json", changes)
@@ -47,4 +47,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

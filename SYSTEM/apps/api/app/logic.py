@@ -108,6 +108,26 @@ def get_or_create_visit(db: Session, customer: Customer, observed_at: datetime, 
     return visit
 
 
+def find_visit_for_order(db: Session, customer_id: str, ordered_at: datetime) -> Visit | None:
+    """Tìm lần mua sắm của khách hàng bao phủ thời điểm tạo đơn."""
+    ordered_at = ensure_aware(ordered_at)
+    allowance = timedelta(seconds=get_settings().visit_idle_timeout_seconds)
+    visits = db.scalars(
+        select(Visit).where(Visit.customer_id == customer_id).order_by(Visit.started_at.desc())
+    ).all()
+    candidates: list[Visit] = []
+    for visit in visits:
+        started = visit.started_at.replace(tzinfo=timezone.utc) if visit.started_at.tzinfo is None else visit.started_at.astimezone(timezone.utc)
+        last_seen = visit.last_seen_at.replace(tzinfo=timezone.utc) if visit.last_seen_at.tzinfo is None else visit.last_seen_at.astimezone(timezone.utc)
+        ended = visit.ended_at or last_seen
+        ended = ended.replace(tzinfo=timezone.utc) if ended.tzinfo is None else ended.astimezone(timezone.utc)
+        if started <= ordered_at <= ended + allowance:
+            candidates.append(visit)
+    if not candidates:
+        return None
+    return min(candidates, key=lambda item: abs((ordered_at - (item.last_seen_at.replace(tzinfo=timezone.utc) if item.last_seen_at.tzinfo is None else item.last_seen_at.astimezone(timezone.utc))).total_seconds()))
+
+
 def create_order_items(db: Session, order: Order, requested_items: list[dict]) -> None:
     total = Decimal("0")
     for item in requested_items:
@@ -133,4 +153,3 @@ def create_order_items(db: Session, order: Order, requested_items: list[dict]) -
             )
         )
     order.total_amount = total
-

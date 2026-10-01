@@ -17,6 +17,7 @@ import {
   Button,
   Card,
   Col,
+  DatePicker,
   Descriptions,
   Drawer,
   Empty,
@@ -46,6 +47,10 @@ const { Header, Sider, Content } = Layout
 const money = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
 const expressionLabels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 const expressionColors: Record<string, string> = { Angry: '#dc2626', Disgust: '#a16207', Fear: '#9333ea', Happy: '#16a34a', Sad: '#6366f1', Surprise: '#0ea5e9', Neutral: '#64748b' }
+const revisionReasons: Record<string, string> = {
+  MANUAL_REPROCESS: 'Xử lý lại bằng ảnh mới',
+  MANUAL_CUSTOMER_ASSIGNMENT: 'Xác nhận khách hàng thủ công'
+}
 
 function Login() {
   const navigate = useNavigate()
@@ -61,7 +66,7 @@ function Login() {
       <Card className="login-card" bordered={false}>
         <div className="brand-mark">TP</div>
         <Typography.Title level={2}>Touchpoint CRM</Typography.Title>
-        <Typography.Paragraph type="secondary">Quản lý khách hàng và hành trình biểu cảm tại điểm chạm</Typography.Paragraph>
+        <Typography.Paragraph type="secondary">Quản lý khách hàng và chuỗi biểu cảm theo khu vực</Typography.Paragraph>
         <Form layout="vertical" onFinish={login.mutate} initialValues={{ email: 'manager@example.com', password: 'demo1234' }}>
           <Form.Item name="email" label="Email" rules={[{ required: true }]}><Input size="large" /></Form.Item>
           <Form.Item name="password" label="Mật khẩu" rules={[{ required: true }]}><Input.Password size="large" /></Form.Item>
@@ -78,8 +83,8 @@ const menuItems = [
   { key: '/faces', icon: <IdcardOutlined />, label: 'Dữ liệu khuôn mặt' },
   { key: '/products', icon: <ProductOutlined />, label: 'Sản phẩm' },
   { key: '/orders', icon: <ShoppingCartOutlined />, label: 'Mua hàng' },
-  { key: '/touchpoints', icon: <EnvironmentOutlined />, label: 'Điểm chạm' },
-  { key: '/visits', icon: <DatabaseOutlined />, label: 'Theo dõi hành trình' },
+  { key: '/touchpoints', icon: <EnvironmentOutlined />, label: 'Khu vực' },
+  { key: '/visits', icon: <DatabaseOutlined />, label: 'Theo dõi mua sắm' },
   { key: '/reports', icon: <BarChartOutlined />, label: 'Phân tích biểu cảm' }
 ]
 
@@ -184,12 +189,12 @@ function Dashboard() {
     <Row gutter={[16, 16]}>
       <Col xs={24} md={6}><Card><Statistic title="Khách hàng" value={customers.data?.total ?? 0} /></Card></Col>
       <Col xs={24} md={6}><Card><Statistic title="Sản phẩm" value={products.data?.total ?? 0} /></Card></Col>
-      <Col xs={24} md={6}><Card><Statistic title="Lượt ghé thăm" value={visits.data?.length ?? 0} /></Card></Col>
+      <Col xs={24} md={6}><Card><Statistic title="Lần mua sắm" value={visits.data?.length ?? 0} /></Card></Col>
       <Col xs={24} md={6}><Card><Statistic title="Doanh thu trong dữ liệu tải" value={revenue} formatter={value => money.format(Number(value))} /></Card></Col>
       <Col span={24}><Card><Tabs items={[
         {
           key: 'distribution',
-          label: 'Phân bố theo điểm chạm',
+          label: 'Phân bố theo khu vực',
           children: <>{distribution.data?.length ? <ReactECharts option={chart} style={{ height: 360 }} /> : <Empty description="Chưa có quan sát hợp lệ" />}</>
         },
         {
@@ -289,16 +294,22 @@ function Touchpoints() {
   const { message } = AntApp.useApp(); const queryClient = useQueryClient(); const [open, setOpen] = useState(false)
   const query = useQuery({ queryKey: ['touchpoints'], queryFn: () => api<Touchpoint[]>('/touchpoints') })
   const create = useMutation({ mutationFn: (v: any) => api('/touchpoints', { method: 'POST', body: JSON.stringify(v) }), onSuccess: () => { setOpen(false); queryClient.invalidateQueries({ queryKey: ['touchpoints'] }) }, onError: (e: Error) => message.error(e.message) })
-  return <><PageTitle title="Điểm chạm" description="Hệ thống chỉ phục vụ một cửa hàng" action={<Button type="primary" onClick={() => setOpen(true)}>Thêm điểm chạm</Button>} /><Card><Table rowKey="id" dataSource={query.data} loading={query.isLoading} columns={[{ title: 'Thứ tự', dataIndex: 'sequence_order' }, { title: 'Mã', dataIndex: 'touchpoint_code' }, { title: 'Tên điểm chạm', dataIndex: 'name' }, { title: 'Trạng thái', render: (_, row) => <Tag color={row.active ? 'green' : 'default'}>{row.active ? 'Hoạt động' : 'Đã tắt'}</Tag> }]} /></Card><Modal title="Thêm điểm chạm" open={open} footer={null} onCancel={() => setOpen(false)}><Form layout="vertical" onFinish={create.mutate}><Form.Item name="touchpoint_code" label="Mã" rules={[{ required: true }]}><Input /></Form.Item><Form.Item name="name" label="Tên" rules={[{ required: true }]}><Input /></Form.Item><Form.Item name="sequence_order" label="Thứ tự" rules={[{ required: true }]}><InputNumber min={0} /></Form.Item><Button type="primary" htmlType="submit">Lưu</Button></Form></Modal></>
+  return <><PageTitle title="Khu vực" description="Danh sách các khu vực được xác định trước trong một cửa hàng" action={<Button type="primary" onClick={() => setOpen(true)}>Thêm khu vực</Button>} /><Card><Table rowKey="id" dataSource={query.data} loading={query.isLoading} columns={[{ title: 'Thứ tự', dataIndex: 'sequence_order' }, { title: 'Mã', dataIndex: 'touchpoint_code' }, { title: 'Tên khu vực', dataIndex: 'name' }, { title: 'Trạng thái', render: (_, row) => <Tag color={row.active ? 'green' : 'default'}>{row.active ? 'Hoạt động' : 'Đã tắt'}</Tag> }]} /></Card><Modal title="Thêm khu vực" open={open} footer={null} onCancel={() => setOpen(false)}><Form layout="vertical" onFinish={create.mutate}><Form.Item name="touchpoint_code" label="Mã" rules={[{ required: true }]}><Input /></Form.Item><Form.Item name="name" label="Tên" rules={[{ required: true }]}><Input /></Form.Item><Form.Item name="sequence_order" label="Thứ tự" rules={[{ required: true }]}><InputNumber min={0} /></Form.Item><Button type="primary" htmlType="submit">Lưu</Button></Form></Modal></>
 }
 
 function Visits() {
   const [selected, setSelected] = useState<any>()
+  const [selectedObservation, setSelectedObservation] = useState<any>()
+  const [assignCustomerId, setAssignCustomerId] = useState<string>()
   const [simulationResult, setSimulationResult] = useState<any>()
   const { message } = AntApp.useApp()
   const queryClient = useQueryClient()
   const query = useQuery({ queryKey: ['visits'], queryFn: () => api<any[]>('/visits') })
   const detail = useQuery({ queryKey: ['visit', selected?.id], enabled: Boolean(selected), queryFn: () => api<any>(`/visits/${selected.id}`) })
+  const analysis = useQuery({ queryKey: ['visit-analysis', selected?.id], enabled: Boolean(selected), queryFn: () => api<any>(`/visits/${selected.id}/analysis`) })
+  const unknown = useQuery({ queryKey: ['observations', 'unidentified'], queryFn: () => api<Page<any>>('/observations?customer_scope=unidentified&page_size=100') })
+  const customers = useQuery({ queryKey: ['customers', 'observation-assignment'], queryFn: () => api<Page<Customer>>('/customers?page_size=100') })
+  const revisions = useQuery({ queryKey: ['observation-revisions', selectedObservation?.id], enabled: Boolean(selectedObservation), queryFn: () => api<any[]>(`/observations/${selectedObservation.id}/revisions`) })
   const simulate = useMutation({
     mutationFn: () => runSimulation(),
     onSuccess: result => {
@@ -308,10 +319,35 @@ function Visits() {
     },
     onError: (error: Error) => message.error(error.message)
   })
+  const closeVisit = useMutation({
+    mutationFn: () => api(`/visits/${selected.id}/close`, { method: 'POST' }),
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['visits'] }); queryClient.invalidateQueries({ queryKey: ['visit', selected?.id] }); message.success('Đã kết thúc lần mua sắm') },
+    onError: (error: Error) => message.error(error.message)
+  })
+  const assignCustomer = useMutation({
+    mutationFn: () => api(`/observations/${selectedObservation.id}/customer`, { method: 'PATCH', body: JSON.stringify({ customer_id: assignCustomerId }) }),
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['observations'] }); queryClient.invalidateQueries({ queryKey: ['visits'] }); setSelectedObservation(undefined); setAssignCustomerId(undefined); message.success('Đã gắn bản ghi với khách hàng') },
+    onError: (error: Error) => message.error(error.message)
+  })
+  const reprocess = async (file: File) => {
+    const form = new FormData()
+    form.append('image', file)
+    form.append('reason', 'MANUAL_REPROCESS')
+    try {
+      const updated = await api<any>(`/observations/${selectedObservation.id}/reprocess`, { method: 'POST', body: form })
+      setSelectedObservation({ ...updated, touchpoint: selectedObservation.touchpoint })
+      queryClient.invalidateQueries({ queryKey: ['visit', selected?.id] })
+      queryClient.invalidateQueries({ queryKey: ['observation-revisions', selectedObservation.id] })
+      message.success('Đã xử lý lại; kết quả trước được lưu trong lịch sử')
+    } catch (error) { message.error((error as Error).message) }
+    return false
+  }
   useEffect(() => {
     if (!selected && query.data?.length) setSelected(query.data[0])
   }, [query.data, selected])
   const observations = detail.data?.observations ?? []
+  const ordersInVisit = detail.data?.orders ?? []
+  const flagMap = Object.fromEntries((analysis.data?.observation_flags ?? []).map((row: any) => [row.observation_id, row.flags]))
   const labelColors: Record<string, string> = { Happy: '#16a34a', Neutral: '#64748b', Surprise: '#0ea5e9', Sad: '#6366f1', Angry: '#dc2626', Fear: '#9333ea', Disgust: '#a16207' }
   const journeyChart = useMemo(() => ({
     tooltip: { trigger: 'item' },
@@ -334,26 +370,58 @@ function Visits() {
   const expressionChart = { tooltip: { trigger: 'item' }, legend: { bottom: 0 }, series: [{ type: 'pie', radius: ['42%', '70%'], data: Object.entries(expressionCounts).map(([name, value]) => ({ name, value, itemStyle: { color: labelColors[name] } })) }] }
   const uniqueCustomers = new Set((query.data ?? []).map(row => row.customer_id)).size
   return <>
-    <PageTitle title="Theo dõi hành trình khách hàng" description="Quan sát thứ tự điểm chạm và nhãn biểu cảm của từng lượt ghé thăm" action={<Button type="primary" loading={simulate.isPending} onClick={() => simulate.mutate()}>Tạo dữ liệu mô phỏng</Button>} />
+    <PageTitle title="Theo dõi quá trình mua sắm" description="Xem thứ tự khu vực, biểu cảm và đơn hàng trong từng lần mua sắm" action={<Button type="primary" loading={simulate.isPending} onClick={() => simulate.mutate()}>Tạo dữ liệu mô phỏng</Button>} />
     <Alert showIcon type="info" className="result-alert" message="Dữ liệu mô phỏng được đánh dấu riêng" description="Nhãn biểu cảm do dịch vụ mô phỏng tạo để trình diễn luồng hệ thống, không phải kết quả đánh giá mô hình nhận dạng." />
-    {simulationResult && <Alert closable onClose={() => setSimulationResult(undefined)} type="success" className="result-alert" message={`Lần chạy ${simulationResult.run_id}`} description={`100 khách hàng, ${simulationResult.visit_count} lượt ghé thăm, ${simulationResult.observation_count} quan sát và ${simulationResult.order_count} đơn hàng.`} />}
+    {simulationResult && <Alert closable onClose={() => setSimulationResult(undefined)} type="success" className="result-alert" message={`Lần chạy ${simulationResult.run_id}`} description={`100 khách hàng, ${simulationResult.visit_count} lần mua sắm, ${simulationResult.observation_count} quan sát và ${simulationResult.order_count} đơn hàng.`} />}
     <Row gutter={[16, 16]} className="stat-row">
-      <Col span={8}><Card><Statistic title="Khách hàng có hành trình" value={uniqueCustomers} /></Card></Col>
-      <Col span={8}><Card><Statistic title="Lượt ghé thăm" value={query.data?.length ?? 0} /></Card></Col>
-      <Col span={8}><Card><Statistic title="Điểm chạm trong hành trình đang xem" value={observations.length} /></Card></Col>
+      <Col span={8}><Card><Statistic title="Khách hàng có dữ liệu" value={uniqueCustomers} /></Card></Col>
+      <Col span={8}><Card><Statistic title="Lần mua sắm" value={query.data?.length ?? 0} /></Card></Col>
+      <Col span={8}><Card><Statistic title="Quan sát trong lần đang xem" value={observations.length} /></Card></Col>
     </Row>
-    <Row gutter={[16, 16]}>
-      <Col span={9}><Card title="Danh sách lượt ghé thăm"><Table size="small" pagination={{ pageSize: 8 }} rowKey="id" rowClassName={row => row.id === selected?.id ? 'selected-row' : ''} onRow={row => ({ onClick: () => setSelected(row) })} dataSource={query.data} loading={query.isLoading} columns={[{ title: 'Khách hàng', render: (_, row) => <Space><Avatar size={30} src={row.customer?.profile_image_url} />{row.customer?.full_name}</Space> }, { title: 'Thời gian', render: (_, row) => new Date(row.started_at).toLocaleDateString('vi-VN') }, { title: 'Trạng thái', render: (_, row) => <Tag color={row.status === 'CLOSED' ? 'green' : 'blue'}>{row.status}</Tag> }]} /></Card></Col>
-      <Col span={15}><Card title={selected ? `${selected.customer?.full_name} — ${new Date(selected.started_at).toLocaleString('vi-VN')}` : 'Chọn một lượt ghé thăm'}>{observations.length ? <ReactECharts option={journeyChart} style={{ height: 310 }} /> : <Empty description="Chưa có dữ liệu hành trình" />}</Card></Col>
-      <Col span={15} offset={9}><Row gutter={16}><Col span={14}><Card title="Chi tiết theo thời gian">{observations.map((item: any) => <Card size="small" className="timeline-card" key={item.id}><Flex justify="space-between"><strong>{item.touchpoint?.name}</strong><span>{new Date(item.observed_at).toLocaleTimeString('vi-VN')}</span></Flex><Space><Tag color={labelColors[item.expression_label] ?? 'default'}>{item.expression_label ?? 'Không có nhãn'}</Tag><Tag>{item.source_type === 'SIMULATOR' ? 'Mô phỏng' : 'Camera'}</Tag><span>{item.expression_confidence != null ? `${(Number(item.expression_confidence) * 100).toFixed(1)}%` : '—'}</span></Space></Card>)}</Card></Col><Col span={10}><Card title="Phân bố nhãn trong lượt"><ReactECharts option={expressionChart} style={{ height: 300 }} /></Card></Col></Row></Col>
-    </Row>
+    <Tabs items={[
+      { key: 'identified', label: 'Lần mua sắm đã xác định', children: <Row gutter={[16, 16]}>
+        <Col span={9}><Card title="Danh sách lần mua sắm"><Table size="small" pagination={{ pageSize: 8 }} rowKey="id" rowClassName={row => row.id === selected?.id ? 'selected-row' : ''} onRow={row => ({ onClick: () => setSelected(row) })} dataSource={query.data} loading={query.isLoading} columns={[{ title: 'Khách hàng', render: (_, row) => <Space><Avatar size={30} src={row.customer?.profile_image_url} />{row.customer?.full_name}</Space> }, { title: 'Thời gian', render: (_, row) => new Date(row.started_at).toLocaleDateString('vi-VN') }, { title: 'Trạng thái', render: (_, row) => <Tag color={row.status === 'CLOSED' ? 'green' : 'blue'}>{row.status === 'CLOSED' ? 'Đã kết thúc' : 'Đang hoạt động'}</Tag> }]} /></Card></Col>
+        <Col span={15}><Card title={selected ? `${selected.customer?.full_name} — ${new Date(selected.started_at).toLocaleString('vi-VN')}` : 'Chọn một lần mua sắm'} extra={detail.data?.visit?.status === 'ACTIVE' ? <Button size="small" danger loading={closeVisit.isPending} onClick={() => closeVisit.mutate()}>Kết thúc lần mua sắm</Button> : null}>
+          {(analysis.data?.missing_touchpoints ?? []).length > 0 && <Alert type="warning" showIcon message={`Thiếu dữ liệu tại: ${analysis.data.missing_touchpoints.map((row: any) => row.name).join(', ')}`} />}
+          {observations.length ? <ReactECharts option={journeyChart} style={{ height: 310 }} /> : <Empty description="Chưa có dữ liệu" />}
+        </Card></Col>
+        <Col span={15} offset={9}><Row gutter={16}><Col span={14}><Card title="Chi tiết theo thời gian">{observations.map((item: any) => <Card size="small" className="timeline-card observation-card" key={item.id} onClick={() => setSelectedObservation(item)}><Flex justify="space-between"><strong>{item.touchpoint?.name}</strong><span>{new Date(item.observed_at).toLocaleTimeString('vi-VN')}</span></Flex><Space wrap><Tag color={labelColors[item.expression_label] ?? 'default'}>{item.expression_label ?? 'Không có nhãn'}</Tag><Tag>{item.source_type === 'SIMULATOR' ? 'Mô phỏng' : 'Camera'}</Tag><span>{item.expression_confidence != null ? `${(Number(item.expression_confidence) * 100).toFixed(1)}%` : '—'}</span>{(flagMap[item.id] ?? []).map((flag: string) => <Tag color="warning" key={flag}>{flag}</Tag>)}</Space></Card>)}</Card></Col><Col span={10}><Space direction="vertical" size={16} className="full-width"><Card title="Phân bố nhãn trong lần"><ReactECharts option={expressionChart} style={{ height: 280 }} /></Card><Card title="Đơn hàng liên quan">{ordersInVisit.length ? <OrderTable orders={ordersInVisit} /> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Không phát sinh đơn hàng" />}</Card></Space></Col></Row></Col>
+      </Row> },
+      { key: 'unknown', label: `Chưa xác định khách hàng (${unknown.data?.total ?? 0})`, children: <Card><Alert type="info" showIcon message="Các bản ghi này vẫn được dùng cho thống kê theo khu vực nhưng chưa được ghép vào chuỗi cá nhân." className="unknown-note" /><Table rowKey="id" dataSource={unknown.data?.items} loading={unknown.isLoading} onRow={row => ({ onClick: () => setSelectedObservation(row) })} columns={[{ title: 'Thời gian', render: (_, row) => new Date(row.observed_at).toLocaleString('vi-VN') }, { title: 'Khu vực', render: (_, row) => row.touchpoint?.name }, { title: 'Biểu cảm', render: (_, row) => <Tag color={labelColors[row.expression_label] ?? 'default'}>{row.expression_label ?? 'Không có kết quả'}</Tag> }, { title: 'Trạng thái nhận dạng', dataIndex: 'identity_status' }, { title: '', render: () => <Button type="link">Kiểm tra</Button> }]} /></Card> }
+    ]} />
+    <Drawer title="Chi tiết bản ghi quan sát" width={680} open={Boolean(selectedObservation)} onClose={() => { setSelectedObservation(undefined); setAssignCustomerId(undefined) }}>
+      {selectedObservation && <Space direction="vertical" size="large" className="full-width">
+        <Descriptions bordered column={1} items={[
+          { key: 'event-id', label: 'Mã sự kiện', children: selectedObservation.event_id },
+          { key: 'face-index', label: 'Khuôn mặt trong ảnh', children: Number(selectedObservation.face_index) + 1 },
+          { key: 'time', label: 'Thời gian ghi nhận', children: new Date(selectedObservation.observed_at).toLocaleString('vi-VN') },
+          { key: 'area', label: 'Khu vực', children: selectedObservation.touchpoint?.name ?? selectedObservation.touchpoint_id },
+          { key: 'box', label: 'Khung bao', children: selectedObservation.bounding_box?.map((value: number) => Math.round(value)).join(', ') ?? '—' },
+          { key: 'detection-score', label: 'Tin cậy phát hiện', children: selectedObservation.detection_score != null ? `${(Number(selectedObservation.detection_score) * 100).toFixed(1)}%` : '—' },
+          { key: 'expression', label: 'Biểu cảm', children: selectedObservation.expression_label ?? 'Không có kết quả' },
+          { key: 'confidence', label: 'Mức tin cậy', children: selectedObservation.expression_confidence != null ? `${(Number(selectedObservation.expression_confidence) * 100).toFixed(2)}%` : '—' },
+          { key: 'image-status', label: 'Trạng thái ảnh', children: selectedObservation.image_status },
+          { key: 'expression-status', label: 'Trạng thái phân loại', children: selectedObservation.expression_status },
+          { key: 'identity-status', label: 'Trạng thái nhận dạng', children: selectedObservation.identity_status },
+          { key: 'models', label: 'Mô hình', children: <>{selectedObservation.detector_version ?? '—'}<br />{selectedObservation.emotion_model_version ?? '—'}<br />{selectedObservation.recognition_model_version ?? '—'}</> }
+        ]} />
+        {!selectedObservation.customer_id && <Card title="Xác nhận khách hàng"><Space direction="vertical" className="full-width"><Select showSearch optionFilterProp="label" placeholder="Chọn khách hàng đã đăng ký" value={assignCustomerId} onChange={setAssignCustomerId} options={customers.data?.items.map(row => ({ value: row.id, label: `${row.customer_code} — ${row.full_name}` }))} /><Button type="primary" disabled={!assignCustomerId} loading={assignCustomer.isPending} onClick={() => assignCustomer.mutate()}>Gắn vào khách hàng</Button></Space></Card>}
+        <Card title="Xử lý lại và lịch sử thay đổi"><Upload beforeUpload={reprocess} showUploadList={false}><Button>Chọn ảnh để xử lý lại</Button></Upload><Table className="revision-table" size="small" pagination={false} rowKey="id" dataSource={revisions.data} columns={[{ title: 'Lần', dataIndex: 'revision_number' }, { title: 'Lý do', render: (_, row) => revisionReasons[row.reason] ?? row.reason }, { title: 'Kết quả trước', render: (_, row) => `${row.snapshot.expression_label ?? '—'} / ${row.snapshot.identity_status}` }, { title: 'Thời gian', render: (_, row) => new Date(row.created_at).toLocaleString('vi-VN') }]} /></Card>
+      </Space>}
+    </Drawer>
   </>
 }
 
 function Reports() {
-  const distribution = useQuery({ queryKey: ['distribution'], queryFn: () => api<any[]>('/reports/expression-distribution') })
-  const changes = useQuery({ queryKey: ['changes'], queryFn: () => api<any[]>('/reports/expression-changes') })
-  const quality = useQuery({ queryKey: ['quality'], queryFn: () => api<any[]>('/reports/data-quality') })
+  const [touchpointId, setTouchpointId] = useState<string>()
+  const [customerScope, setCustomerScope] = useState('all')
+  const [timeRange, setTimeRange] = useState<any>(null)
+  const [representative, setRepresentative] = useState('highest_confidence')
+  const periodQuery = timeRange?.[0] && timeRange?.[1] ? `&from=${encodeURIComponent(timeRange[0].toISOString())}&to=${encodeURIComponent(timeRange[1].toISOString())}` : ''
+  const areaQuery = touchpointId ? `&touchpoint_id=${encodeURIComponent(touchpointId)}` : ''
+  const distribution = useQuery({ queryKey: ['distribution', touchpointId, customerScope, periodQuery], queryFn: () => api<any[]>(`/reports/expression-distribution?customer_scope=${customerScope}${areaQuery}${periodQuery}`) })
+  const changes = useQuery({ queryKey: ['changes', representative, periodQuery], queryFn: () => api<any[]>(`/reports/expression-changes?representative=${representative}${periodQuery}`) })
+  const quality = useQuery({ queryKey: ['quality-summary', touchpointId, periodQuery], queryFn: () => api<any>(`/reports/data-quality-summary?${areaQuery.replace(/^&/, '')}${periodQuery}`) })
   const touchpoints = useQuery({ queryKey: ['touchpoints'], queryFn: () => api<Touchpoint[]>('/touchpoints') })
   const labels = expressionLabels
   const touchpointNames = Object.fromEntries((touchpoints.data ?? []).map(row => [row.id, row.name]))
@@ -372,11 +440,12 @@ function Reports() {
     })
     return { tooltip: { trigger: 'item' }, series: [{ type: 'sankey', data: [...nodes.values()], links, emphasis: { focus: 'adjacency' }, lineStyle: { color: 'gradient', curveness: 0.5 } }] }
   }, [changes.data, touchpoints.data])
-  const qualityChart = useMemo(() => ({ tooltip: { trigger: 'item' }, legend: { bottom: 0 }, series: [{ type: 'pie', radius: ['38%', '70%'], data: (quality.data ?? []).map(row => ({ name: `${row.image_status} / ${row.expression_status}`, value: row.count })) }] }), [quality.data])
-  return <><PageTitle title="Phân tích biểu cảm" description="Kết quả mô tả nhãn quan sát được, không phải điểm hài lòng" /><Tabs items={[
-    { key: 'distribution', label: 'Phân bố tại điểm chạm', children: <><Card title="Số quan sát theo điểm chạm và nhãn"><ReactECharts option={distributionChart} style={{ height: 430 }} /></Card><Card className="table-card"><Table rowKey={row => `${row.touchpoint_id}-${row.label}`} dataSource={distribution.data} columns={[{ title: 'Điểm chạm', dataIndex: 'touchpoint_name' }, { title: 'Nhãn', dataIndex: 'label' }, { title: 'Số quan sát', dataIndex: 'count' }, { title: 'Tỷ lệ trong điểm chạm', render: (_, row) => `${(row.percentage * 100).toFixed(1)}%` }]} /></Card></> },
-    { key: 'changes', label: 'Thay đổi giữa điểm chạm', children: <><Card title="Luồng thay đổi nhãn giữa hai điểm chạm liên tiếp"><ReactECharts option={changeChart} style={{ height: 520 }} /></Card><Card className="table-card"><Table rowKey={(_, index) => String(index)} dataSource={changes.data} columns={[{ title: 'Điểm trước', render: (_, row) => touchpointNames[row.from_touchpoint_id] ?? row.from_touchpoint_id }, { title: 'Điểm sau', render: (_, row) => touchpointNames[row.to_touchpoint_id] ?? row.to_touchpoint_id }, { title: 'Nhãn trước', dataIndex: 'from_label' }, { title: 'Nhãn sau', dataIndex: 'to_label' }, { title: 'Số lượt', dataIndex: 'count' }]} /></Card></> },
-    { key: 'quality', label: 'Chất lượng dữ liệu', children: <Row gutter={16}><Col span={14}><Card title="Tỷ lệ trạng thái xử lý"><ReactECharts option={qualityChart} style={{ height: 410 }} /></Card></Col><Col span={10}><Card title="Chi tiết trạng thái"><Table pagination={false} rowKey={(_, index) => String(index)} dataSource={quality.data} columns={[{ title: 'Ảnh', dataIndex: 'image_status' }, { title: 'Biểu cảm', dataIndex: 'expression_status' }, { title: 'Danh tính', dataIndex: 'identity_status' }, { title: 'Số bản ghi', dataIndex: 'count' }]} /></Card></Col></Row> }
+  const qualityChart = useMemo(() => ({ tooltip: { trigger: 'item' }, legend: { bottom: 0 }, series: [{ type: 'pie', radius: ['38%', '70%'], data: (quality.data?.statuses ?? []).map((row: any) => ({ name: `${row.image_status} / ${row.expression_status}`, value: row.count })) }] }), [quality.data])
+  const reportFilters = <Card size="small" className="report-filter-card"><Flex gap={12} wrap="wrap" align="center"><strong>Phạm vi:</strong><Select allowClear placeholder="Tất cả khu vực" value={touchpointId} onChange={setTouchpointId} options={touchpoints.data?.map(row => ({ value: row.id, label: row.name }))} className="report-area-select" /><DatePicker.RangePicker showTime onChange={setTimeRange} /><Select value={customerScope} onChange={setCustomerScope} options={[{ value: 'all', label: 'Tất cả quan sát' }, { value: 'registered', label: 'Khách hàng đã xác định' }, { value: 'unidentified', label: 'Chưa xác định khách hàng' }]} /></Flex></Card>
+  return <><PageTitle title="Phân tích biểu cảm" description="Thống kê bảy nhãn biểu cảm theo khu vực và theo trình tự mua sắm" />{reportFilters}<Tabs items={[
+    { key: 'distribution', label: 'Phân bố tại khu vực', children: <><Card title="Số quan sát theo khu vực và nhãn"><ReactECharts option={distributionChart} style={{ height: 430 }} /></Card><Card className="table-card"><Table rowKey={row => `${row.touchpoint_id}-${row.label}`} dataSource={distribution.data} columns={[{ title: 'Khu vực', dataIndex: 'touchpoint_name' }, { title: 'Nhãn', dataIndex: 'label' }, { title: 'Số quan sát', dataIndex: 'count' }, { title: 'Tỷ lệ trong khu vực', render: (_, row) => `${(row.percentage * 100).toFixed(1)}%` }]} /></Card></> },
+    { key: 'changes', label: 'Thay đổi giữa các khu vực', children: <><Card size="small" className="change-method"><Space><strong>Cách chọn bản ghi đại diện khi có nhiều ảnh liên tiếp tại cùng khu vực:</strong><Select value={representative} onChange={setRepresentative} options={[{ value: 'highest_confidence', label: 'Mức tin cậy cao nhất' }, { value: 'first', label: 'Bản ghi đầu tiên' }, { value: 'last', label: 'Bản ghi cuối cùng' }]} /></Space></Card><Card title="Luồng thay đổi nhãn giữa hai khu vực liên tiếp"><ReactECharts option={changeChart} style={{ height: 520 }} /></Card><Card className="table-card"><Table rowKey={(_, index) => String(index)} dataSource={changes.data} columns={[{ title: 'Khu vực trước', render: (_, row) => touchpointNames[row.from_touchpoint_id] ?? row.from_touchpoint_id }, { title: 'Khu vực sau', render: (_, row) => touchpointNames[row.to_touchpoint_id] ?? row.to_touchpoint_id }, { title: 'Nhãn trước', dataIndex: 'from_label' }, { title: 'Nhãn sau', dataIndex: 'to_label' }, { title: 'Số lần', dataIndex: 'count' }, { title: 'Tỷ lệ trong cặp khu vực', render: (_, row) => `${(row.percentage * 100).toFixed(1)}%` }]} /></Card></> },
+    { key: 'quality', label: 'Chất lượng dữ liệu', children: <><Row gutter={[16, 16]} className="quality-stat-row"><Col span={6}><Card><Statistic title="Khung hình / khuôn mặt" value={`${quality.data?.summary?.capture_events ?? 0} / ${quality.data?.summary?.observations ?? 0}`} /></Card></Col><Col span={6}><Card><Statistic title="Khung hình đến chậm" value={quality.data?.summary?.late_arrivals ?? 0} /></Card></Col><Col span={6}><Card><Statistic title="Xung đột thời gian" value={quality.data?.summary?.time_conflicts ?? 0} /></Card></Col><Col span={6}><Card><Statistic title="Khu vực bị thiếu" value={quality.data?.summary?.missing_touchpoints ?? 0} /></Card></Col></Row><Row gutter={16}><Col span={14}><Card title="Tỷ lệ trạng thái xử lý"><ReactECharts option={qualityChart} style={{ height: 410 }} /></Card></Col><Col span={10}><Space direction="vertical" className="full-width"><Card title="Chi tiết trạng thái"><Table pagination={false} rowKey={(_, index) => String(index)} dataSource={quality.data?.statuses} columns={[{ title: 'Ảnh', dataIndex: 'image_status' }, { title: 'Biểu cảm', dataIndex: 'expression_status' }, { title: 'Danh tính', dataIndex: 'identity_status' }, { title: 'Số sự kiện/quan sát', dataIndex: 'count' }]} /></Card><Card title="Yêu cầu đầu vào không hợp lệ"><Table pagination={false} rowKey="issue_code" dataSource={quality.data?.ingestion_issues} columns={[{ title: 'Lỗi', dataIndex: 'issue_code' }, { title: 'Số yêu cầu', dataIndex: 'count' }]} /></Card></Space></Col></Row></> }
   ]} /></>
 }
 

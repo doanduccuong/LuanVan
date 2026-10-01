@@ -397,7 +397,7 @@ Kịch bản chi tiết nằm tại `SYSTEM_DEVELOPMENT/DEMO_SCENARIO.md`.
 2. Cùng khách hàng đi qua nhiều điểm chạm và tạo đúng một lượt ghé thăm.
 3. Cùng khách hàng quay lại sau khoảng ngắt và tạo lượt mới.
 4. Khách hàng không xác định chỉ xuất hiện trong thống kê tại điểm chạm.
-5. Ảnh nhiều khuôn mặt không bị gắn nhầm vào khách hàng.
+5. Ảnh nhiều khuôn mặt tạo một quan sát cho từng vùng mặt và không làm mất kết quả của các vùng còn lại.
 6. Đơn mua hàng hiển thị đúng trong hồ sơ khách hàng.
 7. Tạo sản phẩm, đưa sản phẩm vào đơn hàng và xem lại đúng trong lịch sử mua hàng.
 8. Thay đổi giá sản phẩm không làm thay đổi giá trong đơn hàng cũ.

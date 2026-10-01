@@ -37,7 +37,8 @@ class RunResult(BaseModel):
     visit_count: int
     observation_count: int
     order_count: int
-    error_observation_count: int
+    unidentified_observation_count: int
+    error_capture_count: int
 
 
 app = FastAPI(title="Touchpoint journey simulator", version="0.1.0")
@@ -81,13 +82,13 @@ def create_run(payload: RunInput):
             login(client)
             customers_page = client.get("/customers", params={"page_size": 100}).raise_for_status().json()
             customers = sorted(
-                [row for row in customers_page["items"] if row["customer_code"].startswith("CUS-DEMO-")],
+                [row for row in customers_page["items"] if row["customer_code"].startswith("CUS-EXP-")],
                 key=lambda row: row["customer_code"],
             )
             if len(customers) != CUSTOMER_COUNT:
                 raise HTTPException(
                     status_code=409,
-                    detail=f"Cần đúng {CUSTOMER_COUNT} khách hàng demo, hiện có {len(customers)}",
+                    detail=f"Cần đúng {CUSTOMER_COUNT} khách hàng thực nghiệm, hiện có {len(customers)}",
                 )
             touchpoints = sorted(client.get("/touchpoints").raise_for_status().json(), key=lambda row: row["sequence_order"])
             products = client.get("/products", params={"page_size": 100}).raise_for_status().json()["items"]
@@ -145,6 +146,26 @@ def create_run(payload: RunInput):
                             }
                         )
 
+            unidentified_count = 12
+            for index in range(unidentified_count):
+                touchpoint = touchpoints[index % len(touchpoints)]
+                label = choose_expression(rng, touchpoint["touchpoint_code"], None)
+                observations.append(
+                    {
+                        "event_id": f"{run_id}-UNIDENTIFIED-{index + 1:02d}",
+                        "simulation_run_id": run_id,
+                        "touchpoint_id": touchpoint["id"],
+                        "customer_id": None,
+                        "observed_at": (start + timedelta(days=11, minutes=index)).isoformat(),
+                        "expression_label": label,
+                        "expression_confidence": round(rng.uniform(0.62, 0.97), 3),
+                        "image_status": "VALID",
+                        "expression_status": "VALID",
+                        "identity_status": "NO_MATCH",
+                        "end_of_visit": False,
+                    }
+                )
+
             error_count = 12
             for index in range(error_count):
                 touchpoint = touchpoints[index % len(touchpoints)]
@@ -154,7 +175,7 @@ def create_run(payload: RunInput):
                         "simulation_run_id": run_id,
                         "touchpoint_id": touchpoint["id"],
                         "customer_id": None,
-                        "observed_at": (start + timedelta(days=11, minutes=index)).isoformat(),
+                        "observed_at": (start + timedelta(days=12, minutes=index)).isoformat(),
                         "expression_label": None,
                         "expression_confidence": None,
                         "image_status": "NO_FACE" if index < 8 else "INVALID_IMAGE",
@@ -195,7 +216,8 @@ def create_run(payload: RunInput):
         run_id=run_id,
         customer_count=CUSTOMER_COUNT,
         visit_count=visit_count,
-        observation_count=len(observations),
+        observation_count=len(observations) - error_count,
         order_count=order_count,
-        error_observation_count=error_count,
+        unidentified_observation_count=unidentified_count,
+        error_capture_count=error_count,
     )

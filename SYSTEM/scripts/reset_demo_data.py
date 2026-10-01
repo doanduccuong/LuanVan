@@ -5,7 +5,7 @@ import argparse
 from sqlalchemy import delete, select
 
 from app.database import SessionLocal
-from app.models import Customer, FaceTemplate, Observation, Order, OrderItem, Product, ProductCategory, Touchpoint, Visit
+from app.models import CaptureEvent, Customer, FaceTemplate, Observation, Order, OrderItem, Product, ProductCategory, Touchpoint, Visit
 
 
 def main(confirm: str) -> None:
@@ -18,6 +18,7 @@ def main(confirm: str) -> None:
             db.execute(delete(OrderItem).where(OrderItem.order_id.in_(demo_order_ids)))
         db.execute(delete(Order).where(Order.demo_data.is_(True)))
         db.execute(delete(Observation).where(Observation.demo_data.is_(True)))
+        db.execute(delete(CaptureEvent).where(CaptureEvent.demo_data.is_(True)))
         db.execute(delete(Visit).where(Visit.demo_data.is_(True)))
         if demo_customer_ids:
             db.execute(delete(FaceTemplate).where(FaceTemplate.customer_id.in_(demo_customer_ids)))
@@ -34,4 +35,3 @@ if __name__ == "__main__":
     parser.add_argument("--confirm", required=True)
     args = parser.parse_args()
     main(args.confirm)
-
