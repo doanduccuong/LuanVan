@@ -10,30 +10,32 @@
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Quy trình tạo véc-tơ đặc trưng LBP theo vùng}}{18}{figure.caption.18}%
 \contentsline {figure}{\numberline {2.9}{\ignorespaces Minh họa chuỗi quan sát biểu cảm theo hành trình đa điểm chạm}}{22}{figure.caption.19}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Luồng xử lý tổng thể của giải pháp}}{25}{figure.caption.20}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Hai nhiệm vụ sử dụng cùng vùng khuôn mặt được cắt từ ảnh}}{28}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Luồng xử lý tổng thể của giải pháp}}{26}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Hai nhiệm vụ được thực hiện độc lập trên từng vùng khuôn mặt}}{28}{figure.caption.22}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Cấu trúc các nhóm chức năng của hệ thống}}{39}{figure.caption.25}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Tài liệu API được tạo từ máy chủ nghiệp vụ đang chạy}}{41}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Danh sách các khu vực được xác định trước trong cửa hàng}}{42}{figure.caption.28}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Chức năng đăng ký và tìm khách hàng bằng ảnh}}{43}{figure.caption.29}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Chi tiết trạng thái, xác nhận khách hàng và lịch sử xử lý lại}}{44}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Hồ sơ khách hàng và lịch sử mua hàng}}{44}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Danh mục sản phẩm đã được tạo trong CRM}}{45}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Danh sách đơn hàng và dữ liệu lịch sử mua hàng}}{46}{figure.caption.33}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Theo dõi các quan sát trong một lần mua sắm}}{47}{figure.caption.34}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Danh sách quan sát chưa xác định được khách hàng}}{48}{figure.caption.35}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Phân bố bảy nhãn biểu cảm tại từng khu vực}}{49}{figure.caption.36}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Biến thiên số quan sát theo thời gian trong cùng khu vực}}{49}{figure.caption.37}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Số lượng và tỷ lệ thay đổi nhãn giữa các khu vực liên tiếp}}{50}{figure.caption.38}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Báo cáo chất lượng của dữ liệu đã tiếp nhận và liên kết}}{51}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Kiến trúc và hướng phụ thuộc giữa các thành phần}}{41}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Danh sách các khu vực được xác định trước trong cửa hàng}}{46}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Chức năng đăng ký và tìm khách hàng bằng ảnh}}{47}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Chi tiết quan sát sau xác nhận và lịch sử thay đổi kết quả}}{48}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Hồ sơ khách hàng và lịch sử mua hàng}}{49}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Danh mục sản phẩm đã được tạo trong CRM}}{50}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Danh sách đơn hàng và dữ liệu lịch sử mua hàng}}{50}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Theo dõi các quan sát trong một lần mua sắm}}{51}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Danh sách quan sát chưa xác định được khách hàng}}{52}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Phân bố bảy nhãn biểu cảm tại từng khu vực}}{53}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Biến thiên số quan sát theo thời gian trong cùng khu vực}}{53}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Số lượng và tỷ lệ thay đổi nhãn giữa các khu vực liên tiếp}}{54}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Báo cáo chất lượng của dữ liệu đã tiếp nhận và liên kết}}{55}{figure.caption.41}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Danh sách 100 khách hàng dùng trong thực nghiệm hệ thống}}{55}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Tài liệu API của dịch vụ tạo dữ liệu thực nghiệm}}{56}{figure.caption.43}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Trang tổng quan sau lần chạy thực nghiệm}}{57}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Kết quả phân loại trạng thái dữ liệu đầu vào}}{57}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Trạng thái và kết quả kiểm tra phiên bản tích hợp}}{58}{figure.caption.47}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Kết quả kiểm thử kỹ thuật của phiên bản tích hợp}}{59}{figure.caption.48}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Phạm vi cấu hình và giới hạn của phiên bản thực nghiệm}}{59}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Ba dạng dữ liệu được tạo từ cùng một bản ghi FairFace}}{61}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Danh sách khách hàng sau bước đăng ký dữ liệu khuôn mặt}}{63}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Quan sát chưa xác định vẫn có kết quả phân loại biểu cảm hợp lệ}}{63}{figure.caption.48}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Trang tổng quan sau thực nghiệm tích hợp}}{65}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Lần mua sắm có đủ dữ liệu tại bốn khu vực}}{65}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Báo cáo chất lượng dữ liệu sau thực nghiệm}}{66}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Trạng thái của phiên bản tích hợp và cấu hình xử lý ảnh}}{66}{figure.caption.53}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Kết quả kiểm thử mã nguồn và phát lại dữ liệu ảnh}}{67}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Phạm vi cấu hình và giới hạn khi diễn giải kết quả}}{67}{figure.caption.55}%
 \contentsfinish 
 \contentsfinish 

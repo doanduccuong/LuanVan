@@ -241,20 +241,20 @@ Khi nhận được một bản ghi đã xác định khách hàng, hệ thống
 
 Nếu đã có một lần mua sắm đang hoạt động, hệ thống so sánh thời gian của bản ghi mới với thời gian ghi nhận gần nhất. Khi hai thời điểm cách nhau không quá khoảng chờ được đặt trong cấu hình, bản ghi mới được thêm vào lần mua sắm hiện tại. Khi khoảng cách lớn hơn thời gian này, lần mua sắm cũ được đóng và hệ thống tạo một lần mua sắm mới.
 
-Hệ thống chỉ liên kết những bản ghi đã xác định được khách hàng. Phần mềm tìm lần mua sắm đang hoạt động của khách hàng đó và kiểm tra thời gian ghi nhận gần nhất. Phiên bản hiện tại chưa dùng bản ghi tại khu vực ra hoặc trạng thái thanh toán để tự động kết thúc lần mua sắm.
+Phương pháp chỉ liên kết những bản ghi đã xác định được khách hàng. Hệ thống tìm lần mua sắm đang hoạt động của khách hàng đó và kiểm tra thời gian ghi nhận gần nhất. Việc kết thúc tự động được xác định bằng khoảng thời gian giữa hai quan sát; bản ghi tại khu vực ra và trạng thái thanh toán không được sử dụng làm điều kiện kết thúc.
 
 Mỗi bản ghi được thêm vào một lần mua sắm phải xác định được khách hàng và có thời gian phù hợp với khoảng hoạt động của lần mua sắm đó. Bản ghi có thời gian trùng với quan sát tại một khu vực khác vẫn được lưu, nhưng được đánh dấu khi lập báo cáo và không được sử dụng để tạo cặp thay đổi biểu cảm.
 
-Luồng xử lý hiện tại giả định các bản ghi của cùng một khách hàng được gửi theo thứ tự thời gian. Cơ chế chèn một bản ghi đến muộn vào lần mua sắm đã có chưa được triển khai.
+Trong phạm vi phương pháp đề xuất, các bản ghi của cùng một khách hàng được xử lý theo thứ tự thời gian ghi nhận. Trường hợp một bản ghi đến muộn sau khi lần mua sắm tương ứng đã kết thúc không được chèn lại vào chuỗi đã đóng.
 
 \subsection{Kết thúc lần mua sắm}
 \label{subsection:3.4.3}
 
 Một lần mua sắm được kết thúc theo hai cách. Người dùng có thể thực hiện thao tác đóng trên hệ thống CRM. Ngoài ra, khi hệ thống nhận bản ghi mới của cùng khách hàng và khoảng cách với bản ghi trước lớn hơn thời gian chờ cho phép, lần mua sắm cũ được đóng trước khi tạo lần mới.
 
-Khi người dùng chủ động đóng lần mua sắm, lý do kết thúc được lưu là \texttt{MANUAL}. Khi hệ thống đóng lần cũ do khoảng cách giữa hai bản ghi vượt quá thời gian chờ, lý do được lưu là \texttt{TIMEOUT}. Việc hoàn thành đơn hàng hiện chưa tự động đóng lần mua sắm.
+Khi người dùng chủ động đóng lần mua sắm, lý do kết thúc được lưu là \texttt{MANUAL}. Khi hệ thống đóng lần cũ do khoảng cách giữa hai bản ghi vượt quá thời gian chờ, lý do được lưu là \texttt{TIMEOUT}. Việc hoàn thành đơn hàng không được sử dụng làm điều kiện tự động đóng lần mua sắm.
 
-Khoảng thời gian chờ được đặt trong cấu hình hệ thống. Phần mềm hiện tại sử dụng 30 phút. Hệ thống chỉ kiểm tra khoảng thời gian này khi có một bản ghi mới, không chạy một tiến trình riêng để tự đóng lần mua sắm ngay khi đủ 30 phút.
+Khoảng thời gian chờ được đặt trong cấu hình hệ thống. Trong phạm vi nghiên cứu, giá trị này được chọn là 30 phút. Điều kiện thời gian được kiểm tra khi có một bản ghi mới; phương pháp không yêu cầu một tiến trình riêng để đóng lần mua sắm ngay tại thời điểm đủ 30 phút.
 
 Nếu thời gian chờ quá ngắn, một lần mua sắm có thể bị tách thành nhiều đoạn khi khách hàng ở lâu tại một khu vực. Nếu thời gian chờ quá dài, hai lần đến cửa hàng gần nhau có thể bị ghép thành một lần. Giá trị 30 phút cần được kiểm tra lại bằng dữ liệu thực nghiệm trước khi sử dụng trong môi trường thực tế.
 
@@ -307,7 +307,7 @@ Trạng thái thiếu được gắn với vị trí dự kiến trong chuỗi n
 
 Nếu hai bản ghi có thời gian không đủ để xác định thứ tự, hệ thống vẫn có thể lưu chúng dưới dạng quan sát riêng lẻ nhưng không sử dụng cặp này để phân tích sự thay đổi giữa hai khu vực. Số lượng bản ghi thiếu và xung đột phải được báo cáo cùng kết quả phân tích.
 
-Trong phạm vi triển khai, xung đột được xác định khi cùng một khách hàng có các bản ghi tại nhiều khu vực khác nhau nhưng cùng thời điểm ghi nhận. Hệ thống không tự giải quyết bằng cách chọn bản ghi có điểm đối sánh cao hơn. Các bản ghi này được giữ lại để kiểm tra và vẫn xuất hiện trong thống kê độc lập của từng khu vực nếu kết quả biểu cảm hợp lệ, nhưng bị loại khỏi phép phân tích thay đổi giữa các khu vực để tránh tạo một thứ tự không có căn cứ.
+Theo phương pháp đề xuất, xung đột được xác định khi cùng một khách hàng có các bản ghi tại nhiều khu vực khác nhau nhưng cùng thời điểm ghi nhận. Hệ thống không tự giải quyết bằng cách chọn bản ghi có điểm đối sánh cao hơn. Các bản ghi này được giữ lại để kiểm tra và vẫn xuất hiện trong thống kê độc lập của từng khu vực nếu kết quả biểu cảm hợp lệ, nhưng bị loại khỏi phép phân tích thay đổi giữa các khu vực để tránh tạo một thứ tự không có căn cứ.
 
 \section{Phương pháp phân tích kết quả}
 \label{section:3.5}
@@ -400,7 +400,7 @@ Việc liên kết chuỗi cá nhân chỉ được thực hiện đối với k
 
 Một khu vực không có bản ghi có thể do khách hàng không xuất hiện tại khu vực, hình ảnh không ghi nhận được khuôn mặt phù hợp hoặc mô hình xử lý không thành công. Giải pháp giữ riêng dữ liệu thiếu và không thay thế chúng bằng một nhãn biểu cảm giả định.
 
-Phương pháp hiện tại chỉ liên kết chuỗi cá nhân khi xác định được khách hàng đã đăng ký. Do đó, thống kê theo khu vực có thể bao quát nhiều quan sát hơn phân tích thay đổi xuyên khu vực. Hai loại báo cáo phải công bố số lượng dữ liệu riêng và không được so sánh trực tiếp nếu phạm vi mẫu khác nhau.
+Phương pháp đề xuất chỉ liên kết chuỗi cá nhân khi xác định được khách hàng đã đăng ký. Do đó, thống kê theo khu vực có thể bao quát nhiều quan sát hơn phân tích thay đổi xuyên khu vực. Hai loại báo cáo phải công bố số lượng dữ liệu riêng và không được so sánh trực tiếp nếu phạm vi mẫu khác nhau.
 
 Đầu vào của phương pháp là các khung hình rời do nguồn thu nhận lựa chọn, không phải luồng video liên tục. Mã sự kiện ngăn việc gửi lại cùng một khung hình nhưng không thay thế thuật toán theo dõi một người chưa xác định qua nhiều khung hình liên tiếp. Vì vậy, tần suất lấy mẫu phải được cấu hình tại nguồn thu nhận; nếu triển khai trên video liên tục, cần bổ sung thành phần theo dõi đối tượng để hạn chế đếm lặp trước khi tạo sự kiện gửi đến hệ thống.
 

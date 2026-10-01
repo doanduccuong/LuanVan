@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.31)  1 OCT 2026 10:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.31)  1 OCT 2026 17:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1209,15 +1209,15 @@ l.195 \newpage
 \tf@toc=\write6
 \openout6 = `LuanVan.toc'.
 
- [4] (./LuanVan.lof)
+ [4] (./LuanVan.lof [5
+
+
+
+])
 \tf@lof=\write7
 \openout7 = `LuanVan.lof'.
 
- [5
-
-
-
-] (./LuanVan.lot)
+ [6] (./LuanVan.lot)
 \tf@lot=\write8
 \openout8 = `LuanVan.lot'.
 
@@ -1226,12 +1226,12 @@ l.195 \newpage
 Package glossaries Info: Preparing to sort glossary `acronym' (total number of
 (glossaries)             referenced entries: 26)
 
-[6
+[7
 
-] [7
+] [8
 
 
-] [8]
+] [9]
 Ch\uhorn \ohorn ng 1.
 (./Chuong/1_Gioi_thieu.tex
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 12.
@@ -1253,13 +1253,13 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 ) [3
 
 ] [4]
-<Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png, id=664, 460.72125pt x 225.09094pt>
+<Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png, id=681, 460.72125pt x 225.09094pt>
 File: Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png Graphic file (type png)
 <use Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png>
 Package pdftex.def Info: Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png  used on input line 34.
 (pdftex.def)             Requested size: 384.1096pt x 187.66003pt.
  [5 <./Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png>]
-<Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png, id=675, 687.56876pt x 291.0875pt>
+<Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png, id=693, 687.56876pt x 291.0875pt>
 File: Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png Graphic file (type png)
 <use Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png>
 Package pdftex.def Info: Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png  used on input line 51.
@@ -1267,18 +1267,18 @@ Package pdftex.def Info: Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png  used on inp
  [6 <./Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png>]
 LaTeX Font Info:    Calculating math sizes for size <11.86258> on input line 85.
  [7] [8] [9] [10] [11]
-<Hinhve/Chuong2/mtcnn_pnet.png, id=742, 702.625pt x 285.065pt>
+<Hinhve/Chuong2/mtcnn_pnet.png, id=760, 702.625pt x 285.065pt>
 File: Hinhve/Chuong2/mtcnn_pnet.png Graphic file (type png)
 <use Hinhve/Chuong2/mtcnn_pnet.png>
 Package pdftex.def Info: Hinhve/Chuong2/mtcnn_pnet.png  used on input line 207.
 (pdftex.def)             Requested size: 349.97203pt x 141.99278pt.
  [12]
-<Hinhve/Chuong2/mtcnn_rnet.png, id=748, 727.71875pt x 272.01625pt>
+<Hinhve/Chuong2/mtcnn_rnet.png, id=765, 727.71875pt x 272.01625pt>
 File: Hinhve/Chuong2/mtcnn_rnet.png Graphic file (type png)
 <use Hinhve/Chuong2/mtcnn_rnet.png>
 Package pdftex.def Info: Hinhve/Chuong2/mtcnn_rnet.png  used on input line 216.
 (pdftex.def)             Requested size: 349.97203pt x 130.8195pt.
-<Hinhve/Chuong2/mtcnn_onet.png, id=749, 721.69624pt x 133.49875pt>
+<Hinhve/Chuong2/mtcnn_onet.png, id=766, 721.69624pt x 133.49875pt>
 File: Hinhve/Chuong2/mtcnn_onet.png Graphic file (type png)
 <use Hinhve/Chuong2/mtcnn_onet.png>
 Package pdftex.def Info: Hinhve/Chuong2/mtcnn_onet.png  used on input line 225.
@@ -1338,7 +1338,7 @@ Underfull \hbox (badness 4229) in paragraph at lines 306--306
 LaTeX Warning: Citation `shan2009lbp' on page 17 undefined on input line 321.
 
 [17]
-<Hinhve/Chuong2/lbp_spatial_histogram.png, id=782, 1138.2525pt x 569.12625pt>
+<Hinhve/Chuong2/lbp_spatial_histogram.png, id=800, 1138.2525pt x 569.12625pt>
 File: Hinhve/Chuong2/lbp_spatial_histogram.png Graphic file (type png)
 <use Hinhve/Chuong2/lbp_spatial_histogram.png>
 Package pdftex.def Info: Hinhve/Chuong2/lbp_spatial_histogram.png  used on input line 331.
@@ -1372,182 +1372,157 @@ LaTeX Font Info:    Trying to load font information for T5+pcr on input line 128
  (/usr/local/texlive/2026basic/texmf-dist/tex/latex/vntex/t5pcr.fd
 File: t5ucr.fd 2005/08/24 Fontinst v1.929 font definitions for T5/pcr.
 ) [27] [28] [29] [30] [31] [32]
-Underfull \hbox (badness 3471) in paragraph at lines 296--296
+Underfull \hbox (badness 3471) in paragraph at lines 298--298
 []|\T5/ptm/b/n/13 Thèng k¶ t¤i khu
  []
 
 
-Underfull \hbox (badness 3449) in paragraph at lines 296--296
+Underfull \hbox (badness 3449) in paragraph at lines 298--298
 []|\T5/ptm/m/n/13 Kh¡ch h ng ^^_¢ ^^_«ng kþ
  []
 
 [33] [34] [35] [36] [37]) [38]
 Ch\uhorn \ohorn ng 4.
-(./Chuong/4_Xay_dung_va_phat_trien_he_thong.tex
+(./Chuong/4_Xay_dung_va_phat_trien_he_thong.tex [39
 
-LaTeX Warning: Reference `fig:function_structure_ch4' on page 39 undefined on input line 12.
-
-[39
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
-[]|\T5/ptm/m/n/13 Giao di»n
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
-[]|\T5/ptm/m/n/13 M¡y chõ
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
-[]|\T5/ptm/m/n/13 FastAPI,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
-\T5/ptm/m/n/13 SQLAlchemy, Alem-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
-\T5/ptm/m/n/13 MobileNet0.25; mæ
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 67--67
-\T5/ptm/m/n/13 h¼nh Emo-tion qua
- []
-
-<Hinhve/Chuong4/4_11_tai_lieu_api.png, id=898, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_11_tai_lieu_api.png Graphic file (type png)
-<use Hinhve/Chuong4/4_11_tai_lieu_api.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_11_tai_lieu_api.png  used on input line 79.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
-[40]
-<Hinhve/Chuong4/4_06_khu_vuc.png, id=906, 1606.0pt x 1003.75pt>
+] [40] [41] [42] [43] [44]
+<Hinhve/Chuong4/4_06_khu_vuc.png, id=939, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_06_khu_vuc.png Graphic file (type png)
 <use Hinhve/Chuong4/4_06_khu_vuc.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_06_khu_vuc.png  used on input line 98.
+Package pdftex.def Info: Hinhve/Chuong4/4_06_khu_vuc.png  used on input line 198.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [41 <./Hinhve/Chuong4/4_11_tai_lieu_api.png (PNG copy)>]
-<Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png, id=912, 1606.0pt x 1003.75pt>
+ [45]
+<Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png, id=945, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png Graphic file (type png)
 <use Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png  used on input line 114.
+Package pdftex.def Info: Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png  used on input line 214.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [42 <./Hinhve/Chuong4/4_06_khu_vuc.png (PNG copy)>]
-<Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png, id=919, 1606.0pt x 1003.75pt>
+ [46 <./Hinhve/Chuong4/4_06_khu_vuc.png (PNG copy)>]
+<Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png, id=951, 1606.0pt x 1254.6875pt>
 File: Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png Graphic file (type png)
 <use Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png  used on input line 130.
-(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [43 <./Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png (PNG copy)>]
-<Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png, id=925, 1606.0pt x 1003.75pt>
+Package pdftex.def Info: Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png  used on input line 230.
+(pdftex.def)             Requested size: 418.2537pt x 326.74712pt.
+ [47 <./Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png (PNG copy)>]
+<Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png, id=958, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png Graphic file (type png)
 <use Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png  used on input line 145.
+Package pdftex.def Info: Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png  used on input line 245.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [44 <./Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png (PNG copy)> <./Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png (PNG copy)>]
-<Hinhve/Chuong4/4_04_danh_muc_san_pham.png, id=931, 1606.0pt x 1003.75pt>
+ [48 <./Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png (PNG copy)>]
+<Hinhve/Chuong4/4_04_danh_muc_san_pham.png, id=963, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_04_danh_muc_san_pham.png Graphic file (type png)
 <use Hinhve/Chuong4/4_04_danh_muc_san_pham.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_04_danh_muc_san_pham.png  used on input line 159.
+Package pdftex.def Info: Hinhve/Chuong4/4_04_danh_muc_san_pham.png  used on input line 259.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
-<Hinhve/Chuong4/4_05_lich_su_mua_hang.png, id=932, 1606.0pt x 1003.75pt>
+ [49 <./Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png (PNG copy)>]
+<Hinhve/Chuong4/4_05_lich_su_mua_hang.png, id=968, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_05_lich_su_mua_hang.png Graphic file (type png)
 <use Hinhve/Chuong4/4_05_lich_su_mua_hang.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_05_lich_su_mua_hang.png  used on input line 166.
+Package pdftex.def Info: Hinhve/Chuong4/4_05_lich_su_mua_hang.png  used on input line 266.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [45 <./Hinhve/Chuong4/4_04_danh_muc_san_pham.png (PNG copy)>]
-<Hinhve/Chuong4/4_07_theo_doi_mua_sam.png, id=938, 1606.0pt x 1003.75pt>
+ [50 <./Hinhve/Chuong4/4_04_danh_muc_san_pham.png (PNG copy)> <./Hinhve/Chuong4/4_05_lich_su_mua_hang.png (PNG copy)>]
+<Hinhve/Chuong4/4_07_theo_doi_mua_sam.png, id=974, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_07_theo_doi_mua_sam.png Graphic file (type png)
 <use Hinhve/Chuong4/4_07_theo_doi_mua_sam.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_07_theo_doi_mua_sam.png  used on input line 182.
+Package pdftex.def Info: Hinhve/Chuong4/4_07_theo_doi_mua_sam.png  used on input line 282.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [46 <./Hinhve/Chuong4/4_05_lich_su_mua_hang.png (PNG copy)>]
-<Hinhve/Chuong4/4_15_quan_sat_chua_xac_dinh.png, id=945, 1606.0pt x 1003.75pt>
+<Hinhve/Chuong4/4_15_quan_sat_chua_xac_dinh.png, id=977, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_15_quan_sat_chua_xac_dinh.png Graphic file (type png)
 <use Hinhve/Chuong4/4_15_quan_sat_chua_xac_dinh.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_15_quan_sat_chua_xac_dinh.png  used on input line 196.
+Package pdftex.def Info: Hinhve/Chuong4/4_15_quan_sat_chua_xac_dinh.png  used on input line 296.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [47 <./Hinhve/Chuong4/4_07_theo_doi_mua_sam.png (PNG copy)>]
-<Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png, id=951, 1606.0pt x 1003.75pt>
+ [51 <./Hinhve/Chuong4/4_07_theo_doi_mua_sam.png (PNG copy)>]
+<Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png, id=983, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png Graphic file (type png)
 <use Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png  used on input line 213.
+Package pdftex.def Info: Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png  used on input line 313.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [48 <./Hinhve/Chuong4/4_15_quan_sat_chua_xac_dinh.png (PNG copy)>]
-<Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png, id=958, 1606.0pt x 1003.75pt>
+ [52 <./Hinhve/Chuong4/4_15_quan_sat_chua_xac_dinh.png (PNG copy)>]
+<Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png, id=989, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png Graphic file (type png)
 <use Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png  used on input line 222.
+Package pdftex.def Info: Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png  used on input line 322.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [49 <./Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png (PNG copy)> <./Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png (PNG copy)>]
-<Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png, id=964, 1606.0pt x 1003.75pt>
+ [53 <./Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png (PNG copy)> <./Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png (PNG copy)>]
+<Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png, id=996, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png Graphic file (type png)
 <use Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png  used on input line 236.
+Package pdftex.def Info: Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png  used on input line 336.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
-<Hinhve/Chuong4/4_10_chat_luong_du_lieu.png, id=966, 1606.0pt x 1003.75pt>
+<Hinhve/Chuong4/4_10_chat_luong_du_lieu.png, id=998, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png Graphic file (type png)
 <use Hinhve/Chuong4/4_10_chat_luong_du_lieu.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png  used on input line 250.
+Package pdftex.def Info: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png  used on input line 350.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [50 <./Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png (PNG copy)>]) [51 <./Hinhve/Chuong4/4_10_chat_luong_du_lieu.png (PNG copy)>]
+ [54 <./Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png (PNG copy)>]) [55 <./Hinhve/Chuong4/4_10_chat_luong_du_lieu.png (PNG copy)>]
 Ch\uhorn \ohorn ng 5.
-(./Chuong/5_Danh_gia_thuc_nghiem.tex [52
+(./Chuong/5_Danh_gia_thuc_nghiem.tex [56
 
-] [53] [54]
-<Hinhve/Chuong4/4_02_danh_sach_khach_hang.png, id=1010, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_02_danh_sach_khach_hang.png Graphic file (type png)
-<use Hinhve/Chuong4/4_02_danh_sach_khach_hang.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_02_danh_sach_khach_hang.png  used on input line 102.
+] [57] [58] [59] [60]
+<Hinhve/Chuong5/5_01_anh_ho_so.jpg, id=1050, 256.96pt x 256.96pt>
+File: Hinhve/Chuong5/5_01_anh_ho_so.jpg Graphic file (type jpg)
+<use Hinhve/Chuong5/5_01_anh_ho_so.jpg>
+Package pdftex.def Info: Hinhve/Chuong5/5_01_anh_ho_so.jpg  used on input line 145.
+(pdftex.def)             Requested size: 128.0387pt x 128.04054pt.
+<Hinhve/Chuong5/5_02_khung_dang_ky.jpg, id=1051, 642.4pt x 481.8pt>
+File: Hinhve/Chuong5/5_02_khung_dang_ky.jpg Graphic file (type jpg)
+<use Hinhve/Chuong5/5_02_khung_dang_ky.jpg>
+Package pdftex.def Info: Hinhve/Chuong5/5_02_khung_dang_ky.jpg  used on input line 150.
+(pdftex.def)             Requested size: 136.57635pt x 102.43076pt.
+<Hinhve/Chuong5/5_03_khung_quan_sat.jpg, id=1052, 642.4pt x 481.8pt>
+File: Hinhve/Chuong5/5_03_khung_quan_sat.jpg Graphic file (type jpg)
+<use Hinhve/Chuong5/5_03_khung_quan_sat.jpg>
+Package pdftex.def Info: Hinhve/Chuong5/5_03_khung_quan_sat.jpg  used on input line 155.
+(pdftex.def)             Requested size: 136.57635pt x 102.43076pt.
+ [61 <./Hinhve/Chuong5/5_01_anh_ho_so.jpg> <./Hinhve/Chuong5/5_02_khung_dang_ky.jpg> <./Hinhve/Chuong5/5_03_khung_quan_sat.jpg>] [62]
+<Hinhve/Chuong5/5_04_du_lieu_khuon_mat.png, id=1064, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong5/5_04_du_lieu_khuon_mat.png Graphic file (type png)
+<use Hinhve/Chuong5/5_04_du_lieu_khuon_mat.png>
+Package pdftex.def Info: Hinhve/Chuong5/5_04_du_lieu_khuon_mat.png  used on input line 206.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
-<Hinhve/Chuong4/4_12_dich_vu_mo_phong.png, id=1012, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_12_dich_vu_mo_phong.png Graphic file (type png)
-<use Hinhve/Chuong4/4_12_dich_vu_mo_phong.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_12_dich_vu_mo_phong.png  used on input line 116.
+<Hinhve/Chuong5/5_05_quan_sat_chua_xac_dinh.png, id=1065, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong5/5_05_quan_sat_chua_xac_dinh.png Graphic file (type png)
+<use Hinhve/Chuong5/5_05_quan_sat_chua_xac_dinh.png>
+Package pdftex.def Info: Hinhve/Chuong5/5_05_quan_sat_chua_xac_dinh.png  used on input line 213.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [55 <./Hinhve/Chuong4/4_02_danh_sach_khach_hang.png (PNG copy)>] [56 <./Hinhve/Chuong4/4_12_dich_vu_mo_phong.png (PNG copy)>]
-<Hinhve/Chuong4/4_01_tong_quan.png, id=1025, 1606.0pt x 1003.75pt>
-File: Hinhve/Chuong4/4_01_tong_quan.png Graphic file (type png)
-<use Hinhve/Chuong4/4_01_tong_quan.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_01_tong_quan.png  used on input line 159.
+ [63 <./Hinhve/Chuong5/5_04_du_lieu_khuon_mat.png (PNG copy)> <./Hinhve/Chuong5/5_05_quan_sat_chua_xac_dinh.png (PNG copy)>]
+<Hinhve/Chuong5/5_06_tong_quan_ket_qua.png, id=1073, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong5/5_06_tong_quan_ket_qua.png Graphic file (type png)
+<use Hinhve/Chuong5/5_06_tong_quan_ket_qua.png>
+Package pdftex.def Info: Hinhve/Chuong5/5_06_tong_quan_ket_qua.png  used on input line 250.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
-File: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png Graphic file (type png)
-<use Hinhve/Chuong4/4_10_chat_luong_du_lieu.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png  used on input line 166.
+ [64]
+<Hinhve/Chuong5/5_07_hanh_trinh_bon_khu_vuc.png, id=1078, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong5/5_07_hanh_trinh_bon_khu_vuc.png Graphic file (type png)
+<use Hinhve/Chuong5/5_07_hanh_trinh_bon_khu_vuc.png>
+Package pdftex.def Info: Hinhve/Chuong5/5_07_hanh_trinh_bon_khu_vuc.png  used on input line 257.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
- [57 <./Hinhve/Chuong4/4_01_tong_quan.png (PNG copy)>]
-
-LaTeX Warning: Reference `fig:deployment_status_ch5' on page 58 undefined on input line 176.
-
-<Hinhve/Chuong4/4_17_trang_thai_trien_khai.png, id=1031, 1606.0pt x 1003.75pt>
+<Hinhve/Chuong5/5_08_chat_luong_du_lieu.png, id=1079, 1606.0pt x 1003.75pt>
+File: Hinhve/Chuong5/5_08_chat_luong_du_lieu.png Graphic file (type png)
+<use Hinhve/Chuong5/5_08_chat_luong_du_lieu.png>
+Package pdftex.def Info: Hinhve/Chuong5/5_08_chat_luong_du_lieu.png  used on input line 264.
+(pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
+ [65 <./Hinhve/Chuong5/5_06_tong_quan_ket_qua.png (PNG copy)> <./Hinhve/Chuong5/5_07_hanh_trinh_bon_khu_vuc.png (PNG copy)>]
+<Hinhve/Chuong4/4_17_trang_thai_trien_khai.png, id=1087, 1606.0pt x 1003.75pt>
 File: Hinhve/Chuong4/4_17_trang_thai_trien_khai.png Graphic file (type png)
 <use Hinhve/Chuong4/4_17_trang_thai_trien_khai.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_17_trang_thai_trien_khai.png  used on input line 180.
+Package pdftex.def Info: Hinhve/Chuong4/4_17_trang_thai_trien_khai.png  used on input line 273.
 (pdftex.def)             Requested size: 418.2537pt x 261.39769pt.
-
-LaTeX Warning: Reference `fig:test_results_ch5' on page 58 undefined on input line 185.
-
-<Hinhve/Chuong4/4_18_ket_qua_kiem_thu.png, id=1032, 1254.6875pt x 250.9375pt>
+<Hinhve/Chuong4/4_18_ket_qua_kiem_thu.png, id=1088, 1254.6875pt x 250.9375pt>
 File: Hinhve/Chuong4/4_18_ket_qua_kiem_thu.png Graphic file (type png)
 <use Hinhve/Chuong4/4_18_ket_qua_kiem_thu.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_18_ket_qua_kiem_thu.png  used on input line 189.
+Package pdftex.def Info: Hinhve/Chuong4/4_18_ket_qua_kiem_thu.png  used on input line 280.
 (pdftex.def)             Requested size: 392.64725pt x 78.52881pt.
-[58 <./Hinhve/Chuong4/4_17_trang_thai_trien_khai.png (PNG copy)>]
-
-LaTeX Warning: Reference `fig:version_limits_ch5' on page 59 undefined on input line 199.
-
-<Hinhve/Chuong4/4_19_gioi_han_phien_ban.png, id=1038, 1254.6875pt x 300.12125pt>
+ [66 <./Hinhve/Chuong5/5_08_chat_luong_du_lieu.png (PNG copy)> <./Hinhve/Chuong4/4_17_trang_thai_trien_khai.png (PNG copy)>]
+<Hinhve/Chuong4/4_19_gioi_han_phien_ban.png, id=1094, 1254.6875pt x 345.29pt>
 File: Hinhve/Chuong4/4_19_gioi_han_phien_ban.png Graphic file (type png)
 <use Hinhve/Chuong4/4_19_gioi_han_phien_ban.png>
-Package pdftex.def Info: Hinhve/Chuong4/4_19_gioi_han_phien_ban.png  used on input line 203.
-(pdftex.def)             Requested size: 392.64725pt x 93.92046pt.
-) [59 <./Hinhve/Chuong4/4_18_ket_qua_kiem_thu.png (PNG copy)> <./Hinhve/Chuong4/4_19_gioi_han_phien_ban.png (PNG copy)>] (./LuanVan.bbl [60
+Package pdftex.def Info: Hinhve/Chuong4/4_19_gioi_han_phien_ban.png  used on input line 296.
+(pdftex.def)             Requested size: 392.64725pt x 108.05563pt.
+) [67 <./Hinhve/Chuong4/4_18_ket_qua_kiem_thu.png (PNG copy)> <./Hinhve/Chuong4/4_19_gioi_han_phien_ban.png (PNG copy)>] (./LuanVan.bbl [68
 
-] [61]) [62] (./LuanVan.aux)
+] [69]) [70] (./LuanVan.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1560,61 +1535,22 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `LuanVan.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `LuanVan.out':
-(rerunfilecheck)             Before: 0AB529243E01ED65DA0DA2BD6CA6EF5D;19967
-(rerunfilecheck)             After:  AE02877FB44934F8DFB9893F387A052A;19569.
+Package rerunfilecheck Info: File `LuanVan.out' has not changed.
+(rerunfilecheck)             Checksum: 9F7EAACA5617FD39BBE0B453265A3C59;20169.
  ) 
 Here is how much of TeX's memory you used:
- 39000 strings out of 469006
- 758459 string characters out of 5454813
- 1247347 words of memory out of 5000000
- 66762 multiletter control sequences out of 15000+600000
+ 39117 strings out of 469006
+ 761713 string characters out of 5454813
+ 1248011 words of memory out of 5000000
+ 66865 multiletter control sequences out of 15000+600000
  674566 words of font info for 94 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  108i,12n,107p,2543b,985s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{table.caption.47} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{table.caption.43} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{table.caption.25} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{figure.caption.41} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{figure.caption.40} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{figure.caption.26} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.5.3} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.5.2} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.4.5.1} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{section.4.5} has been referenced but does not exist, replaced by a fixed one
-
 </usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/ucrr8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmb8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmr8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/utmri8v.pfb>
-Output written on LuanVan.pdf (75 pages, 3250634 bytes).
+Output written on LuanVan.pdf (84 pages, 3594901 bytes).
 PDF statistics:
- 1204 PDF objects out of 1440 (max. 8388607)
- 978 compressed objects within 10 object streams
- 236 named destinations out of 1000 (max. 500000)
- 784 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1260 PDF objects out of 1440 (max. 8388607)
+ 1020 compressed objects within 11 object streams
+ 243 named destinations out of 1000 (max. 500000)
+ 804 words of extra memory for PDF output out of 10000 (max. 10000000)
 
