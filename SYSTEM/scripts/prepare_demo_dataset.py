@@ -79,18 +79,55 @@ def decode_example(example: dict, source_index: int) -> np.ndarray:
 
 
 def render_scene(image: np.ndarray, output: Path, offset: tuple[int, int], face_height: int = 300, brightness: int = 0) -> dict:
+    canvas = np.full((480, 640, 3), 224, dtype=np.uint8)
+    place_on_canvas(canvas, image, offset, face_height, brightness)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    cv2.imwrite(str(output), canvas, [cv2.IMWRITE_JPEG_QUALITY, 92])
+    return {"offset_x": offset[0], "offset_y": offset[1], "face_height": face_height, "brightness": brightness}
+
+
+def place_on_canvas(
+    canvas: np.ndarray,
+    image: np.ndarray,
+    offset: tuple[int, int],
+    face_height: int,
+    brightness: int = 0,
+) -> None:
     height, width = image.shape[:2]
     scale = face_height / height
     resized = cv2.resize(image, (max(1, int(width * scale)), face_height), interpolation=cv2.INTER_CUBIC)
     if brightness:
         resized = cv2.convertScaleAbs(resized, alpha=1.0, beta=brightness)
-    canvas = np.full((480, 640, 3), 224, dtype=np.uint8)
     x, y = offset
-    x2, y2 = min(640, x + resized.shape[1]), min(480, y + resized.shape[0])
+    canvas_height, canvas_width = canvas.shape[:2]
+    x2, y2 = min(canvas_width, x + resized.shape[1]), min(canvas_height, y + resized.shape[0])
     canvas[y:y2, x:x2] = resized[: y2 - y, : x2 - x]
+
+
+def render_observation_scene(
+    primary: np.ndarray,
+    distractor: np.ndarray,
+    output: Path,
+    variant: int,
+) -> dict:
+    layouts = (
+        (((155, 180), 330, -8), ((795, 195), 320, 4)),
+        (((790, 170), 330, 6), ((150, 205), 320, -5)),
+        (((165, 210), 330, 14), ((800, 160), 320, -6)),
+        (((785, 200), 330, -3), ((145, 150), 320, 8)),
+    )
+    primary_layout, distractor_layout = layouts[variant % len(layouts)]
+    canvas = np.full((720, 1280, 3), 224, dtype=np.uint8)
+    place_on_canvas(canvas, primary, primary_layout[0], primary_layout[1], primary_layout[2])
+    place_on_canvas(canvas, distractor, distractor_layout[0], distractor_layout[1], distractor_layout[2])
     output.parent.mkdir(parents=True, exist_ok=True)
     cv2.imwrite(str(output), canvas, [cv2.IMWRITE_JPEG_QUALITY, 92])
-    return {"offset_x": x, "offset_y": y, "face_height": face_height, "brightness": brightness}
+    return {
+        "offset_x": primary_layout[0][0],
+        "offset_y": primary_layout[0][1],
+        "face_height": primary_layout[1],
+        "brightness": primary_layout[2],
+    }
 
 
 def prepare(source: Path | None = None) -> None:
@@ -108,6 +145,11 @@ def prepare(source: Path | None = None) -> None:
             shutil.rmtree(target)
         target.mkdir(parents=True)
 
+    unknown_sources = [
+        (source_index, decode_example(examples[source_index], source_index))
+        for source_index in UNKNOWN_SOURCE_INDICES
+    ]
+
     manifest: list[dict] = []
     customer_images: list[dict] = []
     for index, source_index in enumerate(CUSTOMER_SOURCE_INDICES, 1):
@@ -122,13 +164,14 @@ def prepare(source: Path | None = None) -> None:
 
         enrollment_output = DATASET_ROOT / "enrollment" / subject_id / "enrollment.jpg"
         transform = render_scene(image, enrollment_output, (160, 70), 330, 0)
-        manifest.append({"output": str(enrollment_output.relative_to(DATASET_ROOT)), "role": "enrollment", "subject_id": subject_id, "source_index": source_index, "source_id": example.get("_id", source_index), "output_sha256": checksum(enrollment_output), **transform})
+        manifest.append({"output": str(enrollment_output.relative_to(DATASET_ROOT)), "role": "enrollment", "subject_id": subject_id, "source_index": source_index, "source_id": example.get("_id", source_index), "secondary_source_index": "", "output_sha256": checksum(enrollment_output), **transform})
 
         variants = 4 if index <= 5 else 1
         for variant in range(variants):
             observation_output = DATASET_ROOT / "observations" / subject_id / f"{variant + 1:02d}.jpg"
-            transform = render_scene(image, observation_output, (125 + variant * 25, 62 + (variant % 2) * 12), 290 - variant * 8, (-8, 6, 14, -3)[variant])
-            manifest.append({"output": str(observation_output.relative_to(DATASET_ROOT)), "role": "observation", "subject_id": subject_id, "source_index": source_index, "source_id": example.get("_id", source_index), "output_sha256": checksum(observation_output), **transform})
+            distractor_source_index, distractor = unknown_sources[(index + variant) % len(unknown_sources)]
+            transform = render_observation_scene(image, distractor, observation_output, variant)
+            manifest.append({"output": str(observation_output.relative_to(DATASET_ROOT)), "role": "observation", "subject_id": subject_id, "source_index": source_index, "source_id": example.get("_id", source_index), "secondary_source_index": distractor_source_index, "output_sha256": checksum(observation_output), **transform})
 
     for source_index in CALIBRATION_SOURCE_INDICES:
         example = examples[source_index]
@@ -143,21 +186,23 @@ def prepare(source: Path | None = None) -> None:
     for offset, source_index in enumerate(UNKNOWN_SOURCE_INDICES):
         example = examples[source_index]
         subject_id = f"fairface-{source_index:04d}"
-        image = decode_example(example, source_index)
+        image = unknown_sources[offset][1]
+        other = unknown_sources[(offset + 1) % len(unknown_sources)][1]
         output = DATASET_ROOT / "observations" / "unknown" / f"{subject_id}.jpg"
-        transform = render_scene(image, output, (150 + offset * 20, 70), 305, offset * 8)
-        manifest.append({"output": str(output.relative_to(DATASET_ROOT)), "role": "unknown", "subject_id": subject_id, "source_index": source_index, "source_id": example.get("_id", source_index), "output_sha256": checksum(output), **transform})
+        transform = render_observation_scene(image, other, output, offset)
+        manifest.append({"output": str(output.relative_to(DATASET_ROOT)), "role": "unknown", "subject_id": subject_id, "source_index": source_index, "source_id": example.get("_id", source_index), "secondary_source_index": UNKNOWN_SOURCE_INDICES[(offset + 1) % len(UNKNOWN_SOURCE_INDICES)], "output_sha256": checksum(output), **transform})
         unknown_images.append(output)
 
     error_dir = DATASET_ROOT / "observations" / "errors"
     error_dir.mkdir(parents=True, exist_ok=True)
     cv2.imwrite(str(error_dir / "no-face.jpg"), np.full((480, 640, 3), 224, dtype=np.uint8))
     (error_dir / "invalid.jpg").write_bytes(b"not-an-image")
-    left, right = (cv2.imread(str(path)) for path in unknown_images)
-    multi = np.full((480, 1280, 3), 224, dtype=np.uint8)
-    multi[:, :640] = left
-    multi[:, 640:] = right
-    cv2.imwrite(str(error_dir / "multiple-faces.jpg"), multi)
+    render_observation_scene(
+        unknown_sources[0][1],
+        unknown_sources[1][1],
+        error_dir / "multiple-faces.jpg",
+        2,
+    )
 
     write_static_crm_data()
     write_events()
@@ -264,11 +309,12 @@ def write_events() -> None:
                 touchpoint,
                 (customer_index - 1) * 40 + (event_position - 1) * 5,
                 f"observations/{subject}/{event_position:02d}.jpg",
+                expected_face_count=2,
                 subject=subject,
-                condition=f"transform-{event_position}",
+                condition=f"composite-layout-{event_position}",
             )
-    add("EXP-UNKNOWN", "exp-unknown-1", "", "", "TP-DISPLAY", 4050, "observations/unknown/fairface-0108.jpg", identity_status="NO_MATCH", subject="fairface-0108", condition="transform-1")
-    add("EXP-UNKNOWN", "exp-unknown-2", "", "", "TP-CONSULT", 4055, "observations/unknown/fairface-0109.jpg", identity_status="NO_MATCH", subject="fairface-0109", condition="transform-1")
+    add("EXP-UNKNOWN", "exp-unknown-1", "", "", "TP-DISPLAY", 4050, "observations/unknown/fairface-0108.jpg", identity_status="NO_MATCH", expected_face_count=2, subject="fairface-0108", condition="composite-layout-1")
+    add("EXP-UNKNOWN", "exp-unknown-2", "", "", "TP-CONSULT", 4055, "observations/unknown/fairface-0109.jpg", identity_status="NO_MATCH", expected_face_count=2, subject="fairface-0109", condition="composite-layout-2")
     add("EXP-ERROR", "exp-no-face", "", "", "TP-ENTRANCE", 4060, "observations/errors/no-face.jpg", image_status="NO_FACE", identity_status="NOT_RUN", expected_face_count=0)
     add("EXP-ERROR", "exp-many-faces", "", "", "TP-ENTRANCE", 4061, "observations/errors/multiple-faces.jpg", image_status="VALID", identity_status="NO_MATCH", expected_face_count=2)
     add("EXP-ERROR", "exp-invalid-image", "", "", "TP-ENTRANCE", 4062, "observations/errors/invalid.jpg", image_status="INVALID_IMAGE", identity_status="NOT_RUN", expected_face_count=0)

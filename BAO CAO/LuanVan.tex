@@ -1,9 +1,16 @@
-% !TeX program = pdflatex
+% !TeX program = xelatex
 % !TeX encoding = UTF-8
 \documentclass[a4paper,13pt,3p,oneside]{report}
 \usepackage{scrextend}
 \changefontsizes{13pt}
-\usepackage[utf8]{vietnam}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Times New Roman}
+% XeLaTeX xử lý trực tiếp văn bản Unicode. Khai báo nhãn tiếng Việt
+% tại đây để không phụ thuộc vào mô-đun ngôn ngữ ngoài.
+\renewcommand{\chaptername}{CHƯƠNG}
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
 \usepackage[top=2cm, bottom=2cm, left=3.5cm, right=2.5cm]{geometry}
 
 \usepackage{graphicx} % Cho phép chèn hỉnh ảnh
@@ -14,7 +21,6 @@
 \usepackage{amsmath} % Hỗ trợ một số biểu thức toán học
 \usepackage{amssymb} % Bổ sung thêm kí hiệu về toán học
 \usepackage{amsbsy} % Hỗ trợ các kí hiệu in đậm
-\usepackage{times} % Chọn font Time New Romans
 \usepackage{array} % Tạo bảng array
 \usepackage{enumitem} % Cho phép thay đổi kí hiệu của list
 \usepackage{outlines} % Hỗ trợ danh sách nhiều cấp trong phụ lục

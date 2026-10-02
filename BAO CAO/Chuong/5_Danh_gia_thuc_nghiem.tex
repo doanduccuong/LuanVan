@@ -7,24 +7,32 @@
 \subsection{Tập dữ liệu và giao thức đánh giá}
 \label{subsection:5.1.1}
 
-Thực nghiệm sử dụng toàn bộ tập xác thực của WIDER FACE gồm 3.226 ảnh. WIDER FACE được xây dựng cho bài toán phát hiện khuôn mặt; toàn bộ tập dữ liệu chứa 32.203 ảnh với 393.703 khung bao khuôn mặt và có biến thiên lớn về tỷ lệ, tư thế, mức độ che khuất, biểu cảm và điều kiện chiếu sáng \cite{yang2016wider}. Tập xác thực được sử dụng vì có nhãn chuẩn được công bố: vị trí khuôn mặt trên mỗi ảnh đã được đánh dấu bằng khung bao và dữ liệu được chia thành ba nhóm độ khó gồm dễ, trung bình và khó. Các đặc điểm này cho phép đánh giá ba mô hình phát hiện trên cùng một dữ liệu và cùng tiêu chuẩn. Tập dữ liệu FER gồm các ảnh đã cắt sát khuôn mặt không thể thay thế tập dữ liệu chuyên dùng để đánh giá phát hiện khuôn mặt.
+Thực nghiệm sử dụng toàn bộ tập xác thực của WIDER FACE gồm 3.226 ảnh. WIDER FACE được xây dựng cho bài toán phát hiện khuôn mặt; toàn bộ tập dữ liệu chứa 32.203 ảnh với 393.703 khung bao khuôn mặt và có biến thiên lớn về kích thước khuôn mặt, tư thế, mức độ che khuất, biểu cảm và điều kiện chiếu sáng \cite{yang2016wider}. Tập xác thực được sử dụng vì nhãn chuẩn đã được công bố: vị trí của từng khuôn mặt được đánh dấu bằng khung bao và bộ dữ liệu cung cấp các tệp nhãn đánh giá tương ứng với ba mức khó Easy, Medium và Hard. Ba mức này không do hệ thống tự phân chia trong quá trình thực nghiệm mà được lấy trực tiếp từ nhãn đánh giá của WIDER FACE.
+
+WIDER FACE được lựa chọn trước hết vì phù hợp với đối tượng cần đánh giá. Bước đầu tiên của hệ thống là xác định tất cả khuôn mặt xuất hiện trong một khung hình; kết quả của bước này quyết định vùng ảnh được chuyển sang phân loại biểu cảm và tạo véc-tơ đặc trưng nhận dạng. Do đó, thực nghiệm cần một bộ dữ liệu có nhãn vị trí khuôn mặt, có thể chứa nhiều khuôn mặt trong cùng ảnh và phản ánh các trường hợp khuôn mặt nhỏ, bị che khuất hoặc xuất hiện trong cảnh đông người. Đây cũng là những điều kiện có thể gặp khi thu nhận hình ảnh tại cửa hàng. Sự đa dạng của WIDER FACE cho phép kiểm tra trực tiếp mức suy giảm của mô hình khi điều kiện quan sát trở nên phức tạp, thay vì chỉ đánh giá trên các ảnh chân dung có một khuôn mặt rõ và gần camera.
+
+Lý do thứ hai là khả năng so sánh và tái lập. WIDER FACE cung cấp cùng một tập ảnh, khung bao chuẩn, danh sách khuôn mặt được tính ở từng mức khó và quy tắc đánh giá cho mọi mô hình. Haar Cascade, MTCNN và RetinaFace vì vậy được đối chiếu trên cùng đầu vào và cùng tiêu chuẩn, hạn chế trường hợp kết quả khác nhau do sử dụng các bộ ảnh hoặc cách ghép dự đoán khác nhau. Việc báo cáo riêng kết quả Easy, Medium và Hard còn giúp phát hiện trường hợp một mô hình đạt kết quả tốt trên khuôn mặt lớn, rõ nhưng bỏ sót nhiều khuôn mặt nhỏ hoặc bị che. Đặc điểm này phù hợp hơn với mục tiêu lựa chọn thành phần phát hiện cho hệ thống so với một giá trị chính xác tổng hợp duy nhất.
+
+Các giao thức đánh giá nhận dạng hoặc xác minh khuôn mặt không được sử dụng cho thực nghiệm này vì chúng đo khả năng xác định hai ảnh có thuộc cùng một người hay không, trong khi chưa kiểm tra mô hình có tìm được đầy đủ các khuôn mặt trong ảnh gốc hay không. Tương tự, tập dữ liệu biểu cảm gồm các vùng khuôn mặt đã được cắt sẵn chỉ đánh giá bước phân loại sau phát hiện. Giao thức phát hiện vật thể tổng quát có thể đánh giá độ chính xác định vị ở nhiều ngưỡng IoU, nhưng không cung cấp các nhóm độ khó chuyên biệt cho khuôn mặt theo quy ước của WIDER FACE. Vì vậy, các giao thức này có thể được dùng cho những mục tiêu đánh giá khác, nhưng không thay thế trực tiếp giao thức WIDER FACE trong thực nghiệm so sánh thành phần phát hiện khuôn mặt.
+
+Việc lựa chọn WIDER FACE cũng xác định phạm vi của kết luận. Kết quả tại mục này chỉ chứng minh chất lượng và hiệu năng của bước phát hiện khuôn mặt trên tập xác thực WIDER FACE; kết quả không trực tiếp chứng minh độ chính xác nhận dạng khách hàng, độ chính xác phân loại biểu cảm hoặc khả năng vận hành đầu cuối của hệ thống. Các nội dung đó được kiểm tra bằng các thực nghiệm riêng ở những mục tiếp theo.
 
 Cấu hình của ba mô hình phát hiện được cố định trước khi đo. Haar Cascade sử dụng tệp \path{haarcascade_frontalface_default.xml} của OpenCV \cite{opencvHaar}. MTCNN sử dụng mô hình tiền huấn luyện của \texttt{facenet-pytorch} phiên bản 2.6.0 \cite{facenetPytorch}, với \texttt{min\_face\_size=20}, các ngưỡng $[0{,}6;0{,}7;0{,}7]$ và hệ số tỷ lệ $0{,}709$. RetinaFace sử dụng mạng nền MobileNet0.25 cùng trọng số tiền huấn luyện trên tập huấn luyện WIDER FACE từ kho mã \path{Pytorch_Retinaface} \cite{pytorchRetinaface}. Việc cố định một cấu hình cho mỗi phương pháp giúp kết quả giữa các lượt chạy có thể tái lập và tránh trộn lẫn ảnh hưởng của nhiều mạng nền hoặc thư viện triển khai.
 
-Ba mô hình nhận cùng ảnh gốc và tự thay đổi kích thước ảnh theo quy trình riêng. Trước khi đo chính thức, mỗi mô hình xử lý thử 20 ảnh; kết quả của các ảnh này không được đưa vào số liệu báo cáo. Bước chạy thử giúp hoàn tất việc khởi tạo bộ nhớ và các thành phần tính toán, qua đó giảm ảnh hưởng bất thường của những lượt suy luận đầu tiên đến kết quả đo thời gian.
+Ba mô hình nhận cùng ảnh gốc và tự thay đổi kích thước ảnh theo quy trình riêng. Trước khi đo chính thức, mỗi mô hình xử lý thử 20 ảnh; bước chạy thử giúp hoàn tất việc khởi tạo bộ nhớ và các thành phần tính toán, qua đó giảm ảnh hưởng bất thường của những lượt suy luận đầu tiên đến kết quả đo thời gian.
 
 Sau đó, mỗi mô hình được chạy ba lượt trên cùng danh sách ảnh và thứ tự mô hình được xoay vòng giữa các lượt. Thời gian đo bao gồm các bước tiền xử lý, suy luận và hậu xử lý của mô hình phát hiện khuôn mặt, nhưng không bao gồm thời gian đọc ảnh, ghi tệp hoặc tính các chỉ số đánh giá.
 
 Thực nghiệm sử dụng CPU với một luồng PyTorch và một luồng OpenCV trên Apple M4 Pro, RAM 24 GiB và macOS 26.5. Môi trường phần mềm gồm Python 3.11.7, OpenCV 4.10.0 và PyTorch 2.2.2.
 
-Chất lượng chính được đánh giá bằng độ chính xác trung bình (AP) trên ba mức khó theo giao thức WIDER FACE, với ngưỡng tỷ lệ phần giao trên phần hợp (IoU) bằng 0,5. Với khung bao dự đoán $B_p$ và khung bao chuẩn $B_g$, IoU được xác định bởi
+Chất lượng phát hiện khuôn mặt được đánh giá theo giao thức của bộ dữ liệu WIDER FACE. Chỉ số chính là độ chính xác trung bình (AP) được báo cáo riêng trên ba mức khó Easy, Medium và Hard. Khung dự đoán được đối chiếu với khung chuẩn bằng tỷ lệ phần giao trên phần hợp (IoU), với ngưỡng chấp nhận bằng 0,5 theo giao thức đánh giá phát hiện đối tượng \cite{everingham2010pascal,widerFaceEvaluation}. Với khung bao dự đoán $B_p$ và khung bao chuẩn $B_g$, IoU được xác định bởi
 
 \begin{equation}
     \operatorname{IoU}(B_p,B_g)=\frac{|B_p\cap B_g|}{|B_p\cup B_g|}.
     \label{eq:iou}
 \end{equation}
 
-Mỗi khung bao dự đoán chỉ được ghép với một khung bao chuẩn. Gọi $P$ là độ chính xác và $R$ là độ bao phủ tại ngưỡng đang xét; các chỉ số $P$, $R$ và F1 được tính theo
+Mỗi khung bao dự đoán chỉ được ghép với một khung bao chuẩn. Gọi $P$ là độ chính xác và $R$ là độ bao phủ tại ngưỡng đang xét; các chỉ số $P$, $R$ và F1 được tính theo \cite{everingham2010pascal,vanRijsbergen1979}
 
 \begin{equation}
     P=\frac{TP}{TP+FP},\quad
@@ -37,9 +45,19 @@ Ngưỡng IoU bảo đảm một dự đoán chỉ được tính là đúng khi
 
 Độ chính xác $P$ cho biết trong các vùng được mô hình dự đoán là khuôn mặt, tỷ lệ dự đoán đúng là bao nhiêu; chỉ số này phản ánh mức độ phát hiện nhầm nền hoặc vật thể khác thành khuôn mặt. Độ bao phủ $R$ cho biết trong toàn bộ khuôn mặt có trong dữ liệu, mô hình phát hiện được bao nhiêu; chỉ số này phản ánh mức độ bỏ sót. Độ bao phủ có ý nghĩa trực tiếp với hệ thống đề xuất vì một khuôn mặt bị bỏ sót sẽ không tạo được vùng đầu vào cho các bước phân loại biểu cảm và tạo đặc trưng nhận dạng. Tuy nhiên, chỉ sử dụng riêng một trong hai chỉ số có thể dẫn đến đánh giá lệch: giảm ngưỡng tin cậy thường làm tăng độ bao phủ nhưng cũng có thể tăng số phát hiện nhầm, trong khi tăng ngưỡng có thể cải thiện độ chính xác nhưng làm bỏ sót nhiều khuôn mặt hơn. F1 là trung bình điều hòa của $P$ và $R$, được sử dụng để mô tả mức cân bằng giữa hai loại sai sót tại một ngưỡng vận hành xác định.
 
-AP là diện tích dưới đường độ chính xác--độ bao phủ sau nội suy theo giao thức đánh giá đối tượng \cite{everingham2010pascal,yang2016wider}. Khác với $P$, $R$ và F1 được tính tại một ngưỡng cố định, AP tổng hợp kết quả khi thay đổi ngưỡng tin cậy, qua đó phản ánh khả năng xếp hạng các dự đoán đúng cao hơn các dự đoán sai trên toàn bộ dải ngưỡng. AP được chọn làm chỉ số chất lượng chính vì mức tin cậy của ba mô hình không được hiệu chỉnh trên cùng một thang xác suất; việc chỉ so sánh tại một giá trị ngưỡng có thể tạo lợi thế cho một cấu hình cụ thể. Các chỉ số $P$, $R$ và F1 vẫn được báo cáo để mô tả hành vi của từng mô hình tại ngưỡng triển khai đã cố định: Haar Cascade không lọc thêm, MTCNN dùng đầu ra sau ngưỡng O-Net 0,7 và RetinaFace dùng ngưỡng tin cậy 0,6.
+Chương trình đánh giá do luận văn xây dựng tính AP theo giao thức WIDER FACE. Các dự đoán được sắp theo mức tin cậy; chương trình quét qua 1.000 ngưỡng để tạo đường độ chính xác--độ bao phủ, nội suy đường này và tính diện tích phía dưới đường cong \cite{yang2016wider,widerFaceEvaluation}. Quy trình tính toán đã được đối chiếu với bộ đánh giá WIDER FACE độc lập để kiểm tra tính đúng đắn. Khác với $P$, $R$ và F1 được tính tại một ngưỡng cố định, AP tổng hợp kết quả trên toàn bộ dải ngưỡng. AP được chọn làm chỉ số chất lượng chính vì mức tin cậy của ba mô hình không được hiệu chỉnh trên cùng một thang xác suất; việc chỉ so sánh tại một giá trị ngưỡng có thể tạo lợi thế cho một cấu hình cụ thể. Các chỉ số $P$, $R$ và F1 vẫn được báo cáo để mô tả hành vi của từng mô hình tại ngưỡng vận hành đã cố định: Haar Cascade không lọc thêm, MTCNN dùng đầu ra sau ngưỡng O-Net 0,7 và RetinaFace dùng ngưỡng tin cậy 0,6.
 
-AP được trình bày riêng cho ba nhóm dễ, trung bình và khó nhằm tránh trường hợp kết quả tốt trên các khuôn mặt lớn, rõ che khuất việc mô hình bỏ sót khuôn mặt nhỏ, bị che hoặc xuất hiện trong cảnh đông người. Cách phân tách này cho phép quan sát mức suy giảm của từng phương pháp khi độ khó tăng và xác định phương pháp duy trì chất lượng ổn định hơn trong điều kiện phức tạp. Như vậy, AP trên ba mức khó cung cấp đánh giá chất lượng tổng thể, còn $P$, $R$ và F1 giải thích cụ thể hai loại sai sót tại ngưỡng vận hành. Hiệu năng tính toán được đánh giá riêng bằng độ trễ trung vị, độ trễ tại phân vị thứ 95 và tốc độ xử lý tính theo số khung hình mỗi giây (FPS), vì một mô hình phát hiện tốt nhưng quá chậm vẫn có thể không phù hợp với luồng xử lý của hệ thống.
+AP được trình bày riêng cho ba nhóm dễ, trung bình và khó nhằm tránh trường hợp kết quả tốt trên các khuôn mặt lớn, rõ che khuất việc mô hình bỏ sót khuôn mặt nhỏ, bị che hoặc xuất hiện trong cảnh đông người. Cách phân tách này cho phép quan sát mức suy giảm của từng phương pháp khi độ khó tăng và xác định phương pháp duy trì chất lượng ổn định hơn trong điều kiện phức tạp. Như vậy, AP trên ba mức khó cung cấp đánh giá chất lượng tổng thể, còn $P$, $R$ và F1 giải thích cụ thể hai loại sai sót tại ngưỡng vận hành.
+
+Hiệu năng tính toán được đánh giá từ $n$ bản ghi thời gian xử lý $t_1,t_2,\ldots,t_n$, tính bằng mili giây. Độ trễ trung vị $T_{50}$ là phân vị thứ 50, còn $T_{95}$ là giá trị mà 95\% số lượt xử lý không vượt quá. Tốc độ xử lý và tỷ lệ ảnh không phát hiện được tính theo
+
+\begin{equation}
+    \mathrm{FPS}=\frac{n}{\displaystyle\sum_{i=1}^{n}t_i/1000},\qquad
+    q_{\mathrm{miss}}=\frac{N_{\mathrm{no\ detection}}}{N_{\mathrm{images\ with\ faces}}}.
+    \label{eq:performance_metrics}
+\end{equation}
+
+Trong đó, $N_{\mathrm{no\ detection}}$ là số ảnh có khuôn mặt chuẩn nhưng mô hình không trả về khung phát hiện, còn $N_{\mathrm{images\ with\ faces}}$ là tổng số ảnh có ít nhất một khuôn mặt chuẩn. Trung vị hạn chế ảnh hưởng của một số lượt chạy bất thường; $T_{95}$ phản ánh nhóm lượt chạy chậm; FPS biểu diễn thông lượng trung bình; và $q_{\mathrm{miss}}$ cho biết tỷ lệ ảnh không tạo được đầu vào cho bước xử lý tiếp theo. Các chỉ số này được báo cáo riêng vì một mô hình phát hiện tốt nhưng quá chậm hoặc thường không trả kết quả vẫn có thể không phù hợp với luồng xử lý của hệ thống.
 
 \subsection{Kết quả thực nghiệm so sánh}
 \label{subsection:5.1.2}
@@ -110,11 +128,11 @@ Các tiêu chí được xác định trước khi chạy và trình bày tại 
         \hline
         C1 & Tạo đủ 100 hồ sơ khách hàng và 100 mẫu khuôn mặt từ ảnh đăng ký. \\
         \hline
-        C2 & Mỗi ảnh quan sát của khách đã đăng ký tạo đúng một quan sát và được liên kết với đúng mã khách hàng mong đợi. \\
+        C2 & Mỗi khung quan sát của khách đã đăng ký tạo hai quan sát: một quan sát được liên kết đúng mã khách hàng mong đợi và một quan sát của người gây nhiễu giữ trạng thái chưa xác định. \\
         \hline
-        C3 & Ảnh của người không thuộc tập đăng ký được giữ ở trạng thái chưa xác định, không bị gắn với hồ sơ gần nhất. \\
+        C3 & Ảnh của người không thuộc tập đăng ký được giữ ở trạng thái chưa xác định, không bị gắn nhầm với bất kỳ hồ sơ khách hàng nào. \\
         \hline
-        C4 & Khung hình có hai khuôn mặt tạo hai quan sát; ảnh không có khuôn mặt và dữ liệu không thể giải mã không tạo quan sát giả. \\
+        C4 & Khung không có khuôn mặt và tệp ảnh không hợp lệ được ghi nhận đúng trạng thái nhưng không tạo quan sát. \\
         \hline
         C5 & Các quan sát hình thành được lần mua sắm, liên kết được đơn hàng và tạo dữ liệu cho các báo cáo phân bố, biến thiên, thay đổi giữa khu vực và chất lượng dữ liệu. \\
         \hline
@@ -130,13 +148,13 @@ Trong phạm vi đề tài, điều kiện triển khai chưa cho phép lắp đ
 
 Nguồn ảnh duy nhất được sử dụng là tập xác thực FairFace. FairFace được công bố cho nghiên cứu thuộc tính khuôn mặt và có giấy phép CC BY 4.0 \cite{karkkainen2021fairface,fairfaceRepository}. Từ tệp nguồn, 110 bản ghi được chọn và chia thành ba phần không giao nhau: 100 bản ghi đại diện cho 100 khách hàng đã đăng ký, tám bản ghi dùng để xác định ngưỡng đối sánh và hai bản ghi dùng để kiểm tra trường hợp người chưa đăng ký. Chỉ số nguồn và mã kiểm tra SHA-256 của từng ảnh được lưu trong tệp kê khai để có thể truy vết. Các nhãn giới tính, nhóm tuổi và chủng tộc của FairFace không được đưa vào hệ thống.
 
-Mỗi bản ghi thuộc nhóm khách hàng được dùng để xây dựng ba loại ảnh. Ảnh hồ sơ có kích thước $256\times256$ pixel và chỉ phục vụ hiển thị trên CRM. Khung đăng ký có kích thước $640\times480$ pixel; RetinaFace xác định vùng khuôn mặt và ArcFace chuyển vùng này thành véc-tơ 512 chiều để lưu làm mẫu đối sánh. Khung quan sát có cùng độ phân giải nhưng khuôn mặt được thay đổi vị trí, kích thước và độ sáng nhằm tạo sự khác biệt giữa thời điểm đăng ký và thời điểm xuất hiện tại cửa hàng. Vì vậy, kết quả nhận dạng được tính từ ảnh quan sát qua mô hình, không được lấy trực tiếp từ ảnh hồ sơ hoặc gán trước theo mã khách hàng.
+Mỗi bản ghi thuộc nhóm khách hàng được dùng để xây dựng ảnh hồ sơ và khung đăng ký. Ảnh hồ sơ có kích thước $256\times256$ pixel và chỉ phục vụ hiển thị trên CRM. Khung đăng ký có kích thước $640\times480$ pixel, chỉ chứa người đăng ký; RetinaFace xác định vùng khuôn mặt và ArcFace chuyển vùng này thành véc-tơ 512 chiều để lưu làm mẫu đối sánh. Khung quan sát có kích thước $1280\times720$ pixel và được ghép từ hai bản ghi FairFace khác nhau: một người cần nhận dạng và một người gây nhiễu không thuộc tập đăng ký. Vị trí, kích thước và độ sáng của từng người được thay đổi theo bốn bố cục cố định, qua đó tạo sự khác biệt giữa thời điểm đăng ký và thời điểm xuất hiện tại cửa hàng. Kết quả nhận dạng được tính từ từng vùng khuôn mặt do mô hình phát hiện trong ảnh ghép, không được lấy trực tiếp từ ảnh hồ sơ hoặc gán trước theo mã khách hàng.
 
-Dữ liệu từ camera được thay thế bằng các khung ảnh có thông tin khu vực và thời gian ghi nhận. Năm khách hàng đầu có bốn khung quan sát tương ứng với bốn khu vực; 95 khách hàng còn lại có một khung quan sát, tạo thành 115 sự kiện của khách đã đăng ký. Trường hợp nhiều người trong cùng khung hình được xây dựng bằng cách đặt hai ảnh FairFace khác nhau vào một sự kiện thu nhận. Sự kiện này có một mã khung hình nhưng phải tạo hai quan sát, mỗi quan sát có chỉ số khuôn mặt, khung bao, kết quả biểu cảm và trạng thái nhận dạng riêng. Cách tổ chức này kiểm tra việc hệ thống không loại bỏ cả khung hình khi phát hiện nhiều hơn một người.
+Dữ liệu từ camera được thay thế bằng các khung ảnh ghép có thông tin khu vực và thời gian ghi nhận. Năm khách hàng đầu có bốn khung quan sát tương ứng với bốn khu vực; 95 khách hàng còn lại có một khung quan sát, tạo thành 115 sự kiện của khách đã đăng ký. Cả 115 khung này đều chứa hai người, thay vì chỉ dành một ca riêng cho ảnh nhiều người. Mỗi sự kiện có một mã khung hình nhưng phải tạo hai quan sát độc lập, mỗi quan sát có chỉ số khuôn mặt, khung bao, kết quả biểu cảm và trạng thái nhận dạng riêng. Trong kết quả mong đợi, khuôn mặt mục tiêu được liên kết với đúng hồ sơ khách hàng, còn khuôn mặt gây nhiễu giữ trạng thái chưa xác định. Cách tổ chức này gần với điều kiện camera tại không gian mua sắm hơn ảnh chân dung một người và trực tiếp kiểm tra rằng hệ thống không loại bỏ toàn bộ khung hình khi đồng thời phát hiện nhiều người.
 
 Trước lần chạy chính thức, ảnh của nhóm khách hàng được sàng lọc để bảo đảm RetinaFace tạo được vùng khuôn mặt trong cả khung đăng ký và khung quan sát. Đồng thời, véc-tơ của ảnh quan sát phải gần véc-tơ đăng ký cùng nguồn hơn các mẫu khác dưới ngưỡng đã xác định. Một bản ghi không đáp ứng điều kiện này được thay bằng bản ghi kế tiếp chưa sử dụng. Tám bản ghi dành cho xác định ngưỡng, mỗi bản ghi có ba biến thể, cung cấp 24 cặp cùng nguồn và 252 cặp khác nguồn. Khoảng cách cosine được tính trên véc-tơ ArcFace và ngưỡng thu được là 0,269958. Bước sàng lọc giúp tạo đầu vào có kết quả mong đợi để kiểm tra luồng phần mềm; vì vậy, kết quả không được diễn giải thành độ chính xác nhận dạng trên toàn bộ FairFace.
 
-Hai bản ghi không thuộc nhóm khách hàng chỉ xuất hiện ở pha quan sát để kiểm tra trường hợp không tìm thấy mẫu phù hợp. Ba trường hợp đầu vào bổ sung gồm một khung không có khuôn mặt, một tệp không thể giải mã thành ảnh và một khung chứa hai người. Tổng cộng, lớp xử lý ảnh có 120 sự kiện: 115 sự kiện của khách đã đăng ký, hai sự kiện của người chưa đăng ký và ba sự kiện kiểm tra điều kiện biên. Tất cả các sự kiện này được gửi qua cùng giao diện tiếp nhận dành cho nguồn camera.
+Hai bản ghi không thuộc nhóm khách hàng được dùng làm người gây nhiễu trong các khung của khách đã đăng ký, đồng thời được ghép với nhau trong hai sự kiện chỉ gồm người chưa đăng ký để kiểm tra trường hợp không tìm thấy mẫu phù hợp. Ba trường hợp đầu vào bổ sung gồm một khung không có khuôn mặt, một tệp không thể giải mã thành ảnh và một khung hai người dùng để đối chiếu riêng điều kiện nhiều khuôn mặt. Tổng cộng, lớp xử lý ảnh có 120 sự kiện: 115 sự kiện có khách đã đăng ký và người gây nhiễu, hai sự kiện chỉ có người chưa đăng ký và ba sự kiện kiểm tra điều kiện biên. Tất cả các sự kiện này được gửi qua cùng giao diện tiếp nhận dành cho nguồn camera.
 
 Do chưa có luồng camera hoạt động liên tục và chưa kết nối được dữ liệu bán hàng, một bộ dữ liệu kiểm tra nghiệp vụ được xây dựng theo quy tắc cố định để tạo đủ quan hệ cho các chức năng CRM và báo cáo. Bộ dữ liệu sử dụng chính 100 khách hàng nêu trên, bốn khu vực, sáu nhóm sản phẩm và 24 sản phẩm; không bổ sung nguồn ảnh khuôn mặt thứ hai. Với hạt giống \texttt{20260923}, kịch bản tạo 125 lần mua sắm, trong đó mỗi lần đi qua từ hai đến bốn khu vực, cùng 90 đơn hàng mới, 12 quan sát chưa xác định và 12 sự kiện đầu vào không hợp lệ. Các nhãn biểu cảm trong phần dữ liệu này được gán theo quy tắc cố định để kiểm tra phép lọc, phép nhóm và cách trình bày báo cáo; chúng không đi qua DeepFace và được tách khỏi kết quả đánh giá luồng xử lý ảnh.
 
@@ -144,22 +162,24 @@ Hình~\ref{fig:data_construction_ch5} minh họa quan hệ giữa ảnh nguồn,
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}[t]{0.30\textwidth}
+    \begin{minipage}[t]{0.34\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Hinhve/Chuong5/5_01_anh_ho_so.jpg}\\
         \small Ảnh hồ sơ
-    \end{minipage}\hfill
-    \begin{minipage}[t]{0.32\textwidth}
+    \end{minipage}\hspace{0.08\textwidth}
+    \begin{minipage}[t]{0.42\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Hinhve/Chuong5/5_02_khung_dang_ky.jpg}\\
         \small Khung đăng ký
-    \end{minipage}\hfill
-    \begin{minipage}[t]{0.32\textwidth}
+    \end{minipage}
+
+    \vspace{0.6em}
+    \begin{minipage}[t]{0.82\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Hinhve/Chuong5/5_03_khung_quan_sat.jpg}\\
-        \small Khung quan sát
+        \small Khung quan sát ghép hai người
     \end{minipage}
-    \caption{Ba dạng dữ liệu được tạo từ cùng một bản ghi FairFace}
+    \caption{Ảnh hồ sơ, khung đăng ký và khung quan sát nhiều người}
     \label{fig:data_construction_ch5}
 \end{figure}
 
@@ -184,9 +204,9 @@ Kết quả phát lại đạt 120/120 sự kiện theo các điều kiện đã
         \hline
         \textbf{Nhóm đầu vào} & \textbf{Sự kiện} & \textbf{Quan sát tạo ra} & \textbf{Kết quả} \\
         \hline
-        Khách đã đăng ký & 115 & 115 & Phát hiện một khuôn mặt, phân loại hợp lệ và liên kết đúng khách hàng \\
+        Khách đã đăng ký và người gây nhiễu & 115 & 230 & Mỗi khung tạo hai quan sát; một quan sát liên kết đúng khách hàng và một quan sát giữ trạng thái \texttt{NO\_MATCH} \\
         \hline
-        Người chưa đăng ký & 2 & 2 & Cả hai giữ trạng thái \texttt{NO\_MATCH} \\
+        Chỉ gồm người chưa đăng ký & 2 & 4 & Mỗi khung tạo hai quan sát; cả bốn quan sát giữ trạng thái \texttt{NO\_MATCH} \\
         \hline
         Khung hình có hai người & 1 & 2 & Hai khuôn mặt được xử lý độc lập; cả hai giữ trạng thái \texttt{NO\_MATCH} \\
         \hline
@@ -194,12 +214,12 @@ Kết quả phát lại đạt 120/120 sự kiện theo các điều kiện đã
         \hline
         Dữ liệu ảnh không hợp lệ & 1 & 0 & Sự kiện mang trạng thái \texttt{INVALID\_IMAGE} \\
         \hline
-        \textbf{Tổng} & \textbf{120} & \textbf{119} & \textbf{120/120 sự kiện đạt} \\
+        \textbf{Tổng} & \textbf{120} & \textbf{236} & \textbf{120/120 sự kiện đạt} \\
         \hline
     \end{tabular}}
 \end{table}
 
-Toàn bộ 119 khuôn mặt phát hiện được đều có kết quả phân loại biểu cảm hợp lệ. Trong đó 115 quan sát được đối sánh với đúng mã khách hàng; bốn quan sát còn lại gồm hai ảnh người chưa đăng ký và hai khuôn mặt trong cùng một khung hình nên không tạo chuỗi cá nhân. Kết quả này xác nhận hệ thống không yêu cầu khung hình chỉ có một người: một sự kiện thu nhận có thể sinh nhiều quan sát, còn ảnh không có khuôn mặt dừng ở cấp sự kiện.
+Toàn bộ 236 khuôn mặt phát hiện được đều có kết quả phân loại biểu cảm và tạo véc-tơ đặc trưng hợp lệ. Trong đó, 115 quan sát của người mục tiêu được đối sánh với đúng mã khách hàng; 121 quan sát còn lại gồm 115 lần xuất hiện của người gây nhiễu, bốn lần xuất hiện trong hai khung chỉ có người chưa đăng ký và hai khuôn mặt của ca đối chiếu nhiều người, tất cả đều giữ trạng thái \texttt{NO\_MATCH}. Kết quả này xác nhận hệ thống xử lý khung nhiều người theo nguyên tắc một sự kiện thu nhận tạo nhiều quan sát độc lập; ảnh không có khuôn mặt dừng ở cấp sự kiện và không tạo quan sát giả.
 
 Hình~\ref{fig:face_data_result_ch5} thể hiện danh sách khách hàng sau bước ghi nhận đồng ý và đăng ký mẫu khuôn mặt. Hình~\ref{fig:unidentified_result_ch5} cho thấy bản ghi chưa xác định vẫn có kết quả biểu cảm hợp lệ thay vì trạng thái \texttt{NOT\_RUN}; các trạng thái không chạy chỉ xuất hiện đúng ở ca không có khuôn mặt hoặc ảnh không thể giải mã.
 
@@ -220,7 +240,7 @@ Hình~\ref{fig:face_data_result_ch5} thể hiện danh sách khách hàng sau b�
 \subsection{Kết quả tích hợp CRM và báo cáo}
 \label{subsection:5.2.5}
 
-Sau khi hoàn tất cả hai lớp, PostgreSQL có 100 khách hàng, 100 mẫu khuôn mặt, 529 sự kiện thu nhận, 516 quan sát, 225 lần mua sắm, 93 đơn hàng và 232 dòng sản phẩm. Trong 529 sự kiện, 120 sự kiện thuộc lớp xử lý ảnh; 409 sự kiện thuộc tải nghiệp vụ, gồm 397 sự kiện hợp lệ và 12 sự kiện lỗi. Trong 516 quan sát, 119 quan sát do mô hình xử lý ảnh tạo ra và 397 quan sát thuộc tải nghiệp vụ. Sự phân tách này được giữ bằng trường nguồn dữ liệu và mã lần chạy.
+Sau khi hoàn tất cả hai lớp, PostgreSQL có 100 khách hàng, 100 mẫu khuôn mặt, 529 sự kiện thu nhận, 633 quan sát, 225 lần mua sắm, 93 đơn hàng và 232 dòng sản phẩm. Trong 529 sự kiện, 120 sự kiện thuộc lớp xử lý ảnh; 409 sự kiện thuộc tải nghiệp vụ, gồm 397 sự kiện hợp lệ và 12 sự kiện lỗi. Trong 633 quan sát, 236 quan sát do mô hình xử lý ảnh tạo ra và 397 quan sát thuộc tải nghiệp vụ. Sự phân tách này được giữ bằng trường nguồn dữ liệu và mã lần chạy.
 
 \begin{table}[H]
     \centering
@@ -232,7 +252,7 @@ Sau khi hoàn tất cả hai lớp, PostgreSQL có 100 khách hàng, 100 mẫu k
         \hline
         Khách hàng / mẫu khuôn mặt & 100 / 100 \\
         \hline
-        Sự kiện thu nhận / quan sát & 529 / 516 \\
+        Sự kiện thu nhận / quan sát & 529 / 633 \\
         \hline
         Lần mua sắm & 225 \\
         \hline
@@ -287,9 +307,9 @@ Các thành phần của hệ thống được đóng gói và khởi động b�
 \subsection{Giới hạn của thực nghiệm}
 \label{subsection:5.2.6}
 
-Thứ nhất, thực nghiệm được thực hiện khi chưa có hệ thống camera lắp đặt tại cửa hàng. Các khung quan sát được xây dựng từ ảnh FairFace bằng cách thay đổi vị trí, kích thước và độ sáng, nên không chứa đầy đủ các yếu tố của video thực như chuyển động, thay đổi góc nhìn, mất nét, nhiễu cảm biến, che khuất kéo dài và điều kiện chiếu sáng phức tạp. Khung có hai khuôn mặt chỉ xác nhận rằng một sự kiện có thể tạo nhiều quan sát; trường hợp này chưa đại diện cho mật độ người và mức che khuất trong một không gian mua sắm đông người.
+Thứ nhất, thực nghiệm được thực hiện khi chưa có hệ thống camera lắp đặt tại cửa hàng. Cả 118 khung được xây dựng để chứa khuôn mặt đều được ghép từ hai ảnh FairFace và có thay đổi vị trí, kích thước, độ sáng; cách xây dựng này kiểm tra được việc phát hiện và tách nhiều khuôn mặt trong một lần thu nhận. Tuy nhiên, ảnh ghép chưa chứa đầy đủ các yếu tố của video thực như chuyển động, thay đổi góc nhìn, mất nét, nhiễu cảm biến, che khuất kéo dài, điều kiện chiếu sáng phức tạp và mật độ đám đông lớn hơn hai người. Vì vậy, kết quả chỉ chứng minh luồng phần mềm xử lý đúng khung hai người đã xây dựng, chưa chứng minh hiệu quả trong không gian mua sắm đông người.
 
-Thứ hai, FairFace không phải tập dữ liệu định danh gồm nhiều ảnh của cùng một người. Trong thực nghiệm, mỗi bản ghi được quy ước thành một khách hàng và các khung đăng ký, quan sát đều được xây dựng từ cùng một ảnh nguồn. Vì vậy, kết quả 115/115 chỉ xác nhận luồng đăng ký, tạo véc-tơ, đối sánh và lưu dữ liệu với đầu vào có kiểm soát. Kết quả không phải là tỷ lệ chính xác nhận dạng khi một người xuất hiện ở ngày khác, góc nhìn khác hoặc trên camera khác.
+Thứ hai, FairFace không phải tập dữ liệu định danh gồm nhiều ảnh của cùng một người. Trong thực nghiệm, mỗi bản ghi được quy ước thành một khách hàng; ảnh của người mục tiêu trong khung đăng ký và khung quan sát được xây dựng từ cùng một ảnh nguồn, sau đó mới ghép với người gây nhiễu. Vì vậy, kết quả 115/115 chỉ xác nhận luồng đăng ký, phát hiện trong ảnh nhiều người, tạo véc-tơ, đối sánh và lưu dữ liệu với đầu vào có kiểm soát. Kết quả không phải là tỷ lệ chính xác nhận dạng khi một người xuất hiện ở ngày khác, góc nhìn khác hoặc trên camera khác.
 
 Thứ ba, ảnh FairFace được sử dụng không có nhãn biểu cảm chuẩn để đối chiếu với kết quả DeepFace. Thực nghiệm chỉ xác nhận rằng mô hình trả được một trong bảy nhãn, mức tin cậy và trạng thái được lưu đúng. Các nhãn được gán theo quy tắc trong bộ dữ liệu kiểm tra nghiệp vụ chỉ phục vụ kiểm tra phép lọc, tổng hợp và hiển thị; chúng không được sử dụng để kết luận về độ chính xác phân loại, trạng thái cảm xúc hoặc mức độ hài lòng của khách hàng.
 
@@ -304,6 +324,6 @@ Thứ năm, trong phạm vi nghiên cứu hiện tại, hệ thống được ki
     \label{fig:version_limits_ch5}
 \end{figure}
 
-Báo cáo của hệ thống chỉ mô tả các nhãn biểu cảm được lưu trong phạm vi dữ liệu thử nghiệm; kết quả không được quy đổi thành điểm tích cực--tiêu cực, biểu cảm trung bình hoặc mức độ hài lòng.
+Báo cáo của hệ thống chỉ mô tả số lượng, tỷ lệ và sự thay đổi của các nhãn biểu cảm được lưu trong phạm vi dữ liệu thử nghiệm. Thực nghiệm chưa thu thập khảo sát hoặc phản hồi của khách hàng để tạo nhãn chuẩn về mức độ hài lòng. Vì vậy, kết quả phân loại biểu cảm không được sử dụng để kết luận khách hàng hài lòng hay không hài lòng, cũng không được dùng để đánh giá một khu vực đã làm trải nghiệm khách hàng tốt lên hoặc xấu đi.
 
 \end{document}

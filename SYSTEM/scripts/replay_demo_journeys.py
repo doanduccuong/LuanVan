@@ -44,7 +44,15 @@ def main(scenario: str, speed: float) -> None:
                 image_ok = payload.get("image_status") == expected_image
                 face_count_ok = payload.get("face_count") == expected_face_count
                 if expected_customer:
-                    identity_ok = expected_customer in actual_customers and "MATCHED" in actual_identity_statuses
+                    # Mỗi khung quan sát thông thường chứa một khách hàng đã đăng ký
+                    # và một người gây nhiễu chưa đăng ký. Ca kiểm tra chỉ đạt khi
+                    # đúng một khuôn mặt khớp khách hàng mong đợi và mọi khuôn mặt
+                    # còn lại đều giữ trạng thái NO_MATCH.
+                    identity_ok = (
+                        actual_customers.count(expected_customer) == 1
+                        and actual_identity_statuses.count("MATCHED") == 1
+                        and actual_identity_statuses.count("NO_MATCH") == expected_face_count - 1
+                    )
                 elif expected_identity == "NO_MATCH":
                     identity_ok = bool(actual_identity_statuses) and all(status == "NO_MATCH" for status in actual_identity_statuses)
                 else:

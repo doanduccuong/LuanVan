@@ -319,7 +319,7 @@ Tại mỗi khu vực, hệ thống tổng hợp các bản ghi biểu cảm h�
 
 Số lượng của một nhãn là số bản ghi hợp lệ mang nhãn đó trong phạm vi đang xét. Tỷ lệ được xác định bằng số lượng của nhãn chia cho tổng số bản ghi biểu cảm hợp lệ tại cùng khu vực và cùng phạm vi thời gian. Các bản ghi không phát hiện được khuôn mặt, không có kết quả biểu cảm hợp lệ hoặc bị đánh dấu trùng không nằm trong mẫu số. Báo cáo đồng thời hiển thị số bản ghi bị loại để người đọc biết mức độ đầy đủ của dữ liệu.
 
-Kết quả có thể được biểu diễn bằng bảng số liệu và biểu đồ cột chồng. Bảng số liệu cung cấp số lượng chính xác của từng nhãn; biểu đồ cho phép so sánh cấu trúc phân bố giữa các khu vực. Hệ thống không gộp các nhãn thành nhóm tích cực hoặc tiêu cực, do đó bảy nhãn được giữ riêng trong toàn bộ quá trình tổng hợp.
+Kết quả có thể được biểu diễn bằng bảng số liệu và biểu đồ cột chồng. Bảng số liệu cung cấp số lượng chính xác của từng nhãn; biểu đồ cho phép so sánh cấu trúc phân bố giữa các khu vực. Trong toàn bộ quá trình tổng hợp, hệ thống giữ riêng bảy nhãn biểu cảm và không gán mỗi nhãn thành một mức đánh giá trải nghiệm. Lý do là dữ liệu đầu vào chỉ có nhãn biểu cảm khuôn mặt, không có kết quả khảo sát hoặc phản hồi của khách hàng để xác nhận mức độ hài lòng. Vì vậy, tỷ lệ của từng nhãn chỉ mô tả những biểu cảm được mô hình ghi nhận tại khu vực đang xét, không phải tỷ lệ khách hàng hài lòng hoặc không hài lòng.
 
 Phân bố có thể được thống kê trên toàn bộ bản ghi hợp lệ tại khu vực, trên nhóm khách hàng đã đăng ký, trên nhóm khách hàng không xác định hoặc trong một khoảng thời gian được lựa chọn. Các nhóm dữ liệu phải được ghi rõ để người đọc biết phạm vi của kết quả.
 
@@ -379,9 +379,9 @@ Báo cáo chất lượng cần cho phép lọc theo khu vực và khoảng th�
 Để tránh diễn giải vượt quá khả năng của dữ liệu, giải pháp áp dụng các nguyên tắc sau:
 
 \begin{itemize}
-    \item Không quy đổi bảy nhãn biểu cảm thành một thang điểm tích cực--tiêu cực.
-    \item Không tính một nhãn biểu cảm trung bình cho toàn bộ lần mua sắm.
-    \item Không sử dụng riêng kết quả FER để kết luận khách hàng hài lòng hoặc không hài lòng.
+    \item Giữ riêng bảy nhãn biểu cảm khi thống kê; không gán điểm số để xếp hạng nhãn nào tích cực hoặc tiêu cực hơn nhãn khác.
+    \item Không tính một nhãn biểu cảm trung bình cho toàn bộ lần mua sắm, vì chuỗi quan sát có thể chứa nhiều nhãn khác nhau tại các thời điểm và khu vực khác nhau.
+    \item Không sử dụng riêng kết quả FER để kết luận khách hàng hài lòng hoặc không hài lòng; kết luận này cần dữ liệu đối chiếu như khảo sát, phản hồi hoặc chỉ báo nghiệp vụ đã được xác thực.
     \item Không ghép các bản ghi của hai khách hàng hoặc hai lần mua sắm khác nhau thành một cặp thay đổi.
     \item Không kết luận quan hệ nguyên nhân--kết quả chỉ từ sự thay đổi nhãn giữa hai khu vực.
     \item Luôn trình bày số bản ghi hợp lệ và số dữ liệu bị thiếu cùng kết quả thống kê.

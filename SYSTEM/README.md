@@ -57,7 +57,7 @@ Xem [trạng thái triển khai](IMPLEMENTATION_STATUS.md) để biết phần �
 
 ## Thực nghiệm không có camera vật lý
 
-Dữ liệu ảnh chỉ lấy từ một tập con FairFace. Một trăm bản ghi được dùng cho khách hàng, tám bản ghi tách rời dùng hiệu chỉnh ngưỡng và hai bản ghi tách rời dùng kiểm tra người chưa đăng ký. Từ cùng ảnh nguồn, quy trình tạo ảnh hồ sơ, khung đăng ký và khung quan sát $640\times480$ với các biến đổi vị trí, kích thước và độ sáng có kiểm soát.
+Dữ liệu ảnh chỉ lấy từ một tập con FairFace. Một trăm bản ghi được dùng cho khách hàng, tám bản ghi tách rời dùng hiệu chỉnh ngưỡng và hai bản ghi tách rời dùng kiểm tra người chưa đăng ký. Ảnh hồ sơ và khung đăng ký được tạo từ ảnh của từng khách hàng. Mỗi khung quan sát $1280\times720$ được ghép từ hai bản ghi FairFace: một người cần nhận dạng và một người gây nhiễu chưa đăng ký. Vị trí, kích thước và độ sáng của hai người được thay đổi có kiểm soát giữa các khung.
 
 Sau khi hệ thống Docker hoạt động, chuẩn bị ảnh, nạp dữ liệu và chạy mô phỏng bằng các lệnh:
 
