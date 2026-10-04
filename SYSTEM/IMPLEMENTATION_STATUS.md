@@ -62,12 +62,12 @@ Các địa chỉ đang sử dụng:
 - 6 nhóm sản phẩm và 24 sản phẩm.
 - 4 khu vực được xác định trước.
 - 225 lần mua sắm, gồm 100 lần hình thành từ luồng ảnh và 125 lần từ tải nghiệp vụ.
-- 529 sự kiện thu nhận và 516 quan sát; trong đó luồng ảnh tạo 120 sự kiện và 119 quan sát.
+- 529 sự kiện thu nhận và 633 quan sát; trong đó luồng xử lý ảnh tạo 120 sự kiện và 236 quan sát, còn tải nghiệp vụ tạo 409 sự kiện và 397 quan sát.
 - 93 đơn hàng và 232 dòng sản phẩm trong đơn.
 
 Tải nghiệp vụ dùng hạt giống `20260923` và tạo 90 đơn hàng mới. Ba đơn hàng còn lại thuộc dữ liệu khởi tạo.
 
-Nhãn biểu cảm của lần chạy này do dịch vụ mô phỏng tạo. Chúng chứng minh luồng dữ liệu và giao diện hoạt động, không chứng minh độ chính xác FER.
+Trong 633 quan sát, 236 quan sát đi qua dịch vụ xử lý ảnh và 397 quan sát thuộc tải nghiệp vụ được xây dựng theo quy tắc cố định. Phần tải nghiệp vụ dùng để kiểm tra phép lọc, tổng hợp và giao diện; nó không được dùng để chứng minh độ chính xác FER.
 
 ## 4. Kết quả kiểm tra
 

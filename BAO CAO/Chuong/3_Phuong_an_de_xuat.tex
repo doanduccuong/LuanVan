@@ -12,6 +12,8 @@ Kết quả của hai nhiệm vụ trên mỗi vùng khuôn mặt được kết
 
 Các bản ghi thuộc cùng một khách hàng và cùng một lần mua sắm được liên kết, sau đó sắp xếp theo thời gian. Kết quả là một chuỗi quan sát thể hiện khách hàng đã được ghi nhận tại những khu vực nào và nhãn biểu cảm thay đổi như thế nào trong quá trình mua sắm. Dữ liệu sau khi liên kết được chuyển đến hệ thống CRM để lưu trữ, tra cứu và hiển thị cùng hồ sơ khách hàng, đơn hàng và lịch sử mua hàng.
 
+Đầu ra của phương pháp được tổ chức thành ba mức. Mức quan sát lưu kết quả của một khuôn mặt tại một thời điểm, gồm khu vực, thời gian, khung bao, nhãn biểu cảm, mức tin cậy và kết quả nhận dạng. Mức điểm chạm tập hợp các quan sát của cùng khách hàng tại một khu vực và giữ nguyên thứ tự thời gian của chúng. Mức lần mua sắm liên kết các tập quan sát tại nhiều khu vực của cùng khách hàng để hình thành chuỗi phục vụ tra cứu và phân tích. Cách tổ chức này tránh đồng nhất một khung hình với một khách hàng hoặc một điểm chạm với một nhãn biểu cảm duy nhất.
+
 Các bản ghi có kết quả biểu cảm hợp lệ được nhóm theo khu vực ghi nhận. Trong mỗi khu vực, hệ thống đếm số lần xuất hiện và xác định tỷ lệ của từng nhãn biểu cảm. Việc tổng hợp này không yêu cầu xác định danh tính khách hàng vì mục đích là mô tả sự phân bố của các nhãn biểu cảm trong từng khu vực.
 
 Để liên kết các bản ghi giữa nhiều khu vực và theo dõi sự thay đổi biểu cảm trong cùng một lần mua sắm, hệ thống chỉ sử dụng những bản ghi đã xác định được khách hàng. Các bản ghi này được gắn với một lần mua sắm và sắp xếp theo thời gian. Bản ghi chưa xác định được khách hàng không được đưa vào chuỗi cá nhân vì không có đủ cơ sở để khẳng định các bản ghi ở những khu vực khác nhau thuộc cùng một người.

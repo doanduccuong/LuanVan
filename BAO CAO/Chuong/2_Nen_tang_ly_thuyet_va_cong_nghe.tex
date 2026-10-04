@@ -377,7 +377,7 @@ Học chuyển giao không phải là một bộ phân loại độc lập mà l
 
 Học chuyển giao giúp giảm nhu cầu huấn luyện mô hình từ đầu, nhưng hiệu quả phụ thuộc vào mức độ phù hợp giữa dữ liệu nguồn và dữ liệu biểu cảm. Nếu hai miền dữ liệu khác nhau đáng kể về chất lượng ảnh, góc nhìn, điều kiện chiếu sáng hoặc đặc điểm khuôn mặt, các đặc trưng được học trước có thể không chuyển sang nhiệm vụ mới một cách hiệu quả. Vì vậy, mô hình sau khi chuyển giao vẫn cần được đánh giá trên dữ liệu phù hợp với điều kiện sử dụng.
 
-\section{Cơ sở phân tích hành trình cảm xúc đa điểm chạm}
+\section{Cơ sở phân tích quan sát biểu cảm theo hành trình đa điểm chạm}
 \label{section:2.4}
 
 \subsection{Hành trình khách hàng và điểm chạm}
@@ -385,34 +385,36 @@ Học chuyển giao giúp giảm nhu cầu huấn luyện mô hình từ đầu,
 
 Hành trình khách hàng mô tả chuỗi tương tác của khách hàng với doanh nghiệp qua nhiều giai đoạn, kênh và điểm chạm theo thời gian. Lemon và Verhoef nhấn mạnh rằng trải nghiệm khách hàng mang tính động và được hình thành qua nhiều điểm chạm, thay vì chỉ tại một giao dịch đơn lẻ \cite{lemon2016customerjourney}. Điểm chạm có thể là lần khách hàng tiếp xúc với không gian, nhân viên, sản phẩm hoặc hệ thống của doanh nghiệp. Trong bối cảnh bán lẻ của luận văn, camera tại từng khu vực cung cấp một nguồn quan sát biểu cảm tương ứng với điểm chạm, nhưng không tự mô tả toàn bộ trải nghiệm tại khu vực đó.
 
-Halvorsrud, Kvale và Følstad đề xuất khung phân tích hành trình khách hàng, trong đó quá trình cung cấp dịch vụ từ góc nhìn khách hàng được biểu diễn bằng các điểm chạm có thứ tự. Cách biểu diễn này hỗ trợ so sánh hành trình dự kiến với hành trình thực tế \cite{halvorsrud2016journey}. Cơ sở trên phù hợp để đặt các kết quả FER theo trục thời gian. Việc xác định tên khu vực, định danh phiên và liên kết quan sát giữa camera là phần thiết kế của hệ thống, không phải nội dung được suy ra trực tiếp từ khung lý thuyết.
+Halvorsrud, Kvale và Følstad đề xuất khung phân tích hành trình khách hàng, trong đó quá trình cung cấp dịch vụ từ góc nhìn khách hàng được biểu diễn bằng các điểm chạm có thứ tự. Cách biểu diễn này hỗ trợ so sánh hành trình dự kiến với hành trình thực tế \cite{halvorsrud2016journey}. Cơ sở trên phù hợp để đặt các kết quả FER theo trục thời gian. Việc xác định tên khu vực, mã lần mua sắm và quy tắc liên kết quan sát giữa các nguồn thu nhận là phần thiết kế của luận văn, không phải nội dung được suy ra trực tiếp từ khung lý thuyết.
 
 \subsection{Quan sát tại điểm chạm đến chuỗi biểu cảm}
 \label{subsection:2.4.2}
 
-Một kết quả FER tại một thời điểm được xem là một quan sát gồm điểm chạm, thời gian, nhãn biểu cảm và véc-tơ xác suất. Nếu tại một điểm chạm có nhiều khung hình liên tiếp, các dự đoán này chưa thể được xem ngay là nhiều trải nghiệm độc lập, bởi chúng có tương quan theo thời gian và có thể dao động do tư thế hoặc chất lượng ảnh. Cách chọn khung hình, lọc dự đoán có mức tin cậy thấp và ổn định nhãn trong một khoảng thời gian phải được mô tả như phương pháp xử lý của luận văn ở chương triển khai.
+Một kết quả FER tại một thời điểm được xem là một quan sát gồm điểm chạm, thời gian, nhãn biểu cảm và véc-tơ xác suất. Một điểm chạm có thể tạo nhiều quan sát khi khách hàng xuất hiện trong nhiều khung hình tại các thời điểm khác nhau. Các quan sát này được giữ theo thứ tự thời gian thay vì rút gọn ngay thành một nhãn đại diện, nhờ đó có thể xem xét sự biến thiên của kết quả FER bên trong cùng một khu vực. Tuy nhiên, các dự đoán gần nhau theo thời gian có thể tương quan và dao động do tư thế hoặc chất lượng ảnh; vì vậy, quy tắc lựa chọn bản ghi khi so sánh giữa các khu vực phải được xác định rõ trong phương pháp của luận văn.
 
-Sau khi có một quan sát đại diện cho từng điểm chạm, hành trình có thể được tổ chức thành chuỗi theo thời gian như Hình \ref{fig:touchpoint_sequence}. Hình chỉ minh họa cách đặt quan sát FER theo thứ tự; nhãn trong một hành trình thực tế phải do quy trình xử lý suy luận từ dữ liệu.
+Các quan sát được tổ chức theo hai cấp. Ở cấp điểm chạm, hệ thống giữ tập quan sát của cùng khách hàng tại cùng khu vực theo thời gian. Ở cấp lần mua sắm, các tập quan sát tại nhiều điểm chạm được sắp xếp theo thời điểm ghi nhận để tạo chuỗi hành trình. Hình~\ref{fig:touchpoint_sequence} minh họa cách tổ chức này; các nhãn trong dữ liệu thực tế phải do quy trình xử lý tạo ra, không được gán trước theo vị trí của điểm chạm.
 
 \begin{figure}[H]
     \centering
+    \resizebox{0.98\textwidth}{!}{%
     \begin{tikzpicture}[
-        node distance=5mm,
-        touch/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=2.65cm, font=\small},
+        node distance=7mm,
+        touch/.style={draw, rounded corners=2pt, align=left, minimum height=25mm, text width=3.25cm, font=\scriptsize},
         flow/.style={-{Latex[length=2mm]}, thick}
     ]
-        \node[touch] (welcome) {Tiếp đón\\\textit{Neutral}};
-        \node[touch, right=of welcome] (consult) {Tư vấn\\\textit{Happy}};
-        \node[touch, right=of consult] (experience) {Trải nghiệm\\\textit{Happy}};
-        \node[touch, right=of experience] (payment) {Thanh toán\\\textit{Angry}};
-        \draw[flow] (welcome) -- (consult);
-        \draw[flow] (consult) -- (experience);
-        \draw[flow] (experience) -- (payment);
-    \end{tikzpicture}
-    \caption{Minh họa chuỗi quan sát biểu cảm theo hành trình đa điểm chạm}
+        \node[touch] (welcome) {\textbf{Cửa vào}\\$t_1$: \textit{Neutral}\\$t_2$: \textit{Happy}\\$t_3$: \textit{Neutral}};
+        \node[touch, right=of welcome] (display) {\textbf{Khu trưng bày}\\$t_4$: \textit{Happy}\\$t_5$: \textit{Surprise}};
+        \node[touch, right=of display] (consult) {\textbf{Khu tư vấn}\\$t_6$: \textit{Neutral}\\$t_7$: \textit{Neutral}\\$t_8$: \textit{Happy}};
+        \node[touch, right=of consult] (payment) {\textbf{Quầy thanh toán}\\$t_9$: \textit{Neutral}\\$t_{10}$: \textit{Sad}};
+        \draw[flow] (welcome) -- (display);
+        \draw[flow] (display) -- (consult);
+        \draw[flow] (consult) -- (payment);
+    \end{tikzpicture}%
+    }
+    \caption{Nhiều quan sát trong từng điểm chạm của một lần mua sắm}
     \label{fig:touchpoint_sequence}
 \end{figure}
 
-Từ chuỗi này, hệ thống có thể thống kê phân bố lớp biểu cảm tại từng điểm chạm, đếm chuyển đổi giữa hai điểm chạm liên tiếp, xác định vị trí thường bắt đầu xuất hiện biểu cảm tiêu cực và phân tích các trường hợp thiếu quan sát. Cách tiếp cận theo chuỗi giữ lại thứ tự của sự kiện, trong khi một tỷ lệ tổng hợp trên toàn hành trình có thể che mất vị trí xảy ra thay đổi.
+Cấu trúc này hỗ trợ thống kê phân bố, biến thiên trong điểm chạm và các cặp nhãn giữa hai điểm chạm liên tiếp. Khi tạo cặp, phương pháp chọn bản ghi đầu tiên, cuối cùng hoặc có mức tin cậy cao nhất. Kết quả chỉ mô tả nhãn trước--sau, không chứng minh trải nghiệm tốt lên hay xấu đi.
 
 \end{document}
