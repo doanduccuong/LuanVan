@@ -169,7 +169,7 @@ Nếu ảnh không hợp lệ, không phát hiện được khuôn mặt hoặc 
 
 Một khách hàng có thể đến cửa hàng nhiều lần; vì vậy, hệ thống sử dụng đồng thời mã khách hàng và mã lần mua sắm để phân biệt các khoảng thời gian khách hàng có mặt tại cửa hàng. Mỗi lần mua sắm chỉ chứa các bản ghi của một khách hàng trong một khoảng thời gian liên tục. Ranh giới này ngăn dữ liệu của hai khách hàng hoặc hai lần đến cửa hàng khác nhau bị ghép vào cùng một chuỗi.
 
-Một lần mua sắm có hai trạng thái: đang hoạt động và đã kết thúc. Khi nhận bản ghi đã xác định khách hàng, hệ thống tìm lần mua sắm đang hoạt động của khách hàng đó. Nếu chưa có, hệ thống tạo lần mua sắm mới và dùng bản ghi hiện tại làm quan sát đầu tiên. Trong nghiên cứu, ngưỡng thời gian giữa hai quan sát hợp lệ liên tiếp được đặt là 30 phút. Nếu khoảng cách không vượt quá ngưỡng này, bản ghi mới được gắn vào lần mua sắm hiện tại; nếu vượt quá ngưỡng, lần mua sắm trước được kết thúc và một lần mới được tạo. Việc kết thúc lần mua sắm chỉ dựa trên khoảng cách thời gian, không phụ thuộc vào khu vực ghi nhận hoặc trạng thái đơn hàng.
+Một lần mua sắm có hai trạng thái: đang hoạt động và đã kết thúc. Khi nhận bản ghi đã xác định khách hàng, hệ thống tìm lần mua sắm đang hoạt động của khách hàng đó. Nếu chưa có, hệ thống tạo lần mua sắm mới và dùng bản ghi hiện tại làm quan sát đầu tiên. Trong luận văn, ngưỡng thời gian giữa hai quan sát hợp lệ liên tiếp được đặt là 30 phút. Nếu khoảng cách không vượt quá ngưỡng này, bản ghi mới được gắn vào lần mua sắm hiện tại; nếu vượt quá ngưỡng, lần mua sắm trước được kết thúc và một lần mới được tạo. Việc kết thúc lần mua sắm chỉ dựa trên khoảng cách thời gian, không phụ thuộc vào khu vực ghi nhận hoặc trạng thái đơn hàng.
 
 Điều kiện vượt ngưỡng chỉ được kiểm tra khi hệ thống nhận bản ghi mới của cùng khách hàng và được ghi nhận bằng lý do \texttt{TIMEOUT}. Hệ thống không sử dụng một tiến trình riêng để đóng lần mua sắm ngay khi đủ 30 phút. Bản ghi đến muộn sau khi lần mua sắm tương ứng đã kết thúc không được chèn lại vào chuỗi đã đóng.
 
@@ -203,55 +203,15 @@ Với mỗi cặp điểm chạm liên tiếp, hệ thống so sánh hai nhãn b
 
 Hệ thống đếm số lần xuất hiện của từng cặp nhãn và tính tỷ lệ trên tổng số cặp hợp lệ của đúng hai khu vực đang xét. Chẳng hạn, cặp \textit{Neutral}--\textit{Happy} cho biết số lần mua sắm ghi nhận \textit{Neutral} ở khu vực trước và \textit{Happy} ở khu vực sau. Kết quả cho biết những trường hợp giữ nguyên và những hướng thay đổi thường được quan sát giữa hai khu vực.
 
-Phép phân tích trên chỉ xem xét từng cặp khu vực liên tiếp. Để tìm các kiểu diễn biến lặp lại trên toàn bộ hành trình, hệ thống phân cụm chuỗi trạng thái của các lần mua sắm. Đây là bài toán phân cụm chuỗi phân loại: mỗi phần tử thuộc một tập trạng thái hữu hạn và thứ tự phần tử mang thông tin. Tổng quan gần đây của Khalifa và cộng sự chia các phương pháp cho loại dữ liệu này thành ba họ dựa trên khoảng cách, đặc trưng và mô hình; trong đó các phương pháp dựa trên khoảng cách, đặc biệt là Optimal Matching, là nhóm được sử dụng phổ biến nhất \cite{khalifa2026categorical}. Nghiên cứu chọn cách tiếp cận dựa trên khoảng cách vì đầu vào hiện tại là các chuỗi ngắn, có nhãn rời rạc và không có biến đích để huấn luyện mô hình có giám sát.
+Phép phân tích trên chỉ xem xét từng cặp khu vực liên tiếp. Để tìm hiểu về các kiểu diễn biến lặp lại trên toàn bộ hành trình, hệ thống phân cụm chuỗi trạng thái của các lần mua sắm. Đây là bài toán phân cụm chuỗi phân loại: mỗi phần tử thuộc một tập trạng thái hữu hạn và thứ tự phần tử mang thông tin. Tổng quan gần đây của Khalifa và cộng sự chia các phương pháp cho loại dữ liệu này thành ba họ dựa trên khoảng cách, đặc trưng và mô hình; trong đó các phương pháp dựa trên khoảng cách, đặc biệt là Optimal Matching, là nhóm được sử dụng phổ biến nhất \cite{khalifa2026categorical}. Luận văn chọn cách tiếp cận dựa trên khoảng cách vì đầu vào hiện tại là các chuỗi ngắn, có nhãn rời rạc và không có biến đích để huấn luyện mô hình có giám sát.
 
-Một lần mua sắm \(v\) tạo một chuỗi
-\[
-S_v=(s_{v,1},s_{v,2},\ldots,s_{v,L_v}),
-\]
-trong đó \(s_{v,t}\) là nhãn biểu cảm đại diện của nhóm quan sát liên tiếp tại điểm chạm thứ \(t\), còn \(L_v\) là số nhóm hợp lệ. Chuỗi kế thừa thứ tự quan sát đã được xác định trong lần mua sắm.
+Đầu vào của bước phân cụm là chuỗi nhãn biểu cảm đại diện của từng lần mua sắm theo thứ tự điểm chạm. Các quan sát liên tiếp tại cùng một điểm chạm được gom thành một nhóm và chọn nhãn xuất hiện nhiều nhất làm đại diện, nhờ đó tần suất lấy ảnh không làm một trạng thái bị lặp quá mức. Những điểm chạm khác nhau vẫn được giữ thành các phần tử riêng để bảo toàn diễn biến của hành trình.
 
-Đối với đầu vào phân cụm, các quan sát liên tiếp tại cùng một điểm chạm được tập hợp thành một nhóm để tần suất lấy ảnh không làm một trạng thái bị lặp quá mức. Nhãn đại diện của nhóm là nhãn có số lần xuất hiện lớn nhất; nếu hòa thì so sánh tổng mức tin cậy, sau đó dùng thứ tự nhãn cố định. Hai điểm chạm khác nhau vẫn tạo hai phần tử, kể cả khi cùng nhãn. Vì vậy chuỗi \(\textit{Neutral}\rightarrow\textit{Neutral}\rightarrow\textit{Happy}\) không bị rút gọn thành hai trạng thái. Bản ghi cùng thời điểm nhưng thuộc nhiều điểm chạm bị loại khỏi đầu vào phân cụm vì không có căn cứ xác định thứ tự. Phiên bản thực nghiệm yêu cầu ít nhất ba nhóm hợp lệ.
+Luận văn sử dụng Optimal Matching để tính mức độ khác biệt giữa các chuỗi dựa trên thứ tự trạng thái và độ dài hành trình \cite{studer2016sequence,gabadinho2011traminer}. Kết quả so sánh được tổ chức thành ma trận khoảng cách giữa các lần mua sắm. Ma trận này là đầu vào của thuật toán Partitioning Around Medoids (PAM), trong đó mỗi cụm được đại diện bởi một chuỗi có thật trong dữ liệu thay vì một chuỗi trung bình do hệ thống tạo ra \cite{kaufman1990pam}.
 
-Optimal Matching (OM) biến việc so sánh hai chuỗi thành bài toán tìm tổng chi phí nhỏ nhất của các phép chèn, xóa và thay thế. Cách tiếp cận này tạo một độ bất tương đồng cho từng cặp chuỗi và sau đó có thể dùng ma trận bất tương đồng làm đầu vào phân cụm \cite{studer2016sequence,gabadinho2011traminer}. Với hai tiền tố \(x_{1:i}\) và \(y_{1:j}\), quy hoạch động được viết:
-\[
-D(i,j)=\min
-\begin{cases}
-D(i-1,j)+c_{\mathrm{indel}},\\
-D(i,j-1)+c_{\mathrm{indel}},\\
-D(i-1,j-1)+c_{\mathrm{sub}}(x_i,y_j).
-\end{cases}
-\]
-Điều kiện biên là \(D(0,j)=j\,c_{\mathrm{indel}}\) và \(D(i,0)=i\,c_{\mathrm{indel}}\). Trong cấu hình cơ sở, \(c_{\mathrm{indel}}=1\), còn \(c_{\mathrm{sub}}(x_i,y_j)=0\) nếu hai nhãn giống nhau và bằng \(2\) nếu khác nhau. Các giá trị \(0\), \(1\) và \(2\) ở đây là chi phí thao tác của thuật toán, không phải điểm tích cực, tiêu cực hay điểm hài lòng.
+PAM được chạy với nhiều số cụm khác nhau. Các phương án tạo ra cụm quá nhỏ bị loại, còn các phương án còn lại được so sánh bằng Average Silhouette Width (ASW) \cite{rousseeuw1987silhouettes}. Hệ thống ưu tiên phương án có cấu trúc cụm rõ và không làm tăng số cụm khi mức cải thiện không đáng kể. ASW chỉ phản ánh mức độ tách biệt của các cụm theo khoảng cách Optimal Matching, không phải độ chính xác của nhãn biểu cảm hoặc mức độ hài lòng của khách hàng.
 
-Đầu ra của bước này là ma trận vuông \(D\in\mathbb{R}^{N\times N}\), trong đó \(D_{ij}\) là khoảng cách giữa lần mua sắm \(i\) và lần mua sắm \(j\), \(D_{ii}=0\), và \(N\) là số chuỗi đủ điều kiện. Bước OM không tạo ra một chuỗi đã biến đổi để thay thế dữ liệu gốc. Nghiên cứu giữ khoảng cách thô với \texttt{norm=none}, không chia cho tổng độ dài chuỗi. Lý do là đơn vị phân tích đã được chuẩn hóa theo nhóm quan sát tại điểm chạm; việc chuẩn hóa thêm có thể làm mất một phần khác biệt về số điểm chạm trong chuỗi. Nghiên cứu của Studer và Ritschard cũng chỉ ra rằng không tồn tại một khoảng cách tối ưu cho mọi mục đích; lựa chọn phải phụ thuộc vào khía cạnh cần giữ lại như thành phần, thứ tự, thời điểm hay thời lượng \cite{studer2016sequence}.
-
-Ma trận \(D\) được đưa vào Partitioning Around Medoids (PAM) \cite{kaufman1990pam}. Với số cụm \(K\), PAM chọn tập \(M\) gồm \(K\) phần tử có thật trong dữ liệu sao cho
-\[
-\min_{M,\ |M|=K}\sum_{i=1}^{N}\min_{m\in M}D_{im}.
-\]
-Mỗi phần tử được gán vào medoid gần nhất. Medoid vì vậy là chuỗi có thật đại diện cho một cụm, không phải chuỗi trung bình do hệ thống tự tạo. Việc dùng PAM phù hợp ở đây vì thuật toán nhận trực tiếp ma trận bất tương đồng OM; không cần ép chuỗi thành véc-tơ Euclid.
-
-Trước khi thử \(K\), kích thước cụm tối thiểu được xác định bởi
-\[
-n_{\min}(N)=\max\left(n_{\mathrm{abs}},\left\lceil\pi_{\min}N\right\rceil\right).
-\]
-Trong đó \(n_{\mathrm{abs}}\) ngăn cụm chỉ có quá ít phần tử khi tập nhỏ, còn \(\pi_{\min}\) giữ ngưỡng theo tỷ lệ khi số visit tăng. Gọi \(U\) là số chuỗi trạng thái phân biệt, phạm vi khảo sát trong hiện thực là
-\[
-2\le K\le K_{\max}=
-\min\left(N-1,\left\lfloor\frac{N}{n_{\min}(N)}\right\rfloor,U\right).
-\]
-Thành phần \(U\) ngăn yêu cầu nhiều medoid khác nhau hơn số chuỗi phân biệt; đây cũng là kiểm tra bảo vệ trước trường hợp thư viện trả nhiều cột kết quả trùng tên khi dữ liệu có nhiều chuỗi giống hệt. Sau khi chạy PAM, phương án vẫn bị loại nếu kích thước cụm thực tế nhỏ hơn \(n_{\min}\).
-
-Chất lượng mỗi phương án được so sánh bằng silhouette \cite{rousseeuw1987silhouettes}. Với chuỗi \(i\), \(a(i)\) là khoảng cách trung bình đến các phần tử cùng cụm và \(b(i)\) là khoảng cách trung bình nhỏ nhất đến một cụm khác:
-\[
-s(i)=\frac{b(i)-a(i)}{\max\{a(i),b(i)\}}.
-\]
-Average Silhouette Width (ASW) là trung bình \(s(i)\) của toàn bộ chuỗi. Giá trị lớn hơn cho biết, theo chính khoảng cách OM đang dùng, các phần tử gần cụm của mình hơn cụm gần nhất khác. Hệ thống chọn phương án hợp lệ có ASW tốt nhất; nếu nhiều phương án cách điểm tốt nhất không quá ngưỡng cấu hình \(0{,}02\), ưu tiên \(K\) nhỏ hơn để tránh tạo thêm cụm khi mức cải thiện không đáng kể. ASW là chỉ số cấu trúc cụm, không đo độ chính xác của nhãn biểu cảm và không phải điểm hài lòng.
-
-Đầu ra cuối cùng không phải một số duy nhất. Hệ thống trả \(K\), ASW và bảng phương án \(K\); với mỗi cụm trả medoid, số lượng, tỷ lệ, silhouette trung bình và khoảng cách trung vị; với mỗi visit trả mã cụm, chuỗi đầu vào, khoảng cách tới medoid và silhouette. Kết quả trả lời ba câu hỏi: những kiểu diễn biến nào lặp lại trong dữ liệu, mỗi kiểu được đại diện bởi chuỗi thật nào, và một lần mua sắm cụ thể gần kiểu nào nhất.
-
-Tên của từng cụm được người phân tích đặt sau khi xem xét chuỗi medoid; thuật toán không tự gán ý nghĩa nghiệp vụ cho cụm.
+Kết quả mong muốn là xác định những kiểu diễn biến biểu cảm thường lặp lại trong dữ liệu. Đầu ra gồm số cụm được chọn, chuỗi medoid đại diện cho từng cụm, quy mô của mỗi cụm và cụm được gán cho từng lần mua sắm. Từ đó, người phân tích có thể nhận biết các kiểu hành trình phổ biến, xem một lần mua sắm gần với kiểu nào và truy vết kết quả về chuỗi quan sát ban đầu. Tên và ý nghĩa nghiệp vụ của từng cụm chỉ được đặt sau khi xem xét chuỗi đại diện; thuật toán không tự gán các nhãn như hài lòng hoặc không hài lòng.
 
 \section{Kết quả đầu ra và giới hạn của phương pháp}
 \label{section:3.4}
