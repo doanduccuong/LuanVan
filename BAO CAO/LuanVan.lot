@@ -1,24 +1,24 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces So sánh giữa các phương pháp phát hiện khuôn mặt}}{17}{table.caption.16}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces So sánh giữa các phương pháp phát hiện khuôn mặt}}{18}{table.caption.16}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Đầu vào và kết quả của các công đoạn trong giải pháp}}{26}{table.caption.20}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Thông tin của một bản ghi quan sát}}{30}{table.caption.22}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces Cách xử lý bản ghi theo kết quả đối sánh khách hàng}}{33}{table.caption.23}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Đầu vào và kết quả của các công đoạn trong giải pháp}}{27}{table.caption.20}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Thông tin của một bản ghi quan sát}}{31}{table.caption.22}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Cách xử lý bản ghi theo kết quả đối sánh khách hàng}}{34}{table.caption.23}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Tác nhân và các trường hợp sử dụng chính}}{44}{table.caption.25}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Phân bổ trách nhiệm giữa các thành phần phần mềm}}{45}{table.caption.27}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Các luồng giao tiếp chính giữa những thành phần của hệ thống}}{47}{table.caption.28}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Tác nhân và các trường hợp sử dụng chính}}{45}{table.caption.25}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Phân bổ trách nhiệm giữa các thành phần phần mềm}}{46}{table.caption.27}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Các luồng giao tiếp chính giữa những thành phần của hệ thống}}{48}{table.caption.28}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Kết quả chất lượng phát hiện trên tập xác thực WIDER FACE}}{70}{table.caption.49}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Kết quả hiệu năng phát hiện trên CPU}}{71}{table.caption.50}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Phân bố ảnh theo lớp trong FER-2013}}{72}{table.caption.51}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Kết quả tổng thể của ba cấu hình phân loại biểu cảm trên PrivateTest}}{74}{table.caption.52}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces F1 theo từng lớp của ba cấu hình trên PrivateTest}}{75}{table.caption.53}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Năm mẫu chuỗi trong dữ liệu kiểm soát}}{78}{table.caption.55}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Kết quả phân cụm trên dữ liệu chuỗi kiểm soát}}{79}{table.caption.56}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Kết quả xử lý 100 khung camera KDEF}}{86}{table.caption.65}%
-\contentsline {table}{\numberline {5.9}{\ignorespaces Kết quả biểu cảm theo năm lớp có mẫu đối chiếu}}{88}{table.caption.69}%
-\contentsline {table}{\numberline {5.10}{\ignorespaces Năm cụm của run Camera KDEF}}{90}{table.caption.73}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Kết quả chất lượng phát hiện trên tập xác thực WIDER FACE}}{71}{table.caption.49}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Kết quả hiệu năng phát hiện trên CPU}}{72}{table.caption.50}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Phân bố ảnh theo lớp trong FER-2013}}{73}{table.caption.51}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Kết quả tổng thể của ba cấu hình phân loại biểu cảm trên PrivateTest}}{75}{table.caption.52}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces F1 theo từng lớp của ba cấu hình trên PrivateTest}}{76}{table.caption.53}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Năm mẫu chuỗi trong dữ liệu kiểm soát}}{79}{table.caption.55}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Kết quả phân cụm trên dữ liệu chuỗi kiểm soát}}{80}{table.caption.56}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Kết quả xử lý 100 khung camera KDEF}}{87}{table.caption.65}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces Kết quả biểu cảm theo năm lớp có mẫu đối chiếu}}{89}{table.caption.69}%
+\contentsline {table}{\numberline {5.10}{\ignorespaces Năm cụm của run Camera KDEF}}{91}{table.caption.73}%
 \contentsfinish 
 \contentsfinish 

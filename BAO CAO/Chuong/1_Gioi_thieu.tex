@@ -16,11 +16,29 @@ Tuy nhiên, các phương pháp khảo sát truyền thống đang bộc lộ nh
     \item \textbf{Tính thiên lệch của kết quả khảo sát (Survey Bias):} Khách hàng thường chỉ chủ động phản hồi khi có trải nghiệm rất tiêu cực. Vì vậy, kết quả có thể không phản ánh đầy đủ ý kiến của phần lớn khách hàng.
 \end{itemize}
 
-Sự phát triển của trí tuệ nhân tạo (AI) và thị giác máy tính (Computer Vision) tạo điều kiện ứng dụng công nghệ nhận dạng biểu cảm khuôn mặt (Facial Expression Recognition -- FER) vào bài toán trên. Thông qua phân tích hình ảnh khuôn mặt, hệ thống có thể ghi nhận các nhãn biểu cảm quan sát được của khách hàng mà không làm gián đoạn quá trình mua sắm. Tuy nhiên, nhãn FER chỉ phản ánh biểu hiện khuôn mặt tại thời điểm hình ảnh được thu nhận. Vì vậy, một quan sát riêng lẻ chưa đủ để mô tả toàn bộ quá trình mua sắm của khách hàng.
+Sự phát triển của trí tuệ nhân tạo (AI) và thị giác máy tính (Computer Vision) tạo điều kiện ứng dụng công nghệ nhận dạng biểu cảm khuôn mặt (Facial Expression Recognition -- FER) vào bài toán trên. Thông qua phân tích hình ảnh khuôn mặt, hệ thống có thể ghi nhận các nhãn biểu cảm quan sát được của khách hàng mà không làm gián đoạn quá trình trải nghiệm của khách hàng. Tuy nhiên, nhãn FER chỉ phản ánh biểu hiện khuôn mặt tại thời điểm hình ảnh được thu nhận. Vì vậy, một quan sát riêng lẻ chưa đủ để mô tả toàn bộ quá trình của khách hàng.
 
 Để khắc phục hạn chế của việc phân tích từng quan sát riêng lẻ, luận văn liên đề xuất kết các kết quả nhận dạng biểu cảm theo khách hàng, lần mua sắm, khu vực và thứ tự thời gian để hình thành chuỗi trạng thái biểu cảm. Trên cơ sở đó, kỹ thuật phân cụm chuỗi trạng thái được áp dụng để nhóm các lần mua sắm có cấu trúc tương tự về thành phần và thứ tự xuất hiện của các nhãn biểu cảm. Kết quả phân cụm giúp khái quát dữ liệu thành những kiểu hành trình biểu cảm thường gặp, hỗ trợ xác định chuỗi đại diện, thống kê quy mô và tỷ lệ của từng nhóm, đồng thời truy vết các kết quả về hồ sơ khách hàng và lịch sử mua hàng trong hệ thống CRM. Các nhóm này cũng tạo cơ sở cho việc đối chiếu với thông tin về khu vực, thời gian, đơn hàng hoặc dữ liệu khảo sát trong những phân tích tiếp theo. Tuy nhiên, kết quả phân cụm chỉ mô tả các kiểu diễn biến của những nhãn biểu cảm được ghi nhận, không trực tiếp phản ánh hành vi hoặc mức độ hài lòng của khách hàng.
-\section{Mục tiêu và phạm vi luận văn}
+
+\section{Kết cấu của luận văn}
 \label{section:1.2}
+
+Luận văn được tổ chức thành năm chương với các nội dung chính như sau:
+
+\begin{itemize}
+    \item \textbf{Chương 1 -- Giới thiệu luận văn:} Trình bày bối cảnh, vấn đề nghiên cứu, mục tiêu, phạm vi và kết cấu của luận văn.
+
+    \item \textbf{Chương 2 -- Nền tảng lý thuyết và công nghệ:} Trình bày cơ sở lý thuyết về phát hiện khuôn mặt, nhận dạng biểu cảm, nhận dạng khách hàng và phân tích hành trình tại nhiều điểm chạm; đồng thời giới thiệu các công nghệ được sử dụng trong hệ thống.
+
+    \item \textbf{Chương 3 -- Phương pháp đề xuất:} Mô tả phương pháp xử lý ảnh, liên kết kết quả theo khách hàng và lần mua sắm, hình thành chuỗi trạng thái biểu cảm, phân tích dữ liệu và phân cụm chuỗi trạng thái.
+
+    \item \textbf{Chương 4 -- Xây dựng và phát triển hệ thống:} Trình bày kiến trúc, cơ sở dữ liệu, giao diện lập trình, các thành phần xử lý ảnh, chức năng CRM, giao diện quản lý và mô-đun phân tích chuỗi.
+
+    \item \textbf{Chương 5 -- Đánh giá thực nghiệm:} Trình bày các thực nghiệm so sánh phương pháp phát hiện khuôn mặt và phân loại biểu cảm, kiểm nghiệm kỹ thuật phân cụm chuỗi trạng thái và đánh giá luồng xử lý đầu cuối của hệ thống.
+\end{itemize}
+
+\section{Mục tiêu và phạm vi luận văn}
+\label{section:1.3}
 
 \subsection{Mục tiêu nghiên cứu}
 
