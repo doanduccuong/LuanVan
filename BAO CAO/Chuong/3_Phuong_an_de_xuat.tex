@@ -71,7 +71,7 @@ Nhánh phân loại biểu cảm nhận vùng khuôn mặt được cắt từ �
 
 Khi xác định được khách hàng, kết quả của hai nhánh được ghép với khu vực và thời gian để tạo bản ghi quan sát. Hệ thống kiểm tra khách hàng có một lần mua sắm đang diễn ra hay không; bản ghi được thêm vào lần mua sắm hiện tại hoặc được dùng để khởi tạo một lần mua sắm mới. Các bản ghi trong cùng một lần mua sắm được sắp xếp theo thời gian và chuyển sang bước phân tích.
 
-Trong luồng này, một công đoạn chỉ chuyển dữ liệu sang công đoạn kế tiếp khi đã tạo được kết quả cần thiết. Phát hiện khuôn mặt không thành công thì hai nhánh nhận dạng không được thực hiện. Nếu không xác định được khách hàng, hệ thống không tạo bản ghi quan sát. Nếu đã xác định được khách hàng nhưng kết quả phân loại biểu cảm không hợp lệ, bản ghi vẫn được lưu để phản ánh dữ liệu thiếu nhưng không tham gia thống kê biểu cảm.
+Trong luồng xử lý tổng thể tại Hình~\ref{fig:solution_flow}, mỗi công đoạn chỉ chuyển dữ liệu sang công đoạn kế tiếp khi đã tạo được kết quả cần thiết. Phát hiện khuôn mặt không thành công thì hai nhánh nhận dạng không được thực hiện. Nếu không xác định được khách hàng, hệ thống không tạo bản ghi quan sát. Nếu đã xác định được khách hàng nhưng kết quả phân loại biểu cảm không hợp lệ, bản ghi vẫn được lưu để phản ánh dữ liệu thiếu nhưng không tham gia thống kê biểu cảm.
 
 Bảng~\ref{tab:solution_stage_io} làm rõ đầu vào và kết quả của từng công đoạn. Bảng chỉ mô tả dữ liệu ở mức phương pháp; cách biểu diễn bằng bảng cơ sở dữ liệu hoặc đối tượng phần mềm được trình bày trong chương xây dựng hệ thống.
 
@@ -100,8 +100,6 @@ Bảng~\ref{tab:solution_stage_io} làm rõ đầu vào và kết quả của t�
         \hline
     \end{tabular}}
 \end{table}
-
-Luồng trên mô tả quan hệ giữa các công đoạn ở mức phương pháp. Mô hình cụ thể, cấu hình ngưỡng, kiến trúc phần mềm, cơ sở dữ liệu và giao diện trao đổi dữ liệu được trình bày tại Chương 4. Dữ liệu và kịch bản dùng để kiểm chứng các công đoạn được trình bày tại Chương 5.
 
 \section{Phương pháp tạo bản ghi quan sát tại khu vực}
 \label{section:3.3}

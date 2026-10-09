@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  9 OCT 2026 16:38
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  9 OCT 2026 16:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1256,34 +1256,34 @@ Underfull \hbox (badness 1024) in paragraph at lines 101--101
  []
 
 [26] [27]
-Overfull \hbox (13.84424pt too wide) in paragraph at lines 129--130
+Overfull \hbox (13.84424pt too wide) in paragraph at lines 127--128
 \TU/TimesNewRoman(0)/m/n/13 bao không tạo được vùng ảnh hợp lệ, sự kiện được gắn trạng thái \TU/lmtt/m/n/13 INVALID_FACE_CROP
  []
 
 [28] [29] [30] [31] [32] [33] [34]
 
-LaTeX Warning: Citation `khalifa2026categorical' on page 35 undefined on input line 314.
+LaTeX Warning: Citation `khalifa2026categorical' on page 35 undefined on input line 312.
 
 [35]
 
-LaTeX Warning: Citation `studer2016sequence' on page 36 undefined on input line 328.
+LaTeX Warning: Citation `studer2016sequence' on page 36 undefined on input line 326.
 
 
-LaTeX Warning: Citation `gabadinho2011traminer' on page 36 undefined on input line 328.
+LaTeX Warning: Citation `gabadinho2011traminer' on page 36 undefined on input line 326.
 
 
-LaTeX Warning: Citation `studer2016sequence' on page 36 undefined on input line 339.
+LaTeX Warning: Citation `studer2016sequence' on page 36 undefined on input line 337.
 
 [36]
 
-LaTeX Warning: Citation `kaufman1990pam' on page 37 undefined on input line 343.
+LaTeX Warning: Citation `kaufman1990pam' on page 37 undefined on input line 341.
 
 
-LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 37 undefined on input line 360.
+LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 37 undefined on input line 358.
 
 [37]
 
-LaTeX Warning: Citation `sequenzo2026' on page 38 undefined on input line 366.
+LaTeX Warning: Citation `sequenzo2026' on page 38 undefined on input line 364.
 
 [38] [39] [40]) [41]
 CHƯƠNG 4.
