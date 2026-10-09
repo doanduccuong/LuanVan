@@ -45,11 +45,11 @@
 \contentsline {subsection}{\numberline {3.4.3}Kết thúc lần mua sắm}{32}{subsection.3.4.3}%
 \contentsline {subsection}{\numberline {3.4.4}Sắp xếp bản ghi theo thời gian}{32}{subsection.3.4.4}%
 \contentsline {subsection}{\numberline {3.4.5}Xử lý dữ liệu thiếu và xung đột}{33}{subsection.3.4.5}%
-\contentsline {section}{\numberline {3.5}Phương pháp phân tích kết quả}{34}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Phân bố biểu cảm tại từng khu vực}{34}{subsection.3.5.1}%
+\contentsline {section}{\numberline {3.5}Phương pháp phân tích kết quả}{33}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Phân bố biểu cảm tại từng khu vực}{33}{subsection.3.5.1}%
 \contentsline {subsection}{\numberline {3.5.2}Sự thay đổi giữa các khu vực liên tiếp}{34}{subsection.3.5.2}%
 \contentsline {subsection}{\numberline {3.5.3}Phân cụm chuỗi trạng thái của toàn bộ lần mua sắm}{35}{subsection.3.5.3}%
-\contentsline {subsubsection}{\numberline {a}Tạo chuỗi đầu vào}{36}{subsubsection.3.5.3.1}%
+\contentsline {subsubsection}{\numberline {a}Tạo chuỗi đầu vào}{35}{subsubsection.3.5.3.1}%
 \contentsline {subsubsection}{\numberline {b}Khoảng cách Optimal Matching}{36}{subsubsection.3.5.3.2}%
 \contentsline {subsubsection}{\numberline {c}PAM, medoid và số cụm}{37}{subsubsection.3.5.3.3}%
 \contentsline {subsubsection}{\numberline {d}Đầu ra và ý nghĩa}{38}{subsubsection.3.5.3.4}%

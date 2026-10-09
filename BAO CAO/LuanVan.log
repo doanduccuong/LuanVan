@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  9 OCT 2026 17:08
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  9 OCT 2026 22:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1257,30 +1257,29 @@ Underfull \hbox (badness 1024) in paragraph at lines 101--101
 
 [26] [27] [28] [29] [30] [31] [32] [33] [34]
 
-LaTeX Warning: Citation `khalifa2026categorical' on page 35 undefined on input line 312.
+LaTeX Warning: Citation `khalifa2026categorical' on page 35 undefined on input line 309.
 
 [35]
 
-LaTeX Warning: Citation `studer2016sequence' on page 36 undefined on input line 326.
+LaTeX Warning: Citation `studer2016sequence' on page 36 undefined on input line 323.
 
 
-LaTeX Warning: Citation `gabadinho2011traminer' on page 36 undefined on input line 326.
+LaTeX Warning: Citation `gabadinho2011traminer' on page 36 undefined on input line 323.
 
 
-LaTeX Warning: Citation `studer2016sequence' on page 36 undefined on input line 337.
+LaTeX Warning: Citation `studer2016sequence' on page 36 undefined on input line 334.
+
+
+LaTeX Warning: Citation `kaufman1990pam' on page 36 undefined on input line 338.
 
 [36]
 
-LaTeX Warning: Citation `kaufman1990pam' on page 37 undefined on input line 341.
+LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 37 undefined on input line 355.
 
 
-LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 37 undefined on input line 358.
+LaTeX Warning: Citation `sequenzo2026' on page 37 undefined on input line 361.
 
-[37]
-
-LaTeX Warning: Citation `sequenzo2026' on page 38 undefined on input line 364.
-
-[38] [39] [40]) [41]
+[37] [38] [39] [40]) [41]
 CHƯƠNG 4.
 (./Chuong/4_Xay_dung_va_phat_trien_he_thong.tex [42
 
@@ -1491,7 +1490,7 @@ Package rerunfilecheck Info: File `LuanVan.out' has not changed.
 Here is how much of TeX's memory you used:
  40157 strings out of 469709
  840188 string characters out of 5466023
- 1385312 words of memory out of 5000000
+ 1386312 words of memory out of 5000000
  68059 multiletter control sequences out of 15000+600000
  638306 words of font info for 123 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191

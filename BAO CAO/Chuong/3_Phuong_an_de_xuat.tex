@@ -111,11 +111,11 @@ Quá trình tạo bản ghi quan sát bắt đầu khi hệ thống tiếp nhậ
 
 Hình ảnh cung cấp dữ liệu để phát hiện khuôn mặt và phân loại biểu cảm. Mã khu vực cho biết nơi hình ảnh được ghi nhận, chẳng hạn khu vực tiếp đón, tư vấn hoặc thanh toán. Mã này được lấy từ cấu hình của thành phần cung cấp hình ảnh và được gửi kèm cùng hình ảnh. Nhờ đó, kết quả xử lý được gắn với đúng khu vực đã tạo ra dữ liệu.
 
-Thời gian ghi nhận là thời điểm hình ảnh được tạo ra. Thông tin này được sử dụng để sắp xếp các bản ghi và hỗ trợ xác định chúng có thuộc cùng một lần mua sắm hay không. Hệ thống không sử dụng thời điểm hoàn thành xử lý để thay thế, vì các hình ảnh có thể phải chờ xử lý hoặc được gửi đến không theo đúng thứ tự. Việc giữ thời gian ghi nhận ban đầu cho phép khôi phục trình tự khách hàng xuất hiện tại các khu vực.
+Thời gian ghi nhận là thời điểm camera tạo ra khung hình. Thông tin này được sử dụng để sắp xếp các bản ghi và xác định chúng có thuộc cùng một lần mua sắm hay không. Ngoài ra do thời gian truyền và xử lý của từng khung hình có thể khác nhau, khung hình được ghi nhận trước có thể hoàn thành xử lý sau khung hình được ghi nhận sau. Vì vậy, hệ thống không sử dụng thời điểm hoàn thành xử lý để sắp xếp dữ liệu mà sử dụng thời gian ghi nhận ban đầu nhằm bảo đảm đúng trình tự khách hàng xuất hiện tại các khu vực
 
 Trước khi chuyển hình ảnh sang bước phát hiện khuôn mặt, hệ thống kiểm tra dữ liệu ảnh có thể đọc được, mã khu vực có nằm trong danh sách đã khai báo và thời gian ghi nhận có hợp lệ hay không. Khi cả ba điều kiện được đáp ứng, hình ảnh cùng mã khu vực và thời gian được chuyển sang công đoạn tiếp theo. Nếu thiếu một trong các thông tin trên, yêu cầu được lưu với trạng thái không hợp lệ và không được sử dụng để hình thành chuỗi quan sát.
 
-Mỗi khung hình gửi đến hệ thống được gán một mã sự kiện duy nhất. Mã này dùng để định danh lần thu nhận khung hình, không phải để định danh khuôn mặt hoặc khách hàng. Ví dụ, trong trường hợp mạng chậm hoặc thành phần gửi không nhận được phản hồi từ hệ thống, cùng một khung hình có thể được gửi lại. Khi nhận được mã sự kiện đã tồn tại, hệ thống xác định đây là dữ liệu gửi lặp và không tạo thêm bản ghi quan sát. Cơ chế này giúp tránh việc một kết quả biểu cảm bị ghi nhận nhiều lần trong thống kê và chuỗi thời gian. Sau khi được kiểm tra hợp lệ, khung hình cùng mã khu vực và thời gian ghi nhận được chuyển sang bước phát hiện khuôn mặt.
+Mỗi khung hình gửi đến hệ thống được gán một mã sự kiện duy nhất. Ví dụ, trong trường hợp mạng chậm hoặc thành phần gửi không nhận được phản hồi từ hệ thống, cùng một khung hình có thể được gửi lại. Khi nhận được mã sự kiện đã tồn tại, hệ thống xác định đây là dữ liệu gửi lặp và không tạo thêm bản ghi quan sát. Cơ chế này giúp tránh việc một kết quả biểu cảm bị ghi nhận nhiều lần trong thống kê và chuỗi thời gian. Sau khi được kiểm tra hợp lệ, khung hình cùng mã khu vực và thời gian ghi nhận được chuyển sang bước phát hiện khuôn mặt.
 
 \subsection{Phát hiện và xử lý vùng khuôn mặt}
 \label{subsection:3.3.2}
@@ -159,25 +159,24 @@ Ngoài kết quả dự đoán, hệ thống lưu tên và phiên bản của m�
 
 Kết quả phân loại biểu cảm được xử lý độc lập với kết quả nhận dạng khách hàng. Điểm đối sánh danh tính không làm thay đổi nhãn biểu cảm. Ngược lại, mức tin cậy biểu cảm không được sử dụng để xác định danh tính khách hàng.
 
-Mô hình FER được chạy trên vùng khuôn mặt cắt được từ ảnh hợp lệ. Nếu vùng khuôn mặt không thể cắt hoặc nhánh phân loại không thực hiện được, trạng thái phân loại được đặt là \texttt{NOT\_RUN}; nhãn biểu cảm và mức tin cậy được để trống. Nhãn \textit{Neutral} chỉ được ghi khi đó là kết quả do mô hình dự đoán, không được dùng để thay cho trường hợp không có kết quả.
+Mô hình FER được chạy trên vùng khuôn mặt cắt được từ ảnh hợp lệ. Nếu vùng khuôn mặt không thể cắt hoặc nhánh phân loại không thực hiện được, trạng thái phân loại được đặt là \texttt{NOT\_RUN}; nhãn biểu cảm và mức tin cậy được để trống.
 
-Khi mô hình FER chạy thành công, hệ thống nhận lớp có điểm số cao nhất và đặt trạng thái phân loại là \texttt{VALID}. Hệ thống chưa loại kết quả dựa trên một mức tin cậy tối thiểu riêng cho biểu cảm. Vì vậy, vùng khuôn mặt được xử lý thành công tạo một kết quả biểu cảm. Việc lựa chọn bản ghi đại diện khi có nhiều quan sát liên tiếp tại cùng một khu vực được thực hiện ở bước phân tích, không làm thay đổi kết quả phân loại đã lưu.
-
+Đối với từng quan sát, mô hình FER trả về điểm số của các lớp biểu cảm và hệ thống chọn lớp có điểm số cao nhất làm nhãn dự đoán. Khi một khách hàng có nhiều quan sát liên tiếp tại cùng một điểm chạm, nhãn xuất hiện nhiều nhất được chọn làm biểu cảm đại diện. Nếu nhiều nhãn có cùng số lần xuất hiện, hệ thống chọn nhãn có tổng mức tin cậy cao hơn. Nhãn được lựa chọn đại diện cho trạng thái biểu cảm của khách hàng tại điểm chạm đó. Các kết quả FER khác tại điểm chạm đó vẫn được lưu giữ để phục vụ thống kê, tra cứu và thực hiện các phương pháp phân tích khác khi cần
 \subsection{Đối sánh khách hàng}
 \label{subsection:3.3.4}
 
 Từ vùng khuôn mặt được cắt, mô hình ArcFace tạo một véc-tơ đặc trưng. Hệ thống so sánh véc-tơ này với các mẫu khuôn mặt của khách hàng bằng khoảng cách cô-sin. Khoảng cách càng nhỏ thì hai véc-tơ càng giống nhau. Khách hàng có khoảng cách nhỏ nhất chỉ được chấp nhận khi giá trị này không vượt quá ngưỡng được xác định trong bước hiệu chỉnh. Nếu chưa có tệp kết quả hiệu chỉnh, chức năng nhận dạng khách hàng được đặt ở trạng thái \texttt{DISABLED}. Nếu đã có tệp nhưng không khách hàng nào đạt yêu cầu, kết quả là \texttt{NO\_MATCH}.
 
-Dữ liệu dùng để so sánh chỉ gồm khách hàng đang hoạt động, đã đồng ý sử dụng dữ liệu khuôn mặt và có mẫu khuôn mặt còn hiệu lực. Kết quả gồm khách hàng phù hợp nhất, khoảng cách giữa hai véc-tơ và trạng thái \texttt{MATCHED} hoặc \texttt{NO\_MATCH}. Việc một khách hàng có khoảng cách nhỏ nhất trong danh sách chưa đủ để xác định danh tính; khoảng cách đó vẫn phải nằm trong giới hạn chấp nhận.
+Dữ liệu dùng để so sánh chỉ gồm khách hàng đang hoạt động, đã đồng ý sử dụng dữ liệu khuôn mặt và có mẫu khuôn mặt còn hiệu lực. Kết quả gồm khách hàng phù hợp nhất, khoảng cách giữa hai véc-tơ và trạng thái \texttt{MATCHED} hoặc \texttt{NO\_MATCH}.
 
 Trạng thái \texttt{NO\_MATCH} xuất hiện khi khuôn mặt trong ảnh không khớp với bất kỳ mẫu tham chiếu nào trong giới hạn chấp nhận. Trong trường hợp này, hệ thống kết thúc xử lý sự kiện mà không tạo bản ghi quan sát, không tự động tạo hồ sơ mới và không chọn khách hàng có khoảng cách gần nhất.
 
 \subsection{Hình thành bản ghi quan sát}
 \label{subsection:3.3.5}
 
-Sau khi phân loại biểu cảm và đối sánh thành công với khách hàng đã đăng ký, kết quả được ghép với khu vực và thời gian để tạo một bản ghi quan sát. Sự kiện thu nhận lưu trạng thái xử lý của ảnh, còn bản ghi quan sát lưu kết quả gắn với khách hàng tương ứng. Các thông tin cần có được trình bày tại Bảng~\ref{tab:observation_fields}.
+Sau khi phát hiện được khuôn mặt và xác định được khách hàng, hệ thống kết hợp kết quả phân loại biểu cảm, kết quả đối sánh, khu vực và thời gian ghi nhận để tạo một bản ghi quan sát. Bản ghi này thể hiện kết quả xử lý của khách hàng tại một khu vực và một thời điểm cụ thể. Các thông tin của bản ghi được trình bày tại Bảng~\ref{tab:observation_fields}.
 
-Nếu ảnh lỗi, không phát hiện được khuôn mặt hoặc không xác định được khách hàng đã đăng ký, hệ thống chỉ lưu trạng thái của sự kiện thu nhận và không tạo bản ghi quan sát. Bản ghi chỉ tham gia thống kê khi đã gắn với khách hàng và có kết quả biểu cảm hợp lệ.
+Nếu ảnh không hợp lệ, không phát hiện được khuôn mặt hoặc không xác định được khách hàng, hệ thống chỉ lưu trạng thái của sự kiện thu nhận và không tạo bản ghi quan sát. Trường hợp đã xác định được khách hàng nhưng không thu được kết quả phân loại biểu cảm hợp lệ, bản ghi vẫn được tạo nhưng không tham gia thống kê biểu cảm và quá trình tạo chuỗi trạng thái.
 
 \begin{table}[H]
     \centering
@@ -204,16 +203,14 @@ Nếu ảnh lỗi, không phát hiện được khuôn mặt hoặc không xác 
         \hline
         Điểm đối sánh & Khoảng cách giữa véc-tơ khuôn mặt và mẫu tham chiếu được chọn \\
         \hline
-        Trạng thái xử lý & Thành công, thiếu khuôn mặt hoặc kết quả không hợp lệ \\
+        Trạng thái xử lý & Trạng thái phân loại biểu cảm và đối sánh khách hàng \\
         \hline
         Phiên bản mô hình & Cấu hình mô hình đã tạo ra kết quả \\
         \hline
     \end{tabular}}
 \end{table}
 
-Bản ghi quan sát là đơn vị đầu vào của quá trình liên kết. Đây là cấu trúc thông tin ở mức phương pháp. Tên bảng, tên cột, kiểu dữ liệu và giao diện trao đổi giữa các thành phần được trình bày tại Chương 4.
-
-Mỗi bản ghi sau khi tạo cần giữ nguyên kết quả gốc. Các thao tác liên kết, lọc hoặc tổng hợp không sửa nhãn, mức tin cậy và điểm đối sánh trong bản ghi ban đầu. Nếu mô hình được chạy lại, kết quả mới phải gắn với phiên bản xử lý mới thay vì ghi đè không để lại dấu vết. Nguyên tắc này giúp kết quả phân tích có thể được kiểm tra lại từ các quan sát đã tạo.
+Bản ghi quan sát là đơn vị dữ liệu đầu vào cho bước liên kết theo lần mua sắm. Các bản ghi của cùng một khách hàng được sắp xếp theo thời gian và liên kết với lần mua sắm tương ứng để hình thành chuỗi quan sát qua các điểm chạm.
 
 \section{Phương pháp liên kết bản ghi theo lần mua sắm}
 \label{section:3.4}
