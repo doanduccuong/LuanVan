@@ -63,135 +63,29 @@ Ba công trình trên xây dựng các thao tác này theo những nguyên lý k
 \subsection{Haar Cascade theo Viola--Jones}
 \label{subsection:2.2.1}
 
-Năm 2001, Paul Viola và Michael Jones công bố phương pháp phát hiện đối tượng nhanh dựa trên ba thành phần chính: ảnh tích phân để tính đặc trưng hình chữ nhật, AdaBoost để lựa chọn đặc trưng và bộ phân loại xếp tầng để giảm số phép tính khi quét ảnh. Phương pháp được hai tác giả xây dựng và kiểm chứng cho bài toán phát hiện khuôn mặt chính diện từ ảnh xám \cite{viola2001rapid}.
+Năm 2001, Viola và Jones đề xuất phương pháp phát hiện đối tượng nhanh dựa trên ba thành phần chính: ảnh tích phân để tính đặc trưng hình chữ nhật, AdaBoost để lựa chọn đặc trưng và bộ phân loại xếp tầng để giảm số phép tính. Phương pháp được xây dựng và kiểm chứng chủ yếu cho bài toán phát hiện khuôn mặt chính diện trên ảnh xám \cite{viola2001rapid}.
 
-\noindent\textbf{Đầu vào và đầu ra của phương pháp.} Trong giai đoạn phát hiện, đầu vào là một ảnh xám có thể chứa một hoặc nhiều khuôn mặt. Ảnh được khảo sát bằng các cửa sổ tại nhiều vị trí và tỷ lệ khác nhau. Đầu ra là tập khung bao của những cửa sổ được xác định có chứa khuôn mặt. Các vùng nằm trong khung bao này có thể được cắt và chuyển sang bước nhận dạng biểu cảm.
+\noindent\textbf{Đầu vào và đầu ra.} Đầu vào của phương pháp là ảnh xám, còn đầu ra là các khung bao xác định vị trí khuôn mặt. Ảnh được khảo sát bằng cửa sổ trượt tại nhiều vị trí và tỷ lệ để phát hiện các khuôn mặt có kích thước khác nhau. Mỗi cửa sổ được chuẩn hóa về kích thước cơ sở $24\times24$ điểm ảnh trước khi được phân loại thành khuôn mặt hoặc vùng nền.
 
-\noindent\textbf{Giai đoạn huấn luyện.} Dữ liệu huấn luyện gồm các cửa sổ chứa khuôn mặt và các cửa sổ không chứa khuôn mặt. Mỗi cửa sổ được chuẩn hóa về kích thước cơ sở $24\times24$ điểm ảnh. Phương pháp tính các đặc trưng Haar trên từng cửa sổ, sau đó tìm ngưỡng và chiều so sánh giúp mỗi đặc trưng phân biệt hai nhóm mẫu với sai số có trọng số nhỏ nhất. Một đặc trưng cùng ngưỡng và chiều so sánh tạo thành một bộ phân loại yếu. AdaBoost lựa chọn các bộ phân loại yếu có khả năng phân biệt tốt và gán trọng số cho chúng. Nhiều bộ phân loại yếu được kết hợp thành một bộ phân loại mạnh; nhiều bộ phân loại mạnh tiếp tục được tổ chức thành các tầng. Kết quả của giai đoạn huấn luyện là các đặc trưng Haar được chọn, ngưỡng so sánh, trọng số biểu quyết và cấu trúc bộ phân loại xếp tầng.
-
-\noindent\textbf{Giai đoạn phát hiện.} Khi xử lý một ảnh mới, phần lớn cửa sổ được tạo ra chỉ chứa vùng nền. Vì vậy, các tầng đầu sử dụng ít đặc trưng để nhanh chóng loại bỏ những cửa sổ không có khả năng chứa khuôn mặt. Cửa sổ vượt qua tầng trước mới được kiểm tra tại tầng sau bằng nhiều đặc trưng hơn. Một cửa sổ bị loại ngay khi không vượt qua một tầng; chỉ cửa sổ vượt qua tất cả các tầng mới được giữ lại làm ứng viên khuôn mặt. Nhờ đó, phương pháp tập trung phần lớn phép tính vào số ít vùng ảnh có khả năng chứa khuôn mặt. Luồng xử lý của giai đoạn phát hiện được tổng hợp tại Hình \ref{fig:viola_jones_pipeline}.
-
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[
-        node distance=5mm and 10mm,
-        block/.style={draw, rounded corners=2pt, align=center, minimum height=9mm, text width=6.0cm, font=\small},
-        decision/.style={diamond, draw, aspect=2.2, align=center, inner sep=1pt, text width=3.1cm, font=\small},
-        result/.style={draw, rounded corners=2pt, align=center, minimum height=9mm, text width=3.4cm, font=\small},
-        flow/.style={-{Latex[length=2mm]}, thick}
-    ]
-        \node[block] (input) {Ảnh xám đầu vào};
-        \node[block, below=of input] (integral) {Tạo ảnh tích phân};
-        \node[block, below=of integral] (scan) {Quét cửa sổ $24\times24$ tại nhiều vị trí và tỷ lệ};
-        \node[block, below=of scan] (haar) {Tính các đặc trưng Haar đã được AdaBoost lựa chọn};
-        \node[block, below=of haar] (cascade) {Đánh giá cửa sổ qua chuỗi bộ phân loại xếp tầng};
-        \node[decision, below=7mm of cascade] (pass) {Vượt qua tất cả các tầng?};
-        \node[result, right=15mm of pass] (reject) {Loại bỏ vùng nền};
-        \node[result, below=7mm of pass] (candidate) {Giữ khung ứng viên khuôn mặt};
-        \node[block, below=of candidate] (merge) {Hợp nhất các khung bao chồng lấn};
-
-        \draw[flow] (input) -- (integral);
-        \draw[flow] (integral) -- (scan);
-        \draw[flow] (scan) -- (haar);
-        \draw[flow] (haar) -- (cascade);
-        \draw[flow] (cascade) -- (pass);
-        \draw[flow] (pass) -- node[above, font=\scriptsize]{Không} (reject);
-        \draw[flow] (pass) -- node[right, font=\scriptsize]{Có} (candidate);
-        \draw[flow] (candidate) -- (merge);
-    \end{tikzpicture}
-    \caption[Quy trình phát hiện khuôn mặt theo Viola--Jones]{Quy trình phát hiện khuôn mặt theo Viola--Jones, tổng hợp từ \cite{viola2001rapid}}
-    \label{fig:viola_jones_pipeline}
-\end{figure}
-
-Mỗi vùng ảnh cần kiểm tra được chuẩn hóa về cửa sổ cơ sở có kích thước $24\times24$ điểm ảnh. Thay vì so sánh trực tiếp từng điểm ảnh, Viola và Jones biểu diễn cửa sổ bằng các đặc trưng hình chữ nhật tương tự đặc trưng Haar. Đặc trưng hai vùng lấy chênh lệch tổng cường độ của hai hình chữ nhật kề nhau; đặc trưng ba vùng so sánh vùng trung tâm với hai vùng ngoài; đặc trưng bốn vùng so sánh hai cặp hình chữ nhật nằm trên hai đường chéo. Có thể hiểu mỗi đặc trưng là một phép kiểm tra quan hệ sáng--tối trong một phần khuôn mặt, chẳng hạn vùng mắt thường tối hơn vùng má. Với cửa sổ $24\times24$, bài báo tạo ra hơn 180.000 đặc trưng ứng viên, vì vậy cần có một cách tính nhanh và một cơ chế chỉ giữ lại các đặc trưng hữu ích.
-
-\noindent\textbf{Công thức tạo ảnh tích phân.} Để tính nhanh tổng cường độ của một vùng chữ nhật, Viola và Jones chuyển ảnh gốc thành ảnh tích phân. Giá trị ảnh tích phân tại một vị trí được xác định bởi \cite{viola2001rapid}:
-
+\noindent\textbf{Đặc trưng Haar và ảnh tích phân.} Thay vì sử dụng trực tiếp giá trị của từng điểm ảnh, phương pháp mô tả một cửa sổ bằng chênh lệch cường độ giữa các vùng chữ nhật sáng và tối. Các đặc trưng hai vùng, ba vùng và bốn vùng biểu diễn những quan hệ sáng--tối thường gặp trên khuôn mặt, chẳng hạn vùng mắt thường tối hơn vùng má. Do số lượng đặc trưng ứng viên trong một cửa sổ rất lớn, Viola và Jones sử dụng ảnh tích phân để tính nhanh tổng cường độ của mỗi vùng. Giá trị ảnh tích phân tại vị trí $(x,y)$ được xác định bởi:
 \begin{equation}
-    ii(x,y)=\sum_{x'=0}^{x}\sum_{y'=0}^{y} i(x',y').
+    ii(x,y)=\sum_{x'=0}^{x}\sum_{y'=0}^{y}i(x',y').
     \label{eq:integral_image}
 \end{equation}
-
-Trong Công thức \ref{eq:integral_image}:
-\begin{itemize}
-    \item $i(x',y')$ là giá trị cường độ của điểm ảnh tại tọa độ $(x',y')$ trong ảnh gốc;
-    \item $x'$ và $y'$ là các chỉ số dùng để duyệt những điểm ảnh nằm trong miền tính tổng;
-    \item $ii(x,y)$ là tổng cường độ của tất cả điểm ảnh từ góc trên bên trái của ảnh đến vị trí $(x,y)$, bao gồm cả điểm ảnh tại vị trí này.
-\end{itemize}
-
-Mục đích của Công thức \ref{eq:integral_image} là tính trước các tổng tích lũy cho toàn ảnh. Ảnh tích phân chỉ cần được tạo một lần, sau đó tổng cường độ của nhiều vùng chữ nhật có thể được lấy từ các giá trị đã tính mà không phải cộng lại từng điểm ảnh.
-
-\noindent\textbf{Công thức tính tổng cường độ của vùng chữ nhật.} Giả sử vùng chữ nhật $R$ có góc trên bên trái là $(x_1,y_1)$ và góc dưới bên phải là $(x_2,y_2)$, tổng cường độ trong vùng được tính từ bốn giá trị của ảnh tích phân:
-
+Từ ảnh tích phân, tổng cường độ của vùng chữ nhật có góc trên bên trái $(x_1,y_1)$ và góc dưới bên phải $(x_2,y_2)$ được tính bằng:
 \begin{equation}
     S(R)=ii(x_2,y_2)-ii(x_1-1,y_2)-ii(x_2,y_1-1)+ii(x_1-1,y_1-1).
     \label{eq:rectangle_sum}
 \end{equation}
+Nhờ đó, tổng cường độ của một vùng chỉ cần bốn giá trị đã tính trước và không phụ thuộc vào số điểm ảnh bên trong vùng.
 
-Trong Công thức \ref{eq:rectangle_sum}:
-\begin{itemize}
-    \item $R$ là vùng chữ nhật cần tính tổng cường độ;
-    \item $(x_1,y_1)$ và $(x_2,y_2)$ lần lượt là tọa độ góc trên bên trái và góc dưới bên phải của vùng $R$;
-    \item $S(R)$ là tổng cường độ của các điểm ảnh nằm trong vùng $R$;
-    \item các giá trị $ii(\cdot,\cdot)$ được lấy từ ảnh tích phân đã tạo bằng Công thức \ref{eq:integral_image}.
-\end{itemize}
+\noindent\textbf{Lựa chọn đặc trưng bằng AdaBoost.} Trong giai đoạn huấn luyện, dữ liệu gồm các cửa sổ chứa khuôn mặt và không chứa khuôn mặt. Mỗi đặc trưng Haar được kết hợp với một ngưỡng và chiều so sánh để tạo thành một bộ phân loại yếu. AdaBoost lựa chọn những bộ phân loại có sai số có trọng số thấp, đồng thời tăng trọng số của các mẫu bị phân loại sai để những vòng tiếp theo tập trung vào các trường hợp khó hơn. Kết quả là một số lượng nhỏ đặc trưng có khả năng phân biệt tốt được giữ lại từ tập đặc trưng ban đầu.
 
-Giá trị $ii(x_2,y_2)$ chứa vùng cần tính cùng phần ảnh nằm phía trên và bên trái. Hai số hạng tiếp theo loại bỏ hai phần nằm ngoài vùng $R$; số hạng cuối được cộng lại vì phần giao của hai miền này đã bị trừ hai lần. Nhờ đó, tổng của một vùng chữ nhật chỉ cần bốn giá trị trên ảnh tích phân và không phụ thuộc vào số điểm ảnh trong vùng. Tổng cường độ này được dùng để tính đặc trưng Haar bằng cách lấy chênh lệch giữa các vùng sáng và tối của đặc trưng.
+Các bộ phân loại yếu được kết hợp theo cơ chế biểu quyết có trọng số để tạo thành bộ phân loại mạnh. Bộ phân loại có sai số thấp được gán trọng số lớn hơn và có ảnh hưởng nhiều hơn đến quyết định cuối cùng. Tuy nhiên, áp dụng toàn bộ bộ phân loại mạnh cho mọi cửa sổ vẫn tốn nhiều chi phí vì phần lớn cửa sổ trong ảnh chỉ chứa vùng nền.
 
-\noindent\textbf{Công thức của bộ phân loại yếu.} Ảnh tích phân giúp tính đặc trưng nhanh nhưng chưa giải quyết vấn đề có quá nhiều đặc trưng ứng viên. Vì vậy, phương pháp sử dụng AdaBoost, viết tắt của \textit{Adaptive Boosting}, để lựa chọn những đặc trưng có khả năng phân biệt khuôn mặt và vùng nền. Mỗi đặc trưng Haar cùng một ngưỡng tạo thành một bộ phân loại yếu theo Công thức \ref{eq:viola_weak_classifier} \cite{viola2001rapid}:
+\noindent\textbf{Cấu trúc xếp tầng.} Để giảm số phép tính, các bộ phân loại mạnh được tổ chức thành nhiều tầng. Những tầng đầu sử dụng ít đặc trưng để loại nhanh các cửa sổ không có khả năng chứa khuôn mặt; các tầng sau sử dụng nhiều đặc trưng hơn để kiểm tra những trường hợp khó. Cửa sổ bị loại tại bất kỳ tầng nào sẽ không được xử lý tiếp, còn cửa sổ vượt qua tất cả các tầng được giữ lại làm ứng viên khuôn mặt. Cuối cùng, các khung bao chồng lấn được nhóm và hợp nhất để tạo kết quả phát hiện.
 
-\begin{equation}
-    h_j(X)=
-    \begin{cases}
-        1, & \text{nếu } p_j f_j(X)<p_j\theta_j,\\
-        0, & \text{ngược lại.}
-    \end{cases}
-    \label{eq:viola_weak_classifier}
-\end{equation}
-
-Trong Công thức \ref{eq:viola_weak_classifier}:
-\begin{itemize}
-    \item $X$ là cửa sổ ảnh $24\times24$ đang được kiểm tra;
-    \item $f_j(X)$ là giá trị của đặc trưng Haar thứ $j$ trên cửa sổ $X$;
-    \item $\theta_j$ là ngưỡng dùng để phân chia hai lớp;
-    \item $p_j\in\{-1,1\}$ xác định chiều của phép so sánh với ngưỡng;
-    \item $h_j(X)$ trả về $1$ khi cửa sổ được bộ phân loại yếu đánh giá là khuôn mặt và trả về $0$ trong trường hợp còn lại.
-\end{itemize}
-
-Hệ số $p_j$ cần thiết vì một số đặc trưng nhận biết khuôn mặt khi giá trị nhỏ hơn ngưỡng, trong khi những đặc trưng khác nhận biết khuôn mặt khi giá trị lớn hơn ngưỡng. Mỗi bộ phân loại yếu chỉ dựa trên một đặc trưng nên chưa đủ tin cậy. Trong quá trình huấn luyện, AdaBoost chọn các bộ phân loại yếu có sai số có trọng số nhỏ và tăng trọng số của những mẫu đang bị phân loại sai để các vòng sau tập trung xử lý những trường hợp khó hơn.
-
-\noindent\textbf{Công thức của bộ phân loại mạnh.} Sau $T$ vòng lặp, AdaBoost kết hợp kết quả của $T$ bộ phân loại yếu thành một bộ phân loại mạnh. Mỗi bộ phân loại yếu sử dụng một đặc trưng Haar và một ngưỡng đã học để đưa ra quyết định nhị phân: giá trị $1$ biểu thị đặc trưng đang xét phù hợp với mẫu khuôn mặt, còn giá trị $0$ biểu thị trường hợp ngược lại. Vì một quyết định riêng lẻ chỉ dựa trên một quan hệ sáng--tối nên chưa đủ tin cậy, bộ phân loại mạnh tổng hợp nhiều quyết định bằng cơ chế biểu quyết có trọng số. Trong cấu trúc xếp tầng, mỗi tầng sử dụng một bộ phân loại mạnh để quyết định cửa sổ bị loại hay được chuyển sang tầng tiếp theo. Đầu vào của bộ phân loại mạnh là cửa sổ $X$, các kết quả $h_t(X)$ của những bộ phân loại yếu đã chọn và các trọng số $\alpha_t$ được học trong quá trình huấn luyện. Công thức \ref{eq:viola_strong_classifier} thực hiện biểu quyết có trọng số, trong đó bộ phân loại yếu có sai số nhỏ được trao ảnh hưởng lớn hơn:
-
-\begin{equation}
-    H(X)=
-    \begin{cases}
-        1, & \displaystyle\sum_{t=1}^{T}\alpha_t h_t(X)
-        \geq \frac{1}{2}\sum_{t=1}^{T}\alpha_t,\\
-        0, & \text{ngược lại,}
-    \end{cases}
-    \qquad
-    \alpha_t=\ln\!\left(\frac{1}{\beta_t}\right),\quad
-    \beta_t=\frac{\varepsilon_t}{1-\varepsilon_t}.
-    \label{eq:viola_strong_classifier}
-\end{equation}
-
-Trong Công thức \ref{eq:viola_strong_classifier}:
-\begin{itemize}
-    \item $T$ là số bộ phân loại yếu được AdaBoost lựa chọn;
-    \item $h_t(X)$ là kết quả của bộ phân loại yếu thứ $t$ đối với cửa sổ $X$;
-    \item $\varepsilon_t$ là sai số có trọng số của bộ phân loại yếu thứ $t$ trên tập huấn luyện;
-    \item $\beta_t$ là hệ số trung gian được tính từ sai số $\varepsilon_t$;
-    \item $\alpha_t$ là trọng số biểu quyết của bộ phân loại yếu thứ $t$;
-    \item $H(X)$ là kết quả của bộ phân loại mạnh, trong đó giá trị $1$ biểu thị cửa sổ có khả năng chứa khuôn mặt và giá trị $0$ biểu thị trường hợp còn lại.
-\end{itemize}
-
-Khi $\varepsilon_t$ nhỏ, $\beta_t$ nhỏ và $\alpha_t$ lớn, do đó bộ phân loại yếu hoạt động tốt có ảnh hưởng nhiều hơn đến kết quả cuối cùng. Khi $\varepsilon_t$ tiến gần $0{,}5$, $\alpha_t$ tiến gần $0$, nghĩa là một bộ phân loại gần với dự đoán ngẫu nhiên hầu như không đóng góp vào kết quả. Ngưỡng $\frac{1}{2}\sum_{t=1}^{T}\alpha_t$ thể hiện điều kiện đa số có trọng số: tổng mức ủng hộ lớp khuôn mặt phải đạt ít nhất một nửa tổng trọng số. Nếu $H(X)=0$, cửa sổ bị loại tại tầng hiện tại. Nếu $H(X)=1$, cửa sổ chỉ được chuyển sang tầng kế tiếp; kết quả này chưa đủ để kết luận cửa sổ chứa khuôn mặt. Kết luận khuôn mặt chỉ được đưa ra khi cửa sổ nhận giá trị $1$ tại tất cả các tầng.
-
-Bộ phân loại mạnh cho biết cách kết hợp các đặc trưng, nhưng nếu áp dụng toàn bộ cho mọi cửa sổ thì chi phí vẫn lớn. Viola và Jones giải quyết vấn đề này bằng cấu trúc xếp tầng. Các tầng đầu sử dụng ít đặc trưng để loại nhanh những vùng chắc chắn là nền; các tầng sau sử dụng nhiều đặc trưng hơn để kiểm tra những trường hợp khó. Cửa sổ bị từ chối tại bất kỳ tầng nào sẽ không được xử lý tiếp. Nhờ vậy, phần lớn vùng ảnh chỉ phải đi qua một hoặc hai tầng đầu, còn toàn bộ chuỗi chỉ được thực hiện trên số ít vùng có khả năng chứa khuôn mặt.
-
-Khi xử lý ảnh hoàn chỉnh, cửa sổ dò được quét tại nhiều vị trí và nhiều tỷ lệ để tìm các khuôn mặt có kích thước khác nhau. Trong cấu hình thực nghiệm của bài báo, tỷ lệ giữa hai kích thước cửa sổ liên tiếp là $1{,}25$. Mỗi cửa sổ còn được chuẩn hóa phương sai để giảm ảnh hưởng của chiếu sáng. Một khuôn mặt có thể tạo ra nhiều khung dự đoán gần nhau, do đó các khung chồng lấn được nhóm lại và tọa độ trung bình của nhóm được dùng làm kết quả cuối cùng \cite{viola2001rapid}.
-
-Phương pháp gốc chủ yếu được huấn luyện cho khuôn mặt chính diện và sử dụng các đặc trưng hình chữ nhật theo một số hướng cố định. Vì vậy, khả năng xử lý khuôn mặt nhỏ, quay nghiêng, che khuất hoặc xuất hiện trong điều kiện chiếu sáng phức tạp cần được đánh giá bằng thực nghiệm trên dữ liệu phù hợp với bài toán.
+Cách tổ chức trên giúp Haar Cascade có tốc độ xử lý nhanh và yêu cầu tài nguyên tính toán thấp. Tuy nhiên, do sử dụng các đặc trưng được thiết kế trước, phương pháp hoạt động tốt nhất với khuôn mặt chính diện và có thể suy giảm hiệu quả khi khuôn mặt quay nghiêng, bị che khuất, có kích thước nhỏ hoặc xuất hiện trong điều kiện chiếu sáng phức tạp. Đây là cơ sở để so sánh với các phương pháp dựa trên mạng nơ-ron tích chập như MTCNN và RetinaFace được trình bày ở các mục tiếp theo.
 
 \subsection{MTCNN}
 \label{subsection:2.2.2}
