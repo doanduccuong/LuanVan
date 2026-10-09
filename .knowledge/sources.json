@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "sources": [
+    {
+      "path": "SYSTEM/apps/api/app",
+      "type": "code",
+      "authority": "primary",
+      "covers": ["business logic", "models", "API", "sequence analysis"]
+    },
+    {
+      "path": "SYSTEM/services/vision/app",
+      "type": "code",
+      "authority": "primary",
+      "covers": ["detector", "emotion", "ArcFace", "vision contract"]
+    },
+    {
+      "path": "SYSTEM/apps/web/src",
+      "type": "code",
+      "authority": "primary",
+      "covers": ["UI routes", "API client", "reports UI"]
+    },
+    {
+      "path": "SYSTEM/compose.yaml",
+      "type": "configuration",
+      "authority": "primary",
+      "covers": ["deployment", "dependencies", "ports", "mounts"]
+    },
+    {
+      "path": "SYSTEM/.env.example",
+      "type": "configuration",
+      "authority": "primary",
+      "covers": ["environment keys", "demo defaults"]
+    },
+    {
+      "path": "SYSTEM/README.md",
+      "type": "documentation",
+      "authority": "operational",
+      "covers": ["run instructions", "KDEF demo", "sequence workflow"]
+    },
+    {
+      "path": "SYSTEM/IMPLEMENTATION_STATUS.md",
+      "type": "status",
+      "authority": "high",
+      "covers": ["implemented components", "recorded verification", "latest run results"]
+    },
+    {
+      "path": "SYSTEM/HANDOVER_EVIDENCE.md",
+      "type": "evidence map",
+      "authority": "high",
+      "covers": ["code-evidence mapping", "KDEF", "controlled sequence", "limits"]
+    },
+    {
+      "path": "SYSTEM/artifacts/experiment-runs/KDEF-KAGGLE-20261008-LIVE",
+      "type": "artifact",
+      "authority": "primary_evidence",
+      "covers": ["KDEF replay", "identity", "FER", "camera clustering", "screenshots"]
+    },
+    {
+      "path": "SYSTEM/artifacts/experiment-runs/SIM-CONTROLLED-20261008-LIVE",
+      "type": "artifact",
+      "authority": "primary_evidence",
+      "covers": ["controlled sequence", "OM matrix", "ARI/NMI", "screenshots"]
+    },
+    {
+      "path": "COMPARE_FACE_DETECTION/results/wider-val-cpu-20260921",
+      "type": "artifact",
+      "authority": "primary_evidence",
+      "covers": ["WIDER FACE detector benchmark"]
+    },
+    {
+      "path": "COMPARE_FACIAL_EXPRESSION/results/fer2013-lbp-vs-finetuned-emotion-001",
+      "type": "artifact",
+      "authority": "primary_evidence",
+      "covers": ["FER comparison", "selection"]
+    },
+    {
+      "path": "TRAIN_DEEPFACE_EMOTION/artifacts/fer2013-emotion-finetune-001",
+      "type": "artifact",
+      "authority": "primary_evidence",
+      "covers": ["fine-tune checkpoint", "validation metrics"]
+    },
+    {
+      "path": "BAO CAO/Chuong/3_Phuong_an_de_xuat.tex",
+      "type": "thesis",
+      "authority": "narrative",
+      "covers": ["method", "rules", "sequence clustering", "limits"]
+    },
+    {
+      "path": "BAO CAO/Chuong/4_Xay_dung_va_phat_trien_he_thong.tex",
+      "type": "thesis",
+      "authority": "narrative",
+      "covers": ["architecture", "implementation", "screenshots"]
+    },
+    {
+      "path": "BAO CAO/Chuong/5_Danh_gia_thuc_nghiem.tex",
+      "type": "thesis",
+      "authority": "narrative_plus_results",
+      "covers": ["detector", "FER", "controlled sequence", "KDEF results"]
+    },
+    {
+      "path": "SYSTEM_DEVELOPMENT",
+      "type": "planning_and_spec",
+      "authority": "secondary",
+      "covers": ["initial architecture", "implementation plan", "demo scenario"]
+    },
+    {
+      "path": "PROPOSED_METHOD/TECH_SPEC.md",
+      "type": "legacy_spec",
+      "authority": "historical_only",
+      "covers": ["old proposed method"]
+    }
+  ],
+  "conflict_policy": "Nếu nguồn narrative/planning mâu thuẫn với code hoặc artifact mới hơn, ghi nhận conflict và ưu tiên code/artifact; không âm thầm hợp nhất.",
+  "coverage_note": "Các nguồn text/code/config chính đã được tổng hợp. PDF, ảnh, weight và dataset nhị phân chỉ được kiểm kê theo vai trò, không tái phân tích toàn bộ."
+}

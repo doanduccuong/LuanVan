@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 
+import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
@@ -314,3 +315,80 @@ def test_one_capture_creates_one_observation_per_detected_face():
         assert [item["id"] for item in repeated.json()["observations"]] == [item["id"] for item in body["observations"]]
     finally:
         app.dependency_overrides.pop(get_vision_client, None)
+
+
+def test_sequence_analysis_persists_clusters_medoids_and_assignments():
+    client = make_client()
+    suffix = datetime.now(timezone.utc).strftime("%H%M%S%f")
+    base_order = int(suffix[-7:]) * 10
+    touchpoints = []
+    for index, name in enumerate(("Cửa vào", "Trưng bày", "Tư vấn", "Thanh toán")):
+        response = client.post(
+            "/api/v1/touchpoints",
+            json={
+                "touchpoint_code": f"SEQ-{index}-{suffix}",
+                "name": name,
+                "sequence_order": base_order + index,
+            },
+        )
+        assert response.status_code == 201, response.text
+        touchpoints.append(response.json())
+
+    run_id = f"SEQ-RUN-{suffix}"
+    started = datetime.now(timezone.utc)
+    observations = []
+    patterns = [
+        ["Neutral", "Happy", "Happy", "Happy"],
+        ["Sad", "Sad", "Angry", "Angry"],
+    ]
+    for customer_index in range(8):
+        customer = client.post(
+            "/api/v1/customers",
+            json={
+                "customer_code": f"SEQ-CUS-{customer_index}-{suffix}",
+                "full_name": f"Khách chuỗi {customer_index}",
+            },
+        ).json()
+        pattern = patterns[customer_index // 4]
+        for event_index, (touchpoint, label) in enumerate(zip(touchpoints, pattern, strict=True)):
+            observations.append(
+                {
+                    "event_id": f"SEQ-{customer_index}-{event_index}-{suffix}",
+                    "simulation_run_id": run_id,
+                    "touchpoint_id": touchpoint["id"],
+                    "customer_id": customer["id"],
+                    "observed_at": (started + timedelta(hours=customer_index, minutes=event_index * 5)).isoformat(),
+                    "expression_label": label,
+                    "expression_confidence": 0.9,
+                    "end_of_visit": event_index == 3,
+                }
+            )
+    batch = client.post("/api/v1/simulation/observations/batch", json={"observations": observations})
+    assert batch.status_code == 201, batch.text
+
+    analysis = client.post(
+        "/api/v1/sequence-analyses",
+        json={
+            "source_type": "SIMULATOR",
+            "source_run_id": run_id,
+            "min_states": 4,
+            "min_cluster_size_abs": 2,
+            "min_cluster_ratio": 0.1,
+            "k_max": 2,
+            "random_state": 7,
+        },
+    )
+    assert analysis.status_code == 201, analysis.text
+    result = analysis.json()
+    assert result["status"] == "COMPLETED"
+    assert result["received_visit_count"] == 8
+    assert result["used_visit_count"] == 8
+    assert result["selected_k"] == 2
+    assert result["average_silhouette_width"] == pytest.approx(1.0)
+
+    clusters = client.get(f"/api/v1/sequence-analyses/{result['id']}/clusters").json()
+    assert sorted(cluster["size"] for cluster in clusters) == [4, 4]
+    assignments = client.get(f"/api/v1/sequence-analyses/{result['id']}/assignments").json()
+    assert assignments["total"] == 8
+    assert all(item["customer"] for item in assignments["items"])
+    assert all(len(item["sequence"]) == 4 for item in assignments["items"])

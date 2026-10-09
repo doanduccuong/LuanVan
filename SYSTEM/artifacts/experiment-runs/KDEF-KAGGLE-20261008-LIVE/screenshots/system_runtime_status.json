@@ -1,0 +1,97 @@
+{
+  "capturedAt": "2026-10-08T15:32:57.038Z",
+  "runId": "KDEF-KAGGLE-20261008-LIVE",
+  "allRuntimeChecksPass": true,
+  "containers": [
+    {
+      "service": "postgres",
+      "name": "system-postgres-1",
+      "image": "pgvector/pgvector:pg16",
+      "state": "running",
+      "health": "healthy",
+      "ports": "127.0.0.1:5432->5432/tcp",
+      "exitCode": 0
+    },
+    {
+      "service": "vision",
+      "name": "system-vision-1",
+      "image": "system-vision",
+      "state": "running",
+      "health": "healthy",
+      "ports": "0.0.0.0:8001->8001/tcp, [::]:8001->8001/tcp",
+      "exitCode": 0
+    },
+    {
+      "service": "migrate",
+      "name": "system-migrate-1",
+      "image": "system-migrate",
+      "state": "exited",
+      "health": "completed",
+      "ports": "—",
+      "exitCode": 0
+    },
+    {
+      "service": "api",
+      "name": "system-api-1",
+      "image": "system-api",
+      "state": "running",
+      "health": "—",
+      "ports": "0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp",
+      "exitCode": 0
+    },
+    {
+      "service": "simulator",
+      "name": "system-simulator-1",
+      "image": "system-simulator",
+      "state": "running",
+      "health": "healthy",
+      "ports": "0.0.0.0:8002->8002/tcp, [::]:8002->8002/tcp",
+      "exitCode": 0
+    },
+    {
+      "service": "web",
+      "name": "system-web-1",
+      "image": "system-web",
+      "state": "running",
+      "health": "—",
+      "ports": "0.0.0.0:8080->80/tcp, [::]:8080->80/tcp",
+      "exitCode": 0
+    }
+  ],
+  "endpoints": [
+    {
+      "name": "API",
+      "url": "http://127.0.0.1:8000/health/ready",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 13,
+      "body": "{\"status\":\"ready\"}"
+    },
+    {
+      "name": "Vision",
+      "url": "http://127.0.0.1:8001/health/ready",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 2,
+      "body": "{\"status\":\"ready\",\"backend\":\"DeepFaceRetinaFaceEngine\"}"
+    },
+    {
+      "name": "Simulator",
+      "url": "http://127.0.0.1:8002/health/ready",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 61,
+      "body": "{\"status\":\"ready\"}"
+    },
+    {
+      "name": "Web",
+      "url": "http://127.0.0.1:8080/",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 1,
+      "body": "<!doctype html>\n<html lang=\"vi\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <meta name=\"description\" con"
+    }
+  ],
+  "screenshotPath": "/Users/sotatek/Desktop/Do An/SYSTEM/artifacts/experiment-runs/KDEF-KAGGLE-20261008-LIVE/screenshots/K05_system_runtime_status.png",
+  "reportPath": "/Users/sotatek/Desktop/Do An/BAO CAO/Hinhve/Chuong4/4_29_trang_thai_he_thong_docker.png"
+}

@@ -1,0 +1,138 @@
+{
+  "capture_event_count": 100,
+  "valid_image_count": 100,
+  "identity": {
+    "correct_match_count": 96,
+    "no_match_count": 4,
+    "false_match_count": 0,
+    "correct_match_rate": 0.96
+  },
+  "expression": {
+    "accuracy": 0.54,
+    "macro_f1_present_classes": 0.40540862910674236,
+    "expected_distribution": {
+      "Neutral": 35,
+      "Happy": 40,
+      "Surprise": 10,
+      "Sad": 5,
+      "Angry": 10
+    },
+    "predicted_distribution": {
+      "Sad": 21,
+      "Neutral": 18,
+      "Angry": 12,
+      "Happy": 35,
+      "Surprise": 8,
+      "Fear": 6
+    },
+    "per_class": {
+      "Angry": {
+        "support": 10,
+        "precision": 0.16666666666666666,
+        "recall": 0.2,
+        "f1": 0.1818181818181818
+      },
+      "Disgust": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Fear": {
+        "support": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Happy": {
+        "support": 40,
+        "precision": 0.9714285714285714,
+        "recall": 0.85,
+        "f1": 0.9066666666666667
+      },
+      "Sad": {
+        "support": 5,
+        "precision": 0.047619047619047616,
+        "recall": 0.2,
+        "f1": 0.07692307692307693
+      },
+      "Surprise": {
+        "support": 10,
+        "precision": 0.375,
+        "recall": 0.3,
+        "f1": 0.33333333333333326
+      },
+      "Neutral": {
+        "support": 35,
+        "precision": 0.7777777777777778,
+        "recall": 0.4,
+        "f1": 0.5283018867924528
+      }
+    },
+    "confusion_matrix": {
+      "Angry": {
+        "Angry": 2,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 6,
+        "Surprise": 0,
+        "Neutral": 2
+      },
+      "Disgust": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 0
+      },
+      "Fear": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 0
+      },
+      "Happy": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 2,
+        "Happy": 34,
+        "Sad": 0,
+        "Surprise": 4,
+        "Neutral": 0
+      },
+      "Sad": {
+        "Angry": 1,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 1,
+        "Sad": 1,
+        "Surprise": 1,
+        "Neutral": 1
+      },
+      "Surprise": {
+        "Angry": 2,
+        "Disgust": 0,
+        "Fear": 4,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 3,
+        "Neutral": 1
+      },
+      "Neutral": {
+        "Angry": 7,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 14,
+        "Surprise": 0,
+        "Neutral": 14
+      }
+    }
+  }
+}

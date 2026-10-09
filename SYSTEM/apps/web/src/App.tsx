@@ -40,8 +40,20 @@ import {
 } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import ReactECharts from 'echarts-for-react'
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { api, Category, Customer, Order, Page, Product, runSimulation, Touchpoint } from './api'
+import { Navigate, Route, Routes, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import {
+  api,
+  Category,
+  Customer,
+  Order,
+  Page,
+  Product,
+  runSimulation,
+  SequenceAnalysisRun,
+  SequenceAssignment,
+  SequenceCluster,
+  Touchpoint
+} from './api'
 
 const { Header, Sider, Content } = Layout
 const money = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
@@ -209,7 +221,7 @@ function Dashboard() {
               <Typography.Text strong>Khoảng thời gian:</Typography.Text>
               <Select value={bucketMinutes} onChange={setBucketMinutes} options={[{ value: 5, label: '5 phút' }, { value: 15, label: '15 phút' }, { value: 30, label: '30 phút' }, { value: 60, label: '60 phút' }]} />
             </Flex>
-            <Alert type="info" showIcon message="Biểu đồ nhóm các quan sát trong cùng khu vực theo từng khoảng thời gian; dữ liệu hiện tại do dịch vụ mô phỏng tạo." className="dashboard-timeline-note" />
+            <Alert type="info" showIcon message="Biểu đồ nhóm các quan sát theo khu vực và thời gian; nguồn CAMERA hoặc SIMULATOR được lưu riêng trong từng bản ghi." className="dashboard-timeline-note" />
             {timeline.data?.length ? <ReactECharts option={timelineChart} style={{ height: 390 }} /> : <Empty description="Khu vực này chưa có quan sát hợp lệ" />}
           </>
         }
@@ -298,6 +310,7 @@ function Touchpoints() {
 }
 
 function Visits() {
+  const [searchParams] = useSearchParams()
   const [selected, setSelected] = useState<any>()
   const [selectedObservation, setSelectedObservation] = useState<any>()
   const [assignCustomerId, setAssignCustomerId] = useState<string>()
@@ -343,8 +356,15 @@ function Visits() {
     return false
   }
   useEffect(() => {
-    if (!selected && query.data?.length) setSelected(query.data[0])
-  }, [query.data, selected])
+    if (!query.data?.length) return
+    const requestedVisit = searchParams.get('visit_id')
+    if (requestedVisit && selected?.id !== requestedVisit) {
+      const match = query.data.find(row => row.id === requestedVisit)
+      if (match) setSelected(match)
+      return
+    }
+    if (!selected) setSelected(query.data[0])
+  }, [query.data, searchParams, selected])
   const observations = detail.data?.observations ?? []
   const ordersInVisit = detail.data?.orders ?? []
   const flagMap = Object.fromEntries((analysis.data?.observation_flags ?? []).map((row: any) => [row.observation_id, row.flags]))
@@ -371,7 +391,7 @@ function Visits() {
   const uniqueCustomers = new Set((query.data ?? []).map(row => row.customer_id)).size
   return <>
     <PageTitle title="Theo dõi quá trình mua sắm" description="Xem thứ tự khu vực, biểu cảm và đơn hàng trong từng lần mua sắm" action={<Button type="primary" loading={simulate.isPending} onClick={() => simulate.mutate()}>Tạo dữ liệu mô phỏng</Button>} />
-    <Alert showIcon type="info" className="result-alert" message="Dữ liệu mô phỏng được đánh dấu riêng" description="Nhãn biểu cảm do dịch vụ mô phỏng tạo để trình diễn luồng hệ thống, không phải kết quả đánh giá mô hình nhận dạng." />
+    <Alert showIcon type="info" className="result-alert" message="Nguồn dữ liệu được đánh dấu riêng" description="Quan sát Camera đi qua dịch vụ thị giác; quan sát Simulator chỉ dùng để trình diễn luồng và không được xem là kết quả đánh giá mô hình." />
     {simulationResult && <Alert closable onClose={() => setSimulationResult(undefined)} type="success" className="result-alert" message={`Lần chạy ${simulationResult.run_id}`} description={`100 khách hàng, ${simulationResult.visit_count} lần mua sắm, ${simulationResult.observation_count} quan sát và ${simulationResult.order_count} đơn hàng.`} />}
     <Row gutter={[16, 16]} className="stat-row">
       <Col span={8}><Card><Statistic title="Khách hàng có dữ liệu" value={uniqueCustomers} /></Card></Col>
@@ -412,7 +432,209 @@ function Visits() {
   </>
 }
 
+function ExpressionSequence({ sequence }: { sequence: string[] }) {
+  if (!sequence?.length) return <Typography.Text type="secondary">Không có chuỗi</Typography.Text>
+  return <Flex gap={5} wrap="wrap" align="center" className="sequence-strip">
+    {sequence.map((label, index) => <span className="sequence-state" key={`${label}-${index}`}>
+      {index > 0 && <span className="sequence-arrow">→</span>}
+      <Tag color={expressionColors[label] ?? 'default'}>{label}</Tag>
+    </span>)}
+  </Flex>
+}
+
+function SequenceAnalysisPanel() {
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
+  const { message } = AntApp.useApp()
+  const [form] = Form.useForm()
+  const [selectedRunId, setSelectedRunId] = useState<string>()
+  const [clusterFilter, setClusterFilter] = useState<number>()
+  const runs = useQuery({
+    queryKey: ['sequence-analyses'],
+    queryFn: () => api<SequenceAnalysisRun[]>('/sequence-analyses')
+  })
+  useEffect(() => {
+    if (!selectedRunId && runs.data?.length) setSelectedRunId(runs.data[0].id)
+  }, [runs.data, selectedRunId])
+  const run = useQuery({
+    queryKey: ['sequence-analysis', selectedRunId],
+    enabled: Boolean(selectedRunId),
+    queryFn: () => api<SequenceAnalysisRun>(`/sequence-analyses/${selectedRunId}`)
+  })
+  const clusters = useQuery({
+    queryKey: ['sequence-clusters', selectedRunId],
+    enabled: Boolean(selectedRunId && run.data?.status === 'COMPLETED'),
+    queryFn: () => api<SequenceCluster[]>(`/sequence-analyses/${selectedRunId}/clusters`)
+  })
+  const assignments = useQuery({
+    queryKey: ['sequence-assignments', selectedRunId, clusterFilter],
+    enabled: Boolean(selectedRunId && run.data?.status === 'COMPLETED'),
+    queryFn: () => api<Page<SequenceAssignment>>(`/sequence-analyses/${selectedRunId}/assignments?page_size=200${clusterFilter ? `&cluster_id=${clusterFilter}` : ''}`)
+  })
+  const create = useMutation({
+    mutationFn: (values: any) => api<SequenceAnalysisRun>('/sequence-analyses', {
+      method: 'POST',
+      body: JSON.stringify({ ...values, k_max: values.k_max || undefined })
+    }),
+    onSuccess: result => {
+      setSelectedRunId(result.id)
+      setClusterFilter(undefined)
+      queryClient.invalidateQueries({ queryKey: ['sequence-analyses'] })
+      queryClient.setQueryData(['sequence-analysis', result.id], result)
+      message.success(`Đã phân cụm ${result.used_visit_count} chuỗi thành ${result.selected_k} cụm`)
+    },
+    onError: (error: Error) => message.error(error.message)
+  })
+  const renameCluster = useMutation({
+    mutationFn: ({ clusterId, displayName }: { clusterId: number; displayName?: string }) =>
+      api<SequenceCluster>(`/sequence-analyses/${selectedRunId}/clusters/${clusterId}`, {
+        method: 'PATCH', body: JSON.stringify({ display_name: displayName || null })
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['sequence-clusters', selectedRunId] })
+      message.success('Đã lưu tên diễn giải của cụm')
+    },
+    onError: (error: Error) => message.error(error.message)
+  })
+  const aswChart = useMemo(() => ({
+    tooltip: { trigger: 'axis' },
+    grid: { top: 30, left: 52, right: 24, bottom: 48 },
+    xAxis: { type: 'category', name: 'Số cụm K', data: (run.data?.candidate_metrics ?? []).map(row => `K=${row.k}`) },
+    yAxis: { type: 'value', name: 'ASW', min: -1, max: 1 },
+    series: [{
+      type: 'line',
+      smooth: false,
+      symbolSize: 11,
+      data: (run.data?.candidate_metrics ?? []).map(row => ({
+        value: row.asw,
+        itemStyle: { color: row.accepted ? (row.k === run.data?.selected_k ? '#0f766e' : '#64748b') : '#dc2626' },
+        label: { show: row.k === run.data?.selected_k, position: 'top', formatter: 'Được chọn' }
+      }))
+    }]
+  }), [run.data])
+  const statusColor: Record<string, string> = { COMPLETED: 'green', RUNNING: 'blue', FAILED: 'red' }
+  const runOptions = (runs.data ?? []).map(item => ({
+    value: item.id,
+    label: `${new Date(item.created_at).toLocaleString('vi-VN')} · ${item.source_type}/${item.source_run_id} · ${item.status}`
+  }))
+  const clusterOptions = (clusters.data ?? []).map(item => ({
+    value: item.cluster_id,
+    label: item.display_name || `Cụm ${item.cluster_id}`
+  }))
+  return <Space direction="vertical" size={16} className="full-width">
+    <Alert
+      showIcon
+      type="info"
+      message="Đầu ra là các kiểu diễn biến biểu cảm tương tự"
+      description="Hệ thống dùng nhãn biểu cảm dự đoán theo thứ tự điểm chạm, tính khoảng cách Optimal Matching rồi dùng PAM để tạo cụm. Mỗi cụm có một medoid là chuỗi thật đại diện. Cụm không tự động có nghĩa là hài lòng hoặc không hài lòng; tên diễn giải phải dựa trên chuỗi đại diện và dữ liệu đối chứng nếu có."
+    />
+    <Card title="Tạo lần phân tích">
+      <Form form={form} layout="vertical" initialValues={{ source_type: 'CAMERA', min_states: 3, min_cluster_size_abs: 2, min_cluster_ratio: 0.05, k_min: 2, asw_tolerance: 0.02, random_state: 42 }} onFinish={create.mutate}>
+        <Row gutter={16}>
+          <Col xs={24} md={6}><Form.Item name="source_type" label="Nguồn dữ liệu" rules={[{ required: true }]}><Select options={[{ value: 'CAMERA', label: 'Camera/KDEF' }, { value: 'SIMULATOR', label: 'Mô phỏng có kiểm soát' }]} /></Form.Item></Col>
+          <Col xs={24} md={10}><Form.Item name="source_run_id" label="Mã lần phát dữ liệu" rules={[{ required: true, message: 'Nhập mã lần phát dữ liệu' }]}><Input placeholder="Ví dụ: kdef-20261008-..." /></Form.Item></Col>
+          <Col xs={12} md={4}><Form.Item name="k_max" label="K tối đa (tùy chọn)"><InputNumber min={2} className="full-width" /></Form.Item></Col>
+          <Col xs={12} md={4}><Form.Item label=" "><Button block type="primary" htmlType="submit" loading={create.isPending}>Chạy phân tích</Button></Form.Item></Col>
+        </Row>
+      </Form>
+    </Card>
+    <Card title="Kết quả đã lưu">
+      <Select
+        className="sequence-run-select"
+        placeholder="Chọn một lần phân tích"
+        loading={runs.isLoading}
+        value={selectedRunId}
+        options={runOptions}
+        onChange={value => { setSelectedRunId(value); setClusterFilter(undefined) }}
+      />
+      {runs.isError && <Alert className="result-alert" type="error" showIcon message="Không tải được lịch sử phân tích" description={(runs.error as Error).message} />}
+      {!runs.isLoading && !runs.data?.length && <Empty description="Chưa có lần phân tích nào" />}
+    </Card>
+    {run.isError && <Alert type="error" showIcon message="Không tải được kết quả" description={(run.error as Error).message} />}
+    {run.data && <>
+      <Flex gap={8} wrap="wrap" align="center">
+        <Tag color={statusColor[run.data.status]}>{run.data.status}</Tag>
+        <Typography.Text type="secondary">Nguồn: {run.data.source_type} / {run.data.source_run_id}</Typography.Text>
+        <Typography.Text type="secondary">Thuật toán: {run.data.algorithm_version}</Typography.Text>
+      </Flex>
+      {run.data.status === 'FAILED' && <Alert type="error" showIcon message="Lần phân tích thất bại" description={run.data.error_detail} />}
+      {run.data.status === 'COMPLETED' && <>
+        <Row gutter={[16, 16]}>
+          <Col xs={12} lg={6}><Card><Statistic title="Chuỗi hợp lệ" value={run.data.used_visit_count} /></Card></Col>
+          <Col xs={12} lg={6}><Card><Statistic title="Chuỗi bị loại" value={run.data.excluded_visit_count} /></Card></Col>
+          <Col xs={12} lg={6}><Card><Statistic title="Số cụm được chọn" value={run.data.selected_k ?? '—'} prefix="K=" /></Card></Col>
+          <Col xs={12} lg={6}><Card><Statistic title="Average Silhouette Width" value={run.data.average_silhouette_width ?? 0} precision={3} /></Card></Col>
+        </Row>
+        <Card title="Chọn số cụm bằng Average Silhouette Width" extra={<Typography.Text type="secondary">Điểm cao hơn cho thấy các chuỗi gần cụm của mình hơn các cụm khác</Typography.Text>}>
+          {(run.data.candidate_metrics ?? []).length ? <ReactECharts option={aswChart} style={{ height: 330 }} /> : <Empty description="Không có phương án K" />}
+          <Table
+            size="small"
+            pagination={false}
+            rowKey="k"
+            dataSource={run.data.candidate_metrics}
+            columns={[
+              { title: 'K', dataIndex: 'k' },
+              { title: 'ASW', render: (_, row) => Number(row.asw).toFixed(3) },
+              { title: 'Cụm nhỏ nhất', dataIndex: 'min_cluster_size' },
+              { title: 'Ngưỡng tối thiểu', dataIndex: 'required_min_cluster_size' },
+              { title: 'Hợp lệ', render: (_, row) => <Tag color={row.accepted ? 'green' : 'red'}>{row.accepted ? 'Có' : 'Không'}</Tag> },
+              { title: 'Quyết định', render: (_, row) => row.k === run.data?.selected_k ? <Tag color="cyan">Được chọn</Tag> : '—' }
+            ]}
+          />
+        </Card>
+        <section className="cluster-summary-section">
+          <Typography.Title level={4} className="section-title">Cụm và chuỗi đại diện (medoid)</Typography.Title>
+          <Row gutter={[16, 16]}>
+            {(clusters.data ?? []).map(cluster => <Col xs={24} lg={12} key={cluster.id}>
+            <Card
+              className={clusterFilter === cluster.cluster_id ? 'cluster-card cluster-card-selected' : 'cluster-card'}
+              title={cluster.display_name || `Cụm ${cluster.cluster_id}`}
+              extra={<Button type="link" onClick={() => setClusterFilter(cluster.cluster_id)}>Xem {cluster.size} chuỗi</Button>}
+            >
+              <ExpressionSequence sequence={cluster.medoid_sequence} />
+              <Descriptions size="small" column={2} className="cluster-metrics" items={[
+                { key: 'size', label: 'Số chuỗi', children: cluster.size },
+                { key: 'proportion', label: 'Tỷ lệ', children: `${(cluster.proportion * 100).toFixed(1)}%` },
+                { key: 'silhouette', label: 'Silhouette TB', children: cluster.mean_silhouette.toFixed(3) },
+                { key: 'distance', label: 'Khoảng cách trung vị', children: cluster.median_distance.toFixed(3) }
+              ]} />
+              <Form layout="inline" className="cluster-name-form" initialValues={{ displayName: cluster.display_name ?? '' }} onFinish={({ displayName }) => renameCluster.mutate({ clusterId: cluster.cluster_id, displayName })}>
+                <Form.Item name="displayName"><Input placeholder="Tên diễn giải sau khi xem medoid" /></Form.Item>
+                <Button htmlType="submit" loading={renameCluster.isPending}>Lưu tên</Button>
+              </Form>
+            </Card>
+            </Col>)}
+          </Row>
+        </section>
+        <Card
+          title="Các lượt mua sắm trong cụm"
+          extra={<Space><Select allowClear placeholder="Tất cả cụm" value={clusterFilter} options={clusterOptions} onChange={setClusterFilter} className="cluster-filter" /><Button disabled={!clusterFilter} onClick={() => setClusterFilter(undefined)}>Bỏ lọc</Button></Space>}
+        >
+          <Table
+            rowKey="id"
+            loading={assignments.isLoading}
+            dataSource={assignments.data?.items}
+            pagination={{ pageSize: 10 }}
+            scroll={{ x: 900 }}
+            columns={[
+              { title: 'Khách hàng', render: (_, row) => row.customer ? `${row.customer.customer_code} — ${row.customer.full_name}` : '—' },
+              { title: 'Thời gian', render: (_, row) => row.visit_started_at ? new Date(row.visit_started_at).toLocaleString('vi-VN') : '—' },
+              { title: 'Chuỗi dự đoán', width: 390, render: (_, row) => <ExpressionSequence sequence={row.sequence} /> },
+              { title: 'Cụm', render: (_, row) => clusterOptions.find(item => item.value === row.cluster_id)?.label ?? `Cụm ${row.cluster_id}` },
+              { title: 'Khoảng cách tới medoid', render: (_, row) => row.distance_to_medoid.toFixed(3) },
+              { title: 'Silhouette', render: (_, row) => row.silhouette.toFixed(3) },
+              { title: '', fixed: 'right', render: (_, row) => <Button type="link" onClick={() => navigate(`/visits?visit_id=${row.visit_id}`)}>Xem hành trình</Button> }
+            ]}
+          />
+        </Card>
+        {!!run.data.warnings?.length && <Alert type="warning" showIcon message="Cảnh báo tiền xử lý" description={<ul>{run.data.warnings.map((warning, index) => <li key={index}>{warning}</li>)}</ul>} />}
+      </>}
+    </>}
+  </Space>
+}
+
 function Reports() {
+  const [activeTab, setActiveTab] = useState('distribution')
   const [touchpointId, setTouchpointId] = useState<string>()
   const [customerScope, setCustomerScope] = useState('all')
   const [timeRange, setTimeRange] = useState<any>(null)
@@ -442,10 +664,11 @@ function Reports() {
   }, [changes.data, touchpoints.data])
   const qualityChart = useMemo(() => ({ tooltip: { trigger: 'item' }, legend: { bottom: 0 }, series: [{ type: 'pie', radius: ['38%', '70%'], data: (quality.data?.statuses ?? []).map((row: any) => ({ name: `${row.image_status} / ${row.expression_status}`, value: row.count })) }] }), [quality.data])
   const reportFilters = <Card size="small" className="report-filter-card"><Flex gap={12} wrap="wrap" align="center"><strong>Phạm vi:</strong><Select allowClear placeholder="Tất cả khu vực" value={touchpointId} onChange={setTouchpointId} options={touchpoints.data?.map(row => ({ value: row.id, label: row.name }))} className="report-area-select" /><DatePicker.RangePicker showTime onChange={setTimeRange} /><Select value={customerScope} onChange={setCustomerScope} options={[{ value: 'all', label: 'Tất cả quan sát' }, { value: 'registered', label: 'Khách hàng đã xác định' }, { value: 'unidentified', label: 'Chưa xác định khách hàng' }]} /></Flex></Card>
-  return <><PageTitle title="Phân tích biểu cảm" description="Thống kê bảy nhãn biểu cảm theo khu vực và theo trình tự mua sắm" />{reportFilters}<Tabs items={[
+  return <><PageTitle title="Phân tích biểu cảm" description="Thống kê bảy nhãn biểu cảm theo khu vực và phân cụm chuỗi theo hành trình" />{activeTab !== 'sequence' && reportFilters}<Tabs activeKey={activeTab} onChange={setActiveTab} items={[
     { key: 'distribution', label: 'Phân bố tại khu vực', children: <><Card title="Số quan sát theo khu vực và nhãn"><ReactECharts option={distributionChart} style={{ height: 430 }} /></Card><Card className="table-card"><Table rowKey={row => `${row.touchpoint_id}-${row.label}`} dataSource={distribution.data} columns={[{ title: 'Khu vực', dataIndex: 'touchpoint_name' }, { title: 'Nhãn', dataIndex: 'label' }, { title: 'Số quan sát', dataIndex: 'count' }, { title: 'Tỷ lệ trong khu vực', render: (_, row) => `${(row.percentage * 100).toFixed(1)}%` }]} /></Card></> },
     { key: 'changes', label: 'Thay đổi giữa các khu vực', children: <><Card size="small" className="change-method"><Space><strong>Cách chọn bản ghi đại diện khi có nhiều ảnh liên tiếp tại cùng khu vực:</strong><Select value={representative} onChange={setRepresentative} options={[{ value: 'highest_confidence', label: 'Mức tin cậy cao nhất' }, { value: 'first', label: 'Bản ghi đầu tiên' }, { value: 'last', label: 'Bản ghi cuối cùng' }]} /></Space></Card><Card title="Luồng thay đổi nhãn giữa hai khu vực liên tiếp"><ReactECharts option={changeChart} style={{ height: 520 }} /></Card><Card className="table-card"><Table rowKey={(_, index) => String(index)} dataSource={changes.data} columns={[{ title: 'Khu vực trước', render: (_, row) => touchpointNames[row.from_touchpoint_id] ?? row.from_touchpoint_id }, { title: 'Khu vực sau', render: (_, row) => touchpointNames[row.to_touchpoint_id] ?? row.to_touchpoint_id }, { title: 'Nhãn trước', dataIndex: 'from_label' }, { title: 'Nhãn sau', dataIndex: 'to_label' }, { title: 'Số lần', dataIndex: 'count' }, { title: 'Tỷ lệ trong cặp khu vực', render: (_, row) => `${(row.percentage * 100).toFixed(1)}%` }]} /></Card></> },
-    { key: 'quality', label: 'Chất lượng dữ liệu', children: <><Row gutter={[16, 16]} className="quality-stat-row"><Col span={6}><Card><Statistic title="Khung hình / khuôn mặt" value={`${quality.data?.summary?.capture_events ?? 0} / ${quality.data?.summary?.observations ?? 0}`} /></Card></Col><Col span={6}><Card><Statistic title="Khung hình đến chậm" value={quality.data?.summary?.late_arrivals ?? 0} /></Card></Col><Col span={6}><Card><Statistic title="Xung đột thời gian" value={quality.data?.summary?.time_conflicts ?? 0} /></Card></Col><Col span={6}><Card><Statistic title="Khu vực bị thiếu" value={quality.data?.summary?.missing_touchpoints ?? 0} /></Card></Col></Row><Row gutter={16}><Col span={14}><Card title="Tỷ lệ trạng thái xử lý"><ReactECharts option={qualityChart} style={{ height: 410 }} /></Card></Col><Col span={10}><Space direction="vertical" className="full-width"><Card title="Chi tiết trạng thái"><Table pagination={false} rowKey={(_, index) => String(index)} dataSource={quality.data?.statuses} columns={[{ title: 'Ảnh', dataIndex: 'image_status' }, { title: 'Biểu cảm', dataIndex: 'expression_status' }, { title: 'Danh tính', dataIndex: 'identity_status' }, { title: 'Số sự kiện/quan sát', dataIndex: 'count' }]} /></Card><Card title="Yêu cầu đầu vào không hợp lệ"><Table pagination={false} rowKey="issue_code" dataSource={quality.data?.ingestion_issues} columns={[{ title: 'Lỗi', dataIndex: 'issue_code' }, { title: 'Số yêu cầu', dataIndex: 'count' }]} /></Card></Space></Col></Row></> }
+    { key: 'quality', label: 'Chất lượng dữ liệu', children: <><Row gutter={[16, 16]} className="quality-stat-row"><Col xs={12} lg={6}><Card><Statistic title="Khung hình / khuôn mặt" value={`${quality.data?.summary?.capture_events ?? 0} / ${quality.data?.summary?.observations ?? 0}`} /></Card></Col><Col xs={12} lg={6}><Card><Statistic title="Khung hình đến chậm" value={quality.data?.summary?.late_arrivals ?? 0} /></Card></Col><Col xs={12} lg={6}><Card><Statistic title="Xung đột thời gian" value={quality.data?.summary?.time_conflicts ?? 0} /></Card></Col><Col xs={12} lg={6}><Card><Statistic title="Khu vực bị thiếu" value={quality.data?.summary?.missing_touchpoints ?? 0} /></Card></Col></Row><Row gutter={[16, 16]}><Col xs={24} xl={14}><Card title="Tỷ lệ trạng thái xử lý"><ReactECharts option={qualityChart} style={{ height: 410 }} /></Card></Col><Col xs={24} xl={10}><Space direction="vertical" className="full-width"><Card title="Chi tiết trạng thái"><Table pagination={false} rowKey={(_, index) => String(index)} dataSource={quality.data?.statuses} columns={[{ title: 'Ảnh', dataIndex: 'image_status' }, { title: 'Biểu cảm', dataIndex: 'expression_status' }, { title: 'Danh tính', dataIndex: 'identity_status' }, { title: 'Số sự kiện/quan sát', dataIndex: 'count' }]} /></Card><Card title="Yêu cầu đầu vào không hợp lệ"><Table pagination={false} rowKey="issue_code" dataSource={quality.data?.ingestion_issues} columns={[{ title: 'Lỗi', dataIndex: 'issue_code' }, { title: 'Số yêu cầu', dataIndex: 'count' }]} /></Card></Space></Col></Row></> },
+    { key: 'sequence', label: 'Phân cụm chuỗi', children: <SequenceAnalysisPanel /> }
   ]} /></>
 }
 

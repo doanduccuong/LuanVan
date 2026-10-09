@@ -11,7 +11,9 @@ import httpx
 
 
 SYSTEM_ROOT = Path(__file__).resolve().parents[1]
-DATASET_ROOT = SYSTEM_ROOT / "fixtures" / "demo_dataset"
+DATASET_ROOT = Path(
+    os.getenv("DEMO_DATASET_ROOT", str(SYSTEM_ROOT / "data" / "generated" / "kdef_demo"))
+).expanduser().resolve()
 ARTIFACT_ROOT = SYSTEM_ROOT / "artifacts"
 API_URL = os.getenv("API_URL", "http://localhost:8000/api/v1")
 VISION_URL = os.getenv("VISION_URL", "http://localhost:8001")

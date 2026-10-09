@@ -1,0 +1,4 @@
+k,asw,min_cluster_size,max_cluster_size,required_min_cluster_size,accepted
+2,0.6142084695576099,25,100,7,True
+3,0.8247527517420842,25,75,7,True
+4,1.0,25,50,7,True

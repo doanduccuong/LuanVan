@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0.0",
+  "ports": {
+    "web_dev": 5173,
+    "web_compose": 8080,
+    "api": 8000,
+    "vision": 8001,
+    "simulator": 8002,
+    "postgres": 5432
+  },
+  "web_routes": [
+    "/login",
+    "/dashboard",
+    "/customers",
+    "/faces",
+    "/products",
+    "/orders",
+    "/touchpoints",
+    "/visits",
+    "/reports"
+  ],
+  "api_route_groups": {
+    "health": ["GET /health/live", "GET /health/ready"],
+    "auth": ["POST /api/v1/auth/login", "POST /api/v1/auth/logout", "GET /api/v1/auth/me"],
+    "customers": [
+      "GET /api/v1/customers",
+      "POST /api/v1/customers",
+      "GET /api/v1/customers/{customer_id}",
+      "PATCH /api/v1/customers/{customer_id}",
+      "PUT /api/v1/customers/{customer_id}/face-consent",
+      "POST /api/v1/customers/{customer_id}/face-templates",
+      "GET /api/v1/customers/{customer_id}/face-templates",
+      "DELETE /api/v1/customers/{customer_id}/face-templates/{template_id}",
+      "POST /api/v1/customers/search-by-face"
+    ],
+    "catalog": [
+      "GET/POST /api/v1/product-categories",
+      "PATCH /api/v1/product-categories/{category_id}",
+      "GET/POST /api/v1/products",
+      "GET/PATCH /api/v1/products/{product_id}",
+      "GET/POST /api/v1/touchpoints",
+      "GET/PATCH /api/v1/touchpoints/{touchpoint_id}"
+    ],
+    "orders": [
+      "GET/POST /api/v1/orders",
+      "GET /api/v1/customers/{customer_id}/orders",
+      "GET/PATCH /api/v1/orders/{order_id}"
+    ],
+    "observations": [
+      "POST /api/v1/observations",
+      "POST /api/v1/simulation/observations/batch",
+      "GET /api/v1/observations",
+      "PATCH /api/v1/observations/{observation_id}/customer",
+      "GET /api/v1/observations/{observation_id}/revisions",
+      "POST /api/v1/observations/{observation_id}/reprocess"
+    ],
+    "visits": [
+      "GET /api/v1/visits",
+      "GET /api/v1/visits/{visit_id}",
+      "POST /api/v1/visits/{visit_id}/close",
+      "GET /api/v1/visits/{visit_id}/analysis"
+    ],
+    "sequence_analysis": [
+      "POST/GET /api/v1/sequence-analyses",
+      "GET /api/v1/sequence-analyses/{run_id}",
+      "GET /api/v1/sequence-analyses/{run_id}/clusters",
+      "PATCH /api/v1/sequence-analyses/{run_id}/clusters/{cluster_id}",
+      "GET /api/v1/sequence-analyses/{run_id}/assignments"
+    ],
+    "reports": [
+      "GET /api/v1/reports/expression-distribution",
+      "GET /api/v1/reports/expression-timeline",
+      "GET /api/v1/reports/data-quality",
+      "GET /api/v1/reports/data-quality-summary",
+      "GET /api/v1/reports/expression-changes"
+    ],
+    "vision_internal": ["POST /internal/v1/analyze-face"],
+    "simulator": ["POST /api/v1/runs"]
+  },
+  "environment_keys": [
+    "APP_ENV",
+    "DATABASE_URL",
+    "JWT_SIGNING_KEY",
+    "COOKIE_SECURE",
+    "INITIAL_USER_EMAIL",
+    "INITIAL_USER_PASSWORD",
+    "VISION_BASE_URL",
+    "VISION_REQUEST_TIMEOUT_SECONDS",
+    "MAX_UPLOAD_BYTES",
+    "FACE_THRESHOLD_ARTIFACT_PATH",
+    "VISIT_IDLE_TIMEOUT_SECONDS",
+    "LATE_EVENT_TOLERANCE_SECONDS",
+    "SYSTEM_TIMEZONE",
+    "VISION_BACKEND",
+    "INSTALL_MODEL_DEPS",
+    "DETECTOR_CONFIDENCE_THRESHOLD",
+    "RETINAFACE_VENDOR_PATH",
+    "RETINAFACE_WEIGHTS_PATH",
+    "DEVICE"
+  ],
+  "make_targets": [
+    "install",
+    "test",
+    "build-web",
+    "run-api",
+    "run-vision",
+    "run-simulator",
+    "demo-prepare",
+    "demo-prepare-fairface",
+    "demo-calibrate",
+    "demo-reset",
+    "demo-seed",
+    "demo-simulate",
+    "demo-sequence-experiment",
+    "demo-enroll",
+    "demo-replay",
+    "demo-analyze",
+    "demo-verify",
+    "demo-evidence",
+    "demo-sequence-evidence"
+  ],
+  "current_demo_credentials": {
+    "email": "manager@example.com",
+    "password": "demo1234",
+    "warning": "Chỉ dùng phát triển/demo; phải thay trước production."
+  }
+}

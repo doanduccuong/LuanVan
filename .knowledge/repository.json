@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "root": ".",
+  "modules": [
+    {
+      "path": "SYSTEM",
+      "role": "Hệ thống CRM tích hợp đang chạy và artifact bằng chứng",
+      "authority": "primary"
+    },
+    {
+      "path": "COMPARE_FACE_DETECTION",
+      "role": "Benchmark Haar Cascade, MTCNN và RetinaFace trên WIDER FACE",
+      "authority": "primary_for_detection_experiment"
+    },
+    {
+      "path": "COMPARE_FACIAL_EXPRESSION",
+      "role": "Benchmark LBP-SVM và các CNN Emotion trên FER-2013",
+      "authority": "primary_for_expression_experiment"
+    },
+    {
+      "path": "TRAIN_DEEPFACE_EMOTION",
+      "role": "Fine-tune CNN Emotion và lưu checkpoint",
+      "authority": "primary_for_finetuning"
+    },
+    {
+      "path": "BAO CAO",
+      "role": "Luận văn LaTeX, bibliography, hình và PDF build",
+      "authority": "narrative"
+    },
+    {
+      "path": "SYSTEM_DEVELOPMENT",
+      "role": "Đặc tả, kế hoạch triển khai và kịch bản demo nền",
+      "authority": "planning"
+    },
+    {
+      "path": "PROPOSED_METHOD",
+      "role": "Đặc tả phương pháp cũ, không dùng làm chuẩn triển khai CRM hiện tại",
+      "authority": "historical"
+    },
+    {
+      "path": "DATASETS",
+      "role": "Placeholder dữ liệu; hiện trống",
+      "authority": "none"
+    }
+  ],
+  "root_documents": [
+    {
+      "path": "KE_HOACH_KIEM_THU_HE_THONG.md",
+      "role": "Kế hoạch kiểm thử tổng thể theo nhóm A-G"
+    },
+    {
+      "path": "KE_HOACH_THUC_NGHIEM_PHAN_LOAI_BIEU_CAM.md",
+      "role": "Kế hoạch benchmark FER"
+    },
+    {
+      "path": "KE_HOACH_TRIEN_KHAI_STATE_SEQUENCE_CLUSTERING.md",
+      "role": "Kế hoạch và tiêu chí bàn giao sequence clustering"
+    },
+    {
+      "path": "NGHIEN_CUU_XU_LY_CHUOI_BIEU_CAM_THEO_THOI_GIAN.md",
+      "role": "Khảo sát các hướng phân tích chuỗi"
+    },
+    {
+      "path": "TAI_LIEU_THUC_NGHIEM_PHAN_LOAI_BIEU_CAM.md",
+      "role": "Hướng dẫn tái lập benchmark FER"
+    },
+    {
+      "path": "TAI_LIEU_THUC_NGHIEM_PHAT_HIEN_KHUON_MAT.md",
+      "role": "Hướng dẫn tái lập benchmark detector"
+    },
+    {
+      "path": "HUONG_DAN_LATEX.md",
+      "role": "Hướng dẫn build báo cáo"
+    }
+  ],
+  "generated_or_non_authoritative": [
+    "tmp",
+    "output",
+    "**/.venv",
+    "**/.pytest_cache",
+    "**/__pycache__",
+    "BAO CAO/*.aux",
+    "BAO CAO/*.log",
+    "BAO CAO/*.toc",
+    "BAO CAO/*.lof",
+    "BAO CAO/*.lot",
+    "BAO CAO/*.out",
+    "BAO CAO/*.synctex.gz"
+  ],
+  "large_binary_areas": [
+    "COMPARE_FACE_DETECTION/data",
+    "COMPARE_FACE_DETECTION/vendor",
+    "COMPARE_FACE_DETECTION/weights",
+    "COMPARE_FACIAL_EXPRESSION/data",
+    "COMPARE_FACIAL_EXPRESSION/results",
+    "TRAIN_DEEPFACE_EMOTION/artifacts",
+    "SYSTEM/artifacts"
+  ],
+  "inventory_snapshot": {
+    "python_source_files": 91,
+    "typescript_tsx_main_files": 4,
+    "markdown_documents": 21,
+    "latex_sources": 22,
+    "pdf_files_excluding_tmp_output": 12,
+    "note": "Số lượng là snapshot tại ngày tạo knowledge base và có thể thay đổi."
+  },
+  "git_state": {
+    "latest_commit_observed": "ccba77e",
+    "latest_commit_date_observed": "2026-10-04",
+    "working_tree": "Có nhiều thay đổi và artifact ngày 08/10/2026 chưa được commit; phải kiểm tra git status trước mọi thao tác.",
+    "preservation_rule": "Không ghi đè, reset hoặc xóa thay đổi không thuộc tác vụ."
+  }
+}

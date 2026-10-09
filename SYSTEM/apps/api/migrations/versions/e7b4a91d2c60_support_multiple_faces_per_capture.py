@@ -62,20 +62,20 @@ def upgrade() -> None:
         """
     )
     op.execute("UPDATE observations SET capture_event_id = id, face_index = 0")
-    op.alter_column("observations", "capture_event_id", existing_type=sa.String(length=36), nullable=False)
-    op.alter_column("observations", "face_index", existing_type=sa.Integer(), nullable=False)
-    op.create_foreign_key(
-        "fk_observations_capture_event_id",
-        "observations",
-        "capture_events",
-        ["capture_event_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
-    op.create_index(op.f("ix_observations_capture_event_id"), "observations", ["capture_event_id"], unique=False)
-    op.drop_index(op.f("ix_observations_event_id"), table_name="observations")
-    op.create_index(op.f("ix_observations_event_id"), "observations", ["event_id"], unique=False)
-    op.create_unique_constraint("uq_observation_event_face", "observations", ["event_id", "face_index"])
+    with op.batch_alter_table("observations") as batch_op:
+        batch_op.alter_column("capture_event_id", existing_type=sa.String(length=36), nullable=False)
+        batch_op.alter_column("face_index", existing_type=sa.Integer(), nullable=False)
+        batch_op.create_foreign_key(
+            "fk_observations_capture_event_id",
+            "capture_events",
+            ["capture_event_id"],
+            ["id"],
+            ondelete="CASCADE",
+        )
+        batch_op.create_index(op.f("ix_observations_capture_event_id"), ["capture_event_id"], unique=False)
+        batch_op.drop_index(op.f("ix_observations_event_id"))
+        batch_op.create_index(op.f("ix_observations_event_id"), ["event_id"], unique=False)
+        batch_op.create_unique_constraint("uq_observation_event_face", ["event_id", "face_index"])
 
 
 def downgrade() -> None:

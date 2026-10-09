@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import itertools
+import json
 import math
+import statistics
 from datetime import datetime, timezone
 
 import httpx
@@ -29,6 +31,8 @@ def analyze(path):
 
 def main() -> None:
     root = DATASET_ROOT / "calibration"
+    manifest_path = DATASET_ROOT / "kdef_demo_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else {}
     embeddings: dict[str, list[list[float]]] = {}
     model_version = None
     for subject_dir in sorted(path for path in root.iterdir() if path.is_dir()):
@@ -48,22 +52,49 @@ def main() -> None:
     for threshold in candidates:
         true_positive_rate = sum(value <= threshold for value in positives) / len(positives)
         true_negative_rate = sum(value > threshold for value in negatives) / len(negatives)
-        score = (true_positive_rate + true_negative_rate) / 2
-        candidate = (score, -threshold, threshold, true_positive_rate, true_negative_rate)
+        # Sai ghép khách nguy hiểm hơn bỏ sót trong luồng CRM. Ưu tiên tuyệt đối
+        # ngưỡng không tạo false match trên tập calibration dành riêng, sau đó
+        # tối đa hóa TPR và chọn ngưỡng lớn hơn nếu các chỉ số bằng nhau.
+        candidate = (
+            true_negative_rate == 1.0,
+            true_positive_rate,
+            true_negative_rate,
+            threshold,
+        )
         if best is None or candidate > best:
             best = candidate
     assert best is not None
     artifact = {
-        "version": f"fairface-operational-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}",
-        "threshold": best[2],
-        "selection_rule": "maximum balanced accuracy; ties choose the smaller threshold",
-        "true_positive_rate": best[3],
-        "true_negative_rate": best[4],
+        "version": f"kdef-kaggle-operational-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}",
+        "threshold": best[3],
+        "selection_rule": (
+            "require zero false matches on reserved calibration pairs; "
+            "then maximize true-positive rate and choose the largest tied threshold"
+        ),
+        "true_positive_rate": best[1],
+        "true_negative_rate": best[2],
         "positive_pairs": len(positives),
         "negative_pairs": len(negatives),
         "subjects": sorted(embeddings),
         "embedding_model": model_version,
-        "scope": "operational validation with transformed FairFace images; not a recognition-accuracy claim",
+        "source_distribution": manifest.get("distribution"),
+        "source_url": manifest.get("distribution_url"),
+        "experiment_run_id": manifest.get("experiment_run_id"),
+        "calibration_images": sum(len(vectors) for vectors in embeddings.values()),
+        "positive_distance_summary": {
+            "min": min(positives),
+            "median": statistics.median(positives),
+            "max": max(positives),
+        },
+        "negative_distance_summary": {
+            "min": min(negatives),
+            "median": statistics.median(negatives),
+            "max": max(negatives),
+        },
+        "scope": (
+            "operational threshold calibrated on reserved KDEF-Kaggle images; "
+            "calibration files are excluded from replay and this is not a population-level accuracy claim"
+        ),
     }
     save_json(ARTIFACT_ROOT / "face-threshold.json", artifact)
     print(f"Đã tạo ngưỡng đối sánh cho thực nghiệm vận hành: {artifact['threshold']:.6f}")

@@ -1,0 +1,88 @@
+{
+  "capturedAt": "2026-10-08T08:30:29.072Z",
+  "baseUrl": "http://127.0.0.1:8080",
+  "sourceRunId": "SIM-CONTROLLED-20261008-LIVE",
+  "sourceType": "SIMULATOR",
+  "analysisRunId": "4d64362a-1119-423c-b343-f73e7e5785de",
+  "selectedK": 5,
+  "averageSilhouetteWidth": 1,
+  "usedVisitCount": 125,
+  "trace": {
+    "clusterCount": 5,
+    "assignmentCount": 125,
+    "assignment": {
+      "id": "67103d4e-7595-487f-8870-c7a040c61730",
+      "run_id": "4d64362a-1119-423c-b343-f73e7e5785de",
+      "visit_id": "0609931f-6f90-489d-8a20-5a82ce667979",
+      "cluster_id": 1,
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "05f669fa-8648-4962-ab9c-81c4d6095861",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-23T06:40:00",
+          "ended_at": "2026-10-23T06:40:00",
+          "observation_ids": [
+            "dd572fb5-561e-477e-a662-06507defcbbd"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.864
+        },
+        {
+          "touchpoint_id": "ba113515-80a7-4314-b080-736b556b6e22",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-23T06:45:00",
+          "ended_at": "2026-10-23T06:45:00",
+          "observation_ids": [
+            "ca65c9e9-e4f7-4036-8fa2-369100ec9e1d"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.883
+        },
+        {
+          "touchpoint_id": "a13861ef-e806-4307-9c9f-b21beb35c58e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-23T06:50:00",
+          "ended_at": "2026-10-23T06:50:00",
+          "observation_ids": [
+            "9e5ffe81-c308-486b-980a-1169c3df22ce"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.969
+        },
+        {
+          "touchpoint_id": "6ed7f47d-104a-4249-bce9-a924c5eccb6d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-23T06:55:00",
+          "ended_at": "2026-10-23T06:55:00",
+          "observation_ids": [
+            "d782cfae-76e5-4f2c-ab52-d8e814106831"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.881
+        }
+      ],
+      "distance_to_medoid": 0,
+      "silhouette": 1,
+      "visit_started_at": "2026-10-23T06:40:00",
+      "customer": {
+        "id": "69bf4034-45f5-4639-a030-22ec192aee45",
+        "customer_code": "CUS-EXP-015",
+        "full_name": "Khách hàng thực nghiệm 015"
+      }
+    },
+    "observationCount": 4
+  },
+  "screenshots": [
+    "E07_E08_sequence_run_overview.png",
+    "E09_cluster_medoids.png",
+    "E10_cluster_assignments.png",
+    "E11_assignment_visit_trace.png",
+    "E12_sequence_api_docs.png"
+  ]
+}

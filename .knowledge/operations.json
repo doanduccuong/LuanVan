@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "local_development": {
+    "working_directory": "SYSTEM",
+    "commands": [
+      "make install",
+      "make run-vision",
+      "make run-api",
+      "cd apps/web && npm run dev"
+    ],
+    "default_web_url": "http://localhost:5173",
+    "database_note": "API local có thể dùng SQLite tại SYSTEM/apps/api/touchpoint_crm.db."
+  },
+  "docker_compose": {
+    "working_directory": "SYSTEM",
+    "preparation": [
+      "Sao chép .env.example thành .env.",
+      "Đổi JWT_SIGNING_KEY và credential.",
+      "Kiểm tra đường dẫn RetinaFace weights/vendor và DeepFace cache."
+    ],
+    "command": "docker compose up --build",
+    "urls": {
+      "web": "http://localhost:8080",
+      "api": "http://localhost:8000",
+      "vision": "http://localhost:8001",
+      "simulator": "http://localhost:8002"
+    }
+  },
+  "tests": {
+    "all": "cd SYSTEM && make test",
+    "web_build": "cd SYSTEM && make build-web",
+    "recorded_status": "API 15/15, Vision 3/3, web build passed on 2026-10-08"
+  },
+  "kdef_demo_order": [
+    "make demo-prepare KDEF_ROOT=<path> CUSTOMER_COUNT=5 EXPERIMENT_RUN_ID=KDEF-KAGGLE-20261008-LIVE",
+    "docker compose up --build -d",
+    "make demo-reset",
+    "make demo-seed",
+    "make demo-enroll",
+    "make demo-calibrate",
+    "make demo-replay SPEED=0 MINIMUM_PASS_RATE=0.90",
+    "make demo-analyze EXPERIMENT_RUN_ID=KDEF-KAGGLE-20261008-LIVE",
+    "make demo-verify",
+    "node scripts/capture_kdef_live_demo.mjs",
+    "node scripts/capture_sequence_analysis.mjs",
+    "node scripts/capture_system_status.mjs"
+  ],
+  "controlled_sequence_commands": [
+    "make demo-sequence-experiment SIMULATION_RUN_ID=SIM-CONTROLLED-20261008 SEED=20261008",
+    "make demo-sequence-evidence SOURCE_RUN_ID=SIM-CONTROLLED-20261008 SOURCE_TYPE=SIMULATOR EXPECTED_USED_VISITS=125 EXPECTED_K=5"
+  ],
+  "artifact_convention": {
+    "root": "SYSTEM/artifacts/experiment-runs/<RUN_ID>",
+    "expected_types": [
+      "manifest/config snapshot",
+      "environment",
+      "prediction/result JSONL",
+      "metrics JSON",
+      "tables CSV/Markdown",
+      "distance matrix và checksum",
+      "cluster/assignment JSON",
+      "verification JSON",
+      "screenshots và capture manifest"
+    ],
+    "immutability_rules": [
+      "Không xóa lỗi/NO_MATCH khỏi kết quả.",
+      "Không thay nhãn dự đoán bằng nhãn nguồn.",
+      "Không sửa artifact thủ công để cải thiện kết quả.",
+      "Không dùng screenshot nếu manifest không xác nhận đúng run/source/count."
+    ]
+  },
+  "latex": {
+    "project_root": "BAO CAO",
+    "main_file": "BAO CAO/LuanVan.tex",
+    "current_pdf": "BAO CAO/LuanVan.pdf",
+    "instructions": "HUONG_DAN_LATEX.md",
+    "editing_rule": "Sửa .tex/.bib, không sửa PDF hoặc file build trung gian."
+  },
+  "safe_change_rules": [
+    "Kiểm tra git status trước khi sửa.",
+    "Không reset hoặc xóa thay đổi người dùng.",
+    "Không commit dataset, virtualenv, cache hoặc model artifact ngoài chủ đích.",
+    "Nếu đổi API/schema phải cập nhật migration, test, web client, docs và knowledge.",
+    "Nếu đổi model/threshold phải tạo run ID và artifact mới; không ghi đè lần chạy đã khóa."
+  ]
+}

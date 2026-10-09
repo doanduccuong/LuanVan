@@ -187,6 +187,7 @@ class CaptureEvent(Base):
     detector_version: Mapped[str | None] = mapped_column(String(255), nullable=True)
     source_type: Mapped[str] = mapped_column(String(32), default="CAMERA", index=True)
     simulation_run_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
+    experiment_run_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
     demo_data: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
@@ -221,6 +222,7 @@ class Observation(Base):
     recognition_model_version: Mapped[str | None] = mapped_column(String(255), nullable=True)
     source_type: Mapped[str] = mapped_column(String(32), default="CAMERA", index=True)
     simulation_run_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
+    experiment_run_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
     demo_data: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
@@ -304,3 +306,70 @@ class AuditLog(Base):
     request_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
     details: Mapped[dict] = mapped_column(JSON, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class SequenceAnalysisRun(Base):
+    __tablename__ = "sequence_analysis_runs"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    source_type: Mapped[str] = mapped_column(String(32), index=True)
+    source_run_id: Mapped[str] = mapped_column(String(64), index=True)
+    status: Mapped[str] = mapped_column(String(32), default="RUNNING", index=True)
+    preprocessing_version: Mapped[str] = mapped_column(String(64))
+    algorithm_version: Mapped[str] = mapped_column(String(128))
+    parameters: Mapped[dict] = mapped_column(JSON, default=dict)
+    candidate_metrics: Mapped[list] = mapped_column(JSON, default=list)
+    warnings: Mapped[list] = mapped_column(JSON, default=list)
+    received_visit_count: Mapped[int] = mapped_column(Integer, default=0)
+    used_visit_count: Mapped[int] = mapped_column(Integer, default=0)
+    excluded_visit_count: Mapped[int] = mapped_column(Integer, default=0)
+    selected_k: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    average_silhouette_width: Mapped[float | None] = mapped_column(nullable=True)
+    distance_matrix_sha256: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    error_detail: Mapped[str | None] = mapped_column(String(1024), nullable=True)
+    created_by: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    clusters: Mapped[list[SequenceClusterSummary]] = relationship(
+        back_populates="run", cascade="all, delete-orphan"
+    )
+    assignments: Mapped[list[SequenceClusterAssignment]] = relationship(
+        back_populates="run", cascade="all, delete-orphan"
+    )
+
+
+class SequenceClusterSummary(Base):
+    __tablename__ = "sequence_cluster_summaries"
+    __table_args__ = (UniqueConstraint("run_id", "cluster_id", name="uq_sequence_cluster_run_cluster"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    run_id: Mapped[str] = mapped_column(ForeignKey("sequence_analysis_runs.id", ondelete="CASCADE"), index=True)
+    cluster_id: Mapped[int] = mapped_column(Integer)
+    medoid_visit_id: Mapped[str] = mapped_column(ForeignKey("visits.id"), index=True)
+    medoid_sequence: Mapped[list] = mapped_column(JSON)
+    size: Mapped[int] = mapped_column(Integer)
+    proportion: Mapped[float] = mapped_column()
+    mean_silhouette: Mapped[float] = mapped_column()
+    median_distance: Mapped[float] = mapped_column()
+    display_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+
+    run: Mapped[SequenceAnalysisRun] = relationship(back_populates="clusters")
+    medoid_visit: Mapped[Visit] = relationship()
+
+
+class SequenceClusterAssignment(Base):
+    __tablename__ = "sequence_cluster_assignments"
+    __table_args__ = (UniqueConstraint("run_id", "visit_id", name="uq_sequence_assignment_run_visit"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    run_id: Mapped[str] = mapped_column(ForeignKey("sequence_analysis_runs.id", ondelete="CASCADE"), index=True)
+    visit_id: Mapped[str] = mapped_column(ForeignKey("visits.id"), index=True)
+    cluster_id: Mapped[int] = mapped_column(Integer, index=True)
+    sequence: Mapped[list] = mapped_column(JSON)
+    sequence_metadata: Mapped[list] = mapped_column(JSON, default=list)
+    distance_to_medoid: Mapped[float] = mapped_column()
+    silhouette: Mapped[float] = mapped_column()
+
+    run: Mapped[SequenceAnalysisRun] = relationship(back_populates="assignments")
+    visit: Mapped[Visit] = relationship()

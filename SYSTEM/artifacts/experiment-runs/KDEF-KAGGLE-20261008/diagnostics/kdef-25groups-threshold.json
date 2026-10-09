@@ -1,0 +1,52 @@
+{
+  "version": "kdef-kaggle-operational-20261008T151532Z",
+  "threshold": 0.6542230536385143,
+  "selection_rule": "maximum balanced accuracy; ties choose the smaller threshold",
+  "true_positive_rate": 0.9219047619047619,
+  "true_negative_rate": 0.9585034013605442,
+  "positive_pairs": 525,
+  "negative_pairs": 14700,
+  "subjects": [
+    "KG003",
+    "KG007",
+    "KG011",
+    "KG022",
+    "KG024",
+    "KG028",
+    "KG030",
+    "KG031",
+    "KG036",
+    "KG039",
+    "KG046",
+    "KG051",
+    "KG054",
+    "KG055",
+    "KG057",
+    "KG061",
+    "KG070",
+    "KG071",
+    "KG074",
+    "KG079",
+    "KG104",
+    "KG105",
+    "KG112",
+    "KG119",
+    "KG138"
+  ],
+  "embedding_model": "deepface-arcface:configured-checksum",
+  "source_distribution": "Processed KDEF mirror on Kaggle",
+  "source_url": "https://www.kaggle.com/datasets/chenrich/kdef-database",
+  "experiment_run_id": "KDEF-KAGGLE-20261008",
+  "calibration_images": 175,
+  "positive_distance_summary": {
+    "min": 0.08156424687547847,
+    "median": 0.39853878940666676,
+    "max": 0.7879467695873442
+  },
+  "negative_distance_summary": {
+    "min": 0.05177000491654926,
+    "median": 0.8710227958312704,
+    "max": 1.2063389074207382
+  },
+  "scope": "operational threshold calibrated on reserved KDEF-Kaggle images; calibration files are excluded from replay and this is not a population-level accuracy claim"
+}

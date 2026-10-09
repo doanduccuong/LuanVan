@@ -23,7 +23,13 @@ def upgrade() -> None:
     op.add_column("observations", sa.Column("simulation_run_id", sa.String(length=64), nullable=True))
     op.create_index(op.f("ix_observations_source_type"), "observations", ["source_type"], unique=False)
     op.create_index(op.f("ix_observations_simulation_run_id"), "observations", ["simulation_run_id"], unique=False)
-    op.alter_column("observations", "source_type", server_default=None)
+    with op.batch_alter_table("observations") as batch_op:
+        batch_op.alter_column(
+            "source_type",
+            existing_type=sa.String(length=32),
+            existing_nullable=False,
+            server_default=None,
+        )
 
 
 def downgrade() -> None:

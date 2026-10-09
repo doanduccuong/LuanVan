@@ -1,0 +1,2417 @@
+{
+  "simulation_run_id": "SIM-CONTROLLED-20261008-LIVE",
+  "analysis_run_id": "4d64362a-1119-423c-b343-f73e7e5785de",
+  "seed": 20261008,
+  "customer_count": 25,
+  "visit_count": 125,
+  "observation_count": 500,
+  "archetypes": {
+    "archetype_01": [
+      "Neutral",
+      "Neutral",
+      "Neutral",
+      "Neutral"
+    ],
+    "archetype_02": [
+      "Happy",
+      "Happy",
+      "Happy",
+      "Happy"
+    ],
+    "archetype_03": [
+      "Neutral",
+      "Surprise",
+      "Happy",
+      "Happy"
+    ],
+    "archetype_04": [
+      "Neutral",
+      "Sad",
+      "Angry",
+      "Angry"
+    ],
+    "archetype_05": [
+      "Happy",
+      "Neutral",
+      "Surprise",
+      "Happy"
+    ]
+  },
+  "visits": [
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_01",
+      "customer_id": "a73df8bd-a7eb-40f6-ad9c-1d53420601af",
+      "customer_code": "CUS-EXP-001",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_01-E04"
+      ],
+      "visit_id": "d9d4eea3-8595-4c5e-b624-9403cfebb1f7"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_02",
+      "customer_id": "a73df8bd-a7eb-40f6-ad9c-1d53420601af",
+      "customer_code": "CUS-EXP-001",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_02-E04"
+      ],
+      "visit_id": "998242c4-f141-4763-a70d-1cf0274a5a78"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_03",
+      "customer_id": "a73df8bd-a7eb-40f6-ad9c-1d53420601af",
+      "customer_code": "CUS-EXP-001",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_03-E04"
+      ],
+      "visit_id": "51557d69-a8b8-45a9-a0d3-3d26befdb188"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_04",
+      "customer_id": "a73df8bd-a7eb-40f6-ad9c-1d53420601af",
+      "customer_code": "CUS-EXP-001",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_04-E04"
+      ],
+      "visit_id": "5a24790d-012b-4cd4-8575-a61b7b4d8c6e"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_05",
+      "customer_id": "a73df8bd-a7eb-40f6-ad9c-1d53420601af",
+      "customer_code": "CUS-EXP-001",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-001-archetype_05-E04"
+      ],
+      "visit_id": "e091e155-e29f-41e4-9a2f-7be788ff1bf6"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_01",
+      "customer_id": "41a036dd-3fb4-4559-8059-03de0bcd14a1",
+      "customer_code": "CUS-EXP-002",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_01-E04"
+      ],
+      "visit_id": "bf7e8834-9801-4726-8b9d-c7e04bc9f16c"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_02",
+      "customer_id": "41a036dd-3fb4-4559-8059-03de0bcd14a1",
+      "customer_code": "CUS-EXP-002",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_02-E04"
+      ],
+      "visit_id": "159c8a43-0c30-4e06-85f0-c076a4bc0919"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_03",
+      "customer_id": "41a036dd-3fb4-4559-8059-03de0bcd14a1",
+      "customer_code": "CUS-EXP-002",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_03-E04"
+      ],
+      "visit_id": "0b23cb60-8aa5-4d98-b7ef-ec7d3d736c5a"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_04",
+      "customer_id": "41a036dd-3fb4-4559-8059-03de0bcd14a1",
+      "customer_code": "CUS-EXP-002",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_04-E04"
+      ],
+      "visit_id": "51e38f72-a7c4-4e9d-b551-3d2273930bc1"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_05",
+      "customer_id": "41a036dd-3fb4-4559-8059-03de0bcd14a1",
+      "customer_code": "CUS-EXP-002",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-002-archetype_05-E04"
+      ],
+      "visit_id": "bc3a4bd6-2116-4dc7-8462-e0b752fc35b9"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_01",
+      "customer_id": "c55030b7-d455-46b7-bd28-57db53c23968",
+      "customer_code": "CUS-EXP-003",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_01-E04"
+      ],
+      "visit_id": "61fa38b4-188e-4b70-a388-810199f77be4"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_02",
+      "customer_id": "c55030b7-d455-46b7-bd28-57db53c23968",
+      "customer_code": "CUS-EXP-003",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_02-E04"
+      ],
+      "visit_id": "480db6c4-2dfe-467d-ae49-f7c93d17c355"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_03",
+      "customer_id": "c55030b7-d455-46b7-bd28-57db53c23968",
+      "customer_code": "CUS-EXP-003",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_03-E04"
+      ],
+      "visit_id": "c37d808c-f3bf-44ef-97c4-9c45fd0ef679"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_04",
+      "customer_id": "c55030b7-d455-46b7-bd28-57db53c23968",
+      "customer_code": "CUS-EXP-003",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_04-E04"
+      ],
+      "visit_id": "a55c3348-84ee-4c0a-94f6-6b7101d5ae21"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_05",
+      "customer_id": "c55030b7-d455-46b7-bd28-57db53c23968",
+      "customer_code": "CUS-EXP-003",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-003-archetype_05-E04"
+      ],
+      "visit_id": "af3db60b-1b21-4d9b-bcf4-0ea61fc14f8e"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_01",
+      "customer_id": "a194a0a3-2f84-4f2a-810a-4c94935f97e2",
+      "customer_code": "CUS-EXP-004",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_01-E04"
+      ],
+      "visit_id": "7b08a146-ff0d-4980-9b24-dd0225d9a09c"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_02",
+      "customer_id": "a194a0a3-2f84-4f2a-810a-4c94935f97e2",
+      "customer_code": "CUS-EXP-004",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_02-E04"
+      ],
+      "visit_id": "b7eb52ce-4a54-4682-a473-dc87abcb136e"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_03",
+      "customer_id": "a194a0a3-2f84-4f2a-810a-4c94935f97e2",
+      "customer_code": "CUS-EXP-004",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_03-E04"
+      ],
+      "visit_id": "c76d0f2a-b9e2-4056-9211-19f36c06b186"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_04",
+      "customer_id": "a194a0a3-2f84-4f2a-810a-4c94935f97e2",
+      "customer_code": "CUS-EXP-004",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_04-E04"
+      ],
+      "visit_id": "ea127e3d-c509-4909-a3a8-49c9b6161d14"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_05",
+      "customer_id": "a194a0a3-2f84-4f2a-810a-4c94935f97e2",
+      "customer_code": "CUS-EXP-004",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-004-archetype_05-E04"
+      ],
+      "visit_id": "6b7754df-ec81-4815-9d08-224767fddb9b"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_01",
+      "customer_id": "285a641c-f5ae-4b89-a8a9-c5030bfa2547",
+      "customer_code": "CUS-EXP-005",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_01-E04"
+      ],
+      "visit_id": "642f5b6c-948b-4bcb-a6bf-bd28afd271da"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_02",
+      "customer_id": "285a641c-f5ae-4b89-a8a9-c5030bfa2547",
+      "customer_code": "CUS-EXP-005",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_02-E04"
+      ],
+      "visit_id": "9ad42dfc-f807-4e9f-a348-1335c1d264f3"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_03",
+      "customer_id": "285a641c-f5ae-4b89-a8a9-c5030bfa2547",
+      "customer_code": "CUS-EXP-005",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_03-E04"
+      ],
+      "visit_id": "92e0e657-91ba-4e83-bfef-3b2532037f92"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_04",
+      "customer_id": "285a641c-f5ae-4b89-a8a9-c5030bfa2547",
+      "customer_code": "CUS-EXP-005",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_04-E04"
+      ],
+      "visit_id": "6abed6bc-550e-4cc5-bbb4-e43c9912d091"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_05",
+      "customer_id": "285a641c-f5ae-4b89-a8a9-c5030bfa2547",
+      "customer_code": "CUS-EXP-005",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-005-archetype_05-E04"
+      ],
+      "visit_id": "15712355-12eb-413f-b1d5-0e5fdc7ef776"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_01",
+      "customer_id": "72bddb92-5afd-4581-b91f-02ecef395719",
+      "customer_code": "CUS-EXP-006",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_01-E04"
+      ],
+      "visit_id": "35d5d7f8-5538-41b1-b34a-05c195ccc41e"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_02",
+      "customer_id": "72bddb92-5afd-4581-b91f-02ecef395719",
+      "customer_code": "CUS-EXP-006",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_02-E04"
+      ],
+      "visit_id": "97ad5631-2274-4aaa-b393-8cc289527fdd"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_03",
+      "customer_id": "72bddb92-5afd-4581-b91f-02ecef395719",
+      "customer_code": "CUS-EXP-006",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_03-E04"
+      ],
+      "visit_id": "fe507624-d497-4300-af81-df667fef0c4d"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_04",
+      "customer_id": "72bddb92-5afd-4581-b91f-02ecef395719",
+      "customer_code": "CUS-EXP-006",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_04-E04"
+      ],
+      "visit_id": "7cfd478d-07bd-47d6-8dca-e3b20bd8163c"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_05",
+      "customer_id": "72bddb92-5afd-4581-b91f-02ecef395719",
+      "customer_code": "CUS-EXP-006",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-006-archetype_05-E04"
+      ],
+      "visit_id": "ec9e7c0d-46f8-4c0c-a9e0-f7d0f304c60f"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_01",
+      "customer_id": "314f7956-780c-4b99-8e2f-c6535d46187d",
+      "customer_code": "CUS-EXP-007",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_01-E04"
+      ],
+      "visit_id": "77140d7a-bbcf-4be9-a5c5-b65740a40f5c"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_02",
+      "customer_id": "314f7956-780c-4b99-8e2f-c6535d46187d",
+      "customer_code": "CUS-EXP-007",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_02-E04"
+      ],
+      "visit_id": "1d339529-01f3-4653-ba28-5d91602004ca"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_03",
+      "customer_id": "314f7956-780c-4b99-8e2f-c6535d46187d",
+      "customer_code": "CUS-EXP-007",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_03-E04"
+      ],
+      "visit_id": "75b4e204-634f-4250-ab1a-5fa57b193935"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_04",
+      "customer_id": "314f7956-780c-4b99-8e2f-c6535d46187d",
+      "customer_code": "CUS-EXP-007",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_04-E04"
+      ],
+      "visit_id": "0cad3785-761e-4cb0-830e-a90df0c6a60a"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_05",
+      "customer_id": "314f7956-780c-4b99-8e2f-c6535d46187d",
+      "customer_code": "CUS-EXP-007",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-007-archetype_05-E04"
+      ],
+      "visit_id": "45f92165-3d26-4f94-a161-6e420d6723ae"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_01",
+      "customer_id": "01c98059-1539-4826-9b10-7cae79fc3bdd",
+      "customer_code": "CUS-EXP-008",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_01-E04"
+      ],
+      "visit_id": "17ac90bb-dd41-4865-b218-a14f7a4bcfc3"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_02",
+      "customer_id": "01c98059-1539-4826-9b10-7cae79fc3bdd",
+      "customer_code": "CUS-EXP-008",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_02-E04"
+      ],
+      "visit_id": "417bf5d1-5ff3-4a13-a0ce-c285f19cbda8"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_03",
+      "customer_id": "01c98059-1539-4826-9b10-7cae79fc3bdd",
+      "customer_code": "CUS-EXP-008",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_03-E04"
+      ],
+      "visit_id": "37e916f0-69e1-4acb-9b43-b17c620f1042"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_04",
+      "customer_id": "01c98059-1539-4826-9b10-7cae79fc3bdd",
+      "customer_code": "CUS-EXP-008",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_04-E04"
+      ],
+      "visit_id": "e8fd9b67-95ac-48a4-8f67-0cc5422cd99d"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_05",
+      "customer_id": "01c98059-1539-4826-9b10-7cae79fc3bdd",
+      "customer_code": "CUS-EXP-008",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-008-archetype_05-E04"
+      ],
+      "visit_id": "39929203-a489-434f-9a74-86114e960649"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_01",
+      "customer_id": "7ecc9d99-60ea-48f9-a056-328b4d97b7d5",
+      "customer_code": "CUS-EXP-009",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_01-E04"
+      ],
+      "visit_id": "1072da6d-88e9-4992-afff-0e695fb24d61"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_02",
+      "customer_id": "7ecc9d99-60ea-48f9-a056-328b4d97b7d5",
+      "customer_code": "CUS-EXP-009",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_02-E04"
+      ],
+      "visit_id": "6dc32d4e-4d32-48d3-b12e-36e79fd1db8b"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_03",
+      "customer_id": "7ecc9d99-60ea-48f9-a056-328b4d97b7d5",
+      "customer_code": "CUS-EXP-009",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_03-E04"
+      ],
+      "visit_id": "84fe4972-8fcc-4686-a87c-34c239121023"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_04",
+      "customer_id": "7ecc9d99-60ea-48f9-a056-328b4d97b7d5",
+      "customer_code": "CUS-EXP-009",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_04-E04"
+      ],
+      "visit_id": "9925d8b5-d151-42f5-8abf-5f4e25abb810"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_05",
+      "customer_id": "7ecc9d99-60ea-48f9-a056-328b4d97b7d5",
+      "customer_code": "CUS-EXP-009",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-009-archetype_05-E04"
+      ],
+      "visit_id": "3ea29caf-67b9-4436-b189-a0e3837dc38e"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_01",
+      "customer_id": "010f019f-0528-4804-9861-4dc143131ae6",
+      "customer_code": "CUS-EXP-010",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_01-E04"
+      ],
+      "visit_id": "dd4adc91-3ba2-4e2a-ac7d-6a7a43b840d2"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_02",
+      "customer_id": "010f019f-0528-4804-9861-4dc143131ae6",
+      "customer_code": "CUS-EXP-010",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_02-E04"
+      ],
+      "visit_id": "a935000f-618f-4db1-a35d-385ea65e6355"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_03",
+      "customer_id": "010f019f-0528-4804-9861-4dc143131ae6",
+      "customer_code": "CUS-EXP-010",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_03-E04"
+      ],
+      "visit_id": "0675abd1-ada0-4a33-ae10-6f14b99d324d"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_04",
+      "customer_id": "010f019f-0528-4804-9861-4dc143131ae6",
+      "customer_code": "CUS-EXP-010",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_04-E04"
+      ],
+      "visit_id": "7a7eaa0a-a92e-4bb0-a7ef-0a8e89d830ea"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_05",
+      "customer_id": "010f019f-0528-4804-9861-4dc143131ae6",
+      "customer_code": "CUS-EXP-010",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-010-archetype_05-E04"
+      ],
+      "visit_id": "281a950d-1c4f-4126-9016-9cbf75d14060"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_01",
+      "customer_id": "d51a3361-cae6-44c1-b633-1958d789184c",
+      "customer_code": "CUS-EXP-011",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_01-E04"
+      ],
+      "visit_id": "94170b17-2afd-455b-9961-2cb1e9c6e443"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_02",
+      "customer_id": "d51a3361-cae6-44c1-b633-1958d789184c",
+      "customer_code": "CUS-EXP-011",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_02-E04"
+      ],
+      "visit_id": "07374ed5-5d51-4edb-85e8-63aa5dcad588"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_03",
+      "customer_id": "d51a3361-cae6-44c1-b633-1958d789184c",
+      "customer_code": "CUS-EXP-011",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_03-E04"
+      ],
+      "visit_id": "50d8e860-1800-476f-ba7b-754c595cb273"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_04",
+      "customer_id": "d51a3361-cae6-44c1-b633-1958d789184c",
+      "customer_code": "CUS-EXP-011",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_04-E04"
+      ],
+      "visit_id": "721211bc-3a40-45a9-a024-7ed3bad8a48b"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_05",
+      "customer_id": "d51a3361-cae6-44c1-b633-1958d789184c",
+      "customer_code": "CUS-EXP-011",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-011-archetype_05-E04"
+      ],
+      "visit_id": "00324798-bee9-4746-820a-00ae29afac1f"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_01",
+      "customer_id": "e836eb44-2993-41c4-b6a4-c336654e1a8a",
+      "customer_code": "CUS-EXP-012",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_01-E04"
+      ],
+      "visit_id": "6a316f47-669c-4bbf-8203-ddf8049dcaf4"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_02",
+      "customer_id": "e836eb44-2993-41c4-b6a4-c336654e1a8a",
+      "customer_code": "CUS-EXP-012",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_02-E04"
+      ],
+      "visit_id": "ff9f8f96-007f-48b5-bac3-e562fbac4fd2"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_03",
+      "customer_id": "e836eb44-2993-41c4-b6a4-c336654e1a8a",
+      "customer_code": "CUS-EXP-012",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_03-E04"
+      ],
+      "visit_id": "d2cbef34-a21d-47e9-8c55-0983789daba5"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_04",
+      "customer_id": "e836eb44-2993-41c4-b6a4-c336654e1a8a",
+      "customer_code": "CUS-EXP-012",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_04-E04"
+      ],
+      "visit_id": "a616b461-6c2b-467a-9156-ea108f475e4a"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_05",
+      "customer_id": "e836eb44-2993-41c4-b6a4-c336654e1a8a",
+      "customer_code": "CUS-EXP-012",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-012-archetype_05-E04"
+      ],
+      "visit_id": "98d779e6-9bc0-44f4-a950-654115c153cd"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_01",
+      "customer_id": "b0ee9881-bfc4-413e-abdd-b013be9fa79f",
+      "customer_code": "CUS-EXP-013",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_01-E04"
+      ],
+      "visit_id": "455d6aec-1c0e-4714-9fd1-9e12a73c61ca"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_02",
+      "customer_id": "b0ee9881-bfc4-413e-abdd-b013be9fa79f",
+      "customer_code": "CUS-EXP-013",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_02-E04"
+      ],
+      "visit_id": "8386277e-4a2f-4530-89eb-049b0fee73e7"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_03",
+      "customer_id": "b0ee9881-bfc4-413e-abdd-b013be9fa79f",
+      "customer_code": "CUS-EXP-013",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_03-E04"
+      ],
+      "visit_id": "f2a783da-0e82-4d1a-8bb3-d1c1fc70370d"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_04",
+      "customer_id": "b0ee9881-bfc4-413e-abdd-b013be9fa79f",
+      "customer_code": "CUS-EXP-013",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_04-E04"
+      ],
+      "visit_id": "b256fb0f-9d04-46e1-9879-a13828c3c6e4"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_05",
+      "customer_id": "b0ee9881-bfc4-413e-abdd-b013be9fa79f",
+      "customer_code": "CUS-EXP-013",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-013-archetype_05-E04"
+      ],
+      "visit_id": "0f8fc263-50c8-4a3e-972d-66c80983aef9"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_01",
+      "customer_id": "fe861ff6-787a-430f-9ac8-292a236ae979",
+      "customer_code": "CUS-EXP-014",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_01-E04"
+      ],
+      "visit_id": "7a668649-a933-4b65-ac1a-7236ee288f4f"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_02",
+      "customer_id": "fe861ff6-787a-430f-9ac8-292a236ae979",
+      "customer_code": "CUS-EXP-014",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_02-E04"
+      ],
+      "visit_id": "c88b6ed9-867b-4d10-bbe7-4f24f19bd85d"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_03",
+      "customer_id": "fe861ff6-787a-430f-9ac8-292a236ae979",
+      "customer_code": "CUS-EXP-014",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_03-E04"
+      ],
+      "visit_id": "1fc47ebb-ea7b-4b9e-b4b2-07dbdba58895"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_04",
+      "customer_id": "fe861ff6-787a-430f-9ac8-292a236ae979",
+      "customer_code": "CUS-EXP-014",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_04-E04"
+      ],
+      "visit_id": "07a8879a-89b2-47d8-ae2f-0d0a7fb65bd4"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_05",
+      "customer_id": "fe861ff6-787a-430f-9ac8-292a236ae979",
+      "customer_code": "CUS-EXP-014",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-014-archetype_05-E04"
+      ],
+      "visit_id": "84397384-ed35-481c-9f78-0b59ec389d81"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_01",
+      "customer_id": "69bf4034-45f5-4639-a030-22ec192aee45",
+      "customer_code": "CUS-EXP-015",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_01-E04"
+      ],
+      "visit_id": "2e2e6e11-3ea6-45f5-b235-ce3d2640e5b2"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_02",
+      "customer_id": "69bf4034-45f5-4639-a030-22ec192aee45",
+      "customer_code": "CUS-EXP-015",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_02-E04"
+      ],
+      "visit_id": "4233c580-7b07-47ed-823f-293816daec79"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_03",
+      "customer_id": "69bf4034-45f5-4639-a030-22ec192aee45",
+      "customer_code": "CUS-EXP-015",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_03-E04"
+      ],
+      "visit_id": "1eaf544f-195a-484d-93f6-e27d02929c56"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_04",
+      "customer_id": "69bf4034-45f5-4639-a030-22ec192aee45",
+      "customer_code": "CUS-EXP-015",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_04-E04"
+      ],
+      "visit_id": "0609931f-6f90-489d-8a20-5a82ce667979"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_05",
+      "customer_id": "69bf4034-45f5-4639-a030-22ec192aee45",
+      "customer_code": "CUS-EXP-015",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-015-archetype_05-E04"
+      ],
+      "visit_id": "3627cdfa-1ed9-48b7-96fb-fe48a1ccbd34"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_01",
+      "customer_id": "e8fe8116-bf10-4571-9bb5-bff9878f4dd1",
+      "customer_code": "CUS-EXP-016",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_01-E04"
+      ],
+      "visit_id": "dcd782c9-f6d3-4c6e-8766-54bb8e779bfb"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_02",
+      "customer_id": "e8fe8116-bf10-4571-9bb5-bff9878f4dd1",
+      "customer_code": "CUS-EXP-016",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_02-E04"
+      ],
+      "visit_id": "c2b9a3d5-d80a-4057-97db-adef4c6a632b"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_03",
+      "customer_id": "e8fe8116-bf10-4571-9bb5-bff9878f4dd1",
+      "customer_code": "CUS-EXP-016",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_03-E04"
+      ],
+      "visit_id": "b781a3ed-1efd-416e-8997-67047f4c3b5e"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_04",
+      "customer_id": "e8fe8116-bf10-4571-9bb5-bff9878f4dd1",
+      "customer_code": "CUS-EXP-016",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_04-E04"
+      ],
+      "visit_id": "ca1f3b9f-f4c8-4e49-96dd-084aea0523ff"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_05",
+      "customer_id": "e8fe8116-bf10-4571-9bb5-bff9878f4dd1",
+      "customer_code": "CUS-EXP-016",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-016-archetype_05-E04"
+      ],
+      "visit_id": "40801e51-f955-41b6-a183-0a664379194c"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_01",
+      "customer_id": "c89222ea-a46f-4ace-8a5c-537aee4f2ba9",
+      "customer_code": "CUS-EXP-017",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_01-E04"
+      ],
+      "visit_id": "fdfed50f-e276-4647-8e32-6d25570bde42"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_02",
+      "customer_id": "c89222ea-a46f-4ace-8a5c-537aee4f2ba9",
+      "customer_code": "CUS-EXP-017",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_02-E04"
+      ],
+      "visit_id": "a5859bb3-7314-447c-b837-f72a986b5853"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_03",
+      "customer_id": "c89222ea-a46f-4ace-8a5c-537aee4f2ba9",
+      "customer_code": "CUS-EXP-017",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_03-E04"
+      ],
+      "visit_id": "30fb758c-bb0e-4e7b-90bf-905c67c5d346"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_04",
+      "customer_id": "c89222ea-a46f-4ace-8a5c-537aee4f2ba9",
+      "customer_code": "CUS-EXP-017",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_04-E04"
+      ],
+      "visit_id": "91f7d9ff-fd0e-481e-903f-3f2def3593ee"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_05",
+      "customer_id": "c89222ea-a46f-4ace-8a5c-537aee4f2ba9",
+      "customer_code": "CUS-EXP-017",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-017-archetype_05-E04"
+      ],
+      "visit_id": "db250b5e-7c00-453c-9414-4334fbc49b83"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_01",
+      "customer_id": "2ab49025-03a0-40a4-a437-50ac3b11edb1",
+      "customer_code": "CUS-EXP-018",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_01-E04"
+      ],
+      "visit_id": "019e0048-67d2-43e2-b4c9-23e4ded8b78d"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_02",
+      "customer_id": "2ab49025-03a0-40a4-a437-50ac3b11edb1",
+      "customer_code": "CUS-EXP-018",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_02-E04"
+      ],
+      "visit_id": "f2290153-3032-4472-8f93-4ff90a0f7b2b"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_03",
+      "customer_id": "2ab49025-03a0-40a4-a437-50ac3b11edb1",
+      "customer_code": "CUS-EXP-018",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_03-E04"
+      ],
+      "visit_id": "eeb4882a-5cf6-4563-b37b-e9a35a1531b0"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_04",
+      "customer_id": "2ab49025-03a0-40a4-a437-50ac3b11edb1",
+      "customer_code": "CUS-EXP-018",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_04-E04"
+      ],
+      "visit_id": "2682173b-d6a4-487e-9383-e7564d15c996"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_05",
+      "customer_id": "2ab49025-03a0-40a4-a437-50ac3b11edb1",
+      "customer_code": "CUS-EXP-018",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-018-archetype_05-E04"
+      ],
+      "visit_id": "94cf0da1-379e-4239-bda0-67dc6fad6a0d"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_01",
+      "customer_id": "9f941427-0dcb-4e79-81e0-c1570e95fa57",
+      "customer_code": "CUS-EXP-019",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_01-E04"
+      ],
+      "visit_id": "6ea10072-35aa-44af-a73d-9f5758a7e03f"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_02",
+      "customer_id": "9f941427-0dcb-4e79-81e0-c1570e95fa57",
+      "customer_code": "CUS-EXP-019",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_02-E04"
+      ],
+      "visit_id": "15e3b784-22b7-4db0-a5df-86ca4914f29b"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_03",
+      "customer_id": "9f941427-0dcb-4e79-81e0-c1570e95fa57",
+      "customer_code": "CUS-EXP-019",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_03-E04"
+      ],
+      "visit_id": "d3b1f234-eb77-43d8-992d-4170fdbaa8c6"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_04",
+      "customer_id": "9f941427-0dcb-4e79-81e0-c1570e95fa57",
+      "customer_code": "CUS-EXP-019",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_04-E04"
+      ],
+      "visit_id": "5e00bbf1-46f8-47fe-987f-c82b35ea5d6d"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_05",
+      "customer_id": "9f941427-0dcb-4e79-81e0-c1570e95fa57",
+      "customer_code": "CUS-EXP-019",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-019-archetype_05-E04"
+      ],
+      "visit_id": "24670317-4914-43a0-a459-6c8004cb8b6a"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_01",
+      "customer_id": "9ae7356f-e2ae-4417-82ae-8afc5edcb0b9",
+      "customer_code": "CUS-EXP-020",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_01-E04"
+      ],
+      "visit_id": "b2692787-9c35-4ab3-8796-f82b4fa2ec94"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_02",
+      "customer_id": "9ae7356f-e2ae-4417-82ae-8afc5edcb0b9",
+      "customer_code": "CUS-EXP-020",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_02-E04"
+      ],
+      "visit_id": "3dc9b171-c9fb-44c3-9543-4ac695f74469"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_03",
+      "customer_id": "9ae7356f-e2ae-4417-82ae-8afc5edcb0b9",
+      "customer_code": "CUS-EXP-020",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_03-E04"
+      ],
+      "visit_id": "e7dfa77f-c220-4a07-bfb7-c46f4458f746"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_04",
+      "customer_id": "9ae7356f-e2ae-4417-82ae-8afc5edcb0b9",
+      "customer_code": "CUS-EXP-020",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_04-E04"
+      ],
+      "visit_id": "57aa6113-4ef5-4612-b9f6-800ee2a1b2e7"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_05",
+      "customer_id": "9ae7356f-e2ae-4417-82ae-8afc5edcb0b9",
+      "customer_code": "CUS-EXP-020",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-020-archetype_05-E04"
+      ],
+      "visit_id": "7b23e15c-a0b7-41ce-9f6b-8beecb111c9a"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_01",
+      "customer_id": "930e04f0-e69a-4a16-8c26-348a919c24f3",
+      "customer_code": "CUS-EXP-021",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_01-E04"
+      ],
+      "visit_id": "0dace9d7-63f3-4511-8a56-a7d34da42bf3"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_02",
+      "customer_id": "930e04f0-e69a-4a16-8c26-348a919c24f3",
+      "customer_code": "CUS-EXP-021",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_02-E04"
+      ],
+      "visit_id": "d9fd74a6-23c6-47cd-a6c4-b5ca6ee919ff"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_03",
+      "customer_id": "930e04f0-e69a-4a16-8c26-348a919c24f3",
+      "customer_code": "CUS-EXP-021",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_03-E04"
+      ],
+      "visit_id": "a31c324d-5c83-4241-afc0-6bc9591767ad"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_04",
+      "customer_id": "930e04f0-e69a-4a16-8c26-348a919c24f3",
+      "customer_code": "CUS-EXP-021",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_04-E04"
+      ],
+      "visit_id": "3fe67946-1b36-429f-be24-1fa64ecbb6e9"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_05",
+      "customer_id": "930e04f0-e69a-4a16-8c26-348a919c24f3",
+      "customer_code": "CUS-EXP-021",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-021-archetype_05-E04"
+      ],
+      "visit_id": "70938f47-3d6a-4998-9a5d-74ee9869d8f9"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_01",
+      "customer_id": "c85f3707-eac1-4c95-a318-b9153f77b178",
+      "customer_code": "CUS-EXP-022",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_01-E04"
+      ],
+      "visit_id": "33055aaa-3b64-4b7d-a95f-7ac318b2a40e"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_02",
+      "customer_id": "c85f3707-eac1-4c95-a318-b9153f77b178",
+      "customer_code": "CUS-EXP-022",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_02-E04"
+      ],
+      "visit_id": "323a9515-1590-486b-9ff8-6be51827b8d9"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_03",
+      "customer_id": "c85f3707-eac1-4c95-a318-b9153f77b178",
+      "customer_code": "CUS-EXP-022",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_03-E04"
+      ],
+      "visit_id": "a060b9b9-be40-4826-a874-4176d6721887"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_04",
+      "customer_id": "c85f3707-eac1-4c95-a318-b9153f77b178",
+      "customer_code": "CUS-EXP-022",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_04-E04"
+      ],
+      "visit_id": "07f3b3af-1e94-42a7-a556-369af8264c74"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_05",
+      "customer_id": "c85f3707-eac1-4c95-a318-b9153f77b178",
+      "customer_code": "CUS-EXP-022",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-022-archetype_05-E04"
+      ],
+      "visit_id": "ed549339-1468-47c8-b246-f8002db160b1"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_01",
+      "customer_id": "d7c7e7ae-0a9c-4742-afab-2223fa402342",
+      "customer_code": "CUS-EXP-023",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_01-E04"
+      ],
+      "visit_id": "a68b54a2-0f4e-44d7-935d-c8cdc8f9361e"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_02",
+      "customer_id": "d7c7e7ae-0a9c-4742-afab-2223fa402342",
+      "customer_code": "CUS-EXP-023",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_02-E04"
+      ],
+      "visit_id": "d7851873-e96f-4c25-b2b8-cccf929604a3"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_03",
+      "customer_id": "d7c7e7ae-0a9c-4742-afab-2223fa402342",
+      "customer_code": "CUS-EXP-023",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_03-E04"
+      ],
+      "visit_id": "f912f73d-ece7-4141-80e1-8f51886224db"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_04",
+      "customer_id": "d7c7e7ae-0a9c-4742-afab-2223fa402342",
+      "customer_code": "CUS-EXP-023",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_04-E04"
+      ],
+      "visit_id": "8dbc805a-4d8f-48a8-bcf0-6cec4e9d3aa4"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_05",
+      "customer_id": "d7c7e7ae-0a9c-4742-afab-2223fa402342",
+      "customer_code": "CUS-EXP-023",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-023-archetype_05-E04"
+      ],
+      "visit_id": "5abc44f0-d74b-412e-a45a-6c1e2c6fd3d4"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_01",
+      "customer_id": "12a2f3c6-d996-404b-8b02-d2d573ee859e",
+      "customer_code": "CUS-EXP-024",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_01-E04"
+      ],
+      "visit_id": "8da61ff9-d6ab-4981-a69c-1f95b0e7c07e"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_02",
+      "customer_id": "12a2f3c6-d996-404b-8b02-d2d573ee859e",
+      "customer_code": "CUS-EXP-024",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_02-E04"
+      ],
+      "visit_id": "5b17906b-7b2c-41f9-8d77-f8d9d0bb9681"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_03",
+      "customer_id": "12a2f3c6-d996-404b-8b02-d2d573ee859e",
+      "customer_code": "CUS-EXP-024",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_03-E04"
+      ],
+      "visit_id": "e1b155fc-9fbc-4080-b0c7-60e8d2438cc9"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_04",
+      "customer_id": "12a2f3c6-d996-404b-8b02-d2d573ee859e",
+      "customer_code": "CUS-EXP-024",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_04-E04"
+      ],
+      "visit_id": "24427187-a01c-4c9a-a07b-c41597509309"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_05",
+      "customer_id": "12a2f3c6-d996-404b-8b02-d2d573ee859e",
+      "customer_code": "CUS-EXP-024",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-024-archetype_05-E04"
+      ],
+      "visit_id": "0dd19112-3e42-4504-a6a9-f702934454cd"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_01",
+      "customer_id": "43ffdb32-a442-4f0b-a37f-9c1766161898",
+      "customer_code": "CUS-EXP-025",
+      "archetype_id": "archetype_01",
+      "sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_01-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_01-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_01-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_01-E04"
+      ],
+      "visit_id": "567fc983-e899-4322-bb09-f6d62d4e8426"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_02",
+      "customer_id": "43ffdb32-a442-4f0b-a37f-9c1766161898",
+      "customer_code": "CUS-EXP-025",
+      "archetype_id": "archetype_02",
+      "sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_02-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_02-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_02-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_02-E04"
+      ],
+      "visit_id": "ca09cc50-1efd-4cfe-bb3c-8cbfa67f2011"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_03",
+      "customer_id": "43ffdb32-a442-4f0b-a37f-9c1766161898",
+      "customer_code": "CUS-EXP-025",
+      "archetype_id": "archetype_03",
+      "sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_03-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_03-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_03-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_03-E04"
+      ],
+      "visit_id": "af0f225e-d946-49a1-abc7-5c3e403f36cc"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_04",
+      "customer_id": "43ffdb32-a442-4f0b-a37f-9c1766161898",
+      "customer_code": "CUS-EXP-025",
+      "archetype_id": "archetype_04",
+      "sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_04-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_04-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_04-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_04-E04"
+      ],
+      "visit_id": "5b225da6-39ec-49d7-b38d-55d3c58c5d45"
+    },
+    {
+      "visit_key": "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_05",
+      "customer_id": "43ffdb32-a442-4f0b-a37f-9c1766161898",
+      "customer_code": "CUS-EXP-025",
+      "archetype_id": "archetype_05",
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "event_ids": [
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_05-E01",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_05-E02",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_05-E03",
+        "SIM-CONTROLLED-20261008-LIVE-CUS-EXP-025-archetype_05-E04"
+      ],
+      "visit_id": "4a600164-5d25-47a1-b065-1c81f417dd89"
+    }
+  ]
+}

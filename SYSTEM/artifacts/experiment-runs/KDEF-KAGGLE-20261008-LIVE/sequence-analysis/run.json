@@ -1,0 +1,166 @@
+{
+  "captured_at": "2026-10-08T15:21:39.081094+00:00",
+  "request": {
+    "source_type": "CAMERA",
+    "source_run_id": "KDEF-KAGGLE-20261008-LIVE",
+    "min_states": 4,
+    "min_cluster_size_abs": 2,
+    "min_cluster_ratio": 0.05,
+    "k_max": null,
+    "random_state": 42
+  },
+  "result": {
+    "id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
+    "source_type": "CAMERA",
+    "source_run_id": "KDEF-KAGGLE-20261008-LIVE",
+    "status": "COMPLETED",
+    "preprocessing_version": "touchpoint-segments-v1",
+    "algorithm_version": "sequenzo-0.1.42:OM-CONSTANT2-INDEL1:PAM",
+    "parameters": {
+      "source_type": "CAMERA",
+      "source_run_id": "KDEF-KAGGLE-20261008-LIVE",
+      "min_states": 4,
+      "min_cluster_size_abs": 2,
+      "min_cluster_ratio": 0.05,
+      "k_min": 2,
+      "k_max": null,
+      "asw_tolerance": 0.02,
+      "random_state": 42,
+      "excluded_visits": [
+        {
+          "visit_id": "104f799f-f422-4bb6-89bd-b97427d9d9e7",
+          "reason": "INSUFFICIENT_STATES",
+          "actual_states": 3,
+          "required_states": 4
+        },
+        {
+          "visit_id": "67d4be1c-cbd2-44a4-b264-f1fe62a6080f",
+          "reason": "INSUFFICIENT_STATES",
+          "actual_states": 3,
+          "required_states": 4
+        },
+        {
+          "visit_id": "774a353f-dda7-4aea-a278-0df52d619477",
+          "reason": "INSUFFICIENT_STATES",
+          "actual_states": 2,
+          "required_states": 4
+        }
+      ]
+    },
+    "candidate_metrics": [
+      {
+        "k": 2,
+        "asw": 0.3130781909771534,
+        "min_cluster_size": 9,
+        "max_cluster_size": 13,
+        "required_min_cluster_size": 2,
+        "accepted": true,
+        "rejection_reason": null,
+        "undefined_silhouette_count": 0
+      },
+      {
+        "k": 3,
+        "asw": 0.4284599219525138,
+        "min_cluster_size": 4,
+        "max_cluster_size": 12,
+        "required_min_cluster_size": 2,
+        "accepted": true,
+        "rejection_reason": null,
+        "undefined_silhouette_count": 0
+      },
+      {
+        "k": 4,
+        "asw": 0.4031434385336381,
+        "min_cluster_size": 4,
+        "max_cluster_size": 8,
+        "required_min_cluster_size": 2,
+        "accepted": true,
+        "rejection_reason": null,
+        "undefined_silhouette_count": 0
+      },
+      {
+        "k": 5,
+        "asw": 0.44519318149082204,
+        "min_cluster_size": 2,
+        "max_cluster_size": 8,
+        "required_min_cluster_size": 2,
+        "accepted": true,
+        "rejection_reason": null,
+        "undefined_silhouette_count": 0
+      },
+      {
+        "k": 6,
+        "asw": 0.4566107021320925,
+        "min_cluster_size": 2,
+        "max_cluster_size": 5,
+        "required_min_cluster_size": 2,
+        "accepted": true,
+        "rejection_reason": null,
+        "undefined_silhouette_count": 0
+      },
+      {
+        "k": 7,
+        "asw": 0.45761019283746546,
+        "min_cluster_size": 1,
+        "max_cluster_size": 5,
+        "required_min_cluster_size": 2,
+        "accepted": false,
+        "rejection_reason": "CLUSTER_TOO_SMALL",
+        "undefined_silhouette_count": 1
+      },
+      {
+        "k": 8,
+        "asw": 0.4914485766758494,
+        "min_cluster_size": 1,
+        "max_cluster_size": 5,
+        "required_min_cluster_size": 2,
+        "accepted": false,
+        "rejection_reason": "CLUSTER_TOO_SMALL",
+        "undefined_silhouette_count": 2
+      },
+      {
+        "k": 9,
+        "asw": 0.5012626262626263,
+        "min_cluster_size": 1,
+        "max_cluster_size": 5,
+        "required_min_cluster_size": 2,
+        "accepted": false,
+        "rejection_reason": "CLUSTER_TOO_SMALL",
+        "undefined_silhouette_count": 2
+      },
+      {
+        "k": 10,
+        "asw": 0.47528860028860026,
+        "min_cluster_size": 1,
+        "max_cluster_size": 4,
+        "required_min_cluster_size": 2,
+        "accepted": false,
+        "rejection_reason": "CLUSTER_TOO_SMALL",
+        "undefined_silhouette_count": 3
+      },
+      {
+        "k": 11,
+        "asw": 0.4828643578643579,
+        "min_cluster_size": 1,
+        "max_cluster_size": 4,
+        "required_min_cluster_size": 2,
+        "accepted": false,
+        "rejection_reason": "CLUSTER_TOO_SMALL",
+        "undefined_silhouette_count": 4
+      }
+    ],
+    "warnings": [
+      "Silhouette không xác định ở một số quan sát suy biến được quy ước bằng 0 (K=7: 1, K=8: 2, K=9: 2, K=10: 3, K=11: 4)",
+      "Có chuỗi có silhouette âm; cần xem lại khả năng diễn giải của cụm"
+    ],
+    "received_visit_count": 25,
+    "used_visit_count": 22,
+    "excluded_visit_count": 3,
+    "selected_k": 5,
+    "average_silhouette_width": 0.44519318149082204,
+    "distance_matrix_sha256": "f00bec7abe502de74e668912ee0320b0214f950b7fe4ca5d332778d68ac61540",
+    "error_detail": null,
+    "created_at": "2026-10-08T15:21:38.930437+00:00",
+    "completed_at": "2026-10-08T15:21:39.049515+00:00"
+  }
+}

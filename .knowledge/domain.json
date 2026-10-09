@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.0.0",
+  "enums": {
+    "expression_labels": ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"],
+    "roles": ["ADMIN", "MANAGER", "STAFF"],
+    "record_status": ["ACTIVE", "INACTIVE"],
+    "visit_status": ["ACTIVE", "CLOSED"],
+    "order_status": ["DRAFT", "CONFIRMED", "COMPLETED", "CANCELLED"],
+    "source_types": ["CAMERA", "SIMULATOR"]
+  },
+  "entities": [
+    {
+      "name": "User",
+      "table": "users",
+      "purpose": "Tài khoản, vai trò và trạng thái truy cập"
+    },
+    {
+      "name": "Customer",
+      "table": "customers",
+      "purpose": "Hồ sơ CRM, consent, ảnh đại diện và cờ demo"
+    },
+    {
+      "name": "FaceTemplate",
+      "table": "face_templates",
+      "purpose": "Embedding ArcFace 512 chiều cùng version/quality"
+    },
+    {
+      "name": "Touchpoint",
+      "table": "touchpoints",
+      "purpose": "Khu vực và thứ tự trong hành trình"
+    },
+    {
+      "name": "Visit",
+      "table": "visits",
+      "purpose": "Một lần mua sắm của một khách hàng"
+    },
+    {
+      "name": "CaptureEvent",
+      "table": "capture_events",
+      "purpose": "Một khung hình từ nguồn thu nhận"
+    },
+    {
+      "name": "Observation",
+      "table": "observations",
+      "purpose": "Một khuôn mặt trong capture event cùng FER, identity và visit"
+    },
+    {
+      "name": "ObservationRevision",
+      "table": "observation_revisions",
+      "purpose": "Snapshot trước khi gán lại hoặc reprocess"
+    },
+    {
+      "name": "IngestionIssue",
+      "table": "ingestion_issues",
+      "purpose": "Yêu cầu lỗi trước khi đủ điều kiện tạo capture event/observation"
+    },
+    {
+      "name": "ProductCategory",
+      "table": "product_categories",
+      "purpose": "Nhóm sản phẩm"
+    },
+    {
+      "name": "Product",
+      "table": "products",
+      "purpose": "SKU, tên, giá và trạng thái"
+    },
+    {
+      "name": "Order",
+      "table": "orders",
+      "purpose": "Đơn hàng liên kết customer và tùy chọn visit"
+    },
+    {
+      "name": "OrderItem",
+      "table": "order_items",
+      "purpose": "Dòng hàng với snapshot mã/tên/giá"
+    },
+    {
+      "name": "AuditLog",
+      "table": "audit_logs",
+      "purpose": "Hành động, thực thể, request_id và chi tiết"
+    },
+    {
+      "name": "SequenceAnalysisRun",
+      "table": "sequence_analysis_runs",
+      "purpose": "Nguồn, tham số, candidate K, ASW, checksum và trạng thái run"
+    },
+    {
+      "name": "SequenceClusterSummary",
+      "table": "sequence_cluster_summaries",
+      "purpose": "Medoid, kích thước, tỷ lệ và thống kê cụm"
+    },
+    {
+      "name": "SequenceClusterAssignment",
+      "table": "sequence_cluster_assignments",
+      "purpose": "Gán visit vào cụm cùng chuỗi, distance và silhouette"
+    }
+  ],
+  "invariants": [
+    "customer_code, product SKU/category code, touchpoint code/order và capture event_id là duy nhất theo schema tương ứng.",
+    "Mỗi customer chỉ có tối đa một visit ACTIVE.",
+    "Mỗi capture event có nhiều observations; một observation được định danh bởi event_id + face_index.",
+    "Chỉ khách hàng có face_consent mới được tạo face template.",
+    "Unknown/no-match không được tự động tạo hồ sơ khách hàng.",
+    "Neutral chỉ là nhãn mô hình, không dùng thay cho lỗi hoặc thiếu dữ liệu.",
+    "Dữ liệu CAMERA và SIMULATOR phải được lọc riêng bằng source_type và run id.",
+    "Một visit không được trộn observation của khách hàng khác.",
+    "Medoid phải là một visit/chuỗi có thật trong tập phân tích."
+  ],
+  "workflows": {
+    "face_enrollment": [
+      "Tạo customer",
+      "Bật face consent",
+      "Gửi ảnh đăng ký",
+      "Vision tạo embedding ArcFace",
+      "API lưu FaceTemplate"
+    ],
+    "camera_ingestion": [
+      "Validate request",
+      "Analyze all faces",
+      "Match each embedding",
+      "Find/create visit",
+      "Store capture event and observations",
+      "Write audit/quality state"
+    ],
+    "visit_sequence": [
+      "Lọc observation hợp lệ có visit_id",
+      "Sắp theo observed_at rồi ID",
+      "Gom đoạn theo touchpoint",
+      "Chọn nhãn đại diện",
+      "Giữ metadata để truy vết"
+    ],
+    "consent_withdrawal": [
+      "Tắt consent",
+      "Không cho đăng ký template mới",
+      "Xử lý/xóa template theo chính sách triển khai",
+      "Giữ audit theo yêu cầu"
+    ]
+  }
+}

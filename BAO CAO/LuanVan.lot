@@ -1,19 +1,21 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces So sánh giữa các phương pháp phát hiện khuôn mặt}}{17}{table.caption.17}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces So sánh giữa các phương pháp phát hiện khuôn mặt}}{17}{table.caption.16}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Đầu vào và kết quả của các công đoạn trong giải pháp}}{26}{table.caption.21}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Thông tin của một bản ghi quan sát}}{30}{table.caption.23}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces Cách xử lý bản ghi theo kết quả đối sánh khách hàng}}{33}{table.caption.24}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Đầu vào và kết quả của các công đoạn trong giải pháp}}{26}{table.caption.20}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Thông tin của một bản ghi quan sát}}{30}{table.caption.22}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Cách xử lý bản ghi theo kết quả đối sánh khách hàng}}{33}{table.caption.23}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Tác nhân và các trường hợp sử dụng chính}}{40}{table.caption.26}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Phân bổ trách nhiệm giữa các thành phần phần mềm}}{41}{table.caption.28}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Các luồng giao tiếp chính giữa những thành phần của hệ thống}}{43}{table.caption.29}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Tác nhân và các trường hợp sử dụng chính}}{44}{table.caption.25}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Phân bổ trách nhiệm giữa các thành phần phần mềm}}{45}{table.caption.27}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Các luồng giao tiếp chính giữa những thành phần của hệ thống}}{47}{table.caption.28}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Kết quả chất lượng phát hiện trên tập xác thực WIDER FACE}}{59}{table.caption.42}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Kết quả hiệu năng phát hiện trên CPU}}{60}{table.caption.43}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Tiêu chí kiểm nghiệm tính hoạt động của hệ thống}}{61}{table.caption.44}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Kết quả kiểm nghiệm luồng xử lý ảnh}}{64}{table.caption.46}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces Số lượng dữ liệu sau thực nghiệm tích hợp}}{65}{table.caption.49}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Kết quả chất lượng phát hiện trên tập xác thực WIDER FACE}}{67}{table.caption.46}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Kết quả hiệu năng phát hiện trên CPU}}{68}{table.caption.47}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Phân bố ảnh theo lớp trong FER-2013}}{69}{table.caption.48}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Kết quả tổng thể của ba cấu hình phân loại biểu cảm trên PrivateTest}}{71}{table.caption.49}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces F1 theo từng lớp của ba cấu hình trên PrivateTest}}{72}{table.caption.50}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Năm mẫu chuỗi trong dữ liệu kiểm soát}}{75}{table.caption.52}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Kết quả phân cụm trên dữ liệu chuỗi kiểm soát}}{76}{table.caption.53}%
 \contentsfinish 
 \contentsfinish 

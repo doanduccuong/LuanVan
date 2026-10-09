@@ -1,0 +1,87 @@
+[
+  {
+    "id": "7c7b0b8d-3cf3-4075-a317-057ec74365da",
+    "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
+    "cluster_id": 1,
+    "medoid_visit_id": "0b6ee87e-981b-4445-90ec-c0ee6af9fd32",
+    "medoid_sequence": [
+      "Neutral",
+      "Fear",
+      "Happy",
+      "Happy"
+    ],
+    "size": 8,
+    "proportion": 0.36363636363636365,
+    "mean_silhouette": 0.07499999999999998,
+    "median_distance": 3.0,
+    "display_name": null
+  },
+  {
+    "id": "ea11c794-a181-434a-83a7-d38f23b25de6",
+    "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
+    "cluster_id": 2,
+    "medoid_visit_id": "abddb576-4e96-4ae8-bb15-cc70224cc154",
+    "medoid_sequence": [
+      "Angry",
+      "Sad",
+      "Angry",
+      "Sad"
+    ],
+    "size": 4,
+    "proportion": 0.18181818181818182,
+    "mean_silhouette": 0.20019157088122602,
+    "median_distance": 3.0,
+    "display_name": null
+  },
+  {
+    "id": "44b00a8b-078c-42c6-b9a6-a231fa5c4504",
+    "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
+    "cluster_id": 3,
+    "medoid_visit_id": "d2bd39c5-7d52-453c-8a8d-6f3adb02dc29",
+    "medoid_sequence": [
+      "Happy",
+      "Happy",
+      "Happy",
+      "Happy"
+    ],
+    "size": 4,
+    "proportion": 0.18181818181818182,
+    "mean_silhouette": 1.0,
+    "median_distance": 0.0,
+    "display_name": null
+  },
+  {
+    "id": "5fe26148-f3d8-408b-a0da-7797852ea7ed",
+    "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
+    "cluster_id": 4,
+    "medoid_visit_id": "dccfea43-9a88-46d4-982e-c88dcc94b4fa",
+    "medoid_sequence": [
+      "Sad",
+      "Sad",
+      "Sad",
+      "Sad"
+    ],
+    "size": 2,
+    "proportion": 0.09090909090909091,
+    "mean_silhouette": 1.0,
+    "median_distance": 0.0,
+    "display_name": null
+  },
+  {
+    "id": "769d4b9a-b5ab-421d-be73-3bc8245157dc",
+    "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
+    "cluster_id": 5,
+    "medoid_visit_id": "faa7438b-a1b9-4d9b-81ae-4c8c327b1977",
+    "medoid_sequence": [
+      "Neutral",
+      "Neutral",
+      "Sad",
+      "Neutral"
+    ],
+    "size": 4,
+    "proportion": 0.18181818181818182,
+    "mean_silhouette": 0.5983709273182958,
+    "median_distance": 2.0,
+    "display_name": null
+  }
+]

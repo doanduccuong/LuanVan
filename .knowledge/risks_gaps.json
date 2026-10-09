@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0.0",
+  "critical_alignment_gaps": [
+    {
+      "id": "FER-DEPLOYMENT-MISMATCH",
+      "severity": "high",
+      "fact": "Benchmark selection.json chọn LBP-SVM theo Macro-F1; CNN fine-tune có checkpoint; vision service lại dùng DeepFace Emotion mặc định.",
+      "impact": "Kết luận benchmark, mô hình thực thi và bằng chứng KDEF không cùng một cấu hình.",
+      "required_decision": "Chốt mô hình FER triển khai và đồng bộ code, config, luận văn, tests, artifact."
+    },
+    {
+      "id": "UNCOMMITTED-FINAL-WORK",
+      "severity": "high",
+      "fact": "Commit gần nhất quan sát ngày 04/10/2026 nhưng code, tài liệu và artifact cập nhật ngày 08/10/2026 đang ở working tree.",
+      "impact": "Không có snapshot version-control duy nhất cho trạng thái bàn giao.",
+      "required_action": "Rà soát diff rồi commit/snapshot có chủ đích."
+    }
+  ],
+  "code_quality": [
+    {
+      "id": "MODEL-CHECKSUM-PLACEHOLDER",
+      "severity": "medium",
+      "location": "SYSTEM/services/vision/app/engine.py",
+      "detail": "Model metadata trả chuỗi configured-checksum thay vì checksum thực."
+    },
+    {
+      "id": "DUPLICATE-ID-DECLARATION",
+      "severity": "medium",
+      "location": "SYSTEM/apps/api/app/models.py::ObservationRevision",
+      "detail": "Thuộc tính id được khai báo hai lần; cần dọn và chạy migration/test regression."
+    },
+    {
+      "id": "LIMITED-RUN-VARIANCE",
+      "severity": "medium",
+      "detail": "Các cấu hình FER đầy đủ chủ yếu được đo một run; chưa có thống kê nhiều seed."
+    },
+    {
+      "id": "NO-END-TO-END-LATENCY-MATRIX",
+      "severity": "medium",
+      "detail": "Có latency từng classifier/detector nhưng chưa có ma trận tải và độ trễ đầu-cuối đầy đủ."
+    }
+  ],
+  "data_and_research_limits": [
+    "FER-2013 là ảnh crop độ phân giải thấp và có duplicate giữa split.",
+    "KDEF là biểu cảm có chủ đích trong điều kiện kiểm soát.",
+    "KDEF Kaggle đã qua xử lý, thiếu mã phiên/góc gốc.",
+    "Demo identity threshold được hiệu chỉnh cho năm nhóm, không phải quần thể.",
+    "Dữ liệu controlled sequence là synthetic và cố ý tách biệt.",
+    "Chưa có CSAT hoặc biến kết quả độc lập để diễn giải cụm theo satisfaction.",
+    "Chưa có dữ liệu camera cửa hàng thật đủ đại diện."
+  ],
+  "security_privacy": [
+    "Credential demo và JWT placeholder không phù hợp production.",
+    "COOKIE_SECURE=false trong .env.example.",
+    "Cần chốt retention/xóa embedding khi rút consent.",
+    "Cần rà soát RBAC/audit, TLS/CORS, secret management và backup/restore.",
+    "Không có LICENSE root; cần rà giấy phép code, dataset, model và vendor trước phân phối."
+  ],
+  "report_state": {
+    "included_chapters": [1, 2, 3, 4, 5],
+    "missing_or_disabled": [
+      "Tóm tắt tiếng Việt là template và bị comment",
+      "Tóm tắt tiếng Anh bị comment",
+      "Danh mục viết tắt/thuật ngữ bị comment",
+      "Chương kết luận/hướng phát triển là template và bị comment"
+    ],
+    "editorial_issue": "Chương 5 có đoạn K=5/K=6 lặp nguyên văn.",
+    "note": "Đây là trạng thái artifact báo cáo, không phải trọng tâm của knowledge base project."
+  },
+  "priority_actions": {
+    "p0": [
+      "Chốt và đồng bộ mô hình FER triển khai.",
+      "Snapshot/commit trạng thái 08/10/2026 sau khi rà diff.",
+      "Sửa lỗi/trùng lặp rõ ràng rồi chạy lại test và evidence bị ảnh hưởng."
+    ],
+    "p1": [
+      "Đo nhiều seed và end-to-end latency/load.",
+      "Đánh giá trên dữ liệu camera gần môi trường mục tiêu.",
+      "Thay model metadata placeholder bằng version/checksum thực."
+    ],
+    "p2": [
+      "Production hardening và privacy governance.",
+      "Bổ sung LICENSE và policy dataset/model.",
+      "Bổ sung tracking/dedup nếu chuyển sang video liên tục."
+    ]
+  }
+}

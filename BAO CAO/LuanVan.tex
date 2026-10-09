@@ -175,7 +175,6 @@
 \raggedbottom
 % \newgeometry{top=2cm, bottom=2cm, left=2cm, right=2cm}
 \subfile{Bia} % Phần bìa
-\subfile{Bia_lot} % Phần bìa
 % \restoregeometry
 
 % ===================================================
@@ -186,15 +185,21 @@
 
 \newpage
 \pagenumbering{gobble}
+\subfile{Chuong/0_1_Loi_cam_doan.tex}
+
+\newpage
+\pagenumbering{gobble}
 \subfile{Chuong/0_2_Loi_cam_on.tex}
 
-\newpage
-\pagenumbering{gobble}
-\subfile{Chuong/0_3_Tom_tat_noi_dung.tex}
+% Tạm ẩn phần tóm tắt tiếng Việt
+% \newpage
+% \pagenumbering{gobble}
+% \subfile{Chuong/0_3_Tom_tat_noi_dung.tex}
 
-\newpage
-\pagenumbering{gobble}
-\subfile{Chuong/0_4_Tom_tat_noi_dung_English.tex}
+% Tạm ẩn phần Abstract
+% \newpage
+% \pagenumbering{gobble}
+% \subfile{Chuong/0_4_Tom_tat_noi_dung_English.tex}
 
 % ===================================================
 % \pagestyle{empty} % Header và footer rỗng

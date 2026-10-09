@@ -1,41 +1,44 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Bảy biểu cảm khuôn mặt}}{5}{figure.caption.10}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Quy trình tổng quát của hệ thống FER dựa trên học sâu}}{6}{figure.caption.11}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Quy trình phát hiện khuôn mặt theo Viola--Jones}}{8}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Kiến trúc P-Net của MTCNN}}{12}{figure.caption.13}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Kiến trúc R-Net của MTCNN}}{13}{figure.caption.14}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Kiến trúc O-Net của MTCNN}}{13}{figure.caption.15}%
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Quy trình phát hiện khuôn mặt của MTCNN}}{14}{figure.caption.16}%
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Quy trình tạo véc-tơ đặc trưng LBP theo vùng}}{18}{figure.caption.18}%
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Minh họa chuỗi quan sát biểu cảm theo hành trình đa điểm chạm}}{22}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Bảy biểu cảm khuôn mặt}}{5}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Quy trình tổng quát của hệ thống FER dựa trên học sâu}}{6}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Quy trình phát hiện khuôn mặt theo Viola--Jones}}{8}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Kiến trúc P-Net của MTCNN}}{12}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Kiến trúc R-Net của MTCNN}}{13}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Kiến trúc O-Net của MTCNN}}{13}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Quy trình phát hiện khuôn mặt của MTCNN}}{14}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Quy trình tạo véc-tơ đặc trưng LBP theo vùng}}{18}{figure.caption.17}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Nhiều quan sát trong từng điểm chạm của một lần mua sắm}}{22}{figure.caption.18}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Luồng xử lý tổng thể của giải pháp}}{25}{figure.caption.20}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Hai nhiệm vụ được thực hiện độc lập trên từng vùng khuôn mặt}}{28}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Luồng xử lý tổng thể của giải pháp}}{26}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Hai nhiệm vụ được thực hiện độc lập trên từng vùng khuôn mặt}}{28}{figure.caption.21}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Cấu trúc các nhóm chức năng của hệ thống}}{39}{figure.caption.25}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Kiến trúc và hướng phụ thuộc giữa các thành phần}}{41}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Danh sách các khu vực được xác định trước trong cửa hàng}}{46}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Chức năng đăng ký và tìm khách hàng bằng ảnh}}{47}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Chi tiết quan sát sau xác nhận và lịch sử thay đổi kết quả}}{48}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Hồ sơ khách hàng và lịch sử mua hàng}}{49}{figure.caption.33}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Danh mục sản phẩm đã được tạo trong CRM}}{50}{figure.caption.34}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Danh sách đơn hàng và dữ liệu lịch sử mua hàng}}{50}{figure.caption.35}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Theo dõi các quan sát trong một lần mua sắm}}{51}{figure.caption.36}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Danh sách quan sát chưa xác định được khách hàng}}{52}{figure.caption.37}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Phân bố bảy nhãn biểu cảm tại từng khu vực}}{53}{figure.caption.38}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Biến thiên số quan sát theo thời gian trong cùng khu vực}}{53}{figure.caption.39}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Số lượng và tỷ lệ thay đổi nhãn giữa các khu vực liên tiếp}}{54}{figure.caption.40}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Báo cáo chất lượng của dữ liệu đã tiếp nhận và liên kết}}{55}{figure.caption.41}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Cấu trúc các nhóm chức năng của hệ thống}}{43}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Kiến trúc và hướng phụ thuộc giữa các thành phần}}{45}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Danh sách các khu vực được xác định trước trong cửa hàng}}{50}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Chức năng đăng ký và tìm khách hàng bằng ảnh}}{51}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Chi tiết quan sát sau xác nhận và lịch sử thay đổi kết quả}}{52}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Hồ sơ khách hàng và lịch sử mua hàng}}{53}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Danh mục sản phẩm đã được tạo trong CRM}}{54}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Danh sách đơn hàng và dữ liệu lịch sử mua hàng}}{54}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Theo dõi các quan sát trong một lần mua sắm}}{55}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Danh sách quan sát chưa xác định được khách hàng}}{56}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Phân bố bảy nhãn biểu cảm tại từng khu vực}}{57}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Biến thiên số quan sát theo thời gian trong cùng khu vực}}{57}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Số lượng và tỷ lệ thay đổi nhãn giữa các khu vực liên tiếp}}{58}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Tổng quan lần phân tích chuỗi và quá trình chọn số cụm}}{60}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Các cụm và chuỗi medoid được trả từ PAM}}{60}{figure.caption.41}%
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Danh sách lần mua sắm cùng cụm, khoảng cách và silhouette}}{61}{figure.caption.42}%
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Truy vết một assignment về bốn quan sát của lần mua sắm}}{62}{figure.caption.43}%
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Các endpoint phân cụm chuỗi trong tài liệu OpenAPI đang chạy}}{62}{figure.caption.44}%
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Báo cáo chất lượng của dữ liệu đã tiếp nhận và liên kết}}{63}{figure.caption.45}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Ba dạng dữ liệu được tạo từ cùng một bản ghi FairFace}}{63}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Danh sách khách hàng sau bước đăng ký dữ liệu khuôn mặt}}{64}{figure.caption.47}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Quan sát chưa xác định vẫn có kết quả phân loại biểu cảm hợp lệ}}{65}{figure.caption.48}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Trang tổng quan sau thực nghiệm tích hợp}}{66}{figure.caption.50}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Lần mua sắm có đủ dữ liệu tại bốn khu vực}}{66}{figure.caption.51}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Báo cáo chất lượng dữ liệu sau thực nghiệm}}{67}{figure.caption.52}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Trạng thái của hệ thống tích hợp và cấu hình xử lý ảnh}}{67}{figure.caption.53}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Kết quả kiểm thử mã nguồn và phát lại dữ liệu ảnh}}{68}{figure.caption.54}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Phạm vi cấu hình và giới hạn khi diễn giải kết quả}}{69}{figure.caption.55}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Normalized Confusion Matrix của ba cấu hình trên PrivateTest}}{72}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces ASW theo số cụm của hai cách biểu diễn chuỗi}}{77}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Ma trận khoảng cách Optimal Matching sắp theo cụm}}{77}{figure.caption.55}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Run phân cụm chuỗi và kết quả chọn số cụm trên giao diện}}{78}{figure.caption.56}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Các cụm và chuỗi medoid trên giao diện hệ thống}}{78}{figure.caption.57}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Danh sách lần mua sắm được gán vào từng cụm}}{79}{figure.caption.58}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Truy vết một kết quả phân cụm về bốn quan sát của lần mua sắm}}{80}{figure.caption.59}%
 \contentsfinish 
 \contentsfinish 

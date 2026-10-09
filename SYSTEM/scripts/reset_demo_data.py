@@ -5,7 +5,21 @@ import argparse
 from sqlalchemy import delete, select
 
 from app.database import SessionLocal
-from app.models import CaptureEvent, Customer, FaceTemplate, Observation, Order, OrderItem, Product, ProductCategory, Touchpoint, Visit
+from app.models import (
+    CaptureEvent,
+    Customer,
+    FaceTemplate,
+    Observation,
+    Order,
+    OrderItem,
+    Product,
+    ProductCategory,
+    SequenceAnalysisRun,
+    SequenceClusterAssignment,
+    SequenceClusterSummary,
+    Touchpoint,
+    Visit,
+)
 
 
 def main(confirm: str) -> None:
@@ -14,6 +28,25 @@ def main(confirm: str) -> None:
     with SessionLocal() as db:
         demo_customer_ids = list(db.scalars(select(Customer.id).where(Customer.demo_data.is_(True))))
         demo_order_ids = list(db.scalars(select(Order.id).where(Order.demo_data.is_(True))))
+        demo_visit_ids = list(db.scalars(select(Visit.id).where(Visit.demo_data.is_(True))))
+        demo_analysis_ids = (
+            list(
+                db.scalars(
+                    select(SequenceClusterAssignment.run_id)
+                    .where(SequenceClusterAssignment.visit_id.in_(demo_visit_ids))
+                    .distinct()
+                )
+            )
+            if demo_visit_ids
+            else []
+        )
+        if demo_analysis_ids:
+            db.execute(delete(SequenceClusterAssignment).where(SequenceClusterAssignment.run_id.in_(demo_analysis_ids)))
+            db.execute(delete(SequenceClusterSummary).where(SequenceClusterSummary.run_id.in_(demo_analysis_ids)))
+            db.execute(delete(SequenceAnalysisRun).where(SequenceAnalysisRun.id.in_(demo_analysis_ids)))
+        elif demo_visit_ids:
+            db.execute(delete(SequenceClusterAssignment).where(SequenceClusterAssignment.visit_id.in_(demo_visit_ids)))
+            db.execute(delete(SequenceClusterSummary).where(SequenceClusterSummary.medoid_visit_id.in_(demo_visit_ids)))
         if demo_order_ids:
             db.execute(delete(OrderItem).where(OrderItem.order_id.in_(demo_order_ids)))
         db.execute(delete(Order).where(Order.demo_data.is_(True)))

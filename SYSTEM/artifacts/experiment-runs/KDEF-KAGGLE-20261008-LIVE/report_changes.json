@@ -1,0 +1,380 @@
+[
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Angry",
+    "to_label": "Angry",
+    "count": 3,
+    "percentage": 0.13636363636363635,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Angry",
+    "to_label": "Fear",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Fear",
+    "to_label": "Happy",
+    "count": 2,
+    "percentage": 0.09090909090909091,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Happy",
+    "to_label": "Happy",
+    "count": 4,
+    "percentage": 0.18181818181818182,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Happy",
+    "to_label": "Sad",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Neutral",
+    "to_label": "Happy",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Neutral",
+    "to_label": "Neutral",
+    "count": 2,
+    "percentage": 0.09090909090909091,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Neutral",
+    "to_label": "Sad",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Neutral",
+    "to_label": "Surprise",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Sad",
+    "to_label": "Angry",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Sad",
+    "to_label": "Fear",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Sad",
+    "to_label": "Sad",
+    "count": 2,
+    "percentage": 0.09090909090909091,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Surprise",
+    "to_label": "Fear",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Surprise",
+    "to_label": "Happy",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Neutral",
+    "to_label": "Happy",
+    "count": 1,
+    "percentage": 0.5,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Sad",
+    "to_label": "Surprise",
+    "count": 1,
+    "percentage": 0.5,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Angry",
+    "to_label": "Angry",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Angry",
+    "to_label": "Happy",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Angry",
+    "to_label": "Sad",
+    "count": 2,
+    "percentage": 0.09090909090909091,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Fear",
+    "to_label": "Happy",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Fear",
+    "to_label": "Surprise",
+    "count": 2,
+    "percentage": 0.09090909090909091,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Happy",
+    "to_label": "Happy",
+    "count": 8,
+    "percentage": 0.36363636363636365,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Neutral",
+    "to_label": "Neutral",
+    "count": 2,
+    "percentage": 0.09090909090909091,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Sad",
+    "to_label": "Neutral",
+    "count": 2,
+    "percentage": 0.09090909090909091,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Sad",
+    "to_label": "Sad",
+    "count": 2,
+    "percentage": 0.09090909090909091,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "to_touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+    "from_label": "Surprise",
+    "to_label": "Happy",
+    "count": 1,
+    "percentage": 0.045454545454545456,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Angry",
+    "to_label": "Angry",
+    "count": 1,
+    "percentage": 0.041666666666666664,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Angry",
+    "to_label": "Neutral",
+    "count": 1,
+    "percentage": 0.041666666666666664,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Angry",
+    "to_label": "Sad",
+    "count": 1,
+    "percentage": 0.041666666666666664,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Happy",
+    "to_label": "Angry",
+    "count": 1,
+    "percentage": 0.041666666666666664,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Happy",
+    "to_label": "Happy",
+    "count": 4,
+    "percentage": 0.16666666666666666,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Happy",
+    "to_label": "Neutral",
+    "count": 2,
+    "percentage": 0.08333333333333333,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Happy",
+    "to_label": "Sad",
+    "count": 2,
+    "percentage": 0.08333333333333333,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Happy",
+    "to_label": "Surprise",
+    "count": 1,
+    "percentage": 0.041666666666666664,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Neutral",
+    "to_label": "Fear",
+    "count": 1,
+    "percentage": 0.041666666666666664,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Neutral",
+    "to_label": "Happy",
+    "count": 1,
+    "percentage": 0.041666666666666664,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Neutral",
+    "to_label": "Neutral",
+    "count": 3,
+    "percentage": 0.125,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Neutral",
+    "to_label": "Surprise",
+    "count": 1,
+    "percentage": 0.041666666666666664,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Sad",
+    "to_label": "Angry",
+    "count": 2,
+    "percentage": 0.08333333333333333,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Sad",
+    "to_label": "Fear",
+    "count": 1,
+    "percentage": 0.041666666666666664,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+    "from_label": "Sad",
+    "to_label": "Sad",
+    "count": 2,
+    "percentage": 0.08333333333333333,
+    "representative": "highest_confidence"
+  },
+  {
+    "from_touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+    "to_touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+    "from_label": "Sad",
+    "to_label": "Sad",
+    "count": 1,
+    "percentage": 1.0,
+    "representative": "highest_confidence"
+  }
+]

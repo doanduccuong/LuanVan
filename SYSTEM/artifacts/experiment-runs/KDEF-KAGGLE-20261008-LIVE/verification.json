@@ -1,0 +1,619 @@
+{
+  "created_at": "2026-10-08T15:22:49.711137+00:00",
+  "experiment_run_id": "KDEF-KAGGLE-20261008-LIVE",
+  "passed": true,
+  "checks": [
+    {
+      "name": "all KDEF camera frames processed as valid images",
+      "passed": true,
+      "actual": 100,
+      "expected": 100
+    },
+    {
+      "name": "no cross-customer false match",
+      "passed": true,
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "name": "expected KDEF visit count",
+      "passed": true,
+      "actual": 25,
+      "expected": 25
+    },
+    {
+      "name": "visit count CUS-KDEF-001",
+      "passed": true,
+      "actual": 5,
+      "expected": 5
+    },
+    {
+      "name": "visit count CUS-KDEF-002",
+      "passed": true,
+      "actual": 5,
+      "expected": 5
+    },
+    {
+      "name": "visit count CUS-KDEF-003",
+      "passed": true,
+      "actual": 5,
+      "expected": 5
+    },
+    {
+      "name": "visit count CUS-KDEF-004",
+      "passed": true,
+      "actual": 5,
+      "expected": 5
+    },
+    {
+      "name": "visit count CUS-KDEF-005",
+      "passed": true,
+      "actual": 5,
+      "expected": 5
+    },
+    {
+      "name": "observed touchpoints preserve chronology 7e03f958-8197-4670-a8f6-1b07f42cfb3f",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 2c0bf5fa-74f5-463c-bf96-3457e00cb1d3",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 67d4be1c-cbd2-44a4-b264-f1fe62a6080f",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 104f799f-f422-4bb6-89bd-b97427d9d9e7",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 0ded2429-ea3d-4f22-9000-ac35ac1207b7",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology faa7438b-a1b9-4d9b-81ae-4c8c327b1977",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology abddb576-4e96-4ae8-bb15-cc70224cc154",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 4d4aef09-12ec-4167-9613-098e9ede3d88",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology efa07c7b-44f0-43f2-8c08-207f437a8701",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 774a353f-dda7-4aea-a278-0df52d619477",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-CONSULT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-CONSULT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 0b6ee87e-981b-4445-90ec-c0ee6af9fd32",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 32226969-e6de-4c83-bd25-45a3455d5c1f",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology e1d7f233-fdd7-48b5-bb63-0ad511d26e28",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 34a4d400-b116-4555-882f-bccf7798d43c",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology c425e991-35dc-4667-9b45-ec2042e187d1",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 6e873669-1c6d-41d4-869c-8b4de6aedd9e",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology d2bd39c5-7d52-453c-8a8d-6f3adb02dc29",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology c965f453-0d8b-4673-8c01-877d256217d2",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 01b700e9-1172-4494-920d-8fbf6bb0fcc6",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 2a667302-e158-4160-8823-0149dbc82134",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 4992c364-0f91-46de-8fb9-0271a5c20131",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 76916597-2863-4f27-af61-62c9fb1a8dfd",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology dccfea43-9a88-46d4-982e-c88dcc94b4fa",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology a248e858-13cd-4bfe-a68e-6c0ea664f0b1",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 4e0cb0ab-5849-4359-aeb4-4740b1853a54",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "completed sequence analysis",
+      "passed": true,
+      "actual": "a845f266-7dab-4dff-ba42-a61a46930d7a",
+      "expected": "one completed analysis"
+    },
+    {
+      "name": "sequence analysis uses every complete four-touchpoint visit",
+      "passed": true,
+      "actual": {
+        "received": 25,
+        "used": 22,
+        "excluded": 3
+      },
+      "expected": {
+        "received": 25,
+        "used": 22,
+        "excluded": 3
+      }
+    }
+  ],
+  "metrics": {
+    "capture_event_count": 100,
+    "valid_image_count": 100,
+    "identity": {
+      "correct_match_count": 96,
+      "no_match_count": 4,
+      "false_match_count": 0,
+      "correct_match_rate": 0.96
+    },
+    "expression": {
+      "accuracy": 0.54,
+      "macro_f1_present_classes": 0.40540862910674236,
+      "expected_distribution": {
+        "Neutral": 35,
+        "Happy": 40,
+        "Surprise": 10,
+        "Sad": 5,
+        "Angry": 10
+      },
+      "predicted_distribution": {
+        "Sad": 21,
+        "Neutral": 18,
+        "Angry": 12,
+        "Happy": 35,
+        "Surprise": 8,
+        "Fear": 6
+      },
+      "per_class": {
+        "Angry": {
+          "support": 10,
+          "precision": 0.16666666666666666,
+          "recall": 0.2,
+          "f1": 0.1818181818181818
+        },
+        "Disgust": {
+          "support": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Fear": {
+          "support": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Happy": {
+          "support": 40,
+          "precision": 0.9714285714285714,
+          "recall": 0.85,
+          "f1": 0.9066666666666667
+        },
+        "Sad": {
+          "support": 5,
+          "precision": 0.047619047619047616,
+          "recall": 0.2,
+          "f1": 0.07692307692307693
+        },
+        "Surprise": {
+          "support": 10,
+          "precision": 0.375,
+          "recall": 0.3,
+          "f1": 0.33333333333333326
+        },
+        "Neutral": {
+          "support": 35,
+          "precision": 0.7777777777777778,
+          "recall": 0.4,
+          "f1": 0.5283018867924528
+        }
+      },
+      "confusion_matrix": {
+        "Angry": {
+          "Angry": 2,
+          "Disgust": 0,
+          "Fear": 0,
+          "Happy": 0,
+          "Sad": 6,
+          "Surprise": 0,
+          "Neutral": 2
+        },
+        "Disgust": {
+          "Angry": 0,
+          "Disgust": 0,
+          "Fear": 0,
+          "Happy": 0,
+          "Sad": 0,
+          "Surprise": 0,
+          "Neutral": 0
+        },
+        "Fear": {
+          "Angry": 0,
+          "Disgust": 0,
+          "Fear": 0,
+          "Happy": 0,
+          "Sad": 0,
+          "Surprise": 0,
+          "Neutral": 0
+        },
+        "Happy": {
+          "Angry": 0,
+          "Disgust": 0,
+          "Fear": 2,
+          "Happy": 34,
+          "Sad": 0,
+          "Surprise": 4,
+          "Neutral": 0
+        },
+        "Sad": {
+          "Angry": 1,
+          "Disgust": 0,
+          "Fear": 0,
+          "Happy": 1,
+          "Sad": 1,
+          "Surprise": 1,
+          "Neutral": 1
+        },
+        "Surprise": {
+          "Angry": 2,
+          "Disgust": 0,
+          "Fear": 4,
+          "Happy": 0,
+          "Sad": 0,
+          "Surprise": 3,
+          "Neutral": 1
+        },
+        "Neutral": {
+          "Angry": 7,
+          "Disgust": 0,
+          "Fear": 0,
+          "Happy": 0,
+          "Sad": 14,
+          "Surprise": 0,
+          "Neutral": 14
+        }
+      }
+    }
+  },
+  "quality": [
+    {
+      "image_status": "VALID",
+      "expression_status": "VALID",
+      "identity_status": "MATCHED",
+      "count": 96
+    },
+    {
+      "image_status": "VALID",
+      "expression_status": "VALID",
+      "identity_status": "NO_MATCH",
+      "count": 4
+    }
+  ]
+}

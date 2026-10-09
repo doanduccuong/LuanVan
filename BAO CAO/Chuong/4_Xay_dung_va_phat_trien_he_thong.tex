@@ -338,8 +338,94 @@ Kết quả gồm số lần và tỷ lệ trong cặp khu vực đang xét. B�
     \label{fig:change_screen_ch4}
 \end{figure}
 
-\subsection{Báo cáo chất lượng dữ liệu}
+\subsection{Phân cụm chuỗi biểu cảm}
 \label{subsection:4.4.3}
+
+Chức năng phân cụm được hiện thực thành mô-đun thuần \texttt{sequence\_analysis.py} và một nhóm giao diện API riêng. API chỉ lấy các quan sát thuộc đúng một nguồn và một mã lần chạy. Với nguồn \texttt{SIMULATOR}, điều kiện lọc dùng \texttt{simulation\_run\_id}; với nguồn \texttt{CAMERA}, điều kiện lọc dùng \texttt{experiment\_run\_id}. Quy tắc này ngăn dữ liệu mô phỏng, dữ liệu ảnh KDEF và các lần chạy khác nhau bị trộn vào cùng một ma trận.
+
+Mô-đun thực hiện bốn bước. Thứ nhất, các quan sát được nhóm theo \texttt{visit\_id}, sắp xếp theo \texttt{observed\_at} và gom các khung liên tiếp tại cùng điểm chạm thành một trạng thái đại diện. Thứ hai, \texttt{SequenceData} và \texttt{get\_distance\_matrix} của Sequenzo tạo ma trận Optimal Matching với \texttt{sm=CONSTANT}, \texttt{indel=1} và \texttt{norm=none}. Ma trận phải vuông, đối xứng, hữu hạn, không âm và có đường chéo bằng không trước khi được sử dụng. Thứ ba, \texttt{k\_medoids\_range} chạy PAM trên phạm vi \(K\) hợp lệ; \texttt{observation\_silhouette} tính silhouette của từng chuỗi. Thứ tư, mã ánh xạ chỉ số do thư viện trả về sang \texttt{visit\_id}, medoid và chuỗi gốc.
+
+Kết quả được lưu trong ba bảng. \texttt{sequence\_analysis\_runs} lưu nguồn, tham số, phiên bản thuật toán, danh sách phương án \(K\), \(K\) được chọn, ASW, cảnh báo và SHA-256 của ma trận khoảng cách. \texttt{sequence\_cluster\_summaries} lưu medoid, kích thước, tỷ lệ, silhouette trung bình và khoảng cách trung vị của mỗi cụm. \texttt{sequence\_cluster\_assignments} lưu quan hệ giữa visit và cụm, chuỗi đầu vào, metadata điểm chạm, khoảng cách tới medoid và silhouette. Việc lưu theo lần chạy cho phép giữ nhiều kết quả với cấu hình khác nhau mà không ghi đè dữ liệu quan sát.
+
+Các giao diện chính gồm:
+\begin{itemize}
+    \item \texttt{POST /api/v1/sequence-analyses}: tạo một lần phân tích từ mã lần phát dữ liệu;
+    \item \texttt{GET /api/v1/sequence-analyses}: lấy lịch sử và trạng thái các lần chạy;
+    \item \texttt{GET /api/v1/sequence-analyses/\{id\}/clusters}: lấy medoid và thống kê cụm;
+    \item \texttt{GET /api/v1/sequence-analyses/\{id\}/assignments}: lấy danh sách visit đã gán cụm;
+    \item \texttt{PATCH /api/v1/sequence-analyses/\{id\}/clusters/\{cluster\_id\}}: lưu tên diễn giải do người phân tích đặt.
+\end{itemize}
+
+Trên giao diện, tab \textit{Phân cụm chuỗi} cho phép tạo hoặc chọn một lần phân tích đã lưu. Phần tổng quan hiển thị số chuỗi được dùng và bị loại, \(K\), ASW, đồ thị ASW theo \(K\) và bảng điều kiện kích thước cụm. Hình~\ref{fig:sequence_overview_ch4} là ảnh chụp trực tiếp của lần chạy đầu-cuối bằng ảnh KDEF qua nguồn \texttt{CAMERA}; mã nguồn dữ liệu và trạng thái \texttt{COMPLETED} xuất hiện ngay trên màn hình để truy vết.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_20_tong_quan_phan_cum_chuoi.png}
+    \caption{Tổng quan lần phân tích chuỗi và quá trình chọn số cụm}
+    \label{fig:sequence_overview_ch4}
+\end{figure}
+
+Hình~\ref{fig:sequence_medoids_ch4} hiển thị đầy đủ các medoid. Mỗi thẻ là một chuỗi có thật trong dữ liệu, kèm số thành viên, tỷ lệ, silhouette trung bình và khoảng cách trung vị. Ô tên cụm không được điền tự động; người phân tích chỉ đặt tên sau khi xem chuỗi đại diện.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_21_cum_va_medoid.png}
+    \caption{Các cụm và chuỗi medoid được trả từ PAM}
+    \label{fig:sequence_medoids_ch4}
+\end{figure}
+
+Bảng assignment cho phép lọc theo cụm và mở ngược lại lần mua sắm. Liên kết này bảo đảm một kết quả phân cụm có thể truy vết về bốn quan sát gốc thay vì chỉ tồn tại như số liệu tổng hợp. Hình~\ref{fig:sequence_assignments_ch4} và Hình~\ref{fig:sequence_trace_ch4} minh họa hai đầu của liên kết này. Giao diện cũng hiển thị cảnh báo rằng cụm là kiểu diễn biến tương tự, không tự động biểu thị mức hài lòng.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_22_danh_sach_gan_cum.png}
+    \caption{Danh sách lần mua sắm cùng cụm, khoảng cách và silhouette}
+    \label{fig:sequence_assignments_ch4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_23_truy_vet_cum_ve_hanh_trinh.png}
+    \caption{Truy vết một assignment về bốn quan sát của lần mua sắm}
+    \label{fig:sequence_trace_ch4}
+\end{figure}
+
+Tài liệu OpenAPI của máy chủ đang chạy được dùng để đối chiếu các giao diện đã mô tả với đường dẫn thực tế. Hình~\ref{fig:sequence_api_docs_ch4} chỉ được chụp sau khi trang tài liệu tải được nhóm endpoint \path{/api/v1/sequence-analyses}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_24_tai_lieu_api_phan_cum_chuoi.png}
+    \caption{Các endpoint phân cụm chuỗi trong tài liệu OpenAPI đang chạy}
+    \label{fig:sequence_api_docs_ch4}
+\end{figure}
+
+Thành phần phân tích chuỗi được nối vào đúng dữ liệu đã có của hệ thống. Hồ sơ khách hàng vẫn được tạo ở chức năng CRM và liên kết với mẫu khuôn mặt; quan sát nguồn Camera vẫn đi qua dịch vụ thị giác và được ghép vào lần mua sắm trước khi có thể tham gia phân cụm. Hình~\ref{fig:kdef_customers_ch4} cho thấy năm hồ sơ thử nghiệm cùng ảnh đăng ký thực được máy chủ web phục vụ. Hình~\ref{fig:kdef_journey_ch4} cho thấy một hồ sơ trong số đó được tái hiện tại bốn điểm chạm; nguồn của từng quan sát được lưu là \textit{Camera}, không phải \textit{Simulator}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_25_danh_sach_khach_kdef.png}
+    \caption{Hồ sơ và ảnh đăng ký KDEF được nạp vào chức năng khách hàng}
+    \label{fig:kdef_customers_ch4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_27_hanh_trinh_kdef_bon_diem_cham.png}
+    \caption{Hành trình bốn điểm chạm được tạo từ các quan sát nguồn Camera}
+    \label{fig:kdef_journey_ch4}
+\end{figure}
+
+Hệ thống tích hợp được đóng gói bằng Docker Compose. Tại thời điểm chụp bằng chứng, PostgreSQL, dịch vụ thị giác, API, dịch vụ mô phỏng và giao diện web đều ở trạng thái hoạt động; tiến trình migration đã kết thúc với mã thoát 0. Ngoài trạng thái container, chương trình kiểm chứng gọi trực tiếp các endpoint sẵn sàng của API, Vision, Simulator và trang web, tất cả đều trả HTTP 200. Hình~\ref{fig:docker_status_ch4} được sinh trực tiếp từ kết quả \texttt{docker compose ps --all} và các phản hồi HTTP; dữ liệu máy đọc tương ứng được lưu cùng artifact của lần chạy KDEF.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_29_trang_thai_he_thong_docker.png}
+    \caption{Trạng thái Docker Compose và các endpoint tại thời điểm kiểm chứng}
+    \label{fig:docker_status_ch4}
+\end{figure}
+
+\subsection{Báo cáo chất lượng dữ liệu}
+\label{subsection:4.4.4}
 
 Báo cáo chất lượng tổng hợp ba nhóm thông tin. Nhóm thứ nhất là tổ hợp trạng thái ảnh, biểu cảm và danh tính. Nhóm thứ hai là các yêu cầu đầu vào không đủ điều kiện tạo bản ghi. Nhóm thứ ba gồm bản ghi đến chậm, xung đột thời gian, số khu vực bị thiếu và số lần mua sắm đủ điều kiện phân tích. Báo cáo dùng cùng bộ lọc khu vực và thời gian với báo cáo phân bố.
 

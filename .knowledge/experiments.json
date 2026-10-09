@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.0.0",
+  "face_detection": {
+    "module": "COMPARE_FACE_DETECTION",
+    "run_id": "wider-val-cpu-20260921",
+    "dataset": {
+      "name": "WIDER FACE validation",
+      "images": 3226,
+      "faces": 39708
+    },
+    "environment": "Apple M4 Pro CPU, macOS 26.5, Python 3.11.7",
+    "results": [
+      {
+        "method": "Haar Cascade",
+        "ap_easy": 0.4252,
+        "ap_medium": 0.3668,
+        "ap_hard": 0.1754,
+        "precision": 0.6906,
+        "recall": 0.1514,
+        "f1": 0.2484,
+        "median_ms": 131.52,
+        "p95_ms": 257.71,
+        "fps": 7.03,
+        "no_detection_rate": 0.2228
+      },
+      {
+        "method": "MTCNN",
+        "ap_easy": 0.8132,
+        "ap_medium": 0.7706,
+        "ap_hard": 0.4990,
+        "precision": 0.9081,
+        "recall": 0.4063,
+        "f1": 0.5614,
+        "median_ms": 197.95,
+        "p95_ms": 418.26,
+        "fps": 4.55,
+        "no_detection_rate": 0.0615
+      },
+      {
+        "method": "RetinaFace-MobileNet0.25",
+        "ap_easy": 0.9082,
+        "ap_medium": 0.8830,
+        "ap_hard": 0.7388,
+        "precision": 0.9106,
+        "recall": 0.4784,
+        "f1": 0.6273,
+        "median_ms": 64.53,
+        "p95_ms": 131.99,
+        "fps": 13.01,
+        "no_detection_rate": 0.0320
+      }
+    ],
+    "decision": "RetinaFace-MobileNet0.25 được tích hợp.",
+    "limits": "Kết luận chỉ áp dụng cho WIDER FACE và cấu hình CPU đã đo."
+  },
+  "facial_expression": {
+    "modules": ["COMPARE_FACIAL_EXPRESSION", "TRAIN_DEEPFACE_EMOTION"],
+    "dataset": {
+      "name": "FER-2013",
+      "total_images": 35887,
+      "training": 28709,
+      "public_test": 3589,
+      "private_test": 3589,
+      "final_evaluation_split": "PrivateTest"
+    },
+    "results": [
+      {
+        "method": "LBP + SVM",
+        "accuracy": 0.4572,
+        "macro_f1": 0.4635,
+        "balanced_accuracy": 0.4459,
+        "p95_ms": 3.53,
+        "model_size_mib": 77.12
+      },
+      {
+        "method": "CNN Emotion DeepFace gốc",
+        "accuracy": 0.4848,
+        "macro_f1": 0.4159,
+        "balanced_accuracy": 0.4178,
+        "p95_ms": 2.62,
+        "model_size_mib": 5.70
+      },
+      {
+        "method": "CNN Emotion fine-tune",
+        "accuracy": 0.4823,
+        "macro_f1": 0.4506,
+        "balanced_accuracy": 0.4576,
+        "p95_ms": 2.62,
+        "model_size_mib": 5.70
+      }
+    ],
+    "selection_artifact": {
+      "selected_method": "lbp_svm",
+      "criterion": "Macro-F1 chính; tie margin 0.01; sau đó P95 và kích thước",
+      "path": "COMPARE_FACIAL_EXPRESSION/results/fer2013-lbp-vs-finetuned-emotion-001/selection.json"
+    },
+    "deployment_difference": "Hệ thống demo/production code vẫn dùng DeepFace Emotion mặc định.",
+    "limits": [
+      "FER-2013 là ảnh crop 48x48, không đại diện đầy đủ camera cửa hàng.",
+      "Có ảnh trùng giữa các split chính thức.",
+      "Mỗi cấu hình đầy đủ chỉ đo một run; chưa có phân bố nhiều seed.",
+      "Classifier latency không phải độ trễ đầu-cuối."
+    ]
+  },
+  "controlled_sequence": {
+    "run_id": "SIM-CONTROLLED-20261008-LIVE",
+    "customers": 25,
+    "visits": 125,
+    "observations": 500,
+    "known_archetypes": 5,
+    "om_pam": {"k": 5, "asw": 1.0, "ari": 1.0, "nmi": 1.0},
+    "state_proportion_baseline": {"k": 4, "asw": 1.0, "ari": 0.777, "nmi": 0.906},
+    "purpose": "Kiểm chứng thuật toán và giá trị của thông tin thứ tự.",
+    "restriction": "Không đi qua vision và không đại diện hành vi khách hàng thật."
+  },
+  "kdef_end_to_end": {
+    "data_run_id": "KDEF-KAGGLE-20261008-LIVE",
+    "analysis_run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
+    "source": "Kaggle chenrich/kdef-database",
+    "source_distribution": {"images": 2938, "label_directories": 7, "source_group_codes": 140},
+    "selected_groups": ["KG011", "KG039", "KG061", "KG074", "KG112"],
+    "input": {"profiles": 5, "visits": 25, "camera_frames": 100, "calibration_images": 35},
+    "identity_calibration": {
+      "threshold": 0.639295,
+      "same_group_pairs": 105,
+      "different_group_pairs": 490,
+      "tpr": 0.904762,
+      "tnr": 1.0
+    },
+    "pipeline_results": {
+      "valid_images": 100,
+      "correct_identity_matches": 96,
+      "no_match": 4,
+      "wrong_identity_matches": 0,
+      "expression_accuracy": 0.540,
+      "expression_macro_f1_on_five_present_classes": 0.405409,
+      "received_visits": 25,
+      "used_visits": 22,
+      "excluded_incomplete_visits": 3,
+      "selected_k": 5,
+      "asw": 0.445193,
+      "integrity_checks": "35/35 passed"
+    },
+    "k_selection_note": "K=6 có ASW 0.4566; K=5 có 0.4452. Chênh 0.0114 nhỏ hơn tolerance 0.02 nên chọn K nhỏ hơn.",
+    "restrictions": [
+      "Không gọi 140 source codes là 140 người độc lập.",
+      "Không tuyên bố dùng toàn bộ KDEF gốc 4900 ảnh.",
+      "Nhãn thư mục chỉ dùng chọn ảnh/đối chiếu; chuỗi dùng dự đoán DeepFace thật.",
+      "Các số 96%, 0.540 và 0.445193 không đại diện môi trường cửa hàng thật."
+    ]
+  }
+}

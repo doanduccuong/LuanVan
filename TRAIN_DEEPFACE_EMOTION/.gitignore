@@ -1,0 +1,8 @@
+.venv/
+artifacts/*
+!artifacts/.gitkeep
+logs/
+dataset_manifest.json
+__pycache__/
+.pytest_cache/
+*.pyc

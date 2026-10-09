@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import uuid
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
@@ -30,10 +31,22 @@ from .models import (
     ProductCategory,
     RecordStatus,
     Role,
+    SequenceAnalysisRun,
+    SequenceClusterAssignment,
+    SequenceClusterSummary,
     Touchpoint,
     User,
     Visit,
     VisitStatus,
+)
+from .sequence_analysis import (
+    ALGORITHM_VERSION,
+    PREPROCESSING_VERSION,
+    AnalysisConfig,
+    SequenceAnalysisError,
+    SequenceObservation,
+    cluster_visit_sequences,
+    prepare_visit_sequences,
 )
 from .security import create_access_token, get_current_user, hash_password, require_roles, verify_password
 from .vision_client import VisionClient, get_vision_client
@@ -163,6 +176,22 @@ class SimulatedObservationInput(BaseModel):
 
 class SimulatedObservationBatchInput(BaseModel):
     observations: list[SimulatedObservationInput] = Field(min_length=1, max_length=2000)
+
+
+class SequenceAnalysisInput(BaseModel):
+    source_type: str = Field(pattern="^(CAMERA|SIMULATOR)$")
+    source_run_id: str = Field(min_length=1, max_length=64)
+    min_states: int = Field(default=3, ge=2, le=20)
+    min_cluster_size_abs: int = Field(default=2, ge=2)
+    min_cluster_ratio: float = Field(default=0.05, gt=0, le=0.5)
+    k_min: int = Field(default=2, ge=2)
+    k_max: int | None = Field(default=None, ge=2)
+    asw_tolerance: float = Field(default=0.02, ge=0, le=0.2)
+    random_state: int = 42
+
+
+class SequenceClusterPatch(BaseModel):
+    display_name: str | None = Field(default=None, max_length=255)
 
 
 def to_dict(obj, *fields: str) -> dict:
@@ -757,6 +786,7 @@ async def create_observation(
     event_id: str | None = Form(None),
     touchpoint_id: str | None = Form(None),
     observed_at: str | None = Form(None),
+    experiment_run_id: str | None = Form(None),
     demo_data: bool = Form(False),
     image: UploadFile | None = File(None),
     db: Session = Depends(get_db),
@@ -764,6 +794,11 @@ async def create_observation(
     vision: VisionClient = Depends(get_vision_client),
 ):
     event_id = event_id.strip() if event_id else None
+    experiment_run_id = experiment_run_id.strip() if experiment_run_id else None
+    if experiment_run_id and len(experiment_run_id) > 64:
+        raise HTTPException(status_code=422, detail="experiment_run_id vượt quá 64 ký tự")
+    if experiment_run_id and not demo_data:
+        raise HTTPException(status_code=422, detail="experiment_run_id chỉ dùng cho dữ liệu demo/nghiên cứu")
     if not event_id:
         record_ingestion_issue(db, event_id=None, touchpoint_reference=touchpoint_id, observed_at_text=observed_at, issue_code="MISSING_EVENT_ID", detail="Thiếu mã sự kiện")
         raise HTTPException(status_code=422, detail="Thiếu mã sự kiện")
@@ -805,6 +840,7 @@ async def create_observation(
             observed_at=parsed_observed_at,
             image_status="MODEL_ERROR",
             face_count=0,
+            experiment_run_id=experiment_run_id,
             demo_data=demo_data,
         )
         db.add(capture)
@@ -819,6 +855,7 @@ async def create_observation(
         image_status=result.image_status,
         face_count=result.face_count,
         detector_version=result.models.get("detector"),
+        experiment_run_id=experiment_run_id,
         demo_data=demo_data,
     )
     db.add(capture)
@@ -853,6 +890,7 @@ async def create_observation(
             detector_version=result.models.get("detector"),
             emotion_model_version=result.models.get("emotion"),
             recognition_model_version=result.models.get("embedding"),
+            experiment_run_id=experiment_run_id,
             demo_data=demo_data,
         )
         db.add(observation)
@@ -1090,6 +1128,267 @@ def visit_analysis(visit_id: str, db: Session = Depends(get_db), _user: User = D
             "time_conflicts": len(conflict_ids),
             "late_arrivals": late_count,
         },
+    }
+
+
+def sequence_run_payload(run: SequenceAnalysisRun) -> dict:
+    return {
+        "id": run.id,
+        "source_type": run.source_type,
+        "source_run_id": run.source_run_id,
+        "status": run.status,
+        "preprocessing_version": run.preprocessing_version,
+        "algorithm_version": run.algorithm_version,
+        "parameters": run.parameters,
+        "candidate_metrics": run.candidate_metrics,
+        "warnings": run.warnings,
+        "received_visit_count": run.received_visit_count,
+        "used_visit_count": run.used_visit_count,
+        "excluded_visit_count": run.excluded_visit_count,
+        "selected_k": run.selected_k,
+        "average_silhouette_width": run.average_silhouette_width,
+        "distance_matrix_sha256": run.distance_matrix_sha256,
+        "error_detail": run.error_detail,
+        "created_at": run.created_at,
+        "completed_at": run.completed_at,
+    }
+
+
+def sequence_cluster_payload(cluster: SequenceClusterSummary) -> dict:
+    return {
+        "id": cluster.id,
+        "run_id": cluster.run_id,
+        "cluster_id": cluster.cluster_id,
+        "medoid_visit_id": cluster.medoid_visit_id,
+        "medoid_sequence": cluster.medoid_sequence,
+        "size": cluster.size,
+        "proportion": cluster.proportion,
+        "mean_silhouette": cluster.mean_silhouette,
+        "median_distance": cluster.median_distance,
+        "display_name": cluster.display_name,
+    }
+
+
+def sequence_assignment_payload(assignment: SequenceClusterAssignment) -> dict:
+    visit = assignment.visit
+    customer = visit.customer if visit else None
+    return {
+        "id": assignment.id,
+        "run_id": assignment.run_id,
+        "visit_id": assignment.visit_id,
+        "cluster_id": assignment.cluster_id,
+        "sequence": assignment.sequence,
+        "sequence_metadata": assignment.sequence_metadata,
+        "distance_to_medoid": assignment.distance_to_medoid,
+        "silhouette": assignment.silhouette,
+        "visit_started_at": visit.started_at if visit else None,
+        "customer": (
+            {"id": customer.id, "customer_code": customer.customer_code, "full_name": customer.full_name}
+            if customer
+            else None
+        ),
+    }
+
+
+@app.post("/api/v1/sequence-analyses", status_code=201)
+def create_sequence_analysis(
+    payload: SequenceAnalysisInput,
+    db: Session = Depends(get_db),
+    user: User = Depends(require_roles(Role.MANAGER, Role.ADMIN)),
+):
+    config = AnalysisConfig(
+        min_states=payload.min_states,
+        min_cluster_size_abs=payload.min_cluster_size_abs,
+        min_cluster_ratio=payload.min_cluster_ratio,
+        k_min=payload.k_min,
+        k_max=payload.k_max,
+        asw_tolerance=payload.asw_tolerance,
+        random_state=payload.random_state,
+    )
+    try:
+        config.validate()
+    except SequenceAnalysisError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    parameters = payload.model_dump()
+    run = SequenceAnalysisRun(
+        source_type=payload.source_type,
+        source_run_id=payload.source_run_id,
+        status="RUNNING",
+        preprocessing_version=PREPROCESSING_VERSION,
+        algorithm_version=ALGORITHM_VERSION,
+        parameters=parameters,
+        candidate_metrics=[],
+        warnings=[],
+        created_by=user.id,
+    )
+    db.add(run)
+    db.commit()
+    db.refresh(run)
+
+    try:
+        conditions = [
+            Observation.source_type == payload.source_type,
+            Observation.image_status == "VALID",
+            Observation.expression_status == "VALID",
+            Observation.visit_id.is_not(None),
+            Observation.expression_label.in_(EXPRESSION_LABELS),
+        ]
+        if payload.source_type == "SIMULATOR":
+            conditions.append(Observation.simulation_run_id == payload.source_run_id)
+        else:
+            conditions.append(Observation.experiment_run_id == payload.source_run_id)
+        observations = db.scalars(
+            select(Observation)
+            .options(selectinload(Observation.touchpoint))
+            .where(*conditions)
+            .order_by(Observation.visit_id, Observation.observed_at, Observation.id)
+        ).all()
+        sequence_rows = [
+            SequenceObservation(
+                observation_id=item.id,
+                visit_id=item.visit_id,
+                touchpoint_id=item.touchpoint_id,
+                touchpoint_name=item.touchpoint.name if item.touchpoint else item.touchpoint_id,
+                observed_at=item.observed_at,
+                expression_label=item.expression_label,
+                expression_confidence=item.expression_confidence,
+            )
+            for item in observations
+        ]
+        prepared = prepare_visit_sequences(sequence_rows, min_states=config.min_states)
+        clustered = cluster_visit_sequences(prepared.sequences, config)
+
+        for item in clustered.clusters:
+            db.add(SequenceClusterSummary(run_id=run.id, **item))
+        for item in clustered.assignments:
+            db.add(SequenceClusterAssignment(run_id=run.id, **item))
+        run.status = "COMPLETED"
+        run.received_visit_count = prepared.received_visit_count
+        run.used_visit_count = len(prepared.sequences)
+        run.excluded_visit_count = len(prepared.excluded)
+        run.selected_k = clustered.selected_k
+        run.average_silhouette_width = clustered.average_silhouette_width
+        run.distance_matrix_sha256 = hashlib.sha256(
+            clustered.distance_matrix.astype("<f8", copy=False).tobytes(order="C")
+        ).hexdigest()
+        run.candidate_metrics = clustered.candidate_metrics
+        run.warnings = [*prepared.warnings, *clustered.warnings]
+        run.parameters = {**parameters, "excluded_visits": prepared.excluded}
+        run.completed_at = datetime.now(timezone.utc)
+        audit(
+            db,
+            user,
+            "SEQUENCE_ANALYSIS_COMPLETED",
+            "sequence_analysis_run",
+            run.id,
+            {"selected_k": run.selected_k, "used_visit_count": run.used_visit_count},
+        )
+        db.commit()
+        db.refresh(run)
+        return sequence_run_payload(run)
+    except SequenceAnalysisError as exc:
+        db.rollback()
+        failed = db.get(SequenceAnalysisRun, run.id)
+        failed.status = "FAILED"
+        failed.error_detail = str(exc)
+        failed.completed_at = datetime.now(timezone.utc)
+        audit(db, user, "SEQUENCE_ANALYSIS_FAILED", "sequence_analysis_run", failed.id, {"detail": str(exc)})
+        db.commit()
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except Exception as exc:
+        db.rollback()
+        failed = db.get(SequenceAnalysisRun, run.id)
+        failed.status = "FAILED"
+        failed.error_detail = f"{type(exc).__name__}: {exc}"[:1024]
+        failed.completed_at = datetime.now(timezone.utc)
+        db.commit()
+        raise HTTPException(status_code=500, detail="Không thể hoàn thành phân tích chuỗi") from exc
+
+
+@app.get("/api/v1/sequence-analyses")
+def list_sequence_analyses(
+    source_type: str | None = Query(default=None, pattern="^(CAMERA|SIMULATOR)$"),
+    db: Session = Depends(get_db),
+    _user: User = Depends(get_current_user),
+):
+    stmt = select(SequenceAnalysisRun).order_by(SequenceAnalysisRun.created_at.desc())
+    if source_type:
+        stmt = stmt.where(SequenceAnalysisRun.source_type == source_type)
+    return [sequence_run_payload(item) for item in db.scalars(stmt).all()]
+
+
+@app.get("/api/v1/sequence-analyses/{run_id}")
+def get_sequence_analysis(run_id: str, db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
+    run = db.get(SequenceAnalysisRun, run_id)
+    if not run:
+        raise HTTPException(status_code=404, detail="Không tìm thấy lần phân tích chuỗi")
+    return sequence_run_payload(run)
+
+
+@app.get("/api/v1/sequence-analyses/{run_id}/clusters")
+def list_sequence_clusters(run_id: str, db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
+    if not db.get(SequenceAnalysisRun, run_id):
+        raise HTTPException(status_code=404, detail="Không tìm thấy lần phân tích chuỗi")
+    rows = db.scalars(
+        select(SequenceClusterSummary)
+        .where(SequenceClusterSummary.run_id == run_id)
+        .order_by(SequenceClusterSummary.cluster_id)
+    ).all()
+    return [sequence_cluster_payload(item) for item in rows]
+
+
+@app.patch("/api/v1/sequence-analyses/{run_id}/clusters/{cluster_id}")
+def patch_sequence_cluster(
+    payload: SequenceClusterPatch,
+    run_id: str,
+    cluster_id: int,
+    db: Session = Depends(get_db),
+    user: User = Depends(require_roles(Role.MANAGER, Role.ADMIN)),
+):
+    cluster = db.scalar(
+        select(SequenceClusterSummary).where(
+            SequenceClusterSummary.run_id == run_id,
+            SequenceClusterSummary.cluster_id == cluster_id,
+        )
+    )
+    if not cluster:
+        raise HTTPException(status_code=404, detail="Không tìm thấy cụm")
+    cluster.display_name = payload.display_name.strip() if payload.display_name else None
+    audit(db, user, "SEQUENCE_CLUSTER_RENAMED", "sequence_cluster", cluster.id, {"display_name": cluster.display_name})
+    db.commit()
+    db.refresh(cluster)
+    return sequence_cluster_payload(cluster)
+
+
+@app.get("/api/v1/sequence-analyses/{run_id}/assignments")
+def list_sequence_assignments(
+    run_id: str,
+    cluster_id: int | None = None,
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
+    db: Session = Depends(get_db),
+    _user: User = Depends(get_current_user),
+):
+    if not db.get(SequenceAnalysisRun, run_id):
+        raise HTTPException(status_code=404, detail="Không tìm thấy lần phân tích chuỗi")
+    conditions = [SequenceClusterAssignment.run_id == run_id]
+    if cluster_id is not None:
+        conditions.append(SequenceClusterAssignment.cluster_id == cluster_id)
+    total = db.scalar(select(func.count()).select_from(SequenceClusterAssignment).where(*conditions)) or 0
+    rows = db.scalars(
+        select(SequenceClusterAssignment)
+        .options(selectinload(SequenceClusterAssignment.visit).selectinload(Visit.customer))
+        .where(*conditions)
+        .order_by(SequenceClusterAssignment.cluster_id, SequenceClusterAssignment.silhouette.desc())
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+    ).all()
+    return {
+        "items": [sequence_assignment_payload(item) for item in rows],
+        "page": page,
+        "page_size": page_size,
+        "total": total,
     }
 
 

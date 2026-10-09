@@ -1,0 +1,3 @@
+method,selected_k,asw,ari,nmi
+Optimal Matching + PAM,5,1.0,1.0,1.0
+State ratio + Euclidean + PAM,4,1.0,0.7769784172661871,0.9057460992755193

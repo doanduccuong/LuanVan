@@ -83,3 +83,60 @@ export type Touchpoint = {
   sequence_order: number
   active: boolean
 }
+
+export type SequenceCandidateMetric = {
+  k: number
+  asw: number
+  min_cluster_size: number
+  max_cluster_size: number
+  required_min_cluster_size: number
+  accepted: boolean
+  rejection_reason?: string | null
+}
+
+export type SequenceAnalysisRun = {
+  id: string
+  source_type: 'CAMERA' | 'SIMULATOR'
+  source_run_id: string
+  status: 'RUNNING' | 'COMPLETED' | 'FAILED'
+  preprocessing_version: string
+  algorithm_version: string
+  parameters: Record<string, unknown>
+  candidate_metrics: SequenceCandidateMetric[]
+  warnings: string[]
+  received_visit_count: number
+  used_visit_count: number
+  excluded_visit_count: number
+  selected_k?: number | null
+  average_silhouette_width?: number | null
+  distance_matrix_sha256?: string | null
+  error_detail?: string | null
+  created_at: string
+  completed_at?: string | null
+}
+
+export type SequenceCluster = {
+  id: string
+  run_id: string
+  cluster_id: number
+  medoid_visit_id: string
+  medoid_sequence: string[]
+  size: number
+  proportion: number
+  mean_silhouette: number
+  median_distance: number
+  display_name?: string | null
+}
+
+export type SequenceAssignment = {
+  id: string
+  run_id: string
+  visit_id: string
+  cluster_id: number
+  sequence: string[]
+  sequence_metadata: Array<Record<string, unknown>>
+  distance_to_medoid: number
+  silhouette: number
+  visit_started_at?: string | null
+  customer?: Pick<Customer, 'id' | 'customer_code' | 'full_name'> | null
+}

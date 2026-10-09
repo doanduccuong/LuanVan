@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "knowledge_base": "touchpoint-crm-project",
+  "language": "vi",
+  "created_at": "2026-10-09",
+  "evidence_fresh_through": "2026-10-08",
+  "purpose": "Knowledge base có cấu trúc cho agent làm việc với toàn bộ project, không phải bản tóm tắt luận văn.",
+  "scope": {
+    "included": [
+      "mã nguồn ứng dụng và pipeline ML",
+      "kiến trúc và mô hình dữ liệu",
+      "API, giao diện và cấu hình",
+      "benchmark, dữ liệu, artifact và bằng chứng",
+      "quy trình chạy, kiểm thử và tái lập",
+      "tài liệu luận văn liên quan trực tiếp tới hiện thực",
+      "mâu thuẫn, giới hạn và việc còn mở"
+    ],
+    "inventoried_but_not_reparsed": [
+      "PDF tham khảo",
+      "ảnh và file nhị phân",
+      "model weights",
+      "dataset gốc",
+      "virtualenv và cache",
+      "file build LaTeX sinh tự động"
+    ]
+  },
+  "entrypoints": {
+    "project": "project.json",
+    "repository": "repository.json",
+    "architecture": "architecture.json",
+    "domain": "domain.json",
+    "interfaces": "interfaces.json",
+    "ml_analytics": "ml_analytics.json",
+    "experiments": "experiments.json",
+    "operations": "operations.json",
+    "risks_gaps": "risks_gaps.json",
+    "sources": "sources.json"
+  },
+  "recommended_reading_order": [
+    "project.json",
+    "repository.json",
+    "architecture.json",
+    "domain.json",
+    "interfaces.json",
+    "ml_analytics.json",
+    "experiments.json",
+    "operations.json",
+    "risks_gaps.json",
+    "sources.json"
+  ],
+  "source_authority_order": [
+    "Mã nguồn, migration, cấu hình và artifact đã khóa trong SYSTEM",
+    "SYSTEM/IMPLEMENTATION_STATUS.md và SYSTEM/HANDOVER_EVIDENCE.md",
+    "Các chương 3-5 đang được include trong BAO CAO/LuanVan.tex",
+    "README và tài liệu thực nghiệm theo mô-đun",
+    "SYSTEM_DEVELOPMENT",
+    "KE_HOACH_*.md",
+    "PROPOSED_METHOD/TECH_SPEC.md"
+  ],
+  "agent_rules": [
+    "Đọc index.json trước, sau đó chỉ nạp các tệp knowledge liên quan tới tác vụ.",
+    "Khi knowledge mâu thuẫn với code hoặc artifact mới hơn, ưu tiên code/artifact và cập nhật knowledge.",
+    "Không dùng kế hoạch như bằng chứng hoàn thành.",
+    "Không diễn giải nhãn FER thành mức hài lòng hoặc trạng thái tâm lý thật.",
+    "Không trộn dữ liệu CAMERA và SIMULATOR hoặc các source_run_id khác nhau.",
+    "Không sửa artifact, dataset, weight, file LaTeX sinh tự động, virtualenv hoặc cache.",
+    "Luôn kiểm tra git status vì workspace có thay đổi người dùng chưa commit.",
+    "Khi thay đổi kiến trúc, API, mô hình dữ liệu, thuật toán hoặc quy trình chạy, cập nhật tệp JSON tương ứng và sources.json."
+  ]
+}

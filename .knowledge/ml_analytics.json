@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "vision_pipeline": {
+    "production_demo_backend": "deepface_retinaface",
+    "detector": {
+      "name": "RetinaFace-MobileNet0.25",
+      "implementation": "Vendor Pytorch_Retinaface với mobilenet0.25_Final.pth",
+      "selection_reason": "Đạt AP và tốc độ tốt nhất trong benchmark WIDER FACE của project."
+    },
+    "expression": {
+      "name": "DeepFace Emotion",
+      "labels": ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"],
+      "runtime_call": "DeepFace.analyze(actions=['emotion'], detector_backend='skip', enforce_detection=false, align=false)",
+      "deployed_weights": "Trọng số mặc định do DeepFace nạp",
+      "important_mismatch": "Checkpoint fine-tune tồn tại nhưng vision service không nạp; LBP-SVM được selection.json chọn theo Macro-F1 nhưng cũng không được tích hợp."
+    },
+    "identity": {
+      "name": "ArcFace via DeepFace",
+      "embedding_dimensions": 512,
+      "normalization": "ArcFace + normalize embedding",
+      "runtime_call": "DeepFace.represent(model_name='ArcFace', detector_backend='skip', enforce_detection=false, align=false, normalization='ArcFace')"
+    },
+    "demo_backend": {
+      "name": "opencv_demo",
+      "purpose": "Smoke test API/UI nhẹ",
+      "restriction": "Không dùng nhãn hoặc embedding từ backend này cho báo cáo/đánh giá."
+    }
+  },
+  "sequence_analysis": {
+    "implementation": "SYSTEM/apps/api/app/sequence_analysis.py",
+    "library": "Sequenzo 0.1.42",
+    "states": ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"],
+    "unit_of_analysis": "Một visit sau khi gom observation thành đoạn touchpoint",
+    "preprocessing": {
+      "version": "touchpoint-segments-v1",
+      "sorting": ["observed_at", "observation_id"],
+      "segment_representative": "mode; tie-break bằng tổng confidence; sau đó thứ tự nhãn cố định",
+      "minimum_segments": 3,
+      "conflicting_same_time_touchpoints": "Loại nếu không có căn cứ xác định thứ tự"
+    },
+    "distance": {
+      "method": "Optimal Matching",
+      "indel_cost": 1,
+      "same_state_substitution_cost": 0,
+      "different_state_substitution_cost": 2,
+      "normalization": "none",
+      "output": "Ma trận khoảng cách vuông; không tạo chuỗi thay thế"
+    },
+    "clustering": {
+      "method": "PAM/K-medoids",
+      "cluster_representative": "Medoid là chuỗi/visit thật",
+      "minimum_cluster_size": "max(n_abs, ceil(min_proportion * N))",
+      "k_upper_bound": "min(N-1, floor(N/min_cluster_size), number_of_unique_sequences)",
+      "invalid_solution": "Có ít nhất một cụm nhỏ hơn minimum_cluster_size"
+    },
+    "selection": {
+      "metric": "Average Silhouette Width",
+      "tolerance": 0.02,
+      "rule": "Chọn K nhỏ nhất trong các nghiệm cách ASW tốt nhất không quá tolerance"
+    },
+    "algorithm_version": "sequenzo-0.1.42:OM-CONSTANT2-INDEL1:PAM",
+    "outputs": [
+      "selected_k",
+      "average_silhouette_width",
+      "candidate_metrics",
+      "distance_matrix_sha256",
+      "medoid và thống kê từng cụm",
+      "assignment, distance và silhouette từng visit",
+      "metadata truy vết observation"
+    ],
+    "interpretation": "Cụm biểu thị các chuỗi nhãn tương tự theo OM. ASW không phải accuracy, satisfaction hoặc causal evidence."
+  }
+}

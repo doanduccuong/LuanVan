@@ -37,10 +37,27 @@ COMPARE_FACE_DETECTION/weights/download/
 COMPARE_FACE_DETECTION/results/
 COMPARE_FACE_DETECTION/vendor/
 
+# ===== COMPARE_FACIAL_EXPRESSION generated data and runs =====
+COMPARE_FACIAL_EXPRESSION/data/*
+!COMPARE_FACIAL_EXPRESSION/data/.gitkeep
+COMPARE_FACIAL_EXPRESSION/weights/*
+!COMPARE_FACIAL_EXPRESSION/weights/.gitkeep
+COMPARE_FACIAL_EXPRESSION/results/*
+!COMPARE_FACIAL_EXPRESSION/results/.gitkeep
+COMPARE_FACIAL_EXPRESSION/logs/
+
+# ===== External research video datasets =====
+DATASETS/CHOKEPOINT/raw/*
+DATASETS/CHOKEPOINT/extracted/*
+DATASETS/CHOKEPOINT/download.log
+DATASETS/CHOKEPOINT/download.pid
+
 # ===== SYSTEM build/data artifacts =====
 SYSTEM/apps/web/vite.config.js
 SYSTEM/apps/web/vite.config.d.ts
 SYSTEM/data/raw/
+SYSTEM/data/source/kdef/
+SYSTEM/data/generated/kdef_demo/
 SYSTEM/fixtures/demo_dataset/enrollment/
 SYSTEM/fixtures/demo_dataset/observations/
 SYSTEM/fixtures/demo_dataset/calibration/

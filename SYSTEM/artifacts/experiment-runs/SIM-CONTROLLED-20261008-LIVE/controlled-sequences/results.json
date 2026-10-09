@@ -1,0 +1,177 @@
+{
+  "analysis": {
+    "id": "4d64362a-1119-423c-b343-f73e7e5785de",
+    "source_type": "SIMULATOR",
+    "source_run_id": "SIM-CONTROLLED-20261008-LIVE",
+    "status": "COMPLETED",
+    "preprocessing_version": "touchpoint-segments-v1",
+    "algorithm_version": "sequenzo-0.1.42:OM-CONSTANT2-INDEL1:PAM",
+    "parameters": {
+      "source_type": "SIMULATOR",
+      "source_run_id": "SIM-CONTROLLED-20261008-LIVE",
+      "min_states": 4,
+      "min_cluster_size_abs": 5,
+      "min_cluster_ratio": 0.05,
+      "k_min": 2,
+      "k_max": null,
+      "asw_tolerance": 0.02,
+      "random_state": 20261008,
+      "excluded_visits": []
+    },
+    "candidate_metrics": [
+      {
+        "k": 2,
+        "asw": 0.5286195286195287,
+        "min_cluster_size": 25,
+        "max_cluster_size": 100,
+        "required_min_cluster_size": 7,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "k": 3,
+        "asw": 0.797297297297297,
+        "min_cluster_size": 25,
+        "max_cluster_size": 75,
+        "required_min_cluster_size": 7,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "k": 4,
+        "asw": 0.8979591836734694,
+        "min_cluster_size": 25,
+        "max_cluster_size": 50,
+        "required_min_cluster_size": 7,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "k": 5,
+        "asw": 1.0,
+        "min_cluster_size": 25,
+        "max_cluster_size": 25,
+        "required_min_cluster_size": 7,
+        "accepted": true,
+        "rejection_reason": null
+      }
+    ],
+    "warnings": [
+      "Giới hạn K tối đa ở 5 vì chỉ có từng đó chuỗi trạng thái phân biệt",
+      "Phương án được chọn nằm tại K lớn nhất trong phạm vi khảo sát"
+    ],
+    "received_visit_count": 125,
+    "used_visit_count": 125,
+    "excluded_visit_count": 0,
+    "selected_k": 5,
+    "average_silhouette_width": 1.0,
+    "distance_matrix_sha256": "6fcab769f1312e665feec2dec67bb1778fbe30738c4ee470bcb464df36e82873",
+    "error_detail": null,
+    "created_at": "2026-10-08T08:09:47.508789",
+    "completed_at": "2026-10-08T08:09:47.556536"
+  },
+  "clusters": [
+    {
+      "id": "b6b85d28-b248-4860-9928-d6cdfc9d2605",
+      "run_id": "4d64362a-1119-423c-b343-f73e7e5785de",
+      "cluster_id": 1,
+      "medoid_visit_id": "ea127e3d-c509-4909-a3a8-49c9b6161d14",
+      "medoid_sequence": [
+        "Neutral",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "size": 25,
+      "proportion": 0.2,
+      "mean_silhouette": 1.0,
+      "median_distance": 0.0,
+      "display_name": null
+    },
+    {
+      "id": "6142426d-9309-44e8-abdf-2908338dcf69",
+      "run_id": "4d64362a-1119-423c-b343-f73e7e5785de",
+      "cluster_id": 2,
+      "medoid_visit_id": "ed549339-1468-47c8-b246-f8002db160b1",
+      "medoid_sequence": [
+        "Happy",
+        "Neutral",
+        "Surprise",
+        "Happy"
+      ],
+      "size": 25,
+      "proportion": 0.2,
+      "mean_silhouette": 1.0,
+      "median_distance": 0.0,
+      "display_name": null
+    },
+    {
+      "id": "15749a7c-2663-43ec-8166-e38c39402bc4",
+      "run_id": "4d64362a-1119-423c-b343-f73e7e5785de",
+      "cluster_id": 3,
+      "medoid_visit_id": "fdfed50f-e276-4647-8e32-6d25570bde42",
+      "medoid_sequence": [
+        "Neutral",
+        "Neutral",
+        "Neutral",
+        "Neutral"
+      ],
+      "size": 25,
+      "proportion": 0.2,
+      "mean_silhouette": 1.0,
+      "median_distance": 0.0,
+      "display_name": null
+    },
+    {
+      "id": "48e48dfb-acf0-4b98-a630-62018c4a3934",
+      "run_id": "4d64362a-1119-423c-b343-f73e7e5785de",
+      "cluster_id": 4,
+      "medoid_visit_id": "fe507624-d497-4300-af81-df667fef0c4d",
+      "medoid_sequence": [
+        "Neutral",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "size": 25,
+      "proportion": 0.2,
+      "mean_silhouette": 1.0,
+      "median_distance": 0.0,
+      "display_name": null
+    },
+    {
+      "id": "4b541ffd-253a-4ed2-a09d-025242d6aab4",
+      "run_id": "4d64362a-1119-423c-b343-f73e7e5785de",
+      "cluster_id": 5,
+      "medoid_visit_id": "ff9f8f96-007f-48b5-bac3-e562fbac4fd2",
+      "medoid_sequence": [
+        "Happy",
+        "Happy",
+        "Happy",
+        "Happy"
+      ],
+      "size": 25,
+      "proportion": 0.2,
+      "mean_silhouette": 1.0,
+      "median_distance": 0.0,
+      "display_name": null
+    }
+  ],
+  "comparison": [
+    {
+      "method": "Optimal Matching + PAM",
+      "selected_k": 5,
+      "asw": 1.0,
+      "ari": 1.0,
+      "nmi": 1.0
+    },
+    {
+      "method": "State ratio + Euclidean + PAM",
+      "selected_k": 4,
+      "asw": 1.0,
+      "ari": 0.7769784172661871,
+      "nmi": 0.9057460992755193
+    }
+  ],
+  "distance_matrix_sha256": "6fcab769f1312e665feec2dec67bb1778fbe30738c4ee470bcb464df36e82873"
+}

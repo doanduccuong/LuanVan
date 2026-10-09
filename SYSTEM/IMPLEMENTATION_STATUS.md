@@ -1,92 +1,59 @@
 # Trạng thái triển khai hệ thống
 
-Tài liệu này ghi nhận trạng thái đã kiểm tra ngày 01/10/2026. Hệ thống phục vụ một cửa hàng và không có chức năng quản lý chi nhánh.
+Cập nhật ngày 08/10/2026. Thành phần State Sequence Clustering đã được nối vào luồng hệ thống hiện có sau bước hình thành chuỗi của mỗi lần mua sắm; đây không phải phương pháp thay thế nhận diện khuôn mặt hay phân loại biểu cảm.
 
-## 1. Thành phần đã chạy
+## 1. Thành phần đã triển khai
 
-- PostgreSQL 16 và pgvector 0.8.3.
-- Máy chủ nghiệp vụ FastAPI.
-- Dịch vụ xử lý ảnh ở cấu hình `deepface_retinaface`, sử dụng RetinaFace--MobileNet0.25, mô hình Emotion qua DeepFace và ArcFace.
-- Dịch vụ tạo dữ liệu mô phỏng.
-- Giao diện React/TypeScript qua Nginx.
-- Di trú cơ sở dữ liệu bằng Alembic.
-- Cơ sở dữ liệu dự án đã nâng cấp đến `e7b4a91d2c60`; bản này nằm sau và bao gồm `c8f31b7b2a19`.
+- FastAPI, SQLAlchemy, Alembic và PostgreSQL/pgvector cho nghiệp vụ CRM.
+- Dịch vụ thị giác dùng RetinaFace để phát hiện, ArcFace để tạo embedding định danh và DeepFace Emotion để dự đoán biểu cảm.
+- React/TypeScript cho giao diện quản trị.
+- Mô-đun `sequence_analysis.py` tạo chuỗi theo visit, gọi Sequenzo tính Optimal Matching, chạy PAM, tính silhouette và chọn số cụm.
+- Ba bảng lưu run phân tích, tóm tắt cụm và assignment; dữ liệu Camera và Simulator được lọc theo loại nguồn cùng mã lần chạy.
+- API tạo/xem run, xem cụm, đổi tên hiển thị cụm và truy vấn assignment.
+- Giao diện hiển thị ứng viên K, ASW, medoid, assignment và liên kết trở lại hành trình gốc.
+- Script chuẩn bị KDEF, đăng ký ảnh, hiệu chỉnh ngưỡng, phát lại khung Camera, xác minh hậu điều kiện, sinh biểu đồ và chụp bằng chứng.
 
-Các địa chỉ đang sử dụng:
+Migration hiện tại là `f4c3d9a8b2e1`.
 
-- Giao diện: <http://127.0.0.1:8080>
-- API nghiệp vụ: <http://127.0.0.1:8000/docs>
-- Dịch vụ xử lý ảnh: <http://127.0.0.1:8001/docs>
-- Dịch vụ mô phỏng: <http://127.0.0.1:8002/docs>
+## 2. Kết quả đầu-cuối bằng KDEF
 
-## 2. Chức năng đã triển khai
+- Mã dữ liệu: `KDEF-KAGGLE-20261008-LIVE`.
+- Nguồn: <https://www.kaggle.com/datasets/chenrich/kdef-database>.
+- Bản dữ liệu đã tải: 2.938 ảnh, 7 nhãn, 140 mã nhóm nguồn.
+- Nhóm dùng cho demo: `KG011`, `KG039`, `KG061`, `KG074`, `KG112`.
+- Đầu vào: 5 hồ sơ, 25 lần mua sắm, 100 khung Camera và 35 ảnh hiệu chỉnh dành riêng.
+- Xử lý ảnh: 100/100 ảnh hợp lệ; 96/100 khung ghép đúng hồ sơ dự kiến; 4 `NO_MATCH`; 0 ghép nhầm sang hồ sơ khác.
+- Biểu cảm: Accuracy 0,540; Macro-F1 0,405409 trên năm lớp có mẫu đối chiếu.
+- Phân cụm: nhận 25 visit, dùng 22, loại 3 visit thiếu bốn trạng thái; K=5; ASW=0,445193.
+- Run phân tích: `a845f266-7dab-4dff-ba42-a61a46930d7a`.
+- Kiểm tra luồng/tính toàn vẹn: 35/35 đạt.
 
-### CRM
+Artifact nằm tại:
 
-- Đăng nhập bằng cookie JWT.
-- Quản lý khách hàng và trạng thái đồng ý sử dụng dữ liệu khuôn mặt.
-- Quản lý nhóm sản phẩm, sản phẩm, đơn hàng và lịch sử mua hàng.
-- Giữ mã, tên và đơn giá sản phẩm tại thời điểm tạo đơn hàng.
-- Quản lý bốn khu vực được xác định trước trong một cửa hàng.
-- Xem hồ sơ khách hàng cùng ảnh đại diện và lịch sử mua hàng.
+```text
+artifacts/experiment-runs/KDEF-KAGGLE-20261008-LIVE/
+```
 
-### Khuôn mặt và quá trình mua sắm
+## 3. Thực nghiệm chuỗi có kiểm soát
 
-- Giao diện đăng ký mẫu khuôn mặt và tìm khách hàng bằng ảnh.
-- Hợp đồng API cho phát hiện khuôn mặt, FER và véc-tơ nhận dạng.
-- Lưu riêng sự kiện thu nhận và từng quan sát khuôn mặt trong một khung hình.
-- Xử lý độc lập nhiều khuôn mặt; một khung hình có thể tạo nhiều quan sát.
-- Lưu trạng thái ảnh không hợp lệ hoặc không có khuôn mặt ở cấp sự kiện thu nhận.
-- Tạo, cập nhật và kết thúc lần mua sắm.
-- Sắp xếp các quan sát trong cùng lần mua sắm theo thời gian.
-- Phát hiện khu vực bị thiếu và bản ghi xung đột thời gian.
-- Giữ lịch sử khi xác nhận khách hàng hoặc xử lý lại một quan sát.
-- Cho phép người quản lý xác nhận khách hàng đối với bản ghi chưa xác định.
-- Đánh dấu riêng dữ liệu nguồn camera và nguồn mô phỏng.
+- Mã dữ liệu: `SIM-CONTROLLED-20261008-LIVE`.
+- 25 khách hàng, 125 lần mua sắm, 500 quan sát và năm mẫu chuỗi biết trước.
+- Optimal Matching + PAM: K=5, ASW=1,000, ARI=1,000, NMI=1,000.
+- Tỷ lệ trạng thái + Euclid + PAM: K=4, ASW=1,000, ARI=0,777, NMI=0,906.
+- SHA-256 của ma trận khoảng cách được tính độc lập và khớp giá trị lưu trong API.
 
-### Báo cáo
+Đây là dữ liệu tổng hợp có kiểm soát để kiểm tra phân tích chuỗi; không phải bằng chứng về chất lượng vision hoặc hành vi khách hàng thật.
 
-- Phân bố bảy nhãn biểu cảm tại từng khu vực.
-- Thay đổi nhãn giữa các khu vực liên tiếp trong cùng lần mua sắm.
-- Chất lượng dữ liệu đầu vào.
-- Biến thiên nhãn trong cùng khu vực, cùng ngày và các khoảng 5, 15, 30 hoặc 60 phút.
-- Chuỗi quan sát của từng khách hàng.
-- Lọc báo cáo theo khu vực, thời gian và trạng thái xác định khách hàng.
-- Chọn bản ghi đầu tiên, cuối cùng hoặc có mức tin cậy cao nhất làm đại diện khi phân tích thay đổi.
+## 4. Môi trường và kiểm thử cuối
 
-## 3. Dữ liệu thử nghiệm hiện có
+- Docker Compose: PostgreSQL, Vision, API, Simulator và Web hoạt động; migration kết thúc mã 0.
+- HTTP: API, Vision, Simulator và Web đều trả 200 tại thời điểm kiểm chứng; Vision báo `DeepFaceRetinaFaceEngine`.
+- API: 15/15 kiểm thử đạt.
+- Vision: 3/3 kiểm thử đạt.
+- Web: TypeScript và Vite build thành công.
+- Ảnh trạng thái hệ thống: `artifacts/experiment-runs/KDEF-KAGGLE-20261008-LIVE/screenshots/K05_system_runtime_status.png`.
+- Dữ liệu máy đọc của lần kiểm tra: `system_runtime_status.json` trong cùng thư mục.
 
-- 100 khách hàng và 100 mẫu ArcFace.
-- Một nguồn ảnh FairFace với 110 bản ghi được chia rời thành 100 khách hàng, 8 danh tính hiệu chỉnh và 2 người chưa đăng ký.
-- 115 sự kiện ảnh khách đã đăng ký, 2 sự kiện người chưa đăng ký và 3 ca biên; tổng 120/120 sự kiện đạt điều kiện mong đợi.
-- 6 nhóm sản phẩm và 24 sản phẩm.
-- 4 khu vực được xác định trước.
-- 225 lần mua sắm, gồm 100 lần hình thành từ luồng ảnh và 125 lần từ tải nghiệp vụ.
-- 529 sự kiện thu nhận và 633 quan sát; trong đó luồng xử lý ảnh tạo 120 sự kiện và 236 quan sát, còn tải nghiệp vụ tạo 409 sự kiện và 397 quan sát.
-- 93 đơn hàng và 232 dòng sản phẩm trong đơn.
+## 5. Phạm vi kết luận
 
-Tải nghiệp vụ dùng hạt giống `20260923` và tạo 90 đơn hàng mới. Ba đơn hàng còn lại thuộc dữ liệu khởi tạo.
-
-Trong 633 quan sát, 236 quan sát đi qua dịch vụ xử lý ảnh và 397 quan sát thuộc tải nghiệp vụ được xây dựng theo quy tắc cố định. Phần tải nghiệp vụ dùng để kiểm tra phép lọc, tổng hợp và giao diện; nó không được dùng để chứng minh độ chính xác FER.
-
-## 4. Kết quả kiểm tra
-
-- 9/9 kiểm thử máy chủ nghiệp vụ đạt, gồm kiểm thử một khung hình tạo nhiều quan sát và chống gửi trùng.
-- 3/3 kiểm thử dịch vụ xử lý ảnh đạt, gồm kiểm thử xử lý độc lập nhiều khuôn mặt.
-- Giao diện React/TypeScript biên dịch thành công ở chế độ phát hành.
-- Phát lại dữ liệu ảnh đạt 120/120 sự kiện; kiểm tra hậu điều kiện đạt 105/105.
-- Toàn bộ hệ thống chạy bằng Docker Compose.
-- Ảnh giao diện chức năng được dùng trong Chương 4; ảnh của lần kiểm nghiệm và trạng thái triển khai được dùng trong Chương 5.
-- PDF luận văn đã build và kiểm tra trực quan sau khi cập nhật Chương 4 và Chương 5.
-
-## 5. Phần chưa được coi là hoàn thành
-
-- Chưa kết nối camera vật lý.
-- Chưa có thuật toán theo dõi một người chưa xác định qua các khung hình liên tiếp; nguồn thu nhận phải kiểm soát tần suất lấy mẫu.
-- Chưa đánh giá độ chính xác FER.
-- Ngưỡng cosine 0,269958 chỉ được hiệu chỉnh cho điều kiện biến đổi có kiểm soát; chưa đại diện cho camera thật.
-- FairFace không phải tập định danh theo người; kết quả 115/115 không phải độ chính xác nhận dạng ngoài thực tế.
-- Chưa có kiểm thử trình duyệt tự động trong bộ kiểm thử chính thức; chương trình chụp ảnh chỉ phục vụ kiểm tra và tạo minh chứng.
-- Gói JavaScript còn lớn và cần được chia nhỏ ở giai đoạn tối ưu.
-
-Các nội dung chưa kiểm chứng không được dùng làm kết quả thực nghiệm hoặc kết luận trong luận văn.
+Hệ thống đã chứng minh được luồng kỹ thuật ảnh đăng ký → ảnh Camera ở nhiều điểm chạm → định danh và biểu cảm → visit → chuỗi → Optimal Matching → PAM → medoid/assignment → giao diện truy vết. Kết quả không tự động cho biết khách hàng hài lòng hay không. Muốn gắn tên nghiệp vụ cho cụm phải thu thêm CSAT hoặc biến kết quả độc lập và kiểm định mối liên hệ trên dữ liệu thực tế.

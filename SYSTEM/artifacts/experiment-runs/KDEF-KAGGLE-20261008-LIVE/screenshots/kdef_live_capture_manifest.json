@@ -1,0 +1,24 @@
+{
+  "capturedAt": "2026-10-08T15:32:01.854Z",
+  "sourceRunId": "KDEF-KAGGLE-20261008-LIVE",
+  "sourceType": "CAMERA",
+  "verified": {
+    "customerCount": 5,
+    "observationCount": 100,
+    "receivedVisitCount": 25,
+    "usedVisitCount": 22,
+    "excludedVisitCount": 3,
+    "selectedK": 5,
+    "analysisRunId": "a845f266-7dab-4dff-ba42-a61a46930d7a",
+    "targetVisit": {
+      "id": "7e03f958-8197-4670-a8f6-1b07f42cfb3f",
+      "customerCode": "CUS-KDEF-005"
+    }
+  },
+  "screenshots": [
+    "K01_kdef_customer_list.png",
+    "K02_kdef_customer_profile.png",
+    "K03_kdef_four_touchpoint_journey.png",
+    "K04_kdef_camera_timeline.png"
+  ]
+}

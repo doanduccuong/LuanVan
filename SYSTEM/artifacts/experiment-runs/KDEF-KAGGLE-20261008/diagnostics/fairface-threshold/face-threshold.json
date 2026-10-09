@@ -1,0 +1,21 @@
+{
+  "version": "fairface-operational-20261001T050319Z",
+  "threshold": 0.2699579474500632,
+  "selection_rule": "maximum balanced accuracy; ties choose the smaller threshold",
+  "true_positive_rate": 1.0,
+  "true_negative_rate": 1.0,
+  "positive_pairs": 24,
+  "negative_pairs": 252,
+  "subjects": [
+    "fairface-0100",
+    "fairface-0101",
+    "fairface-0102",
+    "fairface-0103",
+    "fairface-0104",
+    "fairface-0105",
+    "fairface-0106",
+    "fairface-0107"
+  ],
+  "embedding_model": "deepface-arcface:configured-checksum",
+  "scope": "operational validation with transformed FairFace images; not a recognition-accuracy claim"
+}

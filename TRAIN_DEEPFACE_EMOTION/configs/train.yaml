@@ -1,0 +1,29 @@
+run:
+  seed: 20261007
+
+paths:
+  fer2013_csv: ../COMPARE_FACIAL_EXPRESSION/data/fer2013.csv
+  artifacts_root: artifacts
+  initial_weights: ~/.deepface/weights/facial_expression_model_weights.h5
+
+dataset:
+  expected_counts:
+    Training: 28709
+    PublicTest: 3589
+    PrivateTest: 3589
+  strict_counts: true
+  fail_on_cross_split_duplicates: false
+
+training:
+  batch_size: 128
+  epochs: 20
+  learning_rate: 0.00001
+  patience: 6
+  min_delta: 0.001
+  use_class_weights: true
+  deterministic_ops: true
+  augmentation:
+    horizontal_flip: true
+    rotation_factor: 0.04
+    translation_factor: 0.05
+    contrast_factor: 0.10

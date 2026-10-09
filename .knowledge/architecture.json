@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "style": "Modular services coordinated by the business API",
+  "components": [
+    {
+      "id": "web",
+      "path": "SYSTEM/apps/web",
+      "technology": ["React 19", "TypeScript 5.9", "Ant Design 6", "ECharts 6", "Vite 7", "Nginx"],
+      "responsibilities": ["UI quản trị", "gọi API", "hiển thị dữ liệu và biểu đồ"],
+      "must_not": ["tính báo cáo chính thức", "quyết định phân quyền", "truy cập PostgreSQL trực tiếp"]
+    },
+    {
+      "id": "api",
+      "path": "SYSTEM/apps/api",
+      "technology": ["Python 3.12", "FastAPI", "SQLAlchemy 2", "Alembic", "Sequenzo 0.1.42"],
+      "responsibilities": [
+        "xác thực và validation",
+        "nghiệp vụ CRM",
+        "điều phối vision",
+        "đối sánh khách hàng",
+        "tạo/cập nhật visit",
+        "quản lý đơn hàng",
+        "tổng hợp báo cáo",
+        "phân tích chuỗi",
+        "audit"
+      ]
+    },
+    {
+      "id": "vision",
+      "path": "SYSTEM/services/vision",
+      "technology": ["FastAPI", "OpenCV", "PyTorch", "RetinaFace-MobileNet0.25", "DeepFace", "ArcFace"],
+      "responsibilities": ["giải mã ảnh", "phát hiện nhiều khuôn mặt", "FER", "embedding khuôn mặt"],
+      "must_not": ["đọc CRM", "tự kết luận customer_id", "ghi trực tiếp database nghiệp vụ"]
+    },
+    {
+      "id": "simulator",
+      "path": "SYSTEM/services/simulator",
+      "technology": ["Python 3.12", "FastAPI", "HTTPX"],
+      "responsibilities": ["phát dữ liệu mô phỏng qua API", "tạo hành trình và đơn hàng minh họa"]
+    },
+    {
+      "id": "database",
+      "technology": ["PostgreSQL 16", "pgvector", "Alembic"],
+      "responsibilities": ["dữ liệu quan hệ", "embedding 512 chiều", "ràng buộc", "migration", "persistence phân cụm"]
+    },
+    {
+      "id": "scripts",
+      "path": "SYSTEM/scripts",
+      "responsibilities": ["chuẩn bị dataset", "seed", "enroll", "calibrate", "replay", "analyze", "verify", "capture evidence"]
+    }
+  ],
+  "dependency_direction": [
+    "browser -> web -> api",
+    "camera/source -> api",
+    "simulator -> api",
+    "api <-> vision",
+    "api <-> database",
+    "api sequence analysis -> database"
+  ],
+  "deployment": {
+    "compose_file": "SYSTEM/compose.yaml",
+    "services": ["postgres", "migrate", "vision", "api", "simulator", "web"],
+    "startup_constraints": [
+      "postgres healthy trước migrate",
+      "migrate hoàn tất trước api",
+      "vision healthy trước api",
+      "web phụ thuộc api và simulator"
+    ],
+    "platform_note": "API/migrate dùng linux/amd64 trong Compose vì Sequenzo 0.1.42 không có Linux ARM64 wheel; vision vẫn chạy native ARM64 trên Apple Silicon.",
+    "persistent_volume": "postgres-data",
+    "read_only_model_mounts": [
+      "COMPARE_FACE_DETECTION/vendor/Pytorch_Retinaface",
+      "COMPARE_FACE_DETECTION/weights/mobilenet0.25_Final.pth",
+      "$HOME/.deepface"
+    ]
+  },
+  "primary_data_flow": [
+    "Nguồn gửi image + event_id + touchpoint + observed_at tới API.",
+    "API kiểm tra đầu vào và chống trùng event.",
+    "API chuyển ảnh tạm thời sang vision.",
+    "Vision trả trạng thái khung và danh sách kết quả theo từng khuôn mặt.",
+    "API đối sánh embedding, liên kết customer/visit và lưu capture_event + observations.",
+    "Report/sequence analysis đọc dữ liệu đã lưu, không tính trên frontend."
+  ],
+  "failure_boundaries": [
+    "Ảnh invalid hoặc no-face dừng ở capture_event, không tạo observation giả.",
+    "Lỗi FER không làm mất embedding ArcFace hợp lệ.",
+    "Lỗi ArcFace không làm mất nhãn FER hợp lệ.",
+    "Một face crop lỗi không làm mất các khuôn mặt khác trong cùng khung.",
+    "Vision timeout không được tiếp tục đối sánh khách hàng.",
+    "event_id duy nhất bảo vệ idempotency ở cấp khung; event_id + face_index duy nhất ở cấp observation."
+  ]
+}

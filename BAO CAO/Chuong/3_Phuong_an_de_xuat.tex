@@ -25,7 +25,6 @@ Giải pháp được xây dựng dựa trên các nguyên tắc sau:
     \item \textbf{Tách biệt hai nhiệm vụ nhận dạng:} Phân loại biểu cảm và nhận dạng khách hàng được thực hiện độc lập. Kết quả của nhiệm vụ này không được sử dụng để thay đổi kết quả của nhiệm vụ còn lại.
     \item \textbf{Liên kết theo khách hàng và lần mua sắm:} Chỉ những bản ghi xác định được cùng một khách hàng và thuộc cùng một lần mua sắm mới được liên kết thành một chuỗi cá nhân.
     \item \textbf{Duy trì thứ tự thời gian:} Các bản ghi được sắp xếp theo thời điểm hình ảnh được ghi nhận để giữ lại trình tự khách hàng xuất hiện tại các khu vực.
-    \item \textbf{Giữ trạng thái không xác định:} Hệ thống không tự gán khách hàng, không tạo nhãn biểu cảm thay thế và không bổ sung dữ liệu cho những khu vực không có quan sát hợp lệ.
     \item \textbf{Phân tích theo khu vực:} Dữ liệu được sử dụng để thống kê sự phân bố của các nhãn biểu cảm tại từng khu vực và sự thay đổi của nhãn biểu cảm giữa các khu vực liên tiếp.
 \end{itemize}
 
@@ -342,8 +341,71 @@ Ngoài bảng chéo, kết quả có thể được trình bày bằng sơ đồ
 
 Kết quả chỉ mô tả sự thay đổi của nhãn biểu cảm quan sát được giữa hai khu vực. Kết quả không chứng minh khu vực trước là nguyên nhân tạo ra biểu cảm tại khu vực sau.
 
-\subsection{Hiển thị chuỗi quan sát của từng khách hàng}
+\subsection{Phân cụm chuỗi trạng thái của toàn bộ lần mua sắm}
 \label{subsection:3.5.3}
+
+Bảng thay đổi ở tiểu mục trước chỉ đếm từng cặp khu vực liên tiếp. Để tìm các kiểu diễn biến lặp lại trên toàn bộ hành trình, hệ thống thêm thành phần phân cụm chuỗi trạng thái vào sau bước hình thành chuỗi của từng lần mua sắm. Thành phần này không thay thế các bước nhận diện khuôn mặt, phân loại biểu cảm hay thống kê hiện có; nó sử dụng chính chuỗi nhãn mà các bước trước đã tạo. Đây là bài toán phân cụm chuỗi phân loại: mỗi phần tử thuộc một tập trạng thái hữu hạn và thứ tự phần tử mang thông tin. Tổng quan gần đây của Khalifa và cộng sự chia các phương pháp cho loại dữ liệu này thành ba họ dựa trên khoảng cách, đặc trưng và mô hình; trong đó các phương pháp dựa trên khoảng cách, đặc biệt là Optimal Matching, là nhóm được sử dụng phổ biến nhất \cite{khalifa2026categorical}. Nghiên cứu chọn cách tiếp cận dựa trên khoảng cách vì đầu vào hiện tại là các chuỗi ngắn, có nhãn rời rạc và không có biến đích để huấn luyện mô hình có giám sát.
+
+\subsubsection{Tạo chuỗi đầu vào}
+
+Một lần mua sắm \(v\) tạo một chuỗi
+\[
+S_v=(s_{v,1},s_{v,2},\ldots,s_{v,L_v}),
+\]
+trong đó \(s_{v,t}\) là nhãn biểu cảm dự đoán tại đoạn điểm chạm thứ \(t\), còn \(L_v\) là số đoạn hợp lệ. Chỉ sử dụng quan sát có ảnh hợp lệ, kết quả phân loại hợp lệ, mã lần mua sắm và nhãn thuộc bảy lớp của hệ thống. Các quan sát được sắp xếp theo thời gian ghi nhận rồi theo mã bản ghi để phá hòa.
+
+Nhiều khung liên tiếp tại cùng một điểm chạm được gom thành một đoạn để tần suất lấy ảnh không làm một trạng thái bị lặp quá mức. Nhãn đại diện của đoạn là nhãn có số lần xuất hiện lớn nhất; nếu hòa thì so sánh tổng mức tin cậy, sau đó dùng thứ tự nhãn cố định. Hai điểm chạm khác nhau vẫn tạo hai phần tử, kể cả khi cùng nhãn. Vì vậy chuỗi \(\textit{Neutral}\rightarrow\textit{Neutral}\rightarrow\textit{Happy}\) không bị rút gọn thành hai trạng thái. Bản ghi cùng thời điểm nhưng thuộc nhiều điểm chạm bị loại khỏi đầu vào phân cụm vì không có căn cứ xác định thứ tự. Phiên bản thực nghiệm yêu cầu ít nhất ba đoạn hợp lệ.
+
+\subsubsection{Khoảng cách Optimal Matching}
+
+Optimal Matching (OM) biến việc so sánh hai chuỗi thành bài toán tìm tổng chi phí nhỏ nhất của các phép chèn, xóa và thay thế. Cách tiếp cận này tạo một độ bất tương đồng cho từng cặp chuỗi và sau đó có thể dùng ma trận bất tương đồng làm đầu vào phân cụm \cite{studer2016sequence,gabadinho2011traminer}. Với hai tiền tố \(x_{1:i}\) và \(y_{1:j}\), quy hoạch động được viết:
+\[
+D(i,j)=\min
+\begin{cases}
+D(i-1,j)+c_{\mathrm{indel}},\\
+D(i,j-1)+c_{\mathrm{indel}},\\
+D(i-1,j-1)+c_{\mathrm{sub}}(x_i,y_j).
+\end{cases}
+\]
+Điều kiện biên là \(D(0,j)=j\,c_{\mathrm{indel}}\) và \(D(i,0)=i\,c_{\mathrm{indel}}\). Trong cấu hình cơ sở, \(c_{\mathrm{indel}}=1\), còn \(c_{\mathrm{sub}}(x_i,y_j)=0\) nếu hai nhãn giống nhau và bằng \(2\) nếu khác nhau. Các giá trị \(0\), \(1\) và \(2\) ở đây là chi phí thao tác của thuật toán, không phải điểm tích cực, tiêu cực hay điểm hài lòng.
+
+Đầu ra của bước này là ma trận vuông \(D\in\mathbb{R}^{N\times N}\), trong đó \(D_{ij}\) là khoảng cách giữa visit \(i\) và visit \(j\), \(D_{ii}=0\), và \(N\) là số chuỗi đủ điều kiện. Bước OM không tạo ra một chuỗi đã biến đổi để thay thế dữ liệu gốc. Nghiên cứu giữ khoảng cách thô với \texttt{norm=none}, không chia cho tổng độ dài chuỗi. Lý do là đơn vị phân tích đã được chuẩn hóa theo đoạn điểm chạm; việc chuẩn hóa thêm có thể làm mất một phần khác biệt về số đoạn. Nghiên cứu của Studer và Ritschard cũng chỉ ra rằng không tồn tại một khoảng cách tối ưu cho mọi mục đích; lựa chọn phải phụ thuộc vào khía cạnh cần giữ lại như thành phần, thứ tự, thời điểm hay thời lượng \cite{studer2016sequence}.
+
+\subsubsection{PAM, medoid và số cụm}
+
+Ma trận \(D\) được đưa vào Partitioning Around Medoids (PAM) \cite{kaufman1990pam}. Với số cụm \(K\), PAM chọn tập \(M\) gồm \(K\) phần tử có thật trong dữ liệu sao cho
+\[
+\min_{M,\ |M|=K}\sum_{i=1}^{N}\min_{m\in M}D_{im}.
+\]
+Mỗi phần tử được gán vào medoid gần nhất. Medoid vì vậy là chuỗi có thật đại diện cho một cụm, không phải chuỗi trung bình do hệ thống tự tạo. Việc dùng PAM phù hợp ở đây vì thuật toán nhận trực tiếp ma trận bất tương đồng OM; không cần ép chuỗi thành véc-tơ Euclid.
+
+Trước khi thử \(K\), kích thước cụm tối thiểu được xác định bởi
+\[
+n_{\min}(N)=\max\left(n_{\mathrm{abs}},\left\lceil\pi_{\min}N\right\rceil\right).
+\]
+Trong đó \(n_{\mathrm{abs}}\) ngăn cụm chỉ có quá ít phần tử khi tập nhỏ, còn \(\pi_{\min}\) giữ ngưỡng theo tỷ lệ khi số visit tăng. Gọi \(U\) là số chuỗi trạng thái phân biệt, phạm vi khảo sát trong hiện thực là
+\[
+2\le K\le K_{\max}=
+\min\left(N-1,\left\lfloor\frac{N}{n_{\min}(N)}\right\rfloor,U\right).
+\]
+Thành phần \(U\) ngăn yêu cầu nhiều medoid khác nhau hơn số chuỗi phân biệt; đây cũng là kiểm tra bảo vệ trước trường hợp thư viện trả nhiều cột kết quả trùng tên khi dữ liệu có nhiều chuỗi giống hệt. Sau khi chạy PAM, phương án vẫn bị loại nếu kích thước cụm thực tế nhỏ hơn \(n_{\min}\).
+
+Chất lượng mỗi phương án được so sánh bằng silhouette \cite{rousseeuw1987silhouettes}. Với chuỗi \(i\), \(a(i)\) là khoảng cách trung bình đến các phần tử cùng cụm và \(b(i)\) là khoảng cách trung bình nhỏ nhất đến một cụm khác:
+\[
+s(i)=\frac{b(i)-a(i)}{\max\{a(i),b(i)\}}.
+\]
+Average Silhouette Width (ASW) là trung bình \(s(i)\) của toàn bộ chuỗi. Giá trị lớn hơn cho biết, theo chính khoảng cách OM đang dùng, các phần tử gần cụm của mình hơn cụm gần nhất khác. Hệ thống chọn phương án hợp lệ có ASW tốt nhất; nếu nhiều phương án cách điểm tốt nhất không quá ngưỡng cấu hình \(0{,}02\), ưu tiên \(K\) nhỏ hơn để tránh tạo thêm cụm khi mức cải thiện không đáng kể. ASW là chỉ số cấu trúc cụm, không đo độ chính xác của nhãn biểu cảm và không phải điểm hài lòng.
+
+Phần hiện thực sử dụng Sequenzo phiên bản \(0.1.42\) cho biểu diễn chuỗi, ma trận OM, PAM và silhouette \cite{sequenzo2026}. Mỗi lần chạy lưu nguồn dữ liệu, mã lần phát dữ liệu, tham số, phiên bản tiền xử lý, phiên bản thuật toán và mã kiểm tra SHA-256 của ma trận khoảng cách để có thể tái lập.
+
+\subsubsection{Đầu ra và ý nghĩa}
+
+Đầu ra cuối cùng không phải một số duy nhất. Hệ thống trả \(K\), ASW và bảng phương án \(K\); với mỗi cụm trả medoid, số lượng, tỷ lệ, silhouette trung bình và khoảng cách trung vị; với mỗi visit trả mã cụm, chuỗi đầu vào, khoảng cách tới medoid và silhouette. Kết quả trả lời ba câu hỏi: những kiểu diễn biến nào lặp lại trong dữ liệu, mỗi kiểu được đại diện bởi chuỗi thật nào, và một lần mua sắm cụ thể gần kiểu nào nhất.
+
+Tên như \textit{ổn định Neutral} hoặc \textit{kết thúc bằng Happy} chỉ được người phân tích đặt sau khi xem medoid. Thuật toán không tự đổi tên cụm thành \textit{hài lòng} hoặc \textit{không hài lòng}. Muốn kiểm tra liên hệ với sự hài lòng cần thu thập một biến đối chứng độc lập như CSAT rồi đánh giá mối liên hệ giữa biến đó với cụm; dữ liệu hiện tại chưa cho phép kết luận này.
+
+\subsection{Hiển thị chuỗi quan sát của từng khách hàng}
+\label{subsection:3.5.4}
 
 Đối với khách hàng đã đăng ký, CRM hiển thị các bản ghi thuộc cùng một lần mua sắm theo trục thời gian. Mỗi vị trí trên trục thể hiện khu vực, thời gian ghi nhận, nhãn biểu cảm, mức tin cậy và trạng thái dữ liệu. Cách hiển thị này cho phép quan sát nhãn biểu cảm được giữ nguyên hoặc thay đổi khi khách hàng xuất hiện tại các khu vực khác nhau.
 
@@ -354,7 +416,7 @@ Khi chọn một quan sát, CRM có thể hiển thị thông tin chi tiết g�
 Chuỗi quan sát chỉ được tạo từ các bản ghi đã xác định khách hàng. Bản ghi không xác định có thể xuất hiện trong thống kê tổng hợp nhưng không được ghép vào chuỗi của một hồ sơ cụ thể.
 
 \subsection{Kết hợp với dữ liệu mua hàng}
-\label{subsection:3.5.4}
+\label{subsection:3.5.5}
 
 Nếu lần mua sắm phát sinh đơn hàng, chuỗi quan sát có thể được liên kết với đơn hàng thông qua mã khách hàng và thời gian giao dịch. Việc liên kết hỗ trợ tra cứu bối cảnh mua sắm, chẳng hạn khách hàng đã mua sản phẩm nào và biểu cảm nào được ghi nhận tại khu vực thanh toán.
 
@@ -365,7 +427,7 @@ Dữ liệu kết hợp cho phép tra cứu theo hai hướng. Từ hồ sơ kh�
 Dữ liệu mua hàng cung cấp thêm bối cảnh cho kết quả nhận dạng. Sự thay đổi biểu cảm không được sử dụng riêng để kết luận nguyên nhân khách hàng mua hoặc không mua sản phẩm.
 
 \subsection{Báo cáo chất lượng dữ liệu}
-\label{subsection:3.5.5}
+\label{subsection:3.5.6}
 
 Bên cạnh kết quả biểu cảm, hệ thống cần thống kê số hình ảnh không phát hiện được khuôn mặt, số bản ghi không có kết quả biểu cảm hợp lệ, số bản ghi không xác định được khách hàng, số lần mua sắm thiếu khu vực, số bản ghi có thời gian xung đột và số lần mua sắm đủ điều kiện phân tích.
 
@@ -376,7 +438,7 @@ Các thông tin này cho biết kết quả thống kê được hình thành t�
 Báo cáo chất lượng cần cho phép lọc theo khu vực và khoảng thời gian. Nếu một khu vực có tỷ lệ không phát hiện được khuôn mặt cao hơn các khu vực khác, vấn đề có thể nằm ở vị trí nguồn thu nhận hoặc điều kiện ảnh thay vì ở phân bố biểu cảm của khách hàng. Do đó, các chỉ số chất lượng là điều kiện để đánh giá mức độ đáng tin cậy của báo cáo nghiệp vụ.
 
 \subsection{Nguyên tắc diễn giải kết quả}
-\label{subsection:3.5.6}
+\label{subsection:3.5.7}
 
 Để tránh diễn giải vượt quá khả năng của dữ liệu, giải pháp áp dụng các nguyên tắc sau:
 

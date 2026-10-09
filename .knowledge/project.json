@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "project": {
+    "name": "CRM kết hợp nhận dạng biểu cảm đa điểm chạm",
+    "type": "Đồ án/luận văn kèm hệ thống phần mềm và pipeline thực nghiệm",
+    "deployment_scope": "Một cửa hàng, nhiều khu vực được xác định trước, không quản lý nhiều chi nhánh",
+    "primary_language": "Tiếng Việt",
+    "working_timezone": "Asia/Ho_Chi_Minh"
+  },
+  "problem": "Thu thập các dấu hiệu biểu cảm khuôn mặt tại nhiều điểm chạm, liên kết chúng theo khách hàng và lần mua sắm, sau đó tích hợp với CRM để tra cứu và phân tích hành trình.",
+  "goals": [
+    "Phát hiện tất cả khuôn mặt trong một khung hình.",
+    "Phân loại bảy nhãn biểu cảm khuôn mặt.",
+    "Tạo embedding ArcFace và đối sánh khách hàng đã đăng ký có consent.",
+    "Tạo visit và chuỗi quan sát theo thời gian/điểm chạm.",
+    "Quản lý khách hàng, sản phẩm, đơn hàng và lịch sử mua hàng.",
+    "Báo cáo phân bố, timeline, thay đổi biểu cảm và chất lượng dữ liệu.",
+    "Phân cụm toàn bộ chuỗi trạng thái bằng Optimal Matching và PAM.",
+    "Đảm bảo kết quả có manifest, checksum, artifact và khả năng truy vết."
+  ],
+  "non_goals": [
+    "Không đo trực tiếp sự hài lòng và không thay thế CSAT/NPS.",
+    "Không suy luận cảm xúc thật hoặc nguyên nhân từ một nhãn FER.",
+    "Không theo dõi người chưa xác định xuyên video liên tục.",
+    "Không chứng minh hiệu năng trong cửa hàng thật từ dữ liệu KDEF/FER-2013.",
+    "Không tự đặt nhãn tâm lý/nghiệp vụ cho cụm khi chưa có biến đối chứng.",
+    "Không hỗ trợ nhiều chi nhánh trong phiên bản hiện tại."
+  ],
+  "current_state": {
+    "implementation_status_date": "2026-10-08",
+    "overall": "Luồng tích hợp đã được triển khai và có bằng chứng chạy đầu-cuối.",
+    "implemented": [
+      "FastAPI API, SQLAlchemy, Alembic, PostgreSQL/pgvector",
+      "Vision service với RetinaFace-MobileNet0.25, DeepFace Emotion và ArcFace",
+      "React/TypeScript CRM",
+      "Sequence analysis với OM, PAM, silhouette và chọn K",
+      "Camera/KDEF replay, simulator, verification và evidence capture",
+      "Docker Compose cho postgres, migrate, vision, api, simulator, web"
+    ],
+    "recorded_verification": {
+      "api_tests": "15/15 passed",
+      "vision_tests": "3/3 passed",
+      "web_build": "passed",
+      "services": "PostgreSQL, Vision, API, Simulator và Web hoạt động; HTTP health 200",
+      "migration_head": "f4c3d9a8b2e1"
+    },
+    "verification_note": "Đây là trạng thái được ghi trong artifact/tài liệu ngày 08/10/2026, không phải kết quả chạy lại khi tạo knowledge base."
+  },
+  "core_outputs": [
+    "Hệ thống CRM chạy được",
+    "Bộ benchmark phát hiện khuôn mặt",
+    "Bộ benchmark và fine-tune phân loại biểu cảm",
+    "Phân tích/phân cụm chuỗi trạng thái",
+    "Artifact thực nghiệm có thể tái lập",
+    "Luận văn LaTeX và PDF"
+  ],
+  "interpretation_guardrails": [
+    "Gọi đầu ra là nhãn biểu cảm được mô hình ghi nhận.",
+    "Giữ riêng bảy nhãn, không gán thang tích cực/tiêu cực.",
+    "Luôn báo cáo mẫu số hợp lệ, dữ liệu thiếu và lỗi.",
+    "Không ghép hai khách hàng hoặc hai visit thành một chuỗi.",
+    "Không suy ra quan hệ nhân quả giữa các khu vực.",
+    "Benchmark thành phần không thay thế đánh giá đầu-cuối."
+  ]
+}
