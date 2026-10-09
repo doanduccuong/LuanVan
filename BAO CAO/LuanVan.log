@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  8 OCT 2026 16:46
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  9 OCT 2026 14:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1130,7 +1130,12 @@ Package glossaries Info: Preparing to sort glossary `acronym' (total number of
 CHƯƠNG 1.
 (./Chuong/1_Gioi_thieu.tex [1
 
-]) [2]
+]
+Overfull \hbox (3.47586pt too wide) in paragraph at lines 30--31
+[]\TU/TimesNewRoman(0)/b/sc/13 Xây dựng quy trình nhận dạng biểu cảm khuôn mặt (FER) bảy lớp: \TU/TimesNewRoman(0)/m/n/13 Nghiên
+ []
+
+) [2]
 CHƯƠNG 2.
 (./Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex [3
 
@@ -1340,147 +1345,143 @@ Overfull \hbox (11.07988pt too wide) in paragraph at lines 356--357
 []\TU/lmtt/m/n/13 PATCH /api/v1/sequence-analyses/{id}/clusters/{cluster_id}\TU/TimesNewRoman(0)/m/n/13 : lưu
  []
 
-
-LaTeX Warning: Reference `fig:sequence_overview_ch4' on page 59 undefined on input line 359.
-
 File: Hinhve/Chuong4/4_20_tong_quan_phan_cum_chuoi.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_20_tong_quan_phan_cum_chuoi.png>
 [59]
-
-LaTeX Warning: Reference `fig:sequence_medoids_ch4' on page 60 undefined on input line 368.
-
 File: Hinhve/Chuong4/4_21_cum_va_medoid.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_21_cum_va_medoid.png>
-
-LaTeX Warning: Reference `fig:sequence_assignments_ch4' on page 60 undefined on input line 377.
-
-
-LaTeX Warning: Reference `fig:sequence_trace_ch4' on page 60 undefined on input line 377.
-
-[60]
+ [60]
 File: Hinhve/Chuong4/4_22_danh_sach_gan_cum.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_22_danh_sach_gan_cum.png>
 File: Hinhve/Chuong4/4_23_truy_vet_cum_ve_hanh_trinh.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_23_truy_vet_cum_ve_hanh_trinh.png>
  [61]
-
-LaTeX Warning: Reference `fig:sequence_api_docs_ch4' on page 62 undefined on input line 393.
-
 File: Hinhve/Chuong4/4_24_tai_lieu_api_phan_cum_chuoi.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_24_tai_lieu_api_phan_cum_chuoi.png>
-[62]
+ [62]
+File: Hinhve/Chuong4/4_25_danh_sach_khach_kdef.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_25_danh_sach_khach_kdef.png>
+File: Hinhve/Chuong4/4_27_hanh_trinh_kdef_bon_diem_cham.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_27_hanh_trinh_kdef_bon_diem_cham.png>
+ [63]
+File: Hinhve/Chuong4/4_29_trang_thai_he_thong_docker.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_29_trang_thai_he_thong_docker.png>
+ [64]
 File: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_10_chat_luong_du_lieu.png>
-) [63]
+ [65]) [66]
 CHƯƠNG 5.
-(./Chuong/5_Danh_gia_thuc_nghiem.tex [64
+(./Chuong/5_Danh_gia_thuc_nghiem.tex [67
 
 ]
 
-LaTeX Warning: Citation `widerFaceEvaluation' on page 65 undefined on input line 28.
-
-[65]
-
-LaTeX Warning: Citation `vanRijsbergen1979' on page 66 undefined on input line 35.
-
-
-LaTeX Warning: Citation `widerFaceEvaluation' on page 66 undefined on input line 48.
-
-[66] [67]
-
-LaTeX Warning: Citation `serengil2021hyperextended' on page 68 undefined on input line 116.
-
-
-LaTeX Warning: Citation `deepfaceEmotionModel' on page 68 undefined on input line 116.
+LaTeX Warning: Citation `widerFaceEvaluation' on page 68 undefined on input line 28.
 
 [68]
 
-LaTeX Warning: Citation `shan2009lbp' on page 69 undefined on input line 145.
+LaTeX Warning: Citation `vanRijsbergen1979' on page 69 undefined on input line 35.
 
-[69] [70] [71]
+
+LaTeX Warning: Citation `widerFaceEvaluation' on page 69 undefined on input line 48.
+
+[69] [70]
+
+LaTeX Warning: Citation `serengil2021hyperextended' on page 71 undefined on input line 116.
+
+
+LaTeX Warning: Citation `deepfaceEmotionModel' on page 71 undefined on input line 116.
+
+[71]
+
+LaTeX Warning: Citation `shan2009lbp' on page 72 undefined on input line 145.
+
+[72] [73] [74]
 File: Hinhve/Chuong5/5_09_ma_tran_nham_lan_lbp_svm.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_09_ma_tran_nham_lan_lbp_svm.png>
 File: Hinhve/Chuong5/5_10_ma_tran_nham_lan_deepface.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_10_ma_tran_nham_lan_deepface.png>
 File: Hinhve/Chuong5/5_11_ma_tran_nham_lan_emotion_tinh_chinh.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_11_ma_tran_nham_lan_emotion_tinh_chinh.png>
- [72] [73]
+ [75] [76]
 
-LaTeX Warning: Citation `khalifa2026categorical' on page 74 undefined on input line 274.
-
-
-LaTeX Warning: Citation `studer2016sequence' on page 74 undefined on input line 274.
+LaTeX Warning: Citation `khalifa2026categorical' on page 77 undefined on input line 274.
 
 
-LaTeX Warning: Citation `kaufman1990pam' on page 74 undefined on input line 274.
+LaTeX Warning: Citation `studer2016sequence' on page 77 undefined on input line 274.
 
 
-LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 74 undefined on input line 274.
+LaTeX Warning: Citation `kaufman1990pam' on page 77 undefined on input line 274.
 
 
-LaTeX Warning: Reference `tab:controlled_sequences_ch5' on page 74 undefined on input line 281.
+LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 77 undefined on input line 274.
 
-[74]
+[77]
 
-LaTeX Warning: Citation `sequenzo2026' on page 75 undefined on input line 310.
+LaTeX Warning: Citation `sequenzo2026' on page 78 undefined on input line 310.
 
-[75]
-
-LaTeX Warning: Reference `tab:sequence_method_comparison_ch5' on page 76 undefined on input line 328.
-
-
+[78]
 Overfull \hbox (2.45583pt too wide) in paragraph at lines 345--346
 []\TU/TimesNewRoman(0)/m/n/13 Optimal Matching–PAM khôi phục đúng năm mẫu; mỗi cụm có 25 chuỗi, medoid
  []
 
 File: Hinhve/Chuong5/5_16_so_sanh_asw.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_16_so_sanh_asw.png>
-[76]
-
-LaTeX Warning: Reference `fig:sequence_asw_comparison_ch5' on page 77 undefined on input line 354.
-
-
-LaTeX Warning: Reference `fig:sequence_distance_matrix_ch5' on page 77 undefined on input line 354.
-
+[79]
 File: Hinhve/Chuong5/5_17_ma_tran_khoang_cach_om.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_17_ma_tran_khoang_cach_om.png>
-
-LaTeX Warning: Reference `fig:sequence_overview_ch5' on page 77 undefined on input line 366.
-
-
-LaTeX Warning: Reference `fig:sequence_medoids_ch5' on page 77 undefined on input line 366.
-
-[77]
+ [80]
 File: Hinhve/Chuong5/5_12_tong_quan_phan_cum_chuoi.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_12_tong_quan_phan_cum_chuoi.png>
 File: Hinhve/Chuong5/5_13_cum_va_medoid.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_13_cum_va_medoid.png>
-
-
-LaTeX Warning: Reference `fig:sequence_assignments_ch5' on page 78 undefined on input line 382.
-
-
-LaTeX Warning: Reference `fig:sequence_trace_ch5' on page 78 undefined on input line 382.
-
-[78]
+ [81]
 File: Hinhve/Chuong5/5_14_danh_sach_gan_cum.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_14_danh_sach_gan_cum.png>
 File: Hinhve/Chuong5/5_15_truy_vet_cum_ve_hanh_trinh.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_15_truy_vet_cum_ve_hanh_trinh.png>
- [79]
+ [82]
 
-LaTeX Warning: Citation `lundqvist1998kdef' on page 80 undefined on input line 411.
+LaTeX Warning: Citation `lundqvist1998kdef' on page 83 undefined on input line 411.
 
 
-LaTeX Warning: Citation `kdefTerms' on page 80 undefined on input line 411.
+LaTeX Warning: Citation `chenrich2024kdefkaggle' on page 83 undefined on input line 411.
 
-[80]
 
-LaTeX Warning: Reference `tab:controlled_sequences_ch5' on page 81 undefined on input line 413.
+LaTeX Warning: Citation `kdefTerms' on page 83 undefined on input line 411.
 
-) [81] (./LuanVan.bbl [82
+[83]
+File: Hinhve/Chuong5/5_16_du_lieu_khach_kdef.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_16_du_lieu_khach_kdef.png>
+ [84]
+File: Hinhve/Chuong5/5_17_ho_so_khach_kdef.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_17_ho_so_khach_kdef.png>
+ [85]
+File: Hinhve/Chuong5/5_21_kdef_ket_qua_dinh_danh.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_21_kdef_ket_qua_dinh_danh.png>
+ [86]
+File: Hinhve/Chuong5/5_18_hanh_trinh_kdef_bon_diem_cham.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_18_hanh_trinh_kdef_bon_diem_cham.png>
+File: Hinhve/Chuong5/5_19_chuoi_camera_kdef.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_19_chuoi_camera_kdef.png>
+ [87]
+File: Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png>
+ [88]
+File: Hinhve/Chuong5/5_26_kdef_chon_so_cum.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_26_kdef_chon_so_cum.png>
+File: Hinhve/Chuong5/5_22_kdef_tong_quan_phan_cum.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_22_kdef_tong_quan_phan_cum.png>
+ [89]
+File: Hinhve/Chuong5/5_23_kdef_cum_medoid.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_23_kdef_cum_medoid.png>
+ [90]
+File: Hinhve/Chuong5/5_24_kdef_gan_cum.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_24_kdef_gan_cum.png>
+File: Hinhve/Chuong5/5_25_kdef_truy_vet.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_25_kdef_truy_vet.png>
+ [91]) [92] (./LuanVan.bbl [93
 
-] [83]) [84] (./LuanVan.aux)
+] [94]) [95] (./LuanVan.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1496,25 +1497,16 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `LuanVan.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `LuanVan.out':
-(rerunfilecheck)             Before: B8138187113E29E3817D0FAB53CCDA23;21691
-(rerunfilecheck)             After:  59C132A4D5E6724BFBC7C118998DF47E;22985.
+Package rerunfilecheck Info: File `LuanVan.out' has not changed.
+(rerunfilecheck)             Checksum: 8FEC22750150D1EBA965EF0BA4C31D65;24074.
  ) 
 Here is how much of TeX's memory you used:
- 40033 strings out of 469709
- 834516 string characters out of 5466023
- 1381427 words of memory out of 5000000
- 67948 multiletter control sequences out of 15000+600000
+ 40169 strings out of 469709
+ 840721 string characters out of 5466023
+ 1386112 words of memory out of 5000000
+ 68070 multiletter control sequences out of 15000+600000
  638306 words of font info for 123 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  108i,12n,107p,2543b,1028s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on LuanVan.pdf (96 pages).
+Output written on LuanVan.pdf (107 pages).

@@ -31,14 +31,28 @@
 \contentsline {figure}{\numberline {4.16}{\ignorespaces Danh sách lần mua sắm cùng cụm, khoảng cách và silhouette}}{61}{figure.caption.42}%
 \contentsline {figure}{\numberline {4.17}{\ignorespaces Truy vết một assignment về bốn quan sát của lần mua sắm}}{62}{figure.caption.43}%
 \contentsline {figure}{\numberline {4.18}{\ignorespaces Các endpoint phân cụm chuỗi trong tài liệu OpenAPI đang chạy}}{62}{figure.caption.44}%
-\contentsline {figure}{\numberline {4.19}{\ignorespaces Báo cáo chất lượng của dữ liệu đã tiếp nhận và liên kết}}{63}{figure.caption.45}%
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Hồ sơ và ảnh đăng ký KDEF được nạp vào chức năng khách hàng}}{63}{figure.caption.45}%
+\contentsline {figure}{\numberline {4.20}{\ignorespaces Hành trình bốn điểm chạm được tạo từ các quan sát nguồn Camera}}{64}{figure.caption.46}%
+\contentsline {figure}{\numberline {4.21}{\ignorespaces Trạng thái Docker Compose và các endpoint tại thời điểm kiểm chứng}}{65}{figure.caption.47}%
+\contentsline {figure}{\numberline {4.22}{\ignorespaces Báo cáo chất lượng của dữ liệu đã tiếp nhận và liên kết}}{66}{figure.caption.48}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Normalized Confusion Matrix của ba cấu hình trên PrivateTest}}{72}{figure.caption.51}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces ASW theo số cụm của hai cách biểu diễn chuỗi}}{77}{figure.caption.54}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Ma trận khoảng cách Optimal Matching sắp theo cụm}}{77}{figure.caption.55}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Run phân cụm chuỗi và kết quả chọn số cụm trên giao diện}}{78}{figure.caption.56}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Các cụm và chuỗi medoid trên giao diện hệ thống}}{78}{figure.caption.57}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Danh sách lần mua sắm được gán vào từng cụm}}{79}{figure.caption.58}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Truy vết một kết quả phân cụm về bốn quan sát của lần mua sắm}}{80}{figure.caption.59}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Normalized Confusion Matrix của ba cấu hình trên PrivateTest}}{75}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces ASW theo số cụm của hai cách biểu diễn chuỗi}}{80}{figure.caption.57}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Ma trận khoảng cách Optimal Matching sắp theo cụm}}{80}{figure.caption.58}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Run phân cụm chuỗi và kết quả chọn số cụm trên giao diện}}{81}{figure.caption.59}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Các cụm và chuỗi medoid trên giao diện hệ thống}}{81}{figure.caption.60}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Danh sách lần mua sắm được gán vào từng cụm}}{82}{figure.caption.61}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Truy vết một kết quả phân cụm về bốn quan sát của lần mua sắm}}{83}{figure.caption.62}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Năm hồ sơ khách hàng và ảnh KDEF đăng ký trên hệ thống đang chạy}}{85}{figure.caption.63}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Hồ sơ khách hàng sử dụng ảnh đăng ký KDEF}}{85}{figure.caption.64}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Kết quả ghép định danh trên 100 khung camera KDEF}}{86}{figure.caption.66}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Một hành trình KDEF đủ bốn điểm chạm trên hệ thống đang chạy}}{87}{figure.caption.67}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Bốn quan sát nguồn Camera được sắp theo thời gian trong cùng lần mua sắm}}{87}{figure.caption.68}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Ma trận nhầm lẫn biểu cảm của 100 khung camera KDEF}}{88}{figure.caption.70}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces ASW và điều kiện kích thước cụm của run Camera KDEF}}{89}{figure.caption.71}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Run phân cụm nguồn Camera hoàn tất trên giao diện hệ thống}}{90}{figure.caption.72}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Các medoid và thống kê cụm của run Camera KDEF}}{91}{figure.caption.74}%
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Các lần mua sắm KDEF được gán cụm trên giao diện}}{91}{figure.caption.75}%
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Truy vết một assignment KDEF về bốn quan sát Camera}}{92}{figure.caption.76}%
 \contentsfinish 
 \contentsfinish 

@@ -4,7 +4,7 @@
 \section{Đặt vấn đề}
 \label{section:1.1}
 
-Trong quá trình chuyển đổi số và phát triển bán lẻ đa kênh, khả năng thấu hiểu hành vi và cải thiện trải nghiệm khách hàng (Customer Experience -- CX) ngày càng có vai trò quan trọng đối với doanh nghiệp. Để có thêm cơ sở đánh giá chất lượng phục vụ, doanh nghiệp cần thu thập các dấu hiệu quan sát và phản hồi của khách hàng tại những khu vực như cửa đón tiếp, khu vực chờ, quầy tư vấn, khu trưng bày sản phẩm và quầy thanh toán.
+Trong quá trình chuyển đổi số và phát triển bán lẻ đa nền tảng, khả năng thấu hiểu hành vi cũng như trải nghiệm khách hàng (Customer Experience -- CX) ngày càng có vai trò quan trọng đối với sự phát triển của doanh nghiệp. Để có thêm cơ sở đánh giá chất lượng phục vụ cũng như hiểu rõ hơn về khách hàng, doanh nghiệp cần thu thập các dấu hiệu quan sát và phản hồi của khách hàng tại những khu vực như cửa đón tiếp, khu vực chờ, quầy tư vấn, khu trưng bày sản phẩm và quầy thanh toán.
 
 Tuy nhiên, các phương pháp khảo sát truyền thống đang bộc lộ nhiều hạn chế lớn:
 
@@ -13,12 +13,12 @@ Tuy nhiên, các phương pháp khảo sát truyền thống đang bộc lộ nh
     
     \item \textbf{Thời gian tiếp nhận thông tin dài và tỷ lệ phản hồi thấp:} Các hình thức khảo sát sau giao dịch qua tin nhắn SMS, thư điện tử hoặc ứng dụng di động thường có tỷ lệ phản hồi thấp và cần nhiều thời gian để tổng hợp. Vì vậy, nhân viên và người quản lý khó phát hiện kịp thời những trường hợp khách hàng có trải nghiệm không tốt.
     
-    \item \textbf{Tính thiên lệch của kết quả khảo sát (Survey Bias):} Khách hàng thường chủ động phản hồi khi có trải nghiệm rất tiêu cực. Vì vậy, kết quả có thể không phản ánh đầy đủ ý kiến của phần lớn khách hàng.
+    \item \textbf{Tính thiên lệch của kết quả khảo sát (Survey Bias):} Khách hàng thường chỉ chủ động phản hồi khi có trải nghiệm rất tiêu cực. Vì vậy, kết quả có thể không phản ánh đầy đủ ý kiến của phần lớn khách hàng.
 \end{itemize}
 
-Sự phát triển của trí tuệ nhân tạo (AI) và thị giác máy tính (Computer Vision) tạo điều kiện ứng dụng công nghệ nhận dạng biểu cảm khuôn mặt (Facial Expression Recognition -- FER) vào bài toán trên. Thông qua việc phân tích hình ảnh khuôn mặt, hệ thống có thể ghi nhận nhãn biểu cảm quan sát được của khách hàng mà không làm gián đoạn quá trình mua sắm. Dữ liệu này có thể được tích hợp vào hệ thống quản lý quan hệ khách hàng (Customer Relationship Management -- CRM) để hỗ trợ lưu trữ, tra cứu và phân tích cùng với hồ sơ và lịch sử mua hàng. Tuy nhiên, nhãn FER không phải là kết quả khảo sát mức độ hài lòng và một quan sát tại thời điểm riêng lẻ cũng chưa phản ánh toàn bộ trải nghiệm của khách hàng. Vì vậy, luận văn tập trung liên kết các kết quả nhận dạng biểu cảm tại nhiều khu vực theo khách hàng, lần mua sắm và thời gian, đồng thời tích hợp các kết quả này vào hệ thống CRM để phục vụ tra cứu và phân tích quá trình mua sắm tại cửa hàng.
+Sự phát triển của trí tuệ nhân tạo (AI) và thị giác máy tính (Computer Vision) tạo điều kiện ứng dụng công nghệ nhận dạng biểu cảm khuôn mặt (Facial Expression Recognition -- FER) vào bài toán trên. Thông qua phân tích hình ảnh khuôn mặt, hệ thống có thể ghi nhận các nhãn biểu cảm quan sát được của khách hàng mà không làm gián đoạn quá trình mua sắm. Tuy nhiên, nhãn FER chỉ phản ánh biểu hiện khuôn mặt tại thời điểm hình ảnh được thu nhận. Vì vậy, một quan sát riêng lẻ chưa đủ để mô tả toàn bộ quá trình mua sắm của khách hàng.
 
-Về mặt lý luận, luận văn hệ thống hóa cơ sở lý thuyết về phát hiện khuôn mặt, nhận dạng biểu cảm và hành trình khách hàng đa điểm chạm. Trên cơ sở đó, luận văn sử dụng biểu cảm khuôn mặt như một dấu hiệu quan sát để xem xét phản ứng của khách hàng tại từng khu vực. Việc liên kết kết quả theo khách hàng, lần mua sắm và thứ tự thời gian cho phép phân tích sự phân bố và thay đổi của biểu cảm trong quá trình mua sắm, thay vì chỉ xem xét một thời điểm riêng lẻ.
+Để khắc phục hạn chế của việc phân tích từng quan sát riêng lẻ, luận văn liên đề xuất kết các kết quả nhận dạng biểu cảm theo khách hàng, lần mua sắm, khu vực và thứ tự thời gian để hình thành chuỗi trạng thái biểu cảm. Trên cơ sở đó, kỹ thuật phân cụm chuỗi trạng thái được áp dụng để nhóm các lần mua sắm có cấu trúc tương tự về thành phần và thứ tự xuất hiện của các nhãn biểu cảm. Kết quả phân cụm giúp khái quát dữ liệu thành những kiểu hành trình biểu cảm thường gặp, hỗ trợ xác định chuỗi đại diện, thống kê quy mô và tỷ lệ của từng nhóm, đồng thời truy vết các kết quả về hồ sơ khách hàng và lịch sử mua hàng trong hệ thống CRM. Các nhóm này cũng tạo cơ sở cho việc đối chiếu với thông tin về khu vực, thời gian, đơn hàng hoặc dữ liệu khảo sát trong những phân tích tiếp theo. Tuy nhiên, kết quả phân cụm chỉ mô tả các kiểu diễn biến của những nhãn biểu cảm được ghi nhận, không trực tiếp phản ánh hành vi hoặc mức độ hài lòng của khách hàng.
 \section{Mục tiêu và phạm vi luận văn}
 \label{section:1.2}
 
@@ -27,11 +27,11 @@ Về mặt lý luận, luận văn hệ thống hóa cơ sở lý thuyết về 
 Nghiên cứu hướng tới việc thực hiện các mục tiêu cốt lõi sau:
 
 \begin{enumerate}
-    \item \textbf{Xây dựng quy trình nhận dạng biểu cảm khuôn mặt (FER) bảy lớp theo thời gian thực:} Nghiên cứu quy trình phát hiện khuôn mặt, phân loại bảy lớp biểu cảm (Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral).
+    \item \textbf{Xây dựng quy trình nhận dạng biểu cảm khuôn mặt (FER) bảy lớp:} Nghiên cứu quy trình phát hiện khuôn mặt, phân loại bảy lớp biểu cảm (Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral).
     
     \item \textbf{Mô hình hóa quá trình mua sắm tại nhiều khu vực:} Xác định khách hàng đã đăng ký tại các khu vực, tạo lần mua sắm và sắp xếp kết quả nhận dạng biểu cảm theo thời gian để hình thành lịch sử mua sắm.
     
-    \item \textbf{Thiết kế và tích hợp hệ thống CRM:} Xây dựng hệ thống gồm tính năng xử lý hình ảnh, máy chủ xử lý nghiệp vụ, giao diện quản lý, lịch sử mua hàng, quản lý khu vực, thống kê lần mua sắm và báo cáo biểu cảm theo từng khu vực.
+    \item \textbf{Thiết kế và tích hợp hệ thống CRM:} Xây dựng hệ thống tích hợp dịch vụ xử lý hình ảnh, máy chủ nghiệp vụ và giao diện quản lý nhằm lưu trữ hồ sơ khách hàng, quản lý khu vực, sản phẩm, đơn hàng và các lần mua sắm; đồng thời hỗ trợ tra cứu hành trình, báo cáo biểu cảm và phân cụm chuỗi trạng thái biểu cảm.
 \end{enumerate}
 
 \end{document}

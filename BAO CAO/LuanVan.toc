@@ -77,27 +77,30 @@
 \contentsline {subsection}{\numberline {4.4.1}Phân bố biểu cảm theo khu vực và thời gian}{56}{subsection.4.4.1}%
 \contentsline {subsection}{\numberline {4.4.2}Thay đổi biểu cảm giữa các khu vực}{58}{subsection.4.4.2}%
 \contentsline {subsection}{\numberline {4.4.3}Phân cụm chuỗi biểu cảm}{58}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}Báo cáo chất lượng dữ liệu}{63}{subsection.4.4.4}%
-\contentsline {chapter}{\numberline {5}ĐÁNH GIÁ THỰC NGHIỆM}{64}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Thực nghiệm so sánh các phương pháp phát hiện khuôn mặt}{64}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Tập dữ liệu và giao thức đánh giá}{64}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Kết quả thực nghiệm so sánh}{67}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Nhận xét từ kết quả thực nghiệm}{68}{subsection.5.1.3}%
-\contentsline {section}{\numberline {5.2}Thực nghiệm so sánh các phương pháp phân loại biểu cảm}{68}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Mục tiêu thực nghiệm}{68}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Tập dữ liệu và giao thức đánh giá}{69}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Tiêu chí đánh giá}{70}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}Kết quả thực nghiệm}{71}{subsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.2.5}Phạm vi diễn giải và giới hạn}{73}{subsection.5.2.5}%
-\contentsline {section}{\numberline {5.3}Thực nghiệm phân cụm chuỗi trạng thái}{74}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Mục tiêu và câu hỏi thực nghiệm}{74}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Thiết kế dữ liệu kiểm soát}{74}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Phương pháp và dữ liệu đối sánh}{75}{subsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}Kết quả thực nghiệm}{76}{subsection.5.3.4}%
-\contentsline {subsection}{\numberline {5.3.5}Bằng chứng vận hành và khả năng truy vết}{77}{subsection.5.3.5}%
-\contentsline {subsection}{\numberline {5.3.6}Ý nghĩa và giới hạn}{80}{subsection.5.3.6}%
-\contentsline {section}{\numberline {5.4}Kịch bản kiểm nghiệm đầu cuối bằng KDEF}{80}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Mục tiêu và cách xây dựng dữ liệu}{80}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Điều kiện công bố kết quả}{81}{subsection.5.4.2}%
-\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{82}{section*.60}%
+\contentsline {subsection}{\numberline {4.4.4}Báo cáo chất lượng dữ liệu}{65}{subsection.4.4.4}%
+\contentsline {chapter}{\numberline {5}ĐÁNH GIÁ THỰC NGHIỆM}{67}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Thực nghiệm so sánh các phương pháp phát hiện khuôn mặt}{67}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Tập dữ liệu và giao thức đánh giá}{67}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Kết quả thực nghiệm so sánh}{70}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Nhận xét từ kết quả thực nghiệm}{71}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Thực nghiệm so sánh các phương pháp phân loại biểu cảm}{71}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Mục tiêu thực nghiệm}{71}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Tập dữ liệu và giao thức đánh giá}{72}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Tiêu chí đánh giá}{73}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Kết quả thực nghiệm}{74}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Phạm vi diễn giải và giới hạn}{76}{subsection.5.2.5}%
+\contentsline {section}{\numberline {5.3}Thực nghiệm phân cụm chuỗi trạng thái}{77}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Mục tiêu và câu hỏi thực nghiệm}{77}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Thiết kế dữ liệu kiểm soát}{77}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Phương pháp và dữ liệu đối sánh}{78}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Kết quả thực nghiệm}{79}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Bằng chứng vận hành và khả năng truy vết}{80}{subsection.5.3.5}%
+\contentsline {subsection}{\numberline {5.3.6}Ý nghĩa và giới hạn}{83}{subsection.5.3.6}%
+\contentsline {section}{\numberline {5.4}Kịch bản kiểm nghiệm đầu cuối bằng KDEF}{83}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Mục tiêu và cách xây dựng dữ liệu}{83}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Kết quả xử lý ảnh và liên kết hành trình}{86}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Kết quả nhận dạng biểu cảm trên các khung phát lại}{88}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}Kết quả phân cụm chuỗi từ nguồn Camera}{89}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}Ý nghĩa và giới hạn của lần chạy đầu cuối}{92}{subsection.5.4.5}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{93}{section*.77}%
 \contentsfinish 
