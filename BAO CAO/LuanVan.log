@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  9 OCT 2026 16:48
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  9 OCT 2026 17:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1255,12 +1255,7 @@ Underfull \hbox (badness 1024) in paragraph at lines 101--101
 []|\TU/TimesNewRoman(0)/m/n/13 Thống kê theo khu vực, bảng
  []
 
-[26] [27]
-Overfull \hbox (13.84424pt too wide) in paragraph at lines 127--128
-\TU/TimesNewRoman(0)/m/n/13 bao không tạo được vùng ảnh hợp lệ, sự kiện được gắn trạng thái \TU/lmtt/m/n/13 INVALID_FACE_CROP
- []
-
-[28] [29] [30] [31] [32] [33] [34]
+[26] [27] [28] [29] [30] [31] [32] [33] [34]
 
 LaTeX Warning: Citation `khalifa2026categorical' on page 35 undefined on input line 312.
 

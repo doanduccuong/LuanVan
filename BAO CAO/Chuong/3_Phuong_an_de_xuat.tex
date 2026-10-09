@@ -115,18 +115,18 @@ Thời gian ghi nhận là thời điểm hình ảnh được tạo ra. Thông 
 
 Trước khi chuyển hình ảnh sang bước phát hiện khuôn mặt, hệ thống kiểm tra dữ liệu ảnh có thể đọc được, mã khu vực có nằm trong danh sách đã khai báo và thời gian ghi nhận có hợp lệ hay không. Khi cả ba điều kiện được đáp ứng, hình ảnh cùng mã khu vực và thời gian được chuyển sang công đoạn tiếp theo. Nếu thiếu một trong các thông tin trên, yêu cầu được lưu với trạng thái không hợp lệ và không được sử dụng để hình thành chuỗi quan sát.
 
-Mỗi hình ảnh gửi đến cần có một mã sự kiện duy nhất để hệ thống phát hiện trường hợp gửi lặp. Mã này định danh sự kiện thu nhận ở cấp khung hình, không định danh riêng một khuôn mặt. Khi một hình ảnh đã được tiếp nhận trước đó, yêu cầu gửi lại không tạo thêm sự kiện hoặc các bản ghi quan sát con. Quy tắc này tránh làm tăng sai số lượng của một nhãn biểu cảm tại khu vực và tránh tạo nhiều điểm trùng nhau trong chuỗi thời gian. Kết quả của công đoạn tiếp nhận là một sự kiện hợp lệ gồm hình ảnh, mã khu vực và thời gian ghi nhận, sẵn sàng được chuyển sang bước phát hiện khuôn mặt.
+Mỗi khung hình gửi đến hệ thống được gán một mã sự kiện duy nhất. Mã này dùng để định danh lần thu nhận khung hình, không phải để định danh khuôn mặt hoặc khách hàng. Ví dụ, trong trường hợp mạng chậm hoặc thành phần gửi không nhận được phản hồi từ hệ thống, cùng một khung hình có thể được gửi lại. Khi nhận được mã sự kiện đã tồn tại, hệ thống xác định đây là dữ liệu gửi lặp và không tạo thêm bản ghi quan sát. Cơ chế này giúp tránh việc một kết quả biểu cảm bị ghi nhận nhiều lần trong thống kê và chuỗi thời gian. Sau khi được kiểm tra hợp lệ, khung hình cùng mã khu vực và thời gian ghi nhận được chuyển sang bước phát hiện khuôn mặt.
 
 \subsection{Phát hiện và xử lý vùng khuôn mặt}
 \label{subsection:3.3.2}
 
-Hình ảnh được đưa vào mô hình phát hiện khuôn mặt RetinaFace sử dụng mạng nền MobileNet0.25. Mô hình xác định các khuôn mặt xuất hiện trong ảnh và trả về khung bao, mức tin cậy cùng năm điểm mốc của từng khuôn mặt. Khung bao cho biết vị trí khuôn mặt trong ảnh; năm điểm mốc tương ứng với hai mắt, mũi và hai khóe miệng.
+Hình ảnh sau khi qua bước kiểm tra được đưa vào mô hình phát hiện khuôn mặt RetinaFace sử dụng mạng nền MobileNet0.25. Mô hình tiến hành quét toàn bộ khung hình để định vị các khuôn mặt xuất hiện, trả về tọa độ khung bao, mức độ tin cậy và năm điểm mốc đặc trưng (hai mắt, đỉnh mũi và hai khóe miệng) của từng khuôn mặt.
 
-Các kết quả phát hiện có mức tin cậy thấp hơn ngưỡng cấu hình không được giữ lại. Nếu không còn khuôn mặt sau bước lọc, sự kiện thu nhận được đánh dấu bằng trạng thái \texttt{NO\_FACE} và không tạo bản ghi quan sát. Trạng thái này phản ánh chất lượng của khung hình, không được thay thế bằng một nhãn biểu cảm giả định.
+Để bảo đảm tính chính xác và loại bỏ các trường hợp nhận diện nhầm do nhiễu hoặc vật thể tương tự khuôn mặt, hệ thống chỉ giữ lại những kết quả có mức tin cậy đạt từ ngưỡng cấu hình trở lên. Trường hợp ảnh không có khuôn mặt nào hoặc toàn bộ khuôn mặt phát hiện được đều có độ tin cậy thấp hơn ngưỡng, sự kiện thu nhận được đánh dấu trạng thái \texttt{NO\_FACE} và hệ thống dừng xử lý, không tạo bản ghi quan sát.
 
-Tọa độ khung bao được giới hạn trong kích thước ảnh trước khi cắt. Nếu khung bao không tạo được vùng ảnh hợp lệ, sự kiện được gắn trạng thái \texttt{INVALID\_FACE\_CROP} và dừng xử lý. Vùng cắt hợp lệ được chuyển đến nhiệm vụ phân loại biểu cảm và nhận dạng khách hàng như Hình~\ref{fig:observation_tasks}.
+Đối với các khuôn mặt thỏa mãn ngưỡng tin cậy, hệ thống tiến hành cắt riêng vùng khuôn mặt dựa trên tọa độ khung bao, đồng thời chuẩn hóa tọa độ để bảo đảm không vượt ra ngoài kích thước khung hình gốc. Nếu vùng cắt không hợp lệ (kích thước bằng không do lỗi biên ảnh), sự kiện được ghi nhận trạng thái \texttt{INVALID\_FACE\_CROP} và dừng lại. Ngược lại, vùng ảnh khuôn mặt hợp lệ được chuyển tiếp đồng thời sang hai nhánh xử lý độc lập: phân loại biểu cảm và nhận dạng khách hàng, như được minh họa tại Hình~\ref{fig:observation_tasks}.
 
-Công đoạn phát hiện chỉ xác định và cắt vùng khuôn mặt; công đoạn này không tự tạo nhãn biểu cảm hoặc mã khách hàng. Kết quả phát hiện gồm khung bao, mức tin cậy và trạng thái xử lý của vùng khuôn mặt.
+Công đoạn phát hiện khuôn mặt chỉ thực hiện nhiệm vụ xác định vị trí và trích xuất vùng ảnh mặt; công đoạn này hoàn toàn độc lập và không can thiệp vào kết quả phân loại biểu cảm hay xác định danh tính khách hàng ở các bước tiếp theo.
 
 \begin{figure}[H]
     \centering
