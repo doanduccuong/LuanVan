@@ -32,74 +32,74 @@
 \contentsline {subsection}{\numberline {2.5.2}Quan sát tại điểm chạm đến chuỗi biểu cảm}{23}{subsection.2.5.2}%
 \contentsline {chapter}{\numberline {3}PHƯƠNG PHÁP ĐỀ XUẤT}{24}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Tổng quan giải pháp}{24}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Luồng xử lý của giải pháp}{26}{section.3.2}%
+\contentsline {section}{\numberline {3.2}Luồng xử lý của giải pháp}{25}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Phương pháp tạo bản ghi quan sát tại khu vực}{27}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Tiếp nhận hình ảnh và thông tin khu vực}{27}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Phát hiện và xử lý vùng khuôn mặt}{28}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Phân loại biểu cảm}{29}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}Đối sánh khách hàng}{30}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.4}Đối sánh khách hàng}{29}{subsection.3.3.4}%
 \contentsline {subsection}{\numberline {3.3.5}Hình thành bản ghi quan sát}{30}{subsection.3.3.5}%
 \contentsline {section}{\numberline {3.4}Phương pháp liên kết bản ghi theo lần mua sắm}{31}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Xác định một lần mua sắm}{31}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Khởi tạo và cập nhật lần mua sắm}{32}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.2}Khởi tạo và cập nhật lần mua sắm}{31}{subsection.3.4.2}%
 \contentsline {subsection}{\numberline {3.4.3}Kết thúc lần mua sắm}{32}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Sắp xếp bản ghi theo thời gian}{33}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.4}Sắp xếp bản ghi theo thời gian}{32}{subsection.3.4.4}%
 \contentsline {subsection}{\numberline {3.4.5}Xử lý dữ liệu thiếu và xung đột}{33}{subsection.3.4.5}%
 \contentsline {section}{\numberline {3.5}Phương pháp phân tích kết quả}{34}{section.3.5}%
 \contentsline {subsection}{\numberline {3.5.1}Phân bố biểu cảm tại từng khu vực}{34}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}Sự thay đổi giữa các khu vực liên tiếp}{35}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}Phân cụm chuỗi trạng thái của toàn bộ lần mua sắm}{36}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.2}Sự thay đổi giữa các khu vực liên tiếp}{34}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Phân cụm chuỗi trạng thái của toàn bộ lần mua sắm}{35}{subsection.3.5.3}%
 \contentsline {subsubsection}{\numberline {a}Tạo chuỗi đầu vào}{36}{subsubsection.3.5.3.1}%
 \contentsline {subsubsection}{\numberline {b}Khoảng cách Optimal Matching}{36}{subsubsection.3.5.3.2}%
 \contentsline {subsubsection}{\numberline {c}PAM, medoid và số cụm}{37}{subsubsection.3.5.3.3}%
 \contentsline {subsubsection}{\numberline {d}Đầu ra và ý nghĩa}{38}{subsubsection.3.5.3.4}%
-\contentsline {subsection}{\numberline {3.5.4}Hiển thị chuỗi quan sát của từng khách hàng}{39}{subsection.3.5.4}%
+\contentsline {subsection}{\numberline {3.5.4}Hiển thị chuỗi quan sát của từng khách hàng}{38}{subsection.3.5.4}%
 \contentsline {subsection}{\numberline {3.5.5}Kết hợp với dữ liệu mua hàng}{39}{subsection.3.5.5}%
-\contentsline {subsection}{\numberline {3.5.6}Báo cáo chất lượng dữ liệu}{40}{subsection.3.5.6}%
+\contentsline {subsection}{\numberline {3.5.6}Báo cáo chất lượng dữ liệu}{39}{subsection.3.5.6}%
 \contentsline {subsection}{\numberline {3.5.7}Nguyên tắc diễn giải kết quả}{40}{subsection.3.5.7}%
-\contentsline {section}{\numberline {3.6}Phạm vi và giới hạn của giải pháp}{41}{section.3.6}%
-\contentsline {chapter}{\numberline {4}XÂY DỰNG VÀ PHÁT TRIỂN HỆ THỐNG}{43}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Tổng quan, cấu trúc chức năng và kiến trúc hệ thống}{43}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Cấu trúc chức năng của hệ thống}{43}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Tác nhân và các trường hợp sử dụng chính}{44}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Kiến trúc các thành phần}{44}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Giao tiếp giữa các thành phần}{47}{subsection.4.1.4}%
-\contentsline {section}{\numberline {4.2}Xây dựng chức năng tạo bản ghi quan sát}{48}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Tiếp nhận và kiểm tra dữ liệu}{49}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Phát hiện khuôn mặt và hai nhánh nhận dạng}{50}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Lưu kết quả và xử lý lại}{51}{subsection.4.2.3}%
-\contentsline {section}{\numberline {4.3}Xây dựng chức năng CRM và liên kết lần mua sắm}{52}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Quản lý khách hàng và dữ liệu mua hàng}{52}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Quản lý sản phẩm và đơn hàng}{53}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Khởi tạo, cập nhật và kết thúc lần mua sắm}{54}{subsection.4.3.3}%
-\contentsline {section}{\numberline {4.4}Xây dựng chức năng phân tích và báo cáo}{55}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Phân bố biểu cảm theo khu vực và thời gian}{55}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Thay đổi biểu cảm giữa các khu vực}{57}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Phân cụm chuỗi biểu cảm}{57}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}Báo cáo chất lượng dữ liệu}{64}{subsection.4.4.4}%
-\contentsline {chapter}{\numberline {5}ĐÁNH GIÁ THỰC NGHIỆM}{66}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Thực nghiệm so sánh các phương pháp phát hiện khuôn mặt}{66}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Tập dữ liệu và giao thức đánh giá}{66}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Kết quả thực nghiệm so sánh}{69}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Nhận xét từ kết quả thực nghiệm}{70}{subsection.5.1.3}%
-\contentsline {section}{\numberline {5.2}Thực nghiệm so sánh các phương pháp phân loại biểu cảm}{70}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Mục tiêu thực nghiệm}{70}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Tập dữ liệu và giao thức đánh giá}{71}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Tiêu chí đánh giá}{72}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}Kết quả thực nghiệm}{73}{subsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.2.5}Phạm vi diễn giải và giới hạn}{75}{subsection.5.2.5}%
-\contentsline {section}{\numberline {5.3}Thực nghiệm phân cụm chuỗi trạng thái}{76}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Mục tiêu và câu hỏi thực nghiệm}{76}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Thiết kế dữ liệu kiểm soát}{76}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Phương pháp và dữ liệu đối sánh}{77}{subsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}Kết quả thực nghiệm}{78}{subsection.5.3.4}%
-\contentsline {subsection}{\numberline {5.3.5}Bằng chứng vận hành và khả năng truy vết}{79}{subsection.5.3.5}%
-\contentsline {subsection}{\numberline {5.3.6}Ý nghĩa và giới hạn}{82}{subsection.5.3.6}%
-\contentsline {section}{\numberline {5.4}Kịch bản kiểm nghiệm đầu cuối bằng KDEF}{82}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Mục tiêu và cách xây dựng dữ liệu}{82}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Kết quả xử lý ảnh và liên kết hành trình}{85}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Kết quả nhận dạng biểu cảm trên các khung phát lại}{87}{subsection.5.4.3}%
-\contentsline {subsection}{\numberline {5.4.4}Kết quả phân cụm chuỗi từ nguồn Camera}{88}{subsection.5.4.4}%
-\contentsline {subsection}{\numberline {5.4.5}Ý nghĩa và giới hạn của lần chạy đầu cuối}{91}{subsection.5.4.5}%
-\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{92}{section*.75}%
+\contentsline {section}{\numberline {3.6}Phạm vi và giới hạn của giải pháp}{40}{section.3.6}%
+\contentsline {chapter}{\numberline {4}XÂY DỰNG VÀ PHÁT TRIỂN HỆ THỐNG}{42}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Tổng quan, cấu trúc chức năng và kiến trúc hệ thống}{42}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Cấu trúc chức năng của hệ thống}{42}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Tác nhân và các trường hợp sử dụng chính}{43}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Kiến trúc các thành phần}{43}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Giao tiếp giữa các thành phần}{46}{subsection.4.1.4}%
+\contentsline {section}{\numberline {4.2}Xây dựng chức năng tạo bản ghi quan sát}{47}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Tiếp nhận và kiểm tra dữ liệu}{48}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Phát hiện khuôn mặt và hai nhánh nhận dạng}{49}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Lưu kết quả và xử lý lại}{50}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Xây dựng chức năng CRM và liên kết lần mua sắm}{51}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Quản lý khách hàng và dữ liệu mua hàng}{51}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Quản lý sản phẩm và đơn hàng}{52}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Khởi tạo, cập nhật và kết thúc lần mua sắm}{53}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}Xây dựng chức năng phân tích và báo cáo}{54}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Phân bố biểu cảm theo khu vực và thời gian}{54}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Thay đổi biểu cảm giữa các khu vực}{56}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Phân cụm chuỗi biểu cảm}{56}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Báo cáo chất lượng dữ liệu}{63}{subsection.4.4.4}%
+\contentsline {chapter}{\numberline {5}ĐÁNH GIÁ THỰC NGHIỆM}{65}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Thực nghiệm so sánh các phương pháp phát hiện khuôn mặt}{65}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Tập dữ liệu và giao thức đánh giá}{65}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Kết quả thực nghiệm so sánh}{68}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Nhận xét từ kết quả thực nghiệm}{69}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Thực nghiệm so sánh các phương pháp phân loại biểu cảm}{69}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Mục tiêu thực nghiệm}{69}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Tập dữ liệu và giao thức đánh giá}{70}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Tiêu chí đánh giá}{71}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Kết quả thực nghiệm}{72}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Phạm vi diễn giải và giới hạn}{74}{subsection.5.2.5}%
+\contentsline {section}{\numberline {5.3}Thực nghiệm phân cụm chuỗi trạng thái}{75}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Mục tiêu và câu hỏi thực nghiệm}{75}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Thiết kế dữ liệu kiểm soát}{75}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Phương pháp và dữ liệu đối sánh}{76}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Kết quả thực nghiệm}{77}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Bằng chứng vận hành và khả năng truy vết}{78}{subsection.5.3.5}%
+\contentsline {subsection}{\numberline {5.3.6}Ý nghĩa và giới hạn}{81}{subsection.5.3.6}%
+\contentsline {section}{\numberline {5.4}Kịch bản kiểm nghiệm đầu cuối bằng KDEF}{81}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Mục tiêu và cách xây dựng dữ liệu}{81}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Kết quả xử lý ảnh và liên kết hành trình}{84}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Kết quả nhận dạng biểu cảm trên các khung phát lại}{86}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}Kết quả phân cụm chuỗi từ nguồn Camera}{87}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}Ý nghĩa và giới hạn của lần chạy đầu cuối}{90}{subsection.5.4.5}%
+\contentsline {chapter}{TÀI LIỆU THAM KHẢO}{91}{section*.75}%
 \contentsfinish 

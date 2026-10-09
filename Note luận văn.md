@@ -1,0 +1,2 @@
+Phần 3
+1, MobileNet là họ mạng CNN được thiết kế để chạy nhanh trên thiết bị yếu như điện thoại. Cách làm là thay phép tích chập thông thường bằng tích chập tách biệt theo chiều sâu (depthwise separable convolution), tức là chia thành hai bước nhỏ rẻ hơn. Nhờ vậy số phép tính giảm nhiều mà độ chính xác chỉ giảm ít. "Mạng nền" (backbone) là phần đầu của bộ phát hiện, làm nhiệm vụ nhìn ảnh và rút ra các đặc trưng. MobileNet0.25 là tên của một loại mạng nền nhỏ gọn
