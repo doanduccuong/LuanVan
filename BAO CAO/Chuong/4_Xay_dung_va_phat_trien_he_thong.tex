@@ -271,7 +271,7 @@ Nếu người dùng không chỉ định mã lần mua sắm, máy chủ tìm l
 \subsection{Khởi tạo, cập nhật và kết thúc lần mua sắm}
 \label{subsection:4.3.3}
 
-Khi một quan sát xác định được khách hàng, máy chủ tìm lần mua sắm đang hoạt động của người đó. Quan sát mới được thêm vào lần hiện tại nếu thời gian cách quan sát gần nhất không quá 30 phút. Nếu vượt quá khoảng này, lần cũ được đóng do quá thời gian và một lần mới được tạo. Người quản lý cũng có thể kết thúc lần mua sắm thủ công trên CRM; nguyên nhân kết thúc được lưu để phục vụ tra cứu.
+Khi một quan sát xác định được khách hàng, máy chủ tìm lần mua sắm đang hoạt động của người đó. Quan sát mới được thêm vào lần hiện tại nếu thời gian cách quan sát gần nhất không quá 30 phút. Nếu vượt quá khoảng này, lần cũ được đóng do quá thời gian và một lần mới được tạo. Nguyên nhân kết thúc \texttt{TIMEOUT} được lưu để phục vụ tra cứu.
 
 Các quan sát được đọc theo thời gian ghi nhận, không theo thời gian máy chủ nhận. Khi hai khu vực khác nhau có cùng thời điểm trong một lần mua sắm, cả hai bản ghi được đánh dấu xung đột và không được dùng để tạo cặp thay đổi. Nếu chuỗi có khu vực đầu và khu vực sau nhưng thiếu một khu vực ở giữa theo thứ tự cấu hình, giao diện hiển thị rõ tên khu vực bị thiếu và không tự tạo nhãn thay thế.
 

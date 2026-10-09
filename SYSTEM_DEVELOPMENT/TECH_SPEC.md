@@ -179,7 +179,7 @@ Không lưu ảnh đăng ký trong bảng này. Nếu sau này cần lưu ảnh,
 | `last_seen_at` | timestamptz | Thời điểm mới nhất đã nhận |
 | `ended_at` | timestamptz | Trống khi lượt còn hoạt động |
 | `status` | enum | `ACTIVE`, `CLOSED` |
-| `close_reason` | enum | `TIMEOUT`, `MANUAL`, `NEW_VISIT`, có thể trống |
+| `close_reason` | enum | `TIMEOUT` hoặc để trống |
 | `created_at`, `updated_at` | timestamptz | Do máy chủ tạo |
 
 Tại một thời điểm chỉ có tối đa một lượt `ACTIVE` cho một khách hàng. Ràng buộc này phải được bảo vệ bằng chỉ mục duy nhất có điều kiện và giao dịch cơ sở dữ liệu.
@@ -391,7 +391,6 @@ Các số trong ví dụ chỉ minh họa cấu trúc, không phải kết quả
 |---|---|---|
 | `GET` | `/visits` | Danh sách lượt ghé thăm |
 | `GET` | `/visits/{visit_id}` | Chi tiết và chuỗi quan sát |
-| `POST` | `/visits/{visit_id}/close` | Kết thúc thủ công |
 | `GET` | `/reports/expression-distribution` | Phân bố nhãn theo điểm chạm |
 | `GET` | `/reports/expression-changes` | Bảng nhãn trước–sau |
 | `GET` | `/reports/data-quality` | Số bản ghi theo trạng thái |

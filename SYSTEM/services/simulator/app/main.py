@@ -127,7 +127,6 @@ def create_run(payload: RunInput):
                                 "image_status": "VALID",
                                 "expression_status": "VALID",
                                 "identity_status": "MATCHED",
-                                "end_of_visit": stop_index == len(selected) - 1,
                             }
                         )
                     if rng.random() < 0.72:
@@ -160,7 +159,6 @@ def create_run(payload: RunInput):
                         "image_status": "NO_FACE" if index < 8 else "INVALID_IMAGE",
                         "expression_status": "NOT_RUN",
                         "identity_status": "NOT_RUN",
-                        "end_of_visit": False,
                     }
                 )
 

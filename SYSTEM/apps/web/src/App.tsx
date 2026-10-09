@@ -328,11 +328,6 @@ function Visits() {
     },
     onError: (error: Error) => message.error(error.message)
   })
-  const closeVisit = useMutation({
-    mutationFn: () => api(`/visits/${selected.id}/close`, { method: 'POST' }),
-    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['visits'] }); queryClient.invalidateQueries({ queryKey: ['visit', selected?.id] }); message.success('Đã kết thúc lần mua sắm') },
-    onError: (error: Error) => message.error(error.message)
-  })
   const reprocess = async (file: File) => {
     const form = new FormData()
     form.append('image', file)
@@ -392,7 +387,7 @@ function Visits() {
     <Tabs items={[
       { key: 'identified', label: 'Lần mua sắm', children: <Row gutter={[16, 16]}>
         <Col span={9}><Card title="Danh sách lần mua sắm"><Table size="small" pagination={{ pageSize: 8 }} rowKey="id" rowClassName={row => row.id === selected?.id ? 'selected-row' : ''} onRow={row => ({ onClick: () => setSelected(row) })} dataSource={query.data} loading={query.isLoading} columns={[{ title: 'Khách hàng', render: (_, row) => <Space><Avatar size={30} src={row.customer?.profile_image_url} />{row.customer?.full_name}</Space> }, { title: 'Thời gian', render: (_, row) => new Date(row.started_at).toLocaleDateString('vi-VN') }, { title: 'Trạng thái', render: (_, row) => <Tag color={row.status === 'CLOSED' ? 'green' : 'blue'}>{row.status === 'CLOSED' ? 'Đã kết thúc' : 'Đang hoạt động'}</Tag> }]} /></Card></Col>
-        <Col span={15}><Card title={selected ? `${selected.customer?.full_name} — ${new Date(selected.started_at).toLocaleString('vi-VN')}` : 'Chọn một lần mua sắm'} extra={detail.data?.visit?.status === 'ACTIVE' ? <Button size="small" danger loading={closeVisit.isPending} onClick={() => closeVisit.mutate()}>Kết thúc lần mua sắm</Button> : null}>
+        <Col span={15}><Card title={selected ? `${selected.customer?.full_name} — ${new Date(selected.started_at).toLocaleString('vi-VN')}` : 'Chọn một lần mua sắm'}>
           {(analysis.data?.missing_touchpoints ?? []).length > 0 && <Alert type="warning" showIcon message={`Thiếu dữ liệu tại: ${analysis.data.missing_touchpoints.map((row: any) => row.name).join(', ')}`} />}
           {observations.length ? <ReactECharts option={journeyChart} style={{ height: 310 }} /> : <Empty description="Chưa có dữ liệu" />}
         </Card></Col>

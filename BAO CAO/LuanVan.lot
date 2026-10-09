@@ -5,19 +5,19 @@
 \contentsline {table}{\numberline {3.1}{\ignorespaces Đầu vào và kết quả của các công đoạn trong giải pháp}}{22}{table.caption.19}%
 \contentsline {table}{\numberline {3.2}{\ignorespaces Thông tin của một bản ghi quan sát}}{25}{table.caption.21}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Tác nhân và các trường hợp sử dụng chính}}{35}{table.caption.23}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Phân bổ trách nhiệm giữa các thành phần phần mềm}}{36}{table.caption.25}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Các luồng giao tiếp chính giữa những thành phần của hệ thống}}{38}{table.caption.26}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Tác nhân và các trường hợp sử dụng chính}}{34}{table.caption.23}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Phân bổ trách nhiệm giữa các thành phần phần mềm}}{35}{table.caption.25}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Các luồng giao tiếp chính giữa những thành phần của hệ thống}}{37}{table.caption.26}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Kết quả chất lượng phát hiện trên tập xác thực WIDER FACE}}{60}{table.caption.46}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Kết quả hiệu năng phát hiện trên CPU}}{61}{table.caption.47}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Phân bố ảnh theo lớp trong FER-2013}}{62}{table.caption.48}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Kết quả tổng thể của ba cấu hình phân loại biểu cảm trên PrivateTest}}{64}{table.caption.49}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces F1 theo từng lớp của ba cấu hình trên PrivateTest}}{65}{table.caption.50}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Năm mẫu chuỗi trong dữ liệu kiểm soát}}{68}{table.caption.52}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Kết quả phân cụm trên dữ liệu chuỗi kiểm soát}}{69}{table.caption.53}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Kết quả xử lý 100 khung camera KDEF}}{76}{table.caption.62}%
-\contentsline {table}{\numberline {5.9}{\ignorespaces Kết quả biểu cảm theo năm lớp có mẫu đối chiếu}}{78}{table.caption.66}%
-\contentsline {table}{\numberline {5.10}{\ignorespaces Năm cụm của run Camera KDEF}}{80}{table.caption.70}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Kết quả chất lượng phát hiện trên tập xác thực WIDER FACE}}{59}{table.caption.46}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Kết quả hiệu năng phát hiện trên CPU}}{60}{table.caption.47}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Phân bố ảnh theo lớp trong FER-2013}}{61}{table.caption.48}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Kết quả tổng thể của ba cấu hình phân loại biểu cảm trên PrivateTest}}{63}{table.caption.49}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces F1 theo từng lớp của ba cấu hình trên PrivateTest}}{64}{table.caption.50}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Năm mẫu chuỗi trong dữ liệu kiểm soát}}{67}{table.caption.52}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Kết quả phân cụm trên dữ liệu chuỗi kiểm soát}}{68}{table.caption.53}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Kết quả xử lý 100 khung camera KDEF}}{75}{table.caption.62}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces Kết quả biểu cảm theo năm lớp có mẫu đối chiếu}}{77}{table.caption.66}%
+\contentsline {table}{\numberline {5.10}{\ignorespaces Năm cụm của run Camera KDEF}}{79}{table.caption.70}%
 \contentsfinish 
 \contentsfinish 

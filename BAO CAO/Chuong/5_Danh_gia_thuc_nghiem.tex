@@ -302,7 +302,7 @@ Năm mẫu chuỗi được trình bày tại Bảng~\ref{tab:controlled_sequenc
     \end{tabular}}
 \end{table}
 
-Mỗi quan sát được gửi với mã sự kiện, mã lần chạy, khách hàng, điểm chạm, thời gian, nhãn và độ tin cậy. Máy chủ tự hình thành lần mua sắm và kết thúc lần mua khi nhận quan sát thứ tư. Trước phân tích, các quan sát được sắp theo thời gian; nhiều khung liên tiếp tại cùng một điểm chạm được gộp bằng nhãn xuất hiện nhiều nhất, còn cùng một nhãn xuất hiện ở hai điểm chạm khác nhau vẫn được giữ thành hai phần tử. Run chỉ nhận chuỗi đủ bốn trạng thái.
+Mỗi quan sát được gửi với mã sự kiện, mã lần chạy, khách hàng, điểm chạm, thời gian, nhãn và độ tin cậy. Máy chủ tự hình thành lần mua sắm theo khoảng cách thời gian giữa các quan sát; khi quan sát của hành trình tiếp theo vượt quá ngưỡng thời gian chờ, lần mua sắm trước được kết thúc và một lần mới được tạo. Trước phân tích, các quan sát được sắp theo thời gian; nhiều khung liên tiếp tại cùng một điểm chạm được gộp bằng nhãn xuất hiện nhiều nhất, còn cùng một nhãn xuất hiện ở hai điểm chạm khác nhau vẫn được giữ thành hai phần tử. Run chỉ nhận chuỗi đủ bốn trạng thái.
 
 \subsection{Phương pháp và dữ liệu đối sánh}
 \label{subsection:5.3.3}

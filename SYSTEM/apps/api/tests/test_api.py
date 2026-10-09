@@ -87,7 +87,7 @@ def test_touchpoints_are_global_for_single_store():
     assert "store_id" not in payload
 
 
-def test_simulated_observations_are_marked_and_form_a_closed_visit():
+def test_simulated_observations_close_a_visit_only_after_timeout():
     client = make_client()
     suffix = datetime.now(timezone.utc).strftime("%H%M%S%f")
     customer = client.post(
@@ -106,7 +106,7 @@ def test_simulated_observations_are_marked_and_form_a_closed_visit():
             "sequence_order": int(suffix[-7:]),
         },
     ).json()
-    observed_at = datetime.now(timezone.utc).isoformat()
+    observed_at = datetime.now(timezone.utc)
     response = client.post(
         "/api/v1/simulation/observations/batch",
         json={
@@ -116,10 +116,9 @@ def test_simulated_observations_are_marked_and_form_a_closed_visit():
                     "simulation_run_id": f"SIM-RUN-{suffix}",
                     "touchpoint_id": touchpoint["id"],
                     "customer_id": customer["id"],
-                    "observed_at": observed_at,
+                    "observed_at": observed_at.isoformat(),
                     "expression_label": "Happy",
                     "expression_confidence": 0.9,
-                    "end_of_visit": True,
                 }
             ]
         },
@@ -127,9 +126,55 @@ def test_simulated_observations_are_marked_and_form_a_closed_visit():
     assert response.status_code == 201, response.text
     visit_id = response.json()["items"][0]["visit_id"]
     detail = client.get(f"/api/v1/visits/{visit_id}").json()
-    assert detail["visit"]["status"] == "CLOSED"
+    assert detail["visit"]["status"] == "ACTIVE"
     assert detail["observations"][0]["source_type"] == "SIMULATOR"
     assert detail["observations"][0]["simulation_run_id"] == f"SIM-RUN-{suffix}"
+
+    at_timeout_boundary = client.post(
+        "/api/v1/simulation/observations/batch",
+        json={
+            "observations": [
+                {
+                    "event_id": f"SIM-EVENT-AT-TIMEOUT-{suffix}",
+                    "simulation_run_id": f"SIM-RUN-{suffix}",
+                    "touchpoint_id": touchpoint["id"],
+                    "customer_id": customer["id"],
+                    "observed_at": (observed_at + timedelta(minutes=30)).isoformat(),
+                    "expression_label": "Happy",
+                    "expression_confidence": 0.85,
+                }
+            ]
+        },
+    )
+    assert at_timeout_boundary.status_code == 201, at_timeout_boundary.text
+    assert at_timeout_boundary.json()["items"][0]["visit_id"] == visit_id
+    boundary_detail = client.get(f"/api/v1/visits/{visit_id}").json()
+    assert boundary_detail["visit"]["status"] == "ACTIVE"
+
+    after_timeout = client.post(
+        "/api/v1/simulation/observations/batch",
+        json={
+            "observations": [
+                {
+                    "event_id": f"SIM-EVENT-AFTER-TIMEOUT-{suffix}",
+                    "simulation_run_id": f"SIM-RUN-{suffix}",
+                    "touchpoint_id": touchpoint["id"],
+                    "customer_id": customer["id"],
+                    "observed_at": (observed_at + timedelta(minutes=61)).isoformat(),
+                    "expression_label": "Neutral",
+                    "expression_confidence": 0.8,
+                }
+            ]
+        },
+    )
+    assert after_timeout.status_code == 201, after_timeout.text
+    new_visit_id = after_timeout.json()["items"][0]["visit_id"]
+    assert new_visit_id != visit_id
+    closed_detail = client.get(f"/api/v1/visits/{visit_id}").json()
+    assert closed_detail["visit"]["status"] == "CLOSED"
+    assert closed_detail["visit"]["close_reason"] == "TIMEOUT"
+    active_detail = client.get(f"/api/v1/visits/{new_visit_id}").json()
+    assert active_detail["visit"]["status"] == "ACTIVE"
 
     timeline = client.get(
         "/api/v1/reports/expression-timeline",
@@ -149,7 +194,7 @@ def test_simulated_observations_are_marked_and_form_a_closed_visit():
                     "event_id": invalid_event_id,
                     "simulation_run_id": f"SIM-RUN-{suffix}",
                     "touchpoint_id": touchpoint["id"],
-                    "observed_at": observed_at,
+                    "observed_at": observed_at.isoformat(),
                     "image_status": "INVALID_IMAGE",
                     "expression_status": "NOT_RUN",
                     "identity_status": "NOT_RUN",
@@ -202,7 +247,6 @@ def test_missing_area_and_unregistered_observations_are_not_stored():
                     "observed_at": (started + timedelta(minutes=2)).isoformat(),
                     "expression_label": "Happy",
                     "expression_confidence": 0.9,
-                    "end_of_visit": True,
                 },
                 {
                     "event_id": f"FLOW-UNKNOWN-{suffix}",
@@ -385,7 +429,6 @@ def test_sequence_analysis_persists_clusters_medoids_and_assignments():
                     "observed_at": (started + timedelta(hours=customer_index, minutes=event_index * 5)).isoformat(),
                     "expression_label": label,
                     "expression_confidence": 0.9,
-                    "end_of_visit": event_index == 3,
                 }
             )
     batch = client.post("/api/v1/simulation/observations/batch", json={"observations": observations})

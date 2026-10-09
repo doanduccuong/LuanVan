@@ -16,7 +16,6 @@ Giải pháp được xây dựng dựa trên các nguyên tắc sau:
     \item \textbf{Ghi nhận theo khu vực:} Mỗi kết quả nhận dạng phải được gắn với một khu vực được xác định trước và thời gian ghi nhận tương ứng.
     \item \textbf{Tách biệt hai nhiệm vụ nhận dạng:} Phân loại biểu cảm và nhận dạng khách hàng được thực hiện độc lập. Kết quả của nhiệm vụ này không được sử dụng để thay đổi kết quả của nhiệm vụ còn lại.
     \item \textbf{Liên kết theo khách hàng và lần mua sắm:} Chỉ những bản ghi xác định được cùng một khách hàng và thuộc cùng một lần mua sắm mới được liên kết thành một chuỗi cá nhân.
-    \item \textbf{Duy trì thứ tự thời gian:} Các bản ghi được sắp xếp theo thời điểm hình ảnh được ghi nhận để giữ lại trình tự khách hàng xuất hiện tại các khu vực.
     \item \textbf{Phân cụm theo chuỗi trạng thái:} Các trạng thái biểu cảm đại diện được sắp xếp theo trình tự điểm chạm và phân cụm để xác định những nhóm hành trình có diễn biến biểu cảm tương tự.
 \end{itemize}
 
@@ -71,9 +70,9 @@ Bảng~\ref{tab:solution_stage_io} tóm tắt đầu vào và kết quả của 
         \hline
         Tạo bản ghi & Kết quả biểu cảm, mã khách hàng, khu vực và thời gian & Một bản ghi quan sát khi đối sánh thành công; không tạo bản ghi khi \texttt{NO\_MATCH} \\
         \hline
-        Liên kết & Bản ghi đã xác định khách hàng & Lần mua sắm và chuỗi quan sát theo thời gian \\
+        Liên kết & Bản ghi đã xác định khách hàng & Lần mua sắm tương ứng của bản ghi \\
         \hline
-        Phân tích & Bản ghi hợp lệ và chuỗi quan sát & Phân bố biểu cảm, thay đổi giữa các điểm chạm và kết quả phân cụm \\
+        Phân tích & Bản ghi hợp lệ đã liên kết theo lần mua sắm & Phân bố biểu cảm, thay đổi giữa các điểm chạm và kết quả phân cụm \\
         \hline
     \end{tabular}}
 \end{table}
@@ -129,8 +128,6 @@ Mô hình FER được chạy trên vùng khuôn mặt cắt được từ ảnh
 
 Từ vùng khuôn mặt được cắt, mô hình ArcFace tạo một véc-tơ đặc trưng. Hệ thống so sánh véc-tơ này với các mẫu khuôn mặt của khách hàng bằng khoảng cách cô-sin. Khoảng cách càng nhỏ thì hai véc-tơ càng giống nhau. Khách hàng có khoảng cách nhỏ nhất chỉ được chấp nhận khi giá trị này không vượt quá ngưỡng được xác định trong bước hiệu chỉnh. Nếu chưa có tệp kết quả hiệu chỉnh, chức năng nhận dạng khách hàng được đặt ở trạng thái \texttt{DISABLED}. Nếu đã có tệp nhưng không khách hàng nào đạt yêu cầu, kết quả là \texttt{NO\_MATCH}.
 
-Dữ liệu dùng để so sánh chỉ gồm khách hàng đang hoạt động, đã đồng ý sử dụng dữ liệu khuôn mặt và có mẫu khuôn mặt còn hiệu lực. Kết quả gồm khách hàng phù hợp nhất, khoảng cách giữa hai véc-tơ và trạng thái \texttt{MATCHED} hoặc \texttt{NO\_MATCH}.
-
 Trạng thái \texttt{NO\_MATCH} xuất hiện khi khuôn mặt trong ảnh không khớp với bất kỳ mẫu tham chiếu nào trong giới hạn chấp nhận. Trong trường hợp này, hệ thống kết thúc xử lý sự kiện mà không tạo bản ghi quan sát, không tự động tạo hồ sơ mới và không chọn khách hàng có khoảng cách gần nhất.
 
 Sau khi phát hiện được khuôn mặt và xác định được khách hàng, hệ thống kết hợp kết quả phân loại biểu cảm, kết quả đối sánh, khu vực và thời gian ghi nhận để tạo một bản ghi quan sát. Bản ghi này thể hiện kết quả xử lý của khách hàng tại một khu vực và một thời điểm cụ thể. Các thông tin của bản ghi được trình bày tại Bảng~\ref{tab:observation_fields}.
@@ -172,21 +169,17 @@ Nếu ảnh không hợp lệ, không phát hiện được khuôn mặt hoặc 
 
 Một khách hàng có thể đến cửa hàng nhiều lần; vì vậy, hệ thống sử dụng đồng thời mã khách hàng và mã lần mua sắm để phân biệt các khoảng thời gian khách hàng có mặt tại cửa hàng. Mỗi lần mua sắm chỉ chứa các bản ghi của một khách hàng trong một khoảng thời gian liên tục. Ranh giới này ngăn dữ liệu của hai khách hàng hoặc hai lần đến cửa hàng khác nhau bị ghép vào cùng một chuỗi.
 
-Một lần mua sắm có hai trạng thái: đang hoạt động và đã kết thúc. Khi nhận bản ghi đã xác định khách hàng, hệ thống tìm lần mua sắm đang hoạt động của khách hàng đó. Nếu chưa có, hệ thống tạo lần mua sắm mới và dùng bản ghi hiện tại làm quan sát đầu tiên. Nếu đã có, bản ghi được thêm vào lần hiện tại khi khoảng cách với thời gian ghi nhận gần nhất không vượt quá thời gian chờ; ngược lại, lần cũ được đóng và lần mới được tạo. Trong nghiên cứu, thời gian chờ được đặt là 30 phút. Bản ghi tại khu vực ra, trạng thái thanh toán và việc hoàn thành đơn hàng không được dùng làm điều kiện tự động kết thúc.
+Một lần mua sắm có hai trạng thái: đang hoạt động và đã kết thúc. Khi nhận bản ghi đã xác định khách hàng, hệ thống tìm lần mua sắm đang hoạt động của khách hàng đó. Nếu chưa có, hệ thống tạo lần mua sắm mới và dùng bản ghi hiện tại làm quan sát đầu tiên. Trong nghiên cứu, ngưỡng thời gian giữa hai quan sát hợp lệ liên tiếp được đặt là 30 phút. Nếu khoảng cách không vượt quá ngưỡng này, bản ghi mới được gắn vào lần mua sắm hiện tại; nếu vượt quá ngưỡng, lần mua sắm trước được kết thúc và một lần mới được tạo. Việc kết thúc lần mua sắm chỉ dựa trên khoảng cách thời gian, không phụ thuộc vào khu vực ghi nhận hoặc trạng thái đơn hàng.
 
-Lần mua sắm được kết thúc khi người dùng chủ động đóng hoặc khi một bản ghi mới làm phát sinh điều kiện vượt quá thời gian chờ. Hai trường hợp này lần lượt được ghi nhận bằng lý do \texttt{MANUAL} và \texttt{TIMEOUT}. Điều kiện thời gian chỉ được kiểm tra khi có bản ghi mới, không cần một tiến trình riêng để đóng lần mua sắm ngay tại thời điểm đủ 30 phút. Bản ghi đến muộn sau khi lần mua sắm tương ứng đã kết thúc không được chèn lại vào chuỗi đã đóng.
+Điều kiện vượt ngưỡng chỉ được kiểm tra khi hệ thống nhận bản ghi mới của cùng khách hàng và được ghi nhận bằng lý do \texttt{TIMEOUT}. Hệ thống không sử dụng một tiến trình riêng để đóng lần mua sắm ngay khi đủ 30 phút. Bản ghi đến muộn sau khi lần mua sắm tương ứng đã kết thúc không được chèn lại vào chuỗi đã đóng.
 
 Mỗi bản ghi được thêm vào một lần mua sắm phải xác định được khách hàng và có thời gian phù hợp với khoảng hoạt động của lần đó. Bản ghi có thời gian trùng với quan sát tại khu vực khác vẫn được lưu, nhưng được đánh dấu là xung đột thời gian và không được sử dụng để tạo cặp thay đổi biểu cảm. Điều kiện dữ liệu của từng phép phân tích được kiểm tra riêng và không được lưu thành một trạng thái khác của lần mua sắm.
 
-Nếu thời gian chờ quá ngắn, một lần mua sắm có thể bị tách thành nhiều đoạn khi khách hàng ở lâu tại một khu vực. Nếu thời gian chờ quá dài, hai lần đến cửa hàng gần nhau có thể bị ghép thành một lần. Giá trị 30 phút cần được kiểm tra lại bằng dữ liệu thực nghiệm trước khi sử dụng trong môi trường thực tế.
+Việc phân tách lần mua sắm phụ thuộc vào ngưỡng thời gian giữa hai quan sát hợp lệ liên tiếp. Nếu ngưỡng quá ngắn, các quan sát thuộc cùng một lần mua sắm có thể bị tách thành nhiều lần khác nhau. Nếu ngưỡng quá dài, các lần khách hàng đến cửa hàng gần nhau về thời gian có thể bị ghép thành một lần. Do đó, giá trị 30 phút hiện chỉ là tham số của luận văn đề xuất thử nghiệm và cần được hiệu chỉnh bằng dữ liệu vận hành thực tế.
 
-Sau khi được gắn vào một lần mua sắm, các bản ghi được sắp xếp theo thời điểm hình ảnh được ghi nhận. Không sử dụng thời điểm máy chủ nhận yêu cầu để xác định thứ tự vì dữ liệu từ các khu vực có thể được gửi đến không đồng thời.
+Sau khi được gắn vào một lần mua sắm, các bản ghi được sắp xếp theo thời điểm hình ảnh được ghi nhận, không theo thời điểm máy chủ nhận dữ liệu. Nếu nhiều bản ghi có cùng thời điểm, mã bản ghi chỉ được dùng để duy trì thứ tự hiển thị ổn định và không được xem là căn cứ xác định trình tự quan sát. Các bản ghi có cùng thời điểm nhưng thuộc những khu vực khác nhau được đánh dấu là xung đột thời gian và không được sử dụng để phân tích sự thay đổi biểu cảm giữa các điểm chạm.
 
-Khi đọc dữ liệu, hệ thống sắp xếp bản ghi theo thời gian ghi nhận; nếu hai bản ghi có cùng thời gian thì mã bản ghi được dùng làm tiêu chí phá hòa. Nếu các bản ghi cùng thời điểm thuộc những khu vực khác nhau, hệ thống đánh dấu xung đột thời gian trong kết quả phân tích và không dùng các bản ghi đó để tạo cặp thay đổi biểu cảm.
-
-Kết quả của quá trình liên kết là một chuỗi gồm khu vực, thời gian và nhãn biểu cảm. Ví dụ, khách hàng được ghi nhận với nhãn \textit{Neutral} tại khu vực tiếp đón, \textit{Happy} tại khu vực tư vấn và trải nghiệm, sau đó là \textit{Angry} tại khu vực thanh toán. Việc liên kết dựa trên mã khách hàng và lần mua sắm, không dựa trên sự giống nhau của nhãn biểu cảm.
-
-Nếu một lần mua sắm không có bản ghi tại một khu vực, hệ thống giữ trạng thái thiếu thay vì tự tạo bản ghi. Không sử dụng nhãn tại khu vực trước hoặc sau để suy ra biểu cảm ở khu vực bị thiếu.
+Kết quả cuối cùng của quá trình liên kết là một chuỗi gồm khu vực, thời gian và nhãn biểu cảm. Ví dụ, khách hàng được ghi nhận với nhãn \textit{Neutral} tại khu vực tiếp đón, \textit{Happy} tại khu vực tư vấn và trải nghiệm, sau đó là \textit{Angry} tại khu vực thanh toán. Việc liên kết dựa trên mã khách hàng và lần mua sắm, không dựa trên sự giống nhau của nhãn biểu cảm.
 
 Trạng thái thiếu được gắn với vị trí dự kiến trong chuỗi nếu trình tự khu vực đã được xác định. Trạng thái này khác với việc khách hàng chắc chắn không đi qua khu vực; hệ thống chỉ khẳng định rằng không có quan sát hợp lệ trong dữ liệu.
 
@@ -202,7 +195,7 @@ Phân bố được thống kê trên các bản ghi hợp lệ của khách hà
 
 Khi so sánh hai khu vực, hệ thống sử dụng cùng điều kiện lọc thời gian và cùng nhóm khách hàng. Kết quả tỷ lệ phải đi kèm số lượng quan sát để phân biệt xu hướng được ghi nhận từ nhiều quan sát với biến động phát sinh từ một số ít bản ghi.
 
-Riêng đối với phép phân tích sự thay đổi giữa hai khu vực liên tiếp, hệ thống chọn những lần mua sắm có bản ghi biểu cảm hợp lệ và sắp xếp các bản ghi theo thời gian. Những bản ghi liên tiếp tại cùng một khu vực được xếp thành một nhóm; mỗi nhóm sử dụng bản ghi đầu tiên, bản ghi cuối cùng hoặc bản ghi có mức tin cậy cao nhất theo lựa chọn phân tích. Hai nhóm khu vực liên tiếp tạo thành một cặp gồm nhãn tại khu vực trước và nhãn tại khu vực sau.
+Riêng đối với phép phân tích sự thay đổi giữa hai khu vực liên tiếp, hệ thống chọn những lần mua sắm có bản ghi biểu cảm hợp lệ. Những bản ghi liên tiếp tại cùng một khu vực được xếp thành một nhóm; mỗi nhóm sử dụng bản ghi đầu tiên, bản ghi cuối cùng hoặc bản ghi có mức tin cậy cao nhất theo lựa chọn phân tích. Hai nhóm khu vực liên tiếp tạo thành một cặp gồm nhãn tại khu vực trước và nhãn tại khu vực sau.
 
 Khái niệm liên tiếp được xác định theo thứ tự quan sát trong cùng một lần mua sắm, không nhất thiết theo vị trí vật lý liền kề trong cửa hàng. Nếu chuỗi của một khách hàng gồm khu vực tiếp đón, khu vực tư vấn và khu vực thanh toán, hệ thống tạo hai cặp là tiếp đón--tư vấn và tư vấn--thanh toán. Hệ thống không tạo cặp tiếp đón--thanh toán vì giữa hai quan sát này còn một quan sát hợp lệ khác.
 
@@ -216,7 +209,7 @@ Một lần mua sắm \(v\) tạo một chuỗi
 \[
 S_v=(s_{v,1},s_{v,2},\ldots,s_{v,L_v}),
 \]
-trong đó \(s_{v,t}\) là nhãn biểu cảm đại diện của nhóm quan sát liên tiếp tại điểm chạm thứ \(t\), còn \(L_v\) là số nhóm hợp lệ. Chỉ sử dụng quan sát có ảnh hợp lệ, kết quả phân loại hợp lệ, mã lần mua sắm và nhãn thuộc bảy lớp của hệ thống. Các quan sát được sắp xếp theo thời gian ghi nhận rồi theo mã bản ghi để phá hòa.
+trong đó \(s_{v,t}\) là nhãn biểu cảm đại diện của nhóm quan sát liên tiếp tại điểm chạm thứ \(t\), còn \(L_v\) là số nhóm hợp lệ. Chuỗi kế thừa thứ tự quan sát đã được xác định trong lần mua sắm.
 
 Đối với đầu vào phân cụm, các quan sát liên tiếp tại cùng một điểm chạm được tập hợp thành một nhóm để tần suất lấy ảnh không làm một trạng thái bị lặp quá mức. Nhãn đại diện của nhóm là nhãn có số lần xuất hiện lớn nhất; nếu hòa thì so sánh tổng mức tin cậy, sau đó dùng thứ tự nhãn cố định. Hai điểm chạm khác nhau vẫn tạo hai phần tử, kể cả khi cùng nhãn. Vì vậy chuỗi \(\textit{Neutral}\rightarrow\textit{Neutral}\rightarrow\textit{Happy}\) không bị rút gọn thành hai trạng thái. Bản ghi cùng thời điểm nhưng thuộc nhiều điểm chạm bị loại khỏi đầu vào phân cụm vì không có căn cứ xác định thứ tự. Phiên bản thực nghiệm yêu cầu ít nhất ba nhóm hợp lệ.
 
@@ -263,7 +256,7 @@ Tên của từng cụm được người phân tích đặt sau khi xem xét ch
 \section{Kết quả đầu ra và giới hạn của phương pháp}
 \label{section:3.4}
 
-Đối với mỗi lần mua sắm, đầu ra của phương pháp là chuỗi các bản ghi quan sát được sắp xếp theo thời gian. Mỗi phần tử trong chuỗi gồm khu vực, thời gian ghi nhận, nhãn biểu cảm, mức tin cậy và trạng thái dữ liệu. Các lần mua sắm được tách riêng để không trộn dữ liệu của những lần đến cửa hàng khác nhau; dữ liệu thiếu hoặc bị loại được giữ dưới trạng thái tương ứng. Chuỗi chỉ được tạo từ các bản ghi đã xác định khách hàng và được gắn với một lần mua sắm cụ thể.
+Đầu ra của phương pháp gồm các bản ghi quan sát đã liên kết theo lần mua sắm, kết quả thống kê biểu cảm tại từng khu vực, sự thay đổi biểu cảm giữa các điểm chạm và kết quả phân cụm chuỗi trạng thái. Mỗi bản ghi giữ thông tin về khu vực, thời gian ghi nhận, nhãn biểu cảm, mức tin cậy và trạng thái dữ liệu; dữ liệu thiếu hoặc bị loại được giữ dưới trạng thái tương ứng.
 
 Nếu lần mua sắm phát sinh đơn hàng, chuỗi quan sát có thể được liên kết với đơn hàng thông qua mã khách hàng và thời gian giao dịch. Việc liên kết hỗ trợ tra cứu bối cảnh mua sắm, chẳng hạn khách hàng đã mua sản phẩm nào và biểu cảm nào được ghi nhận tại khu vực thanh toán.
 
@@ -296,12 +289,10 @@ Sai số phân loại biểu cảm ảnh hưởng trực tiếp đến phân b�
 
 Nhãn FER phản ánh biểu hiện khuôn mặt tại thời điểm hình ảnh được ghi nhận. Một hình ảnh không chứa đầy đủ lời nói, mục đích và trải nghiệm chủ quan của khách hàng. Kết quả vì thế được sử dụng như một nguồn dữ liệu hỗ trợ và cần được xem xét cùng hồ sơ, lịch sử mua hàng và dữ liệu nghiệp vụ khác.
 
-Giải pháp chỉ tạo và liên kết bản ghi đối với khách hàng đang hoạt động, đã đồng ý sử dụng dữ liệu khuôn mặt và có mẫu khuôn mặt còn hiệu lực. Sự kiện không đối sánh được với khách hàng thuộc phạm vi này không tạo bản ghi quan sát và không tham gia thống kê biểu cảm. Vì vậy, thống kê theo khu vực và phân tích giữa các khu vực được hình thành trên cùng phạm vi khách hàng, nhưng số lượng bản ghi có thể khác nhau do điều kiện hợp lệ của từng phép phân tích.
+Số lượng bản ghi được sử dụng trong thống kê tại từng khu vực và phân tích sự thay đổi giữa các khu vực có thể khác nhau do mỗi phép phân tích áp dụng điều kiện hợp lệ riêng.
 
 Một khu vực không có bản ghi có thể do khách hàng không xuất hiện tại khu vực, hình ảnh không ghi nhận được khuôn mặt phù hợp hoặc mô hình xử lý không thành công. Giải pháp giữ riêng dữ liệu thiếu và không thay thế chúng bằng một nhãn biểu cảm giả định.
 
 Đầu vào của phương pháp là các hình ảnh rời do nguồn thu nhận lựa chọn, không phải luồng video liên tục. Mã sự kiện ngăn việc gửi lại cùng một hình ảnh. Vì vậy, tần suất lấy mẫu phải được cấu hình tại nguồn thu nhận; nếu triển khai trên video liên tục, cần bổ sung thành phần theo dõi đối tượng để hạn chế đếm lặp trước khi tạo sự kiện gửi đến hệ thống.
-
-Chương này dừng ở phương pháp xử lý, liên kết và phân tích dữ liệu. Kiến trúc phần mềm, cơ sở dữ liệu, API và giao diện CRM được trình bày tại Chương 4. Dịch vụ mô phỏng dữ liệu và các kịch bản kiểm chứng được trình bày tại Chương 5.
 
 \end{document}

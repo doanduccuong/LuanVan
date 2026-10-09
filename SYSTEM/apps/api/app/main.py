@@ -167,7 +167,6 @@ class SimulatedObservationInput(BaseModel):
     image_status: str = "VALID"
     expression_status: str = "VALID"
     identity_status: str = "MATCHED"
-    end_of_visit: bool = False
 
 
 class SimulatedObservationBatchInput(BaseModel):
@@ -276,18 +275,10 @@ def attach_visit(db: Session, customer: Customer, observed_at: datetime, demo_da
     if active:
         active_start = active.started_at.replace(tzinfo=timezone.utc) if active.started_at.tzinfo is None else active.started_at.astimezone(timezone.utc)
         if observed_at < active_start:
-            historical = Visit(
-                customer_id=customer.id,
-                started_at=observed_at,
-                last_seen_at=observed_at,
-                ended_at=observed_at,
-                status=VisitStatus.CLOSED,
-                close_reason="HISTORICAL_ASSIGNMENT",
-                demo_data=demo_data,
+            raise HTTPException(
+                status_code=409,
+                detail="Không thể gắn bản ghi vào trước lần mua sắm đang hoạt động",
             )
-            db.add(historical)
-            db.flush()
-            return historical
     return get_or_create_visit(db, customer, observed_at, demo_data)
 
 
@@ -987,14 +978,6 @@ def create_simulated_observations(
         )
         db.add(observation)
         db.flush()
-        if visit and item.end_of_visit:
-            visit.status = VisitStatus.CLOSED
-            visit.ended_at = observed_at
-            visit.last_seen_at = observed_at
-            visit.close_reason = "SIMULATED_END"
-            # Ghi trạng thái đóng trước khi tạo lượt tiếp theo của cùng khách hàng.
-            # PostgreSQL dùng chỉ mục duy nhất cho lượt ACTIVE nên thứ tự ghi là bắt buộc.
-            db.flush()
         created.append({"event_id": observation.event_id, "observation_id": observation.id, "visit_id": observation.visit_id})
     audit(
         db,
@@ -1054,19 +1037,6 @@ def get_visit(visit_id: str, db: Session = Depends(get_db), _user: User = Depend
     ).all()
     orders = db.scalars(select(Order).options(selectinload(Order.items)).where(Order.visit_id == visit_id).order_by(Order.ordered_at)).all()
     return {"visit": visit, "observations": observations, "orders": orders}
-
-
-@app.post("/api/v1/visits/{visit_id}/close")
-def close_visit(visit_id: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    visit = db.get(Visit, visit_id)
-    if not visit:
-        raise HTTPException(status_code=404, detail="Không tìm thấy lượt ghé thăm")
-    visit.status = VisitStatus.CLOSED
-    visit.ended_at = visit.last_seen_at
-    visit.close_reason = "MANUAL"
-    audit(db, user, "VISIT_CLOSED", "visit", visit.id)
-    db.commit()
-    return visit
 
 
 @app.get("/api/v1/visits/{visit_id}/analysis")

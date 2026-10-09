@@ -203,7 +203,6 @@ def main(customer_count: int, seed: int, run_id: str) -> None:
                             "image_status": "VALID",
                             "expression_status": "VALID",
                             "identity_status": "MATCHED",
-                            "end_of_visit": position == len(sequence) - 1,
                         }
                     )
                 planned_visits.append(
