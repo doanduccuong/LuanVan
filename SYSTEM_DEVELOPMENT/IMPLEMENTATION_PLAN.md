@@ -264,7 +264,7 @@ Mã benchmark tại `COMPARE_FACE_DETECTION` được giữ độc lập. Trọn
 - Đối sánh khách hàng trong cơ sở dữ liệu.
 - Tạo hoặc lấy lượt ghé thăm đang hoạt động theo quy tắc đã khóa.
 - Lưu bản ghi quan sát, trạng thái chất lượng và phiên bản mô hình.
-- Khách hàng không xác định vẫn được lưu bản ghi thống kê tại điểm chạm nhưng không được gán vào hồ sơ cá nhân.
+- Chỉ tạo bản ghi quan sát khi đối sánh thành công với khách hàng đã đăng ký; kết quả `NO_MATCH` dừng ở cấp sự kiện thu nhận.
 - Xử lý an toàn khi hai điểm chạm gửi dữ liệu cùng lúc cho một khách hàng.
 
 #### Điều kiện hoàn thành
@@ -396,8 +396,8 @@ Kịch bản chi tiết nằm tại `SYSTEM_DEVELOPMENT/DEMO_SCENARIO.md`.
 1. Tạo khách hàng, ghi nhận đồng ý, đăng ký mẫu khuôn mặt và tìm lại bằng ảnh.
 2. Cùng khách hàng đi qua nhiều điểm chạm và tạo đúng một lượt ghé thăm.
 3. Cùng khách hàng quay lại sau khoảng ngắt và tạo lượt mới.
-4. Khách hàng không xác định chỉ xuất hiện trong thống kê tại điểm chạm.
-5. Ảnh nhiều khuôn mặt tạo một quan sát cho từng vùng mặt và không làm mất kết quả của các vùng còn lại.
+4. Kết quả `NO_MATCH` không tạo bản ghi quan sát và không xuất hiện trong báo cáo biểu cảm.
+5. Ảnh hợp lệ của khách hàng đã đăng ký tạo bản ghi gắn đúng khách hàng và lần mua sắm.
 6. Đơn mua hàng hiển thị đúng trong hồ sơ khách hàng.
 7. Tạo sản phẩm, đưa sản phẩm vào đơn hàng và xem lại đúng trong lịch sử mua hàng.
 8. Thay đổi giá sản phẩm không làm thay đổi giá trong đơn hàng cũ.

@@ -37,7 +37,6 @@ class RunResult(BaseModel):
     visit_count: int
     observation_count: int
     order_count: int
-    unidentified_observation_count: int
     error_capture_count: int
 
 
@@ -146,26 +145,6 @@ def create_run(payload: RunInput):
                             }
                         )
 
-            unidentified_count = 12
-            for index in range(unidentified_count):
-                touchpoint = touchpoints[index % len(touchpoints)]
-                label = choose_expression(rng, touchpoint["touchpoint_code"], None)
-                observations.append(
-                    {
-                        "event_id": f"{run_id}-UNIDENTIFIED-{index + 1:02d}",
-                        "simulation_run_id": run_id,
-                        "touchpoint_id": touchpoint["id"],
-                        "customer_id": None,
-                        "observed_at": (start + timedelta(days=11, minutes=index)).isoformat(),
-                        "expression_label": label,
-                        "expression_confidence": round(rng.uniform(0.62, 0.97), 3),
-                        "image_status": "VALID",
-                        "expression_status": "VALID",
-                        "identity_status": "NO_MATCH",
-                        "end_of_visit": False,
-                    }
-                )
-
             error_count = 12
             for index in range(error_count):
                 touchpoint = touchpoints[index % len(touchpoints)]
@@ -218,6 +197,5 @@ def create_run(payload: RunInput):
         visit_count=visit_count,
         observation_count=len(observations) - error_count,
         order_count=order_count,
-        unidentified_observation_count=unidentified_count,
         error_capture_count=error_count,
     )

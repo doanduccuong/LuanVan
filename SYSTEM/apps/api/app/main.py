@@ -149,10 +149,6 @@ class OrderStatusInput(BaseModel):
     status: OrderStatus
 
 
-class ObservationCustomerInput(BaseModel):
-    customer_id: str
-
-
 class ReprocessReasonInput(BaseModel):
     reason: str = Field(default="MANUAL_REPROCESS", min_length=1, max_length=64)
 
@@ -870,14 +866,16 @@ async def create_observation(
             customer, distance, identity_status = match_customer(db, face.embedding)
             if customer:
                 visit = get_or_create_visit(db, customer, parsed_observed_at, demo_data)
+        if not customer or not visit:
+            continue
         observation = Observation(
             capture_event_id=capture.id,
             event_id=event_id,
             face_index=face.face_index,
             touchpoint_id=touchpoint.id,
             observed_at=parsed_observed_at,
-            customer_id=customer.id if customer else None,
-            visit_id=visit.id if visit else None,
+            customer_id=customer.id,
+            visit_id=visit.id,
             expression_label=face.expression_label,
             expression_confidence=face.expression_confidence,
             expression_scores=face.expression_scores,
@@ -901,7 +899,7 @@ async def create_observation(
         "CAPTURE_EVENT_CREATED",
         "capture_event",
         capture.id,
-        {"event_id": event_id, "face_count": result.face_count},
+        {"event_id": event_id, "face_count": result.face_count, "saved_observation_count": len(observations)},
     )
     db.commit()
     for observation in observations:
@@ -932,7 +930,13 @@ def create_simulated_observations(
         if existing_capture:
             skipped += 1
             existing = existing_capture.observations[0] if existing_capture.observations else None
-            created.append({"event_id": existing.event_id, "observation_id": existing.id, "visit_id": existing.visit_id})
+            created.append(
+                {
+                    "event_id": existing_capture.event_id,
+                    "observation_id": existing.id if existing else None,
+                    "visit_id": existing.visit_id if existing else None,
+                }
+            )
             continue
         touchpoint = db.get(Touchpoint, item.touchpoint_id)
         if not touchpoint or not touchpoint.active:
@@ -943,7 +947,6 @@ def create_simulated_observations(
         if item.expression_label and item.expression_label not in EXPRESSION_LABELS:
             raise HTTPException(status_code=422, detail=f"Nhãn biểu cảm không hợp lệ: {item.expression_label}")
         observed_at = ensure_aware(item.observed_at)
-        visit = get_or_create_visit(db, customer, observed_at, True) if customer else None
         capture = CaptureEvent(
             event_id=item.event_id,
             touchpoint_id=touchpoint.id,
@@ -957,17 +960,18 @@ def create_simulated_observations(
         )
         db.add(capture)
         db.flush()
-        if item.image_status != "VALID":
+        if item.image_status != "VALID" or not customer:
             created.append({"event_id": item.event_id, "observation_id": None, "visit_id": None})
             continue
+        visit = get_or_create_visit(db, customer, observed_at, True)
         observation = Observation(
             capture_event_id=capture.id,
             event_id=item.event_id,
             face_index=0,
             touchpoint_id=touchpoint.id,
             observed_at=observed_at,
-            customer_id=customer.id if customer else None,
-            visit_id=visit.id if visit else None,
+            customer_id=customer.id,
+            visit_id=visit.id,
             expression_label=item.expression_label,
             expression_confidence=item.expression_confidence,
             expression_scores=None,
@@ -1006,7 +1010,6 @@ def create_simulated_observations(
 
 @app.get("/api/v1/observations")
 def list_observations(
-    customer_scope: str = Query("all", pattern="^(all|registered|unidentified)$"),
     touchpoint_id: str | None = None,
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1, le=100),
@@ -1015,11 +1018,7 @@ def list_observations(
 ):
     stmt = select(Observation).options(selectinload(Observation.touchpoint), selectinload(Observation.customer))
     count_stmt = select(func.count()).select_from(Observation)
-    conditions = []
-    if customer_scope == "registered":
-        conditions.append(Observation.customer_id.is_not(None))
-    elif customer_scope == "unidentified":
-        conditions.append(Observation.customer_id.is_(None))
+    conditions = [Observation.customer_id.is_not(None)]
     if touchpoint_id:
         conditions.append(Observation.touchpoint_id == touchpoint_id)
     if conditions:
@@ -1392,31 +1391,6 @@ def list_sequence_assignments(
     }
 
 
-@app.patch("/api/v1/observations/{observation_id}/customer")
-def assign_observation_customer(
-    payload: ObservationCustomerInput,
-    observation_id: str,
-    db: Session = Depends(get_db),
-    user: User = Depends(require_roles(Role.MANAGER, Role.ADMIN)),
-):
-    observation = db.get(Observation, observation_id)
-    if not observation:
-        raise HTTPException(status_code=404, detail="Không tìm thấy bản ghi quan sát")
-    customer = db.get(Customer, payload.customer_id)
-    if not customer or customer.status != RecordStatus.ACTIVE:
-        raise HTTPException(status_code=404, detail="Không tìm thấy khách hàng đang hoạt động")
-    observed_at = observation.observed_at.replace(tzinfo=timezone.utc) if observation.observed_at.tzinfo is None else observation.observed_at.astimezone(timezone.utc)
-    save_observation_revision(db, observation, "MANUAL_CUSTOMER_ASSIGNMENT", user)
-    visit = attach_visit(db, customer, observed_at, observation.demo_data)
-    observation.customer_id = customer.id
-    observation.visit_id = visit.id
-    observation.identity_status = "MANUALLY_ASSIGNED"
-    audit(db, user, "OBSERVATION_CUSTOMER_ASSIGNED", "observation", observation.id, {"customer_id": customer.id, "visit_id": visit.id})
-    db.commit()
-    db.refresh(observation)
-    return observation
-
-
 @app.get("/api/v1/observations/{observation_id}/revisions")
 def list_observation_revisions(observation_id: str, db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
     if not db.get(Observation, observation_id):
@@ -1445,7 +1419,6 @@ async def reprocess_observation(
     if result.image_status != "VALID" or not face:
         status = "MULTIPLE_FACES" if result.face_count > 1 else result.image_status
         raise HTTPException(status_code=422, detail=f"Ảnh xử lý lại phải chứa đúng một khuôn mặt hợp lệ: {status}")
-    save_observation_revision(db, observation, reason[:64], user)
     customer = None
     distance = None
     identity_status = face.identity_status
@@ -1455,8 +1428,11 @@ async def reprocess_observation(
         if customer:
             observed_at = observation.observed_at.replace(tzinfo=timezone.utc) if observation.observed_at.tzinfo is None else observation.observed_at.astimezone(timezone.utc)
             visit = attach_visit(db, customer, observed_at, observation.demo_data)
-    observation.customer_id = customer.id if customer else None
-    observation.visit_id = visit.id if visit else None
+    if not customer or not visit:
+        raise HTTPException(status_code=422, detail="Ảnh không khớp với khách hàng đã đăng ký")
+    save_observation_revision(db, observation, reason[:64], user)
+    observation.customer_id = customer.id
+    observation.visit_id = visit.id
     observation.expression_label = face.expression_label
     observation.expression_confidence = face.expression_confidence
     observation.expression_scores = face.expression_scores
@@ -1478,7 +1454,6 @@ async def reprocess_observation(
 @app.get("/api/v1/reports/expression-distribution")
 def expression_distribution(
     touchpoint_id: str | None = None,
-    customer_scope: str = Query("all", pattern="^(all|registered|unidentified)$"),
     from_time: datetime | None = Query(None, alias="from"),
     to_time: datetime | None = Query(None, alias="to"),
     db: Session = Depends(get_db),
@@ -1487,16 +1462,16 @@ def expression_distribution(
     stmt = (
         select(Touchpoint.id, Touchpoint.name, Observation.expression_label, func.count(Observation.id))
         .join(Observation, Observation.touchpoint_id == Touchpoint.id)
-        .where(Observation.image_status == "VALID", Observation.expression_status == "VALID")
+        .where(
+            Observation.customer_id.is_not(None),
+            Observation.image_status == "VALID",
+            Observation.expression_status == "VALID",
+        )
         .group_by(Touchpoint.id, Touchpoint.name, Observation.expression_label)
         .order_by(Touchpoint.sequence_order, Observation.expression_label)
     )
     if touchpoint_id:
         stmt = stmt.where(Touchpoint.id == touchpoint_id)
-    if customer_scope == "registered":
-        stmt = stmt.where(Observation.customer_id.is_not(None))
-    elif customer_scope == "unidentified":
-        stmt = stmt.where(Observation.customer_id.is_(None))
     if from_time:
         stmt = stmt.where(Observation.observed_at >= ensure_aware(from_time))
     if to_time:
@@ -1533,6 +1508,7 @@ def expression_timeline(
     stmt = (
         select(Observation.observed_at, Observation.expression_label)
         .where(
+            Observation.customer_id.is_not(None),
             Observation.touchpoint_id == touchpoint_id,
             Observation.image_status == "VALID",
             Observation.expression_status == "VALID",
@@ -1580,7 +1556,7 @@ def data_quality(
     db: Session = Depends(get_db),
     _user: User = Depends(get_current_user),
 ):
-    observation_conditions = []
+    observation_conditions = [Observation.customer_id.is_not(None)]
     capture_conditions = []
     if touchpoint_id:
         observation_conditions.append(Observation.touchpoint_id == touchpoint_id)
@@ -1632,7 +1608,7 @@ def data_quality_summary(
     db: Session = Depends(get_db),
     _user: User = Depends(get_current_user),
 ):
-    conditions = []
+    conditions = [Observation.customer_id.is_not(None)]
     capture_conditions = []
     issue_conditions = []
     if touchpoint_id:

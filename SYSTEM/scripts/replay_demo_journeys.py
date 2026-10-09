@@ -59,15 +59,14 @@ def main(scenario: str, speed: float, minimum_pass_rate: float) -> None:
                 image_ok = payload.get("image_status") == expected_image
                 face_count_ok = payload.get("face_count") == expected_face_count
                 if expected_customer:
-                    # Demo KDEF chính chỉ chứa một người trong mỗi ảnh. Ca kiểm tra
-                    # đạt khi đúng người đó được ghép với khách hàng đã đăng ký.
+                    # Chỉ quan sát đã ghép với khách hàng đăng ký được API lưu và trả về.
                     identity_ok = (
                         actual_customers.count(expected_customer) == 1
                         and actual_identity_statuses.count("MATCHED") == 1
-                        and actual_identity_statuses.count("NO_MATCH") == expected_face_count - 1
+                        and all(status == "MATCHED" for status in actual_identity_statuses)
                     )
                 elif expected_identity == "NO_MATCH":
-                    identity_ok = bool(actual_identity_statuses) and all(status == "NO_MATCH" for status in actual_identity_statuses)
+                    identity_ok = not observations
                 else:
                     identity_ok = not observations
                 record = {

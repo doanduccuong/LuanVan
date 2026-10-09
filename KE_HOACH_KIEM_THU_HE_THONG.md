@@ -306,14 +306,14 @@ Không loại mẫu sai khỏi kết quả. Mọi tiêu chí loại ảnh phải
 2. Từ chối đăng ký khi không có khuôn mặt hoặc có nhiều khuôn mặt.
 3. Xử lý khung có nhiều khuôn mặt thành nhiều quan sát độc lập.
 4. Liên kết đúng quan sát với khách hàng đã đăng ký.
-5. Giữ người chưa đăng ký ở trạng thái `NO_MATCH`.
+5. Không tạo bản ghi quan sát khi kết quả đối sánh là `NO_MATCH`.
 6. Không tạo quan sát cho ảnh `NO_FACE` hoặc `INVALID_IMAGE`.
 7. Không tạo bản ghi trùng khi gửi lại cùng mã sự kiện.
 8. Tạo, cập nhật và kết thúc lần mua sắm theo thời gian quan sát.
 9. Xử lý bản ghi đến muộn, xung đột thời gian và thiếu khu vực.
 10. Liên kết đơn hàng đúng khách hàng và đúng lần mua sắm.
-11. Xác nhận thủ công và xử lý lại quan sát phải tạo lịch sử thay đổi.
-12. Báo cáo phải tách được dữ liệu theo nguồn, khu vực, thời gian và trạng thái khách hàng.
+11. Xử lý lại quan sát phải tạo lịch sử thay đổi và chỉ chấp nhận ảnh khớp khách hàng đã đăng ký.
+12. Báo cáo phải tách được dữ liệu theo nguồn, khu vực và thời gian.
 
 ### 9.2. Hậu điều kiện của mỗi sự kiện
 
@@ -400,7 +400,7 @@ Tạo một bộ dữ liệu nhỏ, cố định và có thể tính bằng tay,
 - Bốn khu vực có thứ tự xác định.
 - Các lần mua sắm đủ khu vực, thiếu khu vực và xung đột thời gian.
 - Nhãn biểu cảm được quy định trước.
-- Quan sát đã xác định và chưa xác định.
+- Quan sát của khách hàng đã đăng ký và sự kiện `NO_MATCH` không tạo quan sát.
 - Đơn hàng có và không liên kết lần mua sắm.
 
 Bộ dữ liệu này dùng để kiểm tra thuật toán truy vấn, không đại diện cho hành vi thực tế.
@@ -409,7 +409,7 @@ Bộ dữ liệu này dùng để kiểm tra thuật toán truy vấn, không đ
 
 - Số lượng và tỷ lệ từng nhãn tại từng khu vực.
 - Kết quả lọc theo khoảng thời gian.
-- Kết quả lọc khách hàng đã xác định và chưa xác định.
+- Xác nhận báo cáo không chứa sự kiện `NO_MATCH`.
 - Số lượng trong từng khoảng thời gian 5, 15, 30 và 60 phút.
 - Cặp thay đổi nhãn giữa hai khu vực liên tiếp.
 - Cách chọn bản ghi đầu tiên, cuối cùng và có mức tin cậy cao nhất.

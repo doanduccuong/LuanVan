@@ -8,15 +8,13 @@ Giải pháp được đề xuất nhằm ghi nhận và liên kết kết quả
 
 Kết quả phân loại biểu cảm và nhận dạng khách hàng được kết hợp với thông tin về khu vực và thời gian để tạo thành một bản ghi quan sát. Bản ghi này bao gồm biểu cảm dự đoán, mức tin cậy, khu vực, thời điểm ghi nhận và kết quả nhận dạng khách hàng. Nếu khuôn mặt trong ảnh khớp với mẫu tham chiếu của một khách hàng đã đăng ký và kết quả đối sánh đạt ngưỡng chấp nhận, bản ghi được gắn với mã khách hàng tương ứng để liên kết với các bản ghi khác trong cùng một lần mua sắm.
 
-Đối với khách hàng chưa đăng ký, kết quả phân loại biểu cảm vẫn được lưu để phục vụ thống kê tại khu vực, nhưng bản ghi không được gắn vào hồ sơ và không được dùng để hình thành chuỗi quan sát cá nhân. Hệ thống không tự động tạo hồ sơ mới từ những bản ghi này. Trường hợp khách hàng đã đăng ký nhưng kết quả đối sánh chưa đủ tin cậy cũng được giữ ở trạng thái không xác định để hạn chế gắn nhầm dữ liệu.
-
 Các bản ghi thuộc cùng một khách hàng và cùng một lần mua sắm được liên kết, sau đó sắp xếp theo thời gian. Kết quả là một chuỗi quan sát thể hiện khách hàng đã được ghi nhận tại những khu vực nào và nhãn biểu cảm thay đổi như thế nào trong quá trình mua sắm. Dữ liệu sau khi liên kết được chuyển đến hệ thống CRM để lưu trữ, tra cứu và hiển thị cùng hồ sơ khách hàng, đơn hàng và lịch sử mua hàng.
 
 Đầu ra của phương pháp được tổ chức thành ba mức. Mức quan sát lưu kết quả của một khuôn mặt tại một thời điểm, gồm khu vực, thời gian, khung bao, nhãn biểu cảm, mức tin cậy và kết quả nhận dạng. Mức điểm chạm tập hợp các quan sát của cùng khách hàng tại một khu vực và giữ nguyên thứ tự thời gian của chúng. Mức lần mua sắm liên kết các tập quan sát tại nhiều khu vực của cùng khách hàng để hình thành chuỗi phục vụ tra cứu và phân tích. Cách tổ chức này tránh đồng nhất một khung hình với một khách hàng hoặc một điểm chạm với một nhãn biểu cảm duy nhất.
 
-Các bản ghi có kết quả biểu cảm hợp lệ được nhóm theo khu vực ghi nhận. Trong mỗi khu vực, hệ thống đếm số lần xuất hiện và xác định tỷ lệ của từng nhãn biểu cảm. Việc tổng hợp này không yêu cầu xác định danh tính khách hàng vì mục đích là mô tả sự phân bố của các nhãn biểu cảm trong từng khu vực.
+Các bản ghi của khách hàng đã đăng ký có kết quả biểu cảm hợp lệ được nhóm theo khu vực ghi nhận. Trong mỗi khu vực, hệ thống đếm số lần xuất hiện và xác định tỷ lệ của từng nhãn biểu cảm.
 
-Để liên kết các bản ghi giữa nhiều khu vực và theo dõi sự thay đổi biểu cảm trong cùng một lần mua sắm, hệ thống chỉ sử dụng những bản ghi đã xác định được khách hàng. Các bản ghi này được gắn với một lần mua sắm và sắp xếp theo thời gian. Bản ghi chưa xác định được khách hàng không được đưa vào chuỗi cá nhân vì không có đủ cơ sở để khẳng định các bản ghi ở những khu vực khác nhau thuộc cùng một người.
+Để liên kết các bản ghi giữa nhiều khu vực và theo dõi sự thay đổi biểu cảm trong cùng một lần mua sắm, hệ thống chỉ tạo bản ghi khi xác định được khách hàng đã đăng ký. Bản ghi được gắn với một lần mua sắm và sắp xếp theo thời gian.
 
 Giải pháp được xây dựng dựa trên các nguyên tắc sau:
 
@@ -39,13 +37,13 @@ Luồng xử lý bắt đầu khi hệ thống tiếp nhận một hình ảnh �
 
 Trước khi xử lý ảnh, hệ thống kiểm tra mã khu vực có tồn tại trong danh sách đã cấu hình, thời gian ghi nhận có hợp lệ và dữ liệu ảnh có thể đọc được hay không. Bước kiểm tra này bảo đảm kết quả nhận dạng có đủ thông tin để liên kết với khu vực và thời gian tương ứng. Yêu cầu không đạt điều kiện đầu vào được ghi nhận với trạng thái lỗi tương ứng và dừng trước bước phát hiện khuôn mặt.
 
-Hình ảnh trước hết được đưa vào mô hình phát hiện khuôn mặt RetinaFace sử dụng mạng nền MobileNet0.25. Mô hình trả về vị trí và mức tin cậy của các khuôn mặt được phát hiện. Ảnh không có khuôn mặt được ghi nhận ở cấp sự kiện thu nhận và không tạo bản ghi quan sát. Khi phát hiện một hoặc nhiều khuôn mặt, từng vùng khuôn mặt được cắt riêng và chuyển độc lập đến hai nhánh xử lý tiếp theo. Số lượng người trong khung hình vì vậy không phải là điều kiện loại bỏ ảnh.
+Hình ảnh trước hết được đưa vào mô hình phát hiện khuôn mặt RetinaFace sử dụng mạng nền MobileNet0.25. Mô hình trả về vị trí và mức tin cậy của vùng khuôn mặt được phát hiện. Ảnh không có khuôn mặt được ghi nhận ở cấp sự kiện thu nhận và không tạo bản ghi quan sát. Vùng khuôn mặt hợp lệ được cắt và chuyển đến hai nhánh xử lý tiếp theo.
 
-Nhánh phân loại biểu cảm nhận vùng khuôn mặt được cắt từ ảnh và tạo kết quả gồm nhãn biểu cảm cùng mức tin cậy. Nhánh nhận dạng khách hàng trích xuất đặc trưng khuôn mặt và so sánh với dữ liệu tham chiếu của khách hàng đã đăng ký. Nhánh này trả về mã khách hàng khi đáp ứng điều kiện nhận dạng, hoặc trạng thái không xác định khi không tìm được kết quả phù hợp.
+Nhánh phân loại biểu cảm nhận vùng khuôn mặt được cắt từ ảnh và tạo kết quả gồm nhãn biểu cảm cùng mức tin cậy. Nhánh nhận dạng khách hàng trích xuất đặc trưng khuôn mặt và so sánh với dữ liệu tham chiếu của khách hàng đã đăng ký. Nhánh này trả về mã khách hàng khi đáp ứng điều kiện nhận dạng; nếu không có kết quả phù hợp, quá trình dừng ở trạng thái \texttt{NO\_MATCH} và không tạo bản ghi quan sát.
 
-Kết quả của hai nhánh trên từng khuôn mặt được ghép với khu vực và thời gian để tạo các bản ghi quan sát thuộc cùng một sự kiện thu nhận. Nếu một bản ghi xác định được khách hàng, hệ thống kiểm tra khách hàng có một lần mua sắm đang diễn ra hay không. Bản ghi được thêm vào lần mua sắm hiện tại hoặc được dùng để khởi tạo một lần mua sắm mới. Các bản ghi trong cùng một lần mua sắm được sắp xếp theo thời gian và chuyển sang bước phân tích. Luồng xử lý tổng thể được trình bày tại Hình~\ref{fig:solution_flow}.
+Khi xác định được khách hàng đã đăng ký, kết quả của hai nhánh được ghép với khu vực và thời gian để tạo bản ghi quan sát. Hệ thống kiểm tra khách hàng có một lần mua sắm đang diễn ra hay không; bản ghi được thêm vào lần mua sắm hiện tại hoặc được dùng để khởi tạo một lần mua sắm mới. Các bản ghi trong cùng một lần mua sắm được sắp xếp theo thời gian và chuyển sang bước phân tích. Luồng xử lý tổng thể được trình bày tại Hình~\ref{fig:solution_flow}.
 
-Trong luồng này, một công đoạn chỉ chuyển dữ liệu sang công đoạn kế tiếp khi đã tạo được kết quả cần thiết. Phát hiện khuôn mặt không thành công thì hai nhánh nhận dạng không được thực hiện. Phân loại biểu cảm không hợp lệ thì bản ghi không tham gia thống kê biểu cảm, dù nhiệm vụ nhận dạng khách hàng có thể đã tạo kết quả. Ngược lại, nếu biểu cảm hợp lệ nhưng chưa xác định được khách hàng, bản ghi vẫn có thể tham gia thống kê tại khu vực nhưng không được liên kết thành chuỗi cá nhân. Quy tắc này giúp hệ thống không loại bỏ toàn bộ bản ghi chỉ vì một trong hai nhiệm vụ độc lập không thành công.
+Trong luồng này, một công đoạn chỉ chuyển dữ liệu sang công đoạn kế tiếp khi đã tạo được kết quả cần thiết. Phát hiện khuôn mặt không thành công thì hai nhánh nhận dạng không được thực hiện. Nếu không xác định được khách hàng đã đăng ký, hệ thống không tạo bản ghi quan sát. Nếu đã xác định được khách hàng nhưng kết quả phân loại biểu cảm không hợp lệ, bản ghi vẫn được lưu để phản ánh dữ liệu thiếu nhưng không tham gia thống kê biểu cảm.
 
 \begin{figure}[H]
     \centering
@@ -88,13 +86,13 @@ Bảng~\ref{tab:solution_stage_io} làm rõ đầu vào và kết quả của t�
         \hline
         Kiểm tra yêu cầu & Ảnh, mã khu vực, thời gian ghi nhận & Yêu cầu hợp lệ hoặc trạng thái lỗi đầu vào \\
         \hline
-        Xử lý khuôn mặt & Ảnh hợp lệ & Danh sách các vùng khuôn mặt được phát hiện và cắt khỏi ảnh \\
+        Xử lý khuôn mặt & Ảnh hợp lệ & Vùng khuôn mặt được phát hiện và cắt khỏi ảnh \\
         \hline
         Phân loại biểu cảm & Vùng khuôn mặt được cắt từ ảnh & Nhãn biểu cảm, mức tin cậy hoặc trạng thái không hợp lệ \\
         \hline
-        Đối sánh khách hàng & Vùng khuôn mặt và dữ liệu tham chiếu & Mã khách hàng, điểm đối sánh hoặc trạng thái không xác định \\
+        Đối sánh khách hàng & Vùng khuôn mặt và dữ liệu tham chiếu & Mã khách hàng và điểm đối sánh, hoặc trạng thái \texttt{NO\_MATCH} \\
         \hline
-        Tạo bản ghi & Kết quả trên từng khuôn mặt, khu vực và thời gian & Không, một hoặc nhiều bản ghi quan sát thuộc cùng sự kiện thu nhận \\
+        Tạo bản ghi & Kết quả biểu cảm, mã khách hàng, khu vực và thời gian & Một bản ghi quan sát khi đối sánh thành công; không tạo bản ghi khi \texttt{NO\_MATCH} \\
         \hline
         Liên kết & Bản ghi đã xác định khách hàng & Lần mua sắm và chuỗi quan sát theo thời gian \\
         \hline
@@ -128,9 +126,9 @@ Hình ảnh được đưa vào mô hình phát hiện khuôn mặt RetinaFace s
 
 Các kết quả phát hiện có mức tin cậy thấp hơn ngưỡng cấu hình không được giữ lại. Nếu không còn khuôn mặt sau bước lọc, sự kiện thu nhận được đánh dấu bằng trạng thái \texttt{NO\_FACE} và không tạo bản ghi quan sát. Trạng thái này phản ánh chất lượng của khung hình, không được thay thế bằng một nhãn biểu cảm giả định.
 
-Khi còn một hoặc nhiều kết quả phát hiện, tọa độ của từng khung bao được giới hạn trong kích thước ảnh trước khi cắt. Các vùng được đánh số theo vị trí trong cùng khung hình để phân biệt những quan sát có chung mã sự kiện. Nếu một khung bao không tạo được vùng ảnh hợp lệ, chỉ vùng đó được gắn trạng thái \texttt{INVALID\_FACE\_CROP}; các khuôn mặt còn lại vẫn tiếp tục được xử lý. Mỗi vùng cắt thành công được chuyển độc lập đến nhiệm vụ phân loại biểu cảm và nhận dạng khách hàng như Hình~\ref{fig:observation_tasks}.
+Tọa độ khung bao được giới hạn trong kích thước ảnh trước khi cắt. Nếu khung bao không tạo được vùng ảnh hợp lệ, sự kiện được gắn trạng thái \texttt{INVALID\_FACE\_CROP} và dừng xử lý. Vùng cắt hợp lệ được chuyển đến nhiệm vụ phân loại biểu cảm và nhận dạng khách hàng như Hình~\ref{fig:observation_tasks}.
 
-Cách xử lý trên không chọn một khuôn mặt đại diện cho toàn bộ khung hình và cũng không xem nhiều khuôn mặt là lỗi. Mỗi khuôn mặt tạo một kết quả riêng gồm khung bao, mức tin cậy phát hiện và trạng thái của hai nhánh nhận dạng. Công đoạn phát hiện chỉ xác định và cắt các vùng khuôn mặt; công đoạn này không tự tạo nhãn biểu cảm hoặc mã khách hàng.
+Công đoạn phát hiện chỉ xác định và cắt vùng khuôn mặt; công đoạn này không tự tạo nhãn biểu cảm hoặc mã khách hàng. Kết quả phát hiện gồm khung bao, mức tin cậy và trạng thái xử lý của vùng khuôn mặt.
 
 \begin{figure}[H]
     \centering
@@ -150,7 +148,7 @@ Cách xử lý trên không chọn một khuôn mặt đại diện cho toàn b�
         \draw[flow] (recognition) -- (record);
     \end{tikzpicture}%
     }
-    \caption{Hai nhiệm vụ được thực hiện độc lập trên từng vùng khuôn mặt}
+    \caption{Hai nhiệm vụ được thực hiện độc lập trên vùng khuôn mặt}
     \label{fig:observation_tasks}
 \end{figure}
 
@@ -163,9 +161,9 @@ Ngoài kết quả dự đoán, hệ thống lưu tên và phiên bản của m�
 
 Kết quả phân loại biểu cảm được xử lý độc lập với kết quả nhận dạng khách hàng. Điểm đối sánh danh tính không làm thay đổi nhãn biểu cảm. Ngược lại, mức tin cậy biểu cảm không được sử dụng để xác định danh tính khách hàng.
 
-Mô hình FER được chạy độc lập trên từng vùng khuôn mặt cắt được từ ảnh hợp lệ. Nếu một vùng không thể cắt hoặc nhánh phân loại không thực hiện được, trạng thái phân loại của đúng quan sát đó được đặt là \texttt{NOT\_RUN}; nhãn biểu cảm và mức tin cậy được để trống. Nhãn \textit{Neutral} chỉ được ghi khi đó là kết quả do mô hình dự đoán, không được dùng để thay cho trường hợp không có kết quả.
+Mô hình FER được chạy trên vùng khuôn mặt cắt được từ ảnh hợp lệ. Nếu vùng khuôn mặt không thể cắt hoặc nhánh phân loại không thực hiện được, trạng thái phân loại được đặt là \texttt{NOT\_RUN}; nhãn biểu cảm và mức tin cậy được để trống. Nhãn \textit{Neutral} chỉ được ghi khi đó là kết quả do mô hình dự đoán, không được dùng để thay cho trường hợp không có kết quả.
 
-Khi mô hình FER chạy thành công, hệ thống nhận lớp có điểm số cao nhất và đặt trạng thái phân loại là \texttt{VALID}. Hệ thống chưa loại kết quả dựa trên một mức tin cậy tối thiểu riêng cho biểu cảm. Vì vậy, mỗi vùng khuôn mặt được xử lý thành công tạo một kết quả biểu cảm. Việc lựa chọn bản ghi đại diện khi có nhiều quan sát liên tiếp tại cùng một khu vực được thực hiện ở bước phân tích, không làm thay đổi kết quả phân loại đã lưu.
+Khi mô hình FER chạy thành công, hệ thống nhận lớp có điểm số cao nhất và đặt trạng thái phân loại là \texttt{VALID}. Hệ thống chưa loại kết quả dựa trên một mức tin cậy tối thiểu riêng cho biểu cảm. Vì vậy, vùng khuôn mặt được xử lý thành công tạo một kết quả biểu cảm. Việc lựa chọn bản ghi đại diện khi có nhiều quan sát liên tiếp tại cùng một khu vực được thực hiện ở bước phân tích, không làm thay đổi kết quả phân loại đã lưu.
 
 \subsection{Đối sánh khách hàng}
 \label{subsection:3.3.4}
@@ -174,16 +172,14 @@ Từ vùng khuôn mặt được cắt, mô hình ArcFace tạo một véc-tơ �
 
 Dữ liệu dùng để so sánh chỉ gồm khách hàng đang hoạt động, đã đồng ý sử dụng dữ liệu khuôn mặt và có mẫu khuôn mặt còn hiệu lực. Kết quả gồm khách hàng phù hợp nhất, khoảng cách giữa hai véc-tơ và trạng thái \texttt{MATCHED} hoặc \texttt{NO\_MATCH}. Việc một khách hàng có khoảng cách nhỏ nhất trong danh sách chưa đủ để xác định danh tính; khoảng cách đó vẫn phải nằm trong giới hạn chấp nhận.
 
-Trạng thái \texttt{NO\_MATCH} có thể xuất hiện khi người trong ảnh chưa đăng ký hoặc khi khuôn mặt của khách hàng đã đăng ký không đủ giống với mẫu đang lưu. Hệ thống không tự động tạo hồ sơ mới và không gắn bản ghi cho khách hàng gần giống nhất khi khoảng cách vẫn vượt quá giới hạn chấp nhận.
-
-Hệ thống không thể phân biệt chắc chắn một người chưa đăng ký với một khách hàng đã đăng ký nhưng ảnh hiện tại không đạt điều kiện đối sánh. Cả hai trường hợp đều được biểu diễn bằng trạng thái không xác định. Bản ghi chỉ được xem xét gắn lại khi người quản lý xác nhận thủ công trên CRM; phương pháp không tự suy đoán danh tính từ nhãn biểu cảm, khu vực hoặc lịch sử xuất hiện.
+Trạng thái \texttt{NO\_MATCH} xuất hiện khi khuôn mặt trong ảnh không khớp với bất kỳ mẫu tham chiếu nào trong giới hạn chấp nhận. Trong trường hợp này, hệ thống kết thúc xử lý sự kiện mà không tạo bản ghi quan sát, không tự động tạo hồ sơ mới và không chọn khách hàng có khoảng cách gần nhất.
 
 \subsection{Hình thành bản ghi quan sát}
 \label{subsection:3.3.5}
 
-Sau khi hai nhiệm vụ hoàn thành, kết quả của từng khuôn mặt được ghép với khu vực và thời gian để tạo một bản ghi quan sát. Các quan sát tạo từ cùng ảnh cùng tham chiếu đến một sự kiện thu nhận nhưng có chỉ số khuôn mặt và khung bao khác nhau. Cấu trúc hai cấp này cho phép lưu trạng thái của khung hình ngay cả khi không phát hiện được khuôn mặt, đồng thời không giới hạn số khách hàng có thể xuất hiện trong ảnh. Các thông tin cần có được trình bày tại Bảng~\ref{tab:observation_fields}.
+Sau khi phân loại biểu cảm và đối sánh thành công với khách hàng đã đăng ký, kết quả được ghép với khu vực và thời gian để tạo một bản ghi quan sát. Sự kiện thu nhận lưu trạng thái xử lý của ảnh, còn bản ghi quan sát lưu kết quả gắn với khách hàng tương ứng. Các thông tin cần có được trình bày tại Bảng~\ref{tab:observation_fields}.
 
-Nếu biểu cảm được phân loại thành công nhưng không xác định được khách hàng, quan sát vẫn được lưu và có thể tham gia thống kê biểu cảm của khu vực. Nếu ảnh lỗi hoặc không phát hiện được khuôn mặt, hệ thống chỉ lưu trạng thái của sự kiện thu nhận và không tạo quan sát giả. Nếu một vùng khuôn mặt không hợp lệ, trạng thái lỗi được lưu cho riêng vùng đó; kết quả của các khuôn mặt khác trong cùng ảnh không bị loại bỏ.
+Nếu ảnh lỗi, không phát hiện được khuôn mặt hoặc không xác định được khách hàng đã đăng ký, hệ thống chỉ lưu trạng thái của sự kiện thu nhận và không tạo bản ghi quan sát. Bản ghi chỉ tham gia thống kê khi đã gắn với khách hàng và có kết quả biểu cảm hợp lệ.
 
 \begin{table}[H]
     \centering
@@ -206,7 +202,7 @@ Nếu biểu cảm được phân loại thành công nhưng không xác định
         \hline
         Mức tin cậy biểu cảm & Giá trị đi kèm nhãn biểu cảm dự đoán \\
         \hline
-        Kết quả đối sánh & Mã khách hàng hoặc trạng thái không xác định \\
+        Kết quả đối sánh & Mã khách hàng đã đạt ngưỡng chấp nhận \\
         \hline
         Điểm đối sánh & Khoảng cách giữa véc-tơ khuôn mặt và mẫu tham chiếu được chọn \\
         \hline
@@ -270,37 +266,8 @@ Kết quả của quá trình liên kết là một chuỗi gồm khu vực, th�
 
 Trong trường hợp một khách hàng có nhiều bản ghi liên tiếp tại cùng một khu vực, hệ thống vẫn giữ lại tất cả các bản ghi gốc. Khi phân tích sự thay đổi giữa các khu vực, các bản ghi liên tiếp tại cùng khu vực được xếp thành một nhóm. Người dùng có thể chọn bản ghi đầu tiên, bản ghi cuối cùng hoặc bản ghi có mức tin cậy biểu cảm cao nhất làm đại diện cho nhóm. Cách lựa chọn chỉ tác động đến kết quả tổng hợp, không ghi đè dữ liệu ban đầu.
 
-\subsection{Xử lý khách hàng chưa đăng ký}
-\label{subsection:3.4.5}
-
-Bản ghi của khách hàng chưa đăng ký không có mã khách hàng nên không đủ cơ sở để liên kết xuyên khu vực. Những bản ghi này vẫn được lưu nếu kết quả biểu cảm hợp lệ và được sử dụng trong thống kê tổng hợp tại khu vực.
-
-Hệ thống không sử dụng sự gần nhau về thời gian, sự giống nhau của nhãn biểu cảm hoặc thứ tự xuất hiện tại các khu vực để giả định hai bản ghi không xác định thuộc cùng một người. Những dấu hiệu này không đủ để nhận dạng khách hàng và có thể ghép nhầm dữ liệu của nhiều người khác nhau. Vì vậy, hệ thống không tạo chuỗi cá nhân cho nhóm này nhằm bảo đảm tính chính xác của dữ liệu đã liên kết.
-
-Các bản ghi không xác định không được hệ thống tự động gắn vào hồ sơ CRM, không tự tạo chuỗi cá nhân và không được dùng để tự động tạo khách hàng mới. Người quản lý có thể kiểm tra và xác nhận thủ công khách hàng cho một bản ghi khi có căn cứ bổ sung. Trước khi cập nhật, hệ thống lưu lại kết quả cũ để có thể kiểm tra lịch sử thay đổi. Cách xử lý các trường hợp chính được trình bày tại Bảng~\ref{tab:customer_linking_cases}.
-
-\begin{table}[H]
-    \centering
-    \caption{Cách xử lý bản ghi theo kết quả đối sánh khách hàng}
-    \label{tab:customer_linking_cases}
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|p{5.2cm}|p{4.0cm}|p{5.2cm}|}
-        \hline
-        \textbf{Trường hợp} & \textbf{Thống kê tại khu vực} & \textbf{Liên kết chuỗi cá nhân} \\
-        \hline
-        Khách hàng đã đăng ký và đạt ngưỡng đối sánh & Có & Gắn vào lần mua sắm tương ứng \\
-        \hline
-        Khách hàng chưa đăng ký & Có, nếu biểu cảm hợp lệ & Không \\
-        \hline
-        Khách hàng đã đăng ký nhưng đối sánh chưa đủ tin cậy & Có, nếu biểu cảm hợp lệ & Không \\
-        \hline
-        Hình ảnh hoặc khuôn mặt không hợp lệ & Không & Không \\
-        \hline
-    \end{tabular}}
-\end{table}
-
 \subsection{Xử lý dữ liệu thiếu và xung đột}
-\label{subsection:3.4.6}
+\label{subsection:3.4.5}
 
 Nếu một lần mua sắm không có bản ghi tại một khu vực, hệ thống giữ trạng thái thiếu thay vì tự tạo bản ghi. Không sử dụng nhãn tại khu vực trước hoặc sau để suy ra biểu cảm ở khu vực bị thiếu.
 
@@ -322,7 +289,7 @@ Số lượng của một nhãn là số bản ghi hợp lệ mang nhãn đó tr
 
 Kết quả có thể được biểu diễn bằng bảng số liệu và biểu đồ cột chồng. Bảng số liệu cung cấp số lượng chính xác của từng nhãn; biểu đồ cho phép so sánh cấu trúc phân bố giữa các khu vực. Trong toàn bộ quá trình tổng hợp, hệ thống giữ riêng bảy nhãn biểu cảm và không gán mỗi nhãn thành một mức đánh giá trải nghiệm. Lý do là dữ liệu đầu vào chỉ có nhãn biểu cảm khuôn mặt, không có kết quả khảo sát hoặc phản hồi của khách hàng để xác nhận mức độ hài lòng. Vì vậy, tỷ lệ của từng nhãn chỉ mô tả những biểu cảm được mô hình ghi nhận tại khu vực đang xét, không phải tỷ lệ khách hàng hài lòng hoặc không hài lòng.
 
-Phân bố có thể được thống kê trên toàn bộ bản ghi hợp lệ tại khu vực, trên nhóm khách hàng đã đăng ký, trên nhóm khách hàng không xác định hoặc trong một khoảng thời gian được lựa chọn. Các nhóm dữ liệu phải được ghi rõ để người đọc biết phạm vi của kết quả.
+Phân bố được thống kê trên các bản ghi hợp lệ của khách hàng đã đăng ký tại từng khu vực và có thể giới hạn theo khoảng thời gian được lựa chọn.
 
 Khi so sánh hai khu vực, hệ thống sử dụng cùng điều kiện lọc thời gian và cùng nhóm khách hàng. Nếu một khu vực có số quan sát thấp, kết quả vẫn được hiển thị nhưng phải kèm số lượng mẫu; không được chỉ dựa vào tỷ lệ để kết luận khu vực đó có một biểu cảm nổi bật. Cách trình bày này giúp phân biệt xu hướng được ghi nhận từ nhiều quan sát với biến động phát sinh từ một số ít bản ghi.
 
@@ -413,7 +380,7 @@ Mỗi lần mua sắm được hiển thị độc lập để tránh trộn d�
 
 Khi chọn một quan sát, CRM có thể hiển thị thông tin chi tiết gồm thời điểm, khu vực, nhãn dự đoán, mức tin cậy, trạng thái đối sánh và phiên bản mô hình. Cách hiển thị này hỗ trợ kiểm tra nguồn gốc của một điểm trên chuỗi, đồng thời giúp phân biệt thay đổi nhãn thực tế trong dữ liệu với trường hợp một điểm bị thiếu hoặc có mức tin cậy thấp.
 
-Chuỗi quan sát chỉ được tạo từ các bản ghi đã xác định khách hàng. Bản ghi không xác định có thể xuất hiện trong thống kê tổng hợp nhưng không được ghép vào chuỗi của một hồ sơ cụ thể.
+Chuỗi quan sát chỉ được tạo từ các bản ghi đã xác định khách hàng và được gắn với một lần mua sắm cụ thể.
 
 \subsection{Kết hợp với dữ liệu mua hàng}
 \label{subsection:3.5.5}
@@ -429,9 +396,9 @@ Dữ liệu mua hàng cung cấp thêm bối cảnh cho kết quả nhận dạn
 \subsection{Báo cáo chất lượng dữ liệu}
 \label{subsection:3.5.6}
 
-Bên cạnh kết quả biểu cảm, hệ thống cần thống kê số hình ảnh không phát hiện được khuôn mặt, số bản ghi không có kết quả biểu cảm hợp lệ, số bản ghi không xác định được khách hàng, số lần mua sắm thiếu khu vực, số bản ghi có thời gian xung đột và số lần mua sắm đủ điều kiện phân tích.
+Bên cạnh kết quả biểu cảm, hệ thống cần thống kê số hình ảnh không phát hiện được khuôn mặt, số bản ghi không có kết quả biểu cảm hợp lệ, số lần mua sắm thiếu khu vực, số bản ghi có thời gian xung đột và số lần mua sắm đủ điều kiện phân tích.
 
-Các chỉ số chất lượng được nhóm theo từng công đoạn để xác định dữ liệu bị mất ở đâu. Nhóm đầu vào gồm ảnh lỗi, mã khu vực không hợp lệ và thiếu thời gian. Nhóm xử lý khuôn mặt gồm số sự kiện không phát hiện được khuôn mặt, số khuôn mặt phát hiện trong mỗi ảnh và số vùng không cắt được hợp lệ; việc phát hiện nhiều khuôn mặt không được xem là lỗi. Nhóm nhận dạng gồm lỗi phân loại biểu cảm, lỗi tạo đặc trưng khuôn mặt và không xác định được khách hàng. Nhóm liên kết gồm yêu cầu bị gửi lặp, bản ghi đến chậm, xung đột thời gian và lần mua sắm thiếu quan sát.
+Các chỉ số chất lượng được nhóm theo từng công đoạn để xác định dữ liệu bị mất ở đâu. Nhóm đầu vào gồm ảnh lỗi, mã khu vực không hợp lệ và thiếu thời gian. Nhóm xử lý khuôn mặt gồm sự kiện không phát hiện được khuôn mặt và vùng khuôn mặt không cắt được hợp lệ. Nhóm nhận dạng gồm lỗi phân loại biểu cảm và lỗi tạo đặc trưng khuôn mặt. Nhóm liên kết gồm yêu cầu bị gửi lặp, bản ghi đến chậm, xung đột thời gian và lần mua sắm thiếu quan sát.
 
 Các thông tin này cho biết kết quả thống kê được hình thành từ bao nhiêu bản ghi hợp lệ và bao nhiêu bản ghi đã bị loại. Chất lượng dữ liệu phải được trình bày cùng kết quả thay vì chỉ báo cáo tỷ lệ biểu cảm.
 
@@ -460,13 +427,13 @@ Sai số phân loại biểu cảm ảnh hưởng trực tiếp đến phân b�
 
 Nhãn FER phản ánh biểu hiện khuôn mặt tại thời điểm hình ảnh được ghi nhận. Một hình ảnh không chứa đầy đủ lời nói, mục đích và trải nghiệm chủ quan của khách hàng. Kết quả vì thế được sử dụng như một nguồn dữ liệu hỗ trợ và cần được xem xét cùng hồ sơ, lịch sử mua hàng và dữ liệu nghiệp vụ khác.
 
-Việc liên kết chuỗi cá nhân chỉ được thực hiện đối với khách hàng đã đăng ký và đồng ý sử dụng dữ liệu khuôn mặt. Khách hàng chưa đăng ký chỉ đóng góp vào thống kê tổng hợp tại từng khu vực, không được tự động tạo hồ sơ và không được liên kết xuyên khu vực.
+Giải pháp chỉ tạo và liên kết bản ghi đối với khách hàng đã đăng ký, đang hoạt động và đồng ý sử dụng dữ liệu khuôn mặt. Sự kiện không đối sánh được với khách hàng thuộc phạm vi này không tạo bản ghi quan sát và không tham gia thống kê biểu cảm.
 
 Một khu vực không có bản ghi có thể do khách hàng không xuất hiện tại khu vực, hình ảnh không ghi nhận được khuôn mặt phù hợp hoặc mô hình xử lý không thành công. Giải pháp giữ riêng dữ liệu thiếu và không thay thế chúng bằng một nhãn biểu cảm giả định.
 
-Phương pháp đề xuất chỉ liên kết chuỗi cá nhân khi xác định được khách hàng đã đăng ký. Do đó, thống kê theo khu vực có thể bao quát nhiều quan sát hơn phân tích thay đổi xuyên khu vực. Hai loại báo cáo phải công bố số lượng dữ liệu riêng và không được so sánh trực tiếp nếu phạm vi mẫu khác nhau.
+Phương pháp đề xuất chỉ sử dụng các bản ghi đã xác định được khách hàng đăng ký. Thống kê theo khu vực và phân tích thay đổi xuyên khu vực vì vậy được hình thành trên cùng phạm vi khách hàng, nhưng có thể khác số lượng bản ghi do các điều kiện hợp lệ của từng phép phân tích.
 
-Đầu vào của phương pháp là các khung hình rời do nguồn thu nhận lựa chọn, không phải luồng video liên tục. Mã sự kiện ngăn việc gửi lại cùng một khung hình nhưng không thay thế thuật toán theo dõi một người chưa xác định qua nhiều khung hình liên tiếp. Vì vậy, tần suất lấy mẫu phải được cấu hình tại nguồn thu nhận; nếu triển khai trên video liên tục, cần bổ sung thành phần theo dõi đối tượng để hạn chế đếm lặp trước khi tạo sự kiện gửi đến hệ thống.
+Đầu vào của phương pháp là các hình ảnh rời do nguồn thu nhận lựa chọn, không phải luồng video liên tục. Mã sự kiện ngăn việc gửi lại cùng một hình ảnh. Vì vậy, tần suất lấy mẫu phải được cấu hình tại nguồn thu nhận; nếu triển khai trên video liên tục, cần bổ sung thành phần theo dõi đối tượng để hạn chế đếm lặp trước khi tạo sự kiện gửi đến hệ thống.
 
 Chương này dừng ở phương pháp xử lý, liên kết và phân tích dữ liệu. Kiến trúc phần mềm, cơ sở dữ liệu, API và giao diện CRM được trình bày tại Chương 4. Dịch vụ mô phỏng dữ liệu và các kịch bản kiểm chứng được trình bày tại Chương 5.
 

@@ -50,10 +50,6 @@ await page.locator('.ant-table-row').nth(rowOnPage).click()
 await page.waitForTimeout(700)
 await page.screenshot({ path: `${output}/5_07_hanh_trinh_bon_khu_vuc.png`, fullPage: false })
 
-await page.getByText(/Chưa xác định khách hàng \(/).click()
-await page.waitForTimeout(500)
-await page.screenshot({ path: `${output}/5_05_quan_sat_chua_xac_dinh.png`, fullPage: false })
-
 await open('/reports', 1200)
 await page.getByText('Chất lượng dữ liệu', { exact: true }).click()
 await page.waitForTimeout(700)

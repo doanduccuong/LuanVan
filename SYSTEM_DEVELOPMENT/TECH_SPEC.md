@@ -188,7 +188,7 @@ Tại một thời điểm chỉ có tối đa một lượt `ACTIVE` cho một 
 
 `capture_events` lưu một khung hình do nguồn thu nhận gửi đến. `event_id` là duy nhất tại bảng này; các trường còn lại gồm khu vực, thời gian ghi nhận, thời gian tiếp nhận, trạng thái ảnh, số khuôn mặt, phiên bản bộ phát hiện và thông tin nguồn. Khung hình không có khuôn mặt vẫn được lưu tại đây để báo cáo chất lượng dữ liệu.
 
-`observations` lưu từng khuôn mặt được phát hiện trong một sự kiện thu nhận:
+`observations` chỉ lưu kết quả đã đối sánh thành công với khách hàng đăng ký trong một sự kiện thu nhận:
 
 | Trường | Kiểu | Quy tắc |
 |---|---|---|
@@ -199,8 +199,8 @@ Tại một thời điểm chỉ có tối đa một lượt `ACTIVE` cho một 
 | `touchpoint_id` | UUID | Bắt buộc và phải đang hoạt động |
 | `observed_at` | timestamptz | Thời gian nguồn ghi ảnh |
 | `received_at` | timestamptz | Thời gian API nhận yêu cầu |
-| `customer_id` | UUID | Có thể trống khi không xác định |
-| `visit_id` | UUID | Có thể trống; chỉ có khi đã xác định khách hàng |
+| `customer_id` | UUID | Bắt buộc; tham chiếu khách hàng đã đăng ký |
+| `visit_id` | UUID | Bắt buộc; tham chiếu lần mua sắm tương ứng |
 | `expression_label` | enum | Có thể trống nếu xử lý lỗi |
 | `expression_confidence` | double precision | Trong khoảng `[0,1]` |
 | `expression_scores` | jsonb | Bảy xác suất để kiểm tra kỹ thuật |
@@ -370,7 +370,7 @@ Ví dụ phản hồi:
   "capture_event_id": "12b1c03d-8611-4fdc-bec9-b5de80c6a8f2",
   "event_id": "device-01-000001",
   "image_status": "VALID",
-  "face_count": 2,
+  "face_count": 1,
   "observations": [
     {
       "face_index": 0,
@@ -378,13 +378,6 @@ Ví dụ phản hồi:
       "expression_label": "Neutral",
       "identity_status": "MATCHED",
       "customer_id": "01a02f1b-202e-4ada-b0a8-020413eb46ca"
-    },
-    {
-      "face_index": 1,
-      "bounding_box": [340.0, 60.0, 500.0, 270.0],
-      "expression_label": "Happy",
-      "identity_status": "NO_MATCH",
-      "customer_id": null
     }
   ]
 }
@@ -582,7 +575,7 @@ Hiển thị theo bộ lọc thời gian:
 - Số đơn hàng và doanh thu theo bộ lọc.
 - Các sản phẩm được mua nhiều theo số lượng, kèm số đơn đóng góp.
 - Số bản ghi biểu cảm hợp lệ.
-- Số bản ghi lỗi hoặc không xác định.
+- Số sự kiện lỗi hoặc không đạt ngưỡng đối sánh.
 - Phân bố nhãn theo điểm chạm.
 - Thẻ chọn điểm chạm, ngày và khoảng thời gian để xem biến thiên nhãn trong cùng khu vực.
 

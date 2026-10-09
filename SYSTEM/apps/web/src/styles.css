@@ -33,7 +33,6 @@ body { margin: 0; min-width: 320px; min-height: 100vh; }
 .dashboard-filter-row { margin: 4px 0 14px; }
 .dashboard-touchpoint-select { min-width: 220px; }
 .dashboard-timeline-note { margin-bottom: 8px; }
-.unknown-note { margin-bottom: 16px; }
 .revision-table { margin-top: 16px; }
 .report-filter-card { margin-bottom: 16px; }
 .report-area-select { min-width: 220px; }

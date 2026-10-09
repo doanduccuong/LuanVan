@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  9 OCT 2026 14:59
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  9 OCT 2026 15:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1235,253 +1235,246 @@ LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.33336> not available
 CHƯƠNG 3.
 (./Chuong/3_Phuong_an_de_xuat.tex [24
 
-] [25] [26]
-Underfull \hbox (badness 10000) in paragraph at lines 103--103
+] [25]
+Underfull \hbox (badness 10000) in paragraph at lines 101--101
 []|\TU/TimesNewRoman(0)/m/n/13 Phân loại biểu
  []
 
 
-Underfull \hbox (badness 3068) in paragraph at lines 103--103
+Underfull \hbox (badness 3068) in paragraph at lines 101--101
 []|\TU/TimesNewRoman(0)/m/n/13 Đối sánh khách
  []
 
 
-Underfull \hbox (badness 1127) in paragraph at lines 103--103
+Underfull \hbox (badness 1127) in paragraph at lines 101--101
 []|\TU/TimesNewRoman(0)/m/n/13 Bản ghi đã xác định khách
  []
 
 
-Underfull \hbox (badness 1024) in paragraph at lines 103--103
+Underfull \hbox (badness 1024) in paragraph at lines 101--101
 []|\TU/TimesNewRoman(0)/m/n/13 Thống kê theo khu vực, bảng
  []
 
-[27] [28] [29] [30] [31] [32] [33]
-Underfull \hbox (badness 5726) in paragraph at lines 299--299
-[]|\TU/TimesNewRoman(0)/b/sc/13 Thống kê tại khu
+[26] [27]
+Overfull \hbox (13.84424pt too wide) in paragraph at lines 129--130
+\TU/TimesNewRoman(0)/m/n/13 bao không tạo được vùng ảnh hợp lệ, sự kiện được gắn trạng thái \TU/lmtt/m/n/13 INVALID_FACE_CROP
  []
 
+[28] [29] [30] [31] [32] [33] [34]
 
-Underfull \hbox (badness 5832) in paragraph at lines 299--299
-[]|\TU/TimesNewRoman(0)/m/n/13 Khách hàng đã đăng ký
- []
+LaTeX Warning: Citation `khalifa2026categorical' on page 35 undefined on input line 314.
 
-[34] [35] [36]
+[35]
 
-LaTeX Warning: Citation `khalifa2026categorical' on page 37 undefined on input line 347.
-
-
-LaTeX Warning: Citation `studer2016sequence' on page 37 undefined on input line 361.
+LaTeX Warning: Citation `studer2016sequence' on page 36 undefined on input line 328.
 
 
-LaTeX Warning: Citation `gabadinho2011traminer' on page 37 undefined on input line 361.
+LaTeX Warning: Citation `gabadinho2011traminer' on page 36 undefined on input line 328.
+
+
+LaTeX Warning: Citation `studer2016sequence' on page 36 undefined on input line 339.
+
+[36]
+
+LaTeX Warning: Citation `kaufman1990pam' on page 37 undefined on input line 343.
+
+
+LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 37 undefined on input line 360.
 
 [37]
 
-LaTeX Warning: Citation `studer2016sequence' on page 38 undefined on input line 372.
+LaTeX Warning: Citation `sequenzo2026' on page 38 undefined on input line 366.
 
-
-LaTeX Warning: Citation `kaufman1990pam' on page 38 undefined on input line 376.
-
-[38]
-
-LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 39 undefined on input line 393.
-
-
-LaTeX Warning: Citation `sequenzo2026' on page 39 undefined on input line 399.
-
-[39] [40] [41] [42]) [43]
+[38] [39] [40]) [41]
 CHƯƠNG 4.
-(./Chuong/4_Xay_dung_va_phat_trien_he_thong.tex [44
+(./Chuong/4_Xay_dung_va_phat_trien_he_thong.tex [42
 
-] [45] [46] [47] [48] [49]
+] [43] [44] [45] [46] [47]
 File: Hinhve/Chuong4/4_06_khu_vuc.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_06_khu_vuc.png>
- [50]
+ [48]
 File: Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png>
- [51]
+ [49]
 File: Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png>
- [52]
+ [50]
 File: Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png>
- [53]
+ [51]
 File: Hinhve/Chuong4/4_04_danh_muc_san_pham.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_04_danh_muc_san_pham.png>
- [54]
+ [52]
 File: Hinhve/Chuong4/4_05_lich_su_mua_hang.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_05_lich_su_mua_hang.png>
- [55]
+ [53]
 File: Hinhve/Chuong4/4_07_theo_doi_mua_sam.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_07_theo_doi_mua_sam.png>
-File: Hinhve/Chuong4/4_15_quan_sat_chua_xac_dinh.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_15_quan_sat_chua_xac_dinh.png>
- [56]
 File: Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png>
- [57]
+ [54]
 File: Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png>
- [58]
+ [55]
 File: Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png>
 
-Overfull \hbox (14.38864pt too wide) in paragraph at lines 344--345
+Overfull \hbox (14.38864pt too wide) in paragraph at lines 330--331
 []\TU/TimesNewRoman(0)/m/n/13 Chức năng phân cụm được hiện thực thành mô-đun thuần \TU/lmtt/m/n/13 sequence_analysis.py
  []
 
-[59]
-Overfull \hbox (6.3396pt too wide) in paragraph at lines 346--347
+[56]
+Overfull \hbox (6.3396pt too wide) in paragraph at lines 332--333
 \TU/TimesNewRoman(0)/m/n/13 Sequenzo tạo ma trận Optimal Matching với \TU/lmtt/m/n/13 sm=CONSTANT\TU/TimesNewRoman(0)/m/n/13 , \TU/lmtt/m/n/13 indel=1 \TU/TimesNewRoman(0)/m/n/13 và \TU/lmtt/m/n/13 norm=none\TU/TimesNewRoman(0)/m/n/13 .
  []
 
 
-Overfull \hbox (6.72768pt too wide) in paragraph at lines 355--356
+Overfull \hbox (6.72768pt too wide) in paragraph at lines 341--342
 []\TU/lmtt/m/n/13 GET /api/v1/sequence-analyses/{id}/assignments\TU/TimesNewRoman(0)/m/n/13 : lấy danh sách visit
  []
 
 
-Overfull \hbox (11.07988pt too wide) in paragraph at lines 356--357
+Overfull \hbox (11.07988pt too wide) in paragraph at lines 342--343
 []\TU/lmtt/m/n/13 PATCH /api/v1/sequence-analyses/{id}/clusters/{cluster_id}\TU/TimesNewRoman(0)/m/n/13 : lưu
  []
 
 File: Hinhve/Chuong4/4_20_tong_quan_phan_cum_chuoi.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_20_tong_quan_phan_cum_chuoi.png>
-[60]
+[57]
 File: Hinhve/Chuong4/4_21_cum_va_medoid.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_21_cum_va_medoid.png>
- [61]
+ [58]
 File: Hinhve/Chuong4/4_22_danh_sach_gan_cum.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_22_danh_sach_gan_cum.png>
 File: Hinhve/Chuong4/4_23_truy_vet_cum_ve_hanh_trinh.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_23_truy_vet_cum_ve_hanh_trinh.png>
- [62]
+ [59]
 File: Hinhve/Chuong4/4_24_tai_lieu_api_phan_cum_chuoi.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_24_tai_lieu_api_phan_cum_chuoi.png>
- [63]
+ [60]
 File: Hinhve/Chuong4/4_25_danh_sach_khach_kdef.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_25_danh_sach_khach_kdef.png>
 File: Hinhve/Chuong4/4_27_hanh_trinh_kdef_bon_diem_cham.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_27_hanh_trinh_kdef_bon_diem_cham.png>
- [64]
+ [61]
 File: Hinhve/Chuong4/4_29_trang_thai_he_thong_docker.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_29_trang_thai_he_thong_docker.png>
- [65]
+ [62]
 File: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_10_chat_luong_du_lieu.png>
- [66]) [67]
+ [63]) [64]
 CHƯƠNG 5.
-(./Chuong/5_Danh_gia_thuc_nghiem.tex [68
+(./Chuong/5_Danh_gia_thuc_nghiem.tex [65
 
 ]
 
-LaTeX Warning: Citation `widerFaceEvaluation' on page 69 undefined on input line 28.
+LaTeX Warning: Citation `widerFaceEvaluation' on page 66 undefined on input line 28.
+
+[66]
+
+LaTeX Warning: Citation `vanRijsbergen1979' on page 67 undefined on input line 35.
+
+
+LaTeX Warning: Citation `widerFaceEvaluation' on page 67 undefined on input line 48.
+
+[67] [68]
+
+LaTeX Warning: Citation `serengil2021hyperextended' on page 69 undefined on input line 116.
+
+
+LaTeX Warning: Citation `deepfaceEmotionModel' on page 69 undefined on input line 116.
 
 [69]
 
-LaTeX Warning: Citation `vanRijsbergen1979' on page 70 undefined on input line 35.
+LaTeX Warning: Citation `shan2009lbp' on page 70 undefined on input line 145.
 
-
-LaTeX Warning: Citation `widerFaceEvaluation' on page 70 undefined on input line 48.
-
-[70] [71]
-
-LaTeX Warning: Citation `serengil2021hyperextended' on page 72 undefined on input line 116.
-
-
-LaTeX Warning: Citation `deepfaceEmotionModel' on page 72 undefined on input line 116.
-
-[72]
-
-LaTeX Warning: Citation `shan2009lbp' on page 73 undefined on input line 145.
-
-[73] [74] [75]
+[70] [71] [72]
 File: Hinhve/Chuong5/5_09_ma_tran_nham_lan_lbp_svm.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_09_ma_tran_nham_lan_lbp_svm.png>
 File: Hinhve/Chuong5/5_10_ma_tran_nham_lan_deepface.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_10_ma_tran_nham_lan_deepface.png>
 File: Hinhve/Chuong5/5_11_ma_tran_nham_lan_emotion_tinh_chinh.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_11_ma_tran_nham_lan_emotion_tinh_chinh.png>
- [76] [77]
+ [73] [74]
 
-LaTeX Warning: Citation `khalifa2026categorical' on page 78 undefined on input line 274.
-
-
-LaTeX Warning: Citation `studer2016sequence' on page 78 undefined on input line 274.
+LaTeX Warning: Citation `khalifa2026categorical' on page 75 undefined on input line 274.
 
 
-LaTeX Warning: Citation `kaufman1990pam' on page 78 undefined on input line 274.
+LaTeX Warning: Citation `studer2016sequence' on page 75 undefined on input line 274.
 
 
-LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 78 undefined on input line 274.
+LaTeX Warning: Citation `kaufman1990pam' on page 75 undefined on input line 274.
 
-[78]
 
-LaTeX Warning: Citation `sequenzo2026' on page 79 undefined on input line 310.
+LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 75 undefined on input line 274.
 
-[79]
+[75]
+
+LaTeX Warning: Citation `sequenzo2026' on page 76 undefined on input line 310.
+
+[76]
 Overfull \hbox (2.45583pt too wide) in paragraph at lines 345--346
 []\TU/TimesNewRoman(0)/m/n/13 Optimal Matching–PAM khôi phục đúng năm mẫu; mỗi cụm có 25 chuỗi, medoid
  []
 
 File: Hinhve/Chuong5/5_16_so_sanh_asw.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_16_so_sanh_asw.png>
-[80]
+[77]
 File: Hinhve/Chuong5/5_17_ma_tran_khoang_cach_om.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_17_ma_tran_khoang_cach_om.png>
- [81]
+ [78]
 File: Hinhve/Chuong5/5_12_tong_quan_phan_cum_chuoi.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_12_tong_quan_phan_cum_chuoi.png>
 File: Hinhve/Chuong5/5_13_cum_va_medoid.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_13_cum_va_medoid.png>
- [82]
+ [79]
 File: Hinhve/Chuong5/5_14_danh_sach_gan_cum.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_14_danh_sach_gan_cum.png>
 File: Hinhve/Chuong5/5_15_truy_vet_cum_ve_hanh_trinh.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_15_truy_vet_cum_ve_hanh_trinh.png>
- [83]
+ [80]
 
-LaTeX Warning: Citation `lundqvist1998kdef' on page 84 undefined on input line 411.
-
-
-LaTeX Warning: Citation `chenrich2024kdefkaggle' on page 84 undefined on input line 411.
+LaTeX Warning: Citation `lundqvist1998kdef' on page 81 undefined on input line 411.
 
 
-LaTeX Warning: Citation `kdefTerms' on page 84 undefined on input line 411.
+LaTeX Warning: Citation `chenrich2024kdefkaggle' on page 81 undefined on input line 411.
 
-[84]
+
+LaTeX Warning: Citation `kdefTerms' on page 81 undefined on input line 411.
+
+[81]
 File: Hinhve/Chuong5/5_16_du_lieu_khach_kdef.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_16_du_lieu_khach_kdef.png>
- [85]
+ [82]
 File: Hinhve/Chuong5/5_17_ho_so_khach_kdef.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_17_ho_so_khach_kdef.png>
- [86]
+ [83]
 File: Hinhve/Chuong5/5_21_kdef_ket_qua_dinh_danh.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_21_kdef_ket_qua_dinh_danh.png>
- [87]
+ [84]
 File: Hinhve/Chuong5/5_18_hanh_trinh_kdef_bon_diem_cham.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_18_hanh_trinh_kdef_bon_diem_cham.png>
 File: Hinhve/Chuong5/5_19_chuoi_camera_kdef.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_19_chuoi_camera_kdef.png>
- [88]
+ [85]
 File: Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png>
- [89]
+ [86]
 File: Hinhve/Chuong5/5_26_kdef_chon_so_cum.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_26_kdef_chon_so_cum.png>
 File: Hinhve/Chuong5/5_22_kdef_tong_quan_phan_cum.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_22_kdef_tong_quan_phan_cum.png>
- [90]
+ [87]
 File: Hinhve/Chuong5/5_23_kdef_cum_medoid.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_23_kdef_cum_medoid.png>
- [91]
+ [88]
 File: Hinhve/Chuong5/5_24_kdef_gan_cum.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_24_kdef_gan_cum.png>
 File: Hinhve/Chuong5/5_25_kdef_truy_vet.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_25_kdef_truy_vet.png>
- [92]) [93] (./LuanVan.bbl [94
+ [89]) [90] (./LuanVan.bbl [91
 
-] [95]) [96] (./LuanVan.aux)
+] [92]) [93] (./LuanVan.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1497,16 +1490,25 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `LuanVan.out' has not changed.
-(rerunfilecheck)             Checksum: 34D4FE2830DC974052E6294F63D904B0;24256.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `LuanVan.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `LuanVan.out':
+(rerunfilecheck)             Before: 34D4FE2830DC974052E6294F63D904B0;24256
+(rerunfilecheck)             After:  ADF8EC43351B3EA8475C7F851471C525;23575.
  ) 
 Here is how much of TeX's memory you used:
- 40170 strings out of 469709
- 840734 string characters out of 5466023
+ 40161 strings out of 469709
+ 840287 string characters out of 5466023
  1386354 words of memory out of 5000000
- 68071 multiletter control sequences out of 15000+600000
+ 68063 multiletter control sequences out of 15000+600000
  638306 words of font info for 123 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  108i,12n,107p,2543b,1028s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on LuanVan.pdf (108 pages).
+Output written on LuanVan.pdf (105 pages).

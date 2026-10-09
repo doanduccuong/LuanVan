@@ -60,8 +60,7 @@ const money = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND
 const expressionLabels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 const expressionColors: Record<string, string> = { Angry: '#dc2626', Disgust: '#a16207', Fear: '#9333ea', Happy: '#16a34a', Sad: '#6366f1', Surprise: '#0ea5e9', Neutral: '#64748b' }
 const revisionReasons: Record<string, string> = {
-  MANUAL_REPROCESS: 'Xử lý lại bằng ảnh mới',
-  MANUAL_CUSTOMER_ASSIGNMENT: 'Xác nhận khách hàng thủ công'
+  MANUAL_REPROCESS: 'Xử lý lại bằng ảnh mới'
 }
 
 function Login() {
@@ -313,15 +312,12 @@ function Visits() {
   const [searchParams] = useSearchParams()
   const [selected, setSelected] = useState<any>()
   const [selectedObservation, setSelectedObservation] = useState<any>()
-  const [assignCustomerId, setAssignCustomerId] = useState<string>()
   const [simulationResult, setSimulationResult] = useState<any>()
   const { message } = AntApp.useApp()
   const queryClient = useQueryClient()
   const query = useQuery({ queryKey: ['visits'], queryFn: () => api<any[]>('/visits') })
   const detail = useQuery({ queryKey: ['visit', selected?.id], enabled: Boolean(selected), queryFn: () => api<any>(`/visits/${selected.id}`) })
   const analysis = useQuery({ queryKey: ['visit-analysis', selected?.id], enabled: Boolean(selected), queryFn: () => api<any>(`/visits/${selected.id}/analysis`) })
-  const unknown = useQuery({ queryKey: ['observations', 'unidentified'], queryFn: () => api<Page<any>>('/observations?customer_scope=unidentified&page_size=100') })
-  const customers = useQuery({ queryKey: ['customers', 'observation-assignment'], queryFn: () => api<Page<Customer>>('/customers?page_size=100') })
   const revisions = useQuery({ queryKey: ['observation-revisions', selectedObservation?.id], enabled: Boolean(selectedObservation), queryFn: () => api<any[]>(`/observations/${selectedObservation.id}/revisions`) })
   const simulate = useMutation({
     mutationFn: () => runSimulation(),
@@ -335,11 +331,6 @@ function Visits() {
   const closeVisit = useMutation({
     mutationFn: () => api(`/visits/${selected.id}/close`, { method: 'POST' }),
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['visits'] }); queryClient.invalidateQueries({ queryKey: ['visit', selected?.id] }); message.success('Đã kết thúc lần mua sắm') },
-    onError: (error: Error) => message.error(error.message)
-  })
-  const assignCustomer = useMutation({
-    mutationFn: () => api(`/observations/${selectedObservation.id}/customer`, { method: 'PATCH', body: JSON.stringify({ customer_id: assignCustomerId }) }),
-    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['observations'] }); queryClient.invalidateQueries({ queryKey: ['visits'] }); setSelectedObservation(undefined); setAssignCustomerId(undefined); message.success('Đã gắn bản ghi với khách hàng') },
     onError: (error: Error) => message.error(error.message)
   })
   const reprocess = async (file: File) => {
@@ -399,7 +390,7 @@ function Visits() {
       <Col span={8}><Card><Statistic title="Quan sát trong lần đang xem" value={observations.length} /></Card></Col>
     </Row>
     <Tabs items={[
-      { key: 'identified', label: 'Lần mua sắm đã xác định', children: <Row gutter={[16, 16]}>
+      { key: 'identified', label: 'Lần mua sắm', children: <Row gutter={[16, 16]}>
         <Col span={9}><Card title="Danh sách lần mua sắm"><Table size="small" pagination={{ pageSize: 8 }} rowKey="id" rowClassName={row => row.id === selected?.id ? 'selected-row' : ''} onRow={row => ({ onClick: () => setSelected(row) })} dataSource={query.data} loading={query.isLoading} columns={[{ title: 'Khách hàng', render: (_, row) => <Space><Avatar size={30} src={row.customer?.profile_image_url} />{row.customer?.full_name}</Space> }, { title: 'Thời gian', render: (_, row) => new Date(row.started_at).toLocaleDateString('vi-VN') }, { title: 'Trạng thái', render: (_, row) => <Tag color={row.status === 'CLOSED' ? 'green' : 'blue'}>{row.status === 'CLOSED' ? 'Đã kết thúc' : 'Đang hoạt động'}</Tag> }]} /></Card></Col>
         <Col span={15}><Card title={selected ? `${selected.customer?.full_name} — ${new Date(selected.started_at).toLocaleString('vi-VN')}` : 'Chọn một lần mua sắm'} extra={detail.data?.visit?.status === 'ACTIVE' ? <Button size="small" danger loading={closeVisit.isPending} onClick={() => closeVisit.mutate()}>Kết thúc lần mua sắm</Button> : null}>
           {(analysis.data?.missing_touchpoints ?? []).length > 0 && <Alert type="warning" showIcon message={`Thiếu dữ liệu tại: ${analysis.data.missing_touchpoints.map((row: any) => row.name).join(', ')}`} />}
@@ -407,9 +398,8 @@ function Visits() {
         </Card></Col>
         <Col span={15} offset={9}><Row gutter={16}><Col span={14}><Card title="Chi tiết theo thời gian">{observations.map((item: any) => <Card size="small" className="timeline-card observation-card" key={item.id} onClick={() => setSelectedObservation(item)}><Flex justify="space-between"><strong>{item.touchpoint?.name}</strong><span>{new Date(item.observed_at).toLocaleTimeString('vi-VN')}</span></Flex><Space wrap><Tag color={labelColors[item.expression_label] ?? 'default'}>{item.expression_label ?? 'Không có nhãn'}</Tag><Tag>{item.source_type === 'SIMULATOR' ? 'Mô phỏng' : 'Camera'}</Tag><span>{item.expression_confidence != null ? `${(Number(item.expression_confidence) * 100).toFixed(1)}%` : '—'}</span>{(flagMap[item.id] ?? []).map((flag: string) => <Tag color="warning" key={flag}>{flag}</Tag>)}</Space></Card>)}</Card></Col><Col span={10}><Space direction="vertical" size={16} className="full-width"><Card title="Phân bố nhãn trong lần"><ReactECharts option={expressionChart} style={{ height: 280 }} /></Card><Card title="Đơn hàng liên quan">{ordersInVisit.length ? <OrderTable orders={ordersInVisit} /> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Không phát sinh đơn hàng" />}</Card></Space></Col></Row></Col>
       </Row> },
-      { key: 'unknown', label: `Chưa xác định khách hàng (${unknown.data?.total ?? 0})`, children: <Card><Alert type="info" showIcon message="Các bản ghi này vẫn được dùng cho thống kê theo khu vực nhưng chưa được ghép vào chuỗi cá nhân." className="unknown-note" /><Table rowKey="id" dataSource={unknown.data?.items} loading={unknown.isLoading} onRow={row => ({ onClick: () => setSelectedObservation(row) })} columns={[{ title: 'Thời gian', render: (_, row) => new Date(row.observed_at).toLocaleString('vi-VN') }, { title: 'Khu vực', render: (_, row) => row.touchpoint?.name }, { title: 'Biểu cảm', render: (_, row) => <Tag color={labelColors[row.expression_label] ?? 'default'}>{row.expression_label ?? 'Không có kết quả'}</Tag> }, { title: 'Trạng thái nhận dạng', dataIndex: 'identity_status' }, { title: '', render: () => <Button type="link">Kiểm tra</Button> }]} /></Card> }
     ]} />
-    <Drawer title="Chi tiết bản ghi quan sát" width={680} open={Boolean(selectedObservation)} onClose={() => { setSelectedObservation(undefined); setAssignCustomerId(undefined) }}>
+    <Drawer title="Chi tiết bản ghi quan sát" width={680} open={Boolean(selectedObservation)} onClose={() => setSelectedObservation(undefined)}>
       {selectedObservation && <Space direction="vertical" size="large" className="full-width">
         <Descriptions bordered column={1} items={[
           { key: 'event-id', label: 'Mã sự kiện', children: selectedObservation.event_id },
@@ -425,7 +415,6 @@ function Visits() {
           { key: 'identity-status', label: 'Trạng thái nhận dạng', children: selectedObservation.identity_status },
           { key: 'models', label: 'Mô hình', children: <>{selectedObservation.detector_version ?? '—'}<br />{selectedObservation.emotion_model_version ?? '—'}<br />{selectedObservation.recognition_model_version ?? '—'}</> }
         ]} />
-        {!selectedObservation.customer_id && <Card title="Xác nhận khách hàng"><Space direction="vertical" className="full-width"><Select showSearch optionFilterProp="label" placeholder="Chọn khách hàng đã đăng ký" value={assignCustomerId} onChange={setAssignCustomerId} options={customers.data?.items.map(row => ({ value: row.id, label: `${row.customer_code} — ${row.full_name}` }))} /><Button type="primary" disabled={!assignCustomerId} loading={assignCustomer.isPending} onClick={() => assignCustomer.mutate()}>Gắn vào khách hàng</Button></Space></Card>}
         <Card title="Xử lý lại và lịch sử thay đổi"><Upload beforeUpload={reprocess} showUploadList={false}><Button>Chọn ảnh để xử lý lại</Button></Upload><Table className="revision-table" size="small" pagination={false} rowKey="id" dataSource={revisions.data} columns={[{ title: 'Lần', dataIndex: 'revision_number' }, { title: 'Lý do', render: (_, row) => revisionReasons[row.reason] ?? row.reason }, { title: 'Kết quả trước', render: (_, row) => `${row.snapshot.expression_label ?? '—'} / ${row.snapshot.identity_status}` }, { title: 'Thời gian', render: (_, row) => new Date(row.created_at).toLocaleString('vi-VN') }]} /></Card>
       </Space>}
     </Drawer>
@@ -636,12 +625,11 @@ function SequenceAnalysisPanel() {
 function Reports() {
   const [activeTab, setActiveTab] = useState('distribution')
   const [touchpointId, setTouchpointId] = useState<string>()
-  const [customerScope, setCustomerScope] = useState('all')
   const [timeRange, setTimeRange] = useState<any>(null)
   const [representative, setRepresentative] = useState('highest_confidence')
   const periodQuery = timeRange?.[0] && timeRange?.[1] ? `&from=${encodeURIComponent(timeRange[0].toISOString())}&to=${encodeURIComponent(timeRange[1].toISOString())}` : ''
   const areaQuery = touchpointId ? `&touchpoint_id=${encodeURIComponent(touchpointId)}` : ''
-  const distribution = useQuery({ queryKey: ['distribution', touchpointId, customerScope, periodQuery], queryFn: () => api<any[]>(`/reports/expression-distribution?customer_scope=${customerScope}${areaQuery}${periodQuery}`) })
+  const distribution = useQuery({ queryKey: ['distribution', touchpointId, periodQuery], queryFn: () => api<any[]>(`/reports/expression-distribution?${areaQuery.replace(/^&/, '')}${periodQuery}`) })
   const changes = useQuery({ queryKey: ['changes', representative, periodQuery], queryFn: () => api<any[]>(`/reports/expression-changes?representative=${representative}${periodQuery}`) })
   const quality = useQuery({ queryKey: ['quality-summary', touchpointId, periodQuery], queryFn: () => api<any>(`/reports/data-quality-summary?${areaQuery.replace(/^&/, '')}${periodQuery}`) })
   const touchpoints = useQuery({ queryKey: ['touchpoints'], queryFn: () => api<Touchpoint[]>('/touchpoints') })
@@ -663,7 +651,7 @@ function Reports() {
     return { tooltip: { trigger: 'item' }, series: [{ type: 'sankey', data: [...nodes.values()], links, emphasis: { focus: 'adjacency' }, lineStyle: { color: 'gradient', curveness: 0.5 } }] }
   }, [changes.data, touchpoints.data])
   const qualityChart = useMemo(() => ({ tooltip: { trigger: 'item' }, legend: { bottom: 0 }, series: [{ type: 'pie', radius: ['38%', '70%'], data: (quality.data?.statuses ?? []).map((row: any) => ({ name: `${row.image_status} / ${row.expression_status}`, value: row.count })) }] }), [quality.data])
-  const reportFilters = <Card size="small" className="report-filter-card"><Flex gap={12} wrap="wrap" align="center"><strong>Phạm vi:</strong><Select allowClear placeholder="Tất cả khu vực" value={touchpointId} onChange={setTouchpointId} options={touchpoints.data?.map(row => ({ value: row.id, label: row.name }))} className="report-area-select" /><DatePicker.RangePicker showTime onChange={setTimeRange} /><Select value={customerScope} onChange={setCustomerScope} options={[{ value: 'all', label: 'Tất cả quan sát' }, { value: 'registered', label: 'Khách hàng đã xác định' }, { value: 'unidentified', label: 'Chưa xác định khách hàng' }]} /></Flex></Card>
+  const reportFilters = <Card size="small" className="report-filter-card"><Flex gap={12} wrap="wrap" align="center"><strong>Phạm vi:</strong><Select allowClear placeholder="Tất cả khu vực" value={touchpointId} onChange={setTouchpointId} options={touchpoints.data?.map(row => ({ value: row.id, label: row.name }))} className="report-area-select" /><DatePicker.RangePicker showTime onChange={setTimeRange} /></Flex></Card>
   return <><PageTitle title="Phân tích biểu cảm" description="Thống kê bảy nhãn biểu cảm theo khu vực và phân cụm chuỗi theo hành trình" />{activeTab !== 'sequence' && reportFilters}<Tabs activeKey={activeTab} onChange={setActiveTab} items={[
     { key: 'distribution', label: 'Phân bố tại khu vực', children: <><Card title="Số quan sát theo khu vực và nhãn"><ReactECharts option={distributionChart} style={{ height: 430 }} /></Card><Card className="table-card"><Table rowKey={row => `${row.touchpoint_id}-${row.label}`} dataSource={distribution.data} columns={[{ title: 'Khu vực', dataIndex: 'touchpoint_name' }, { title: 'Nhãn', dataIndex: 'label' }, { title: 'Số quan sát', dataIndex: 'count' }, { title: 'Tỷ lệ trong khu vực', render: (_, row) => `${(row.percentage * 100).toFixed(1)}%` }]} /></Card></> },
     { key: 'changes', label: 'Thay đổi giữa các khu vực', children: <><Card size="small" className="change-method"><Space><strong>Cách chọn bản ghi đại diện khi có nhiều ảnh liên tiếp tại cùng khu vực:</strong><Select value={representative} onChange={setRepresentative} options={[{ value: 'highest_confidence', label: 'Mức tin cậy cao nhất' }, { value: 'first', label: 'Bản ghi đầu tiên' }, { value: 'last', label: 'Bản ghi cuối cùng' }]} /></Space></Card><Card title="Luồng thay đổi nhãn giữa hai khu vực liên tiếp"><ReactECharts option={changeChart} style={{ height: 520 }} /></Card><Card className="table-card"><Table rowKey={(_, index) => String(index)} dataSource={changes.data} columns={[{ title: 'Khu vực trước', render: (_, row) => touchpointNames[row.from_touchpoint_id] ?? row.from_touchpoint_id }, { title: 'Khu vực sau', render: (_, row) => touchpointNames[row.to_touchpoint_id] ?? row.to_touchpoint_id }, { title: 'Nhãn trước', dataIndex: 'from_label' }, { title: 'Nhãn sau', dataIndex: 'to_label' }, { title: 'Số lần', dataIndex: 'count' }, { title: 'Tỷ lệ trong cặp khu vực', render: (_, row) => `${(row.percentage * 100).toFixed(1)}%` }]} /></Card></> },

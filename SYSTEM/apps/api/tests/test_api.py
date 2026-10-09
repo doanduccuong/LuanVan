@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 
 import pytest
+import app.main as main_module
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
@@ -10,7 +11,7 @@ from sqlalchemy.pool import StaticPool
 
 from app.database import Base, get_db
 from app.main import app
-from app.models import Role, User
+from app.models import Customer, Role, User
 from app.security import hash_password
 from app.vision_client import VisionFaceResult, VisionResult, get_vision_client
 
@@ -158,11 +159,11 @@ def test_simulated_observations_are_marked_and_form_a_closed_visit():
     )
     assert invalid.status_code == 201, invalid.text
     assert invalid.json()["items"][0]["observation_id"] is None
-    unidentified = client.get("/api/v1/observations", params={"customer_scope": "unidentified", "page_size": 100}).json()
-    assert invalid_event_id not in {row["event_id"] for row in unidentified["items"]}
+    observations = client.get("/api/v1/observations", params={"page_size": 100}).json()
+    assert invalid_event_id not in {row["event_id"] for row in observations["items"]}
 
 
-def test_missing_area_manual_assignment_filters_and_revision_history():
+def test_missing_area_and_unregistered_observations_are_not_stored():
     client = make_client()
     suffix = datetime.now(timezone.utc).strftime("%H%M%S%f")
     sequence = int(suffix[-8:]) * 10
@@ -218,27 +219,39 @@ def test_missing_area_manual_assignment_filters_and_revision_history():
     )
     assert batch.status_code == 201, batch.text
     visit_id = batch.json()["items"][0]["visit_id"]
-    unknown_id = batch.json()["items"][2]["observation_id"]
+    assert batch.json()["items"][2]["observation_id"] is None
+    repeated_unregistered = client.post(
+        "/api/v1/simulation/observations/batch",
+        json={
+            "observations": [
+                {
+                    "event_id": f"FLOW-UNKNOWN-{suffix}",
+                    "simulation_run_id": run_id,
+                    "touchpoint_id": areas[1]["id"],
+                    "customer_id": None,
+                    "observed_at": (started + timedelta(minutes=1)).isoformat(),
+                    "expression_label": "Surprise",
+                    "expression_confidence": 0.8,
+                    "identity_status": "NO_MATCH",
+                }
+            ]
+        },
+    )
+    assert repeated_unregistered.status_code == 201, repeated_unregistered.text
+    assert repeated_unregistered.json()["items"][0]["observation_id"] is None
 
     analysis = client.get(f"/api/v1/visits/{visit_id}/analysis")
     assert analysis.status_code == 200, analysis.text
     assert [row["name"] for row in analysis.json()["missing_touchpoints"]] == ["Khu vực giữa"]
 
-    unidentified = client.get("/api/v1/reports/expression-distribution", params={"customer_scope": "unidentified"}).json()
-    assert any(row["touchpoint_id"] == areas[1]["id"] and row["label"] == "Surprise" for row in unidentified)
-    registered = client.get("/api/v1/reports/expression-distribution", params={"customer_scope": "registered"}).json()
-    assert not any(row["touchpoint_id"] == areas[1]["id"] and row["label"] == "Surprise" for row in registered)
+    distribution = client.get("/api/v1/reports/expression-distribution").json()
+    assert not any(row["touchpoint_id"] == areas[1]["id"] and row["label"] == "Surprise" for row in distribution)
+    observations = client.get("/api/v1/observations", params={"page_size": 100}).json()
+    assert f"FLOW-UNKNOWN-{suffix}" not in {row["event_id"] for row in observations["items"]}
 
     changes = client.get("/api/v1/reports/expression-changes").json()
     relevant = [row for row in changes if row["from_touchpoint_id"] == areas[0]["id"] and row["to_touchpoint_id"] == areas[2]["id"]]
     assert relevant and relevant[0]["percentage"] == 1.0
-
-    assignment = client.patch(f"/api/v1/observations/{unknown_id}/customer", json={"customer_id": customer["id"]})
-    assert assignment.status_code == 200, assignment.text
-    assert assignment.json()["identity_status"] == "MANUALLY_ASSIGNED"
-    revisions = client.get(f"/api/v1/observations/{unknown_id}/revisions").json()
-    assert len(revisions) == 1
-    assert revisions[0]["snapshot"]["identity_status"] == "NO_MATCH"
 
 def test_invalid_observation_request_is_visible_in_quality_report():
     client = make_client()
@@ -251,7 +264,7 @@ def test_invalid_observation_request_is_visible_in_quality_report():
     assert any(row["issue_code"] == "MISSING_TOUCHPOINT" and row["count"] >= 1 for row in quality["ingestion_issues"])
 
 
-def test_one_capture_creates_one_observation_per_detected_face():
+def test_only_registered_faces_create_observations(monkeypatch):
     class MultiFaceVisionClient:
         async def analyze(self, _image: bytes, _filename: str, _content_type: str | None) -> VisionResult:
             faces = [
@@ -278,6 +291,17 @@ def test_one_capture_creates_one_observation_per_detected_face():
 
     client = make_client()
     suffix = datetime.now(timezone.utc).strftime("%H%M%S%f")
+    customer = client.post(
+        "/api/v1/customers",
+        json={"customer_code": f"MATCHED-CUS-{suffix}", "full_name": "Khách đã đăng ký"},
+    ).json()
+
+    def fake_match(db: Session, embedding: list[float]):
+        if embedding[0] == 1.0:
+            return db.get(Customer, customer["id"]), 0.1, "MATCHED"
+        return None, 0.9, "NO_MATCH"
+
+    monkeypatch.setattr(main_module, "match_customer", fake_match)
     touchpoint = client.post(
         "/api/v1/touchpoints",
         json={
@@ -302,8 +326,9 @@ def test_one_capture_creates_one_observation_per_detected_face():
         body = response.json()
         assert body["image_status"] == "VALID"
         assert body["face_count"] == 2
-        assert [item["face_index"] for item in body["observations"]] == [0, 1]
-        assert [item["expression_label"] for item in body["observations"]] == ["Happy", "Neutral"]
+        assert [item["face_index"] for item in body["observations"]] == [0]
+        assert [item["expression_label"] for item in body["observations"]] == ["Happy"]
+        assert body["observations"][0]["customer_id"] == customer["id"]
         assert len({item["capture_event_id"] for item in body["observations"]}) == 1
 
         repeated = client.post(

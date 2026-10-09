@@ -123,7 +123,7 @@ Bảng~\ref{tab:system_components} tổng hợp công nghệ và trách nhiệm 
         \hline
         Máy chủ nghiệp vụ & FastAPI, SQLAlchemy & Xác thực, kiểm tra yêu cầu, điều phối xử lý ảnh, đối sánh khách hàng, thực hiện quy tắc lần mua sắm, quản lý giao dịch dữ liệu và cung cấp API. \\
         \hline
-        Dịch vụ xử lý ảnh & FastAPI, OpenCV; RetinaFace--MobileNet0.25; mô hình Emotion qua DeepFace; ArcFace & Kiểm tra và giải mã ảnh, phát hiện các khuôn mặt, xử lý độc lập từng vùng cắt và trả danh sách kết quả cùng thông tin mô hình. \\
+        Dịch vụ xử lý ảnh & FastAPI, OpenCV; RetinaFace--MobileNet0.25; mô hình Emotion qua DeepFace; ArcFace & Kiểm tra và giải mã ảnh, phát hiện vùng khuôn mặt, phân loại biểu cảm, tạo véc-tơ đặc trưng và trả kết quả cùng thông tin mô hình. \\
         \hline
         Cơ sở dữ liệu & PostgreSQL 16, pgvector, Alembic & Lưu sự kiện thu nhận, các quan sát khuôn mặt, dữ liệu CRM, véc-tơ mẫu, lần mua sắm, đơn hàng, nhật ký và lịch sử xử lý; duy trì khóa, quan hệ và phiên bản cấu trúc dữ liệu. \\
         \hline
@@ -169,27 +169,27 @@ Các luồng giao tiếp chính được tổng hợp trong Bảng~\ref{tab:comp
     \end{tabular}}
 \end{table}
 
-Đối với luồng tạo bản ghi quan sát, quá trình giao tiếp diễn ra theo năm bước. Thứ nhất, nguồn thu nhận gửi ảnh kèm mã sự kiện, khu vực và thời điểm ghi nhận. Thứ hai, máy chủ kiểm tra tính đầy đủ của yêu cầu, sự tồn tại của khu vực, định dạng thời gian, giới hạn của ảnh và khả năng trùng sự kiện. Chỉ dữ liệu vượt qua bước kiểm tra này mới được chuyển sang dịch vụ xử lý ảnh. Thứ ba, dịch vụ xử lý ảnh giải mã ảnh, phát hiện toàn bộ khuôn mặt và thực hiện hai nhánh phân loại biểu cảm, tạo véc-tơ đặc trưng trên từng vùng cắt hợp lệ. Trạng thái khung hình và danh sách kết quả của các khuôn mặt được trả về trong cùng một lần giao tiếp để tránh truyền lại ảnh nguồn.
+Đối với luồng tạo bản ghi quan sát, quá trình giao tiếp diễn ra theo năm bước. Thứ nhất, nguồn thu nhận gửi ảnh kèm mã sự kiện, khu vực và thời điểm ghi nhận. Thứ hai, máy chủ kiểm tra tính đầy đủ của yêu cầu, sự tồn tại của khu vực, định dạng thời gian, giới hạn của ảnh và khả năng trùng sự kiện. Chỉ dữ liệu vượt qua bước kiểm tra này mới được chuyển sang dịch vụ xử lý ảnh. Thứ ba, dịch vụ xử lý ảnh giải mã ảnh, phát hiện vùng khuôn mặt và thực hiện hai nhánh phân loại biểu cảm, tạo véc-tơ đặc trưng trên vùng cắt hợp lệ. Trạng thái xử lý và kết quả được trả về trong cùng một lần giao tiếp để tránh truyền lại ảnh nguồn.
 
-Thứ tư, máy chủ nghiệp vụ tạo một sự kiện thu nhận cho khung hình và lần lượt diễn giải từng kết quả khuôn mặt trong ngữ cảnh CRM. Với mỗi véc-tơ hợp lệ, máy chủ thực hiện đối sánh với các mẫu đã đăng ký và áp dụng ngưỡng nhận dạng đang được cấu hình. Khi xác định được khách hàng, máy chủ tìm lần mua sắm đang hoạt động hoặc tạo lần mua sắm phù hợp với thời điểm quan sát. Thứ năm, mỗi khuôn mặt được lưu thành một quan sát con có chỉ số và khung bao riêng; quan hệ với khách hàng, lần mua sắm và phiên bản mô hình cũng được lưu cùng quan sát đó. Vì vậy, dịch vụ xử lý ảnh chỉ cung cấp các kết quả suy luận, còn quyết định liên kết dữ liệu vẫn thuộc về máy chủ nghiệp vụ.
+Thứ tư, máy chủ nghiệp vụ tạo một sự kiện thu nhận cho hình ảnh và đối sánh véc-tơ khuôn mặt với các mẫu đã đăng ký theo ngưỡng nhận dạng đang được cấu hình. Khi xác định được khách hàng, máy chủ tìm lần mua sắm đang hoạt động hoặc tạo lần mua sắm phù hợp với thời điểm quan sát. Thứ năm, kết quả được lưu thành một bản ghi quan sát gắn với khách hàng, lần mua sắm và phiên bản mô hình. Vì vậy, dịch vụ xử lý ảnh chỉ cung cấp kết quả suy luận, còn quyết định liên kết dữ liệu vẫn thuộc về máy chủ nghiệp vụ.
 
 Đối với các thao tác trên giao diện CRM, trình duyệt gửi yêu cầu đến máy chủ và nhận lại dữ liệu đã được kiểm tra theo quyền của người dùng. Các thao tác tạo, sửa, xác nhận khách hàng hoặc xử lý lại quan sát đều được máy chủ kiểm tra trước khi ghi vào cơ sở dữ liệu. Với các chức năng báo cáo, giao diện chỉ gửi điều kiện lọc và trình bày kết quả; việc lựa chọn bản ghi hợp lệ, tổng hợp số liệu và tính các chỉ số được thực hiện tập trung tại máy chủ. Cách tổ chức này giúp cùng một quy tắc được áp dụng cho mọi nguồn truy cập và tránh sai khác giữa số liệu hiển thị trên các màn hình.
 
-Luồng giao tiếp cũng phân biệt lỗi tiếp nhận với lỗi xử lý. Yêu cầu thiếu thông tin hoặc có ngữ cảnh không hợp lệ bị dừng trước khi gọi dịch vụ xử lý ảnh và được ghi nhận để phục vụ báo cáo chất lượng dữ liệu. Ảnh không có khuôn mặt hoặc không thể giải mã vẫn tạo trạng thái ở cấp sự kiện thu nhận nhưng không tạo quan sát giả. Khi ảnh có nhiều khuôn mặt, từng kết quả hợp lệ tiếp tục được xử lý; lỗi cắt hoặc lỗi mô hình của một khuôn mặt không làm mất kết quả của những khuôn mặt khác. Nếu dịch vụ xử lý ảnh không phản hồi trong thời gian cấu hình, máy chủ ghi nhận lỗi mô hình và không tiếp tục đối sánh khách hàng. Mã sự kiện duy nhất cho phép nguồn thu nhận gửi lại cùng khung hình mà không tạo thêm sự kiện hoặc quan sát trùng lặp.
+Luồng giao tiếp cũng phân biệt lỗi tiếp nhận với lỗi xử lý. Yêu cầu thiếu thông tin hoặc có ngữ cảnh không hợp lệ bị dừng trước khi gọi dịch vụ xử lý ảnh và được ghi nhận để phục vụ báo cáo chất lượng dữ liệu. Ảnh không có khuôn mặt hoặc không thể giải mã vẫn tạo trạng thái ở cấp sự kiện thu nhận nhưng không tạo quan sát giả. Nếu dịch vụ xử lý ảnh không phản hồi trong thời gian cấu hình, máy chủ ghi nhận lỗi mô hình và không tiếp tục đối sánh khách hàng. Mã sự kiện duy nhất cho phép nguồn thu nhận gửi lại cùng hình ảnh mà không tạo thêm sự kiện hoặc quan sát trùng lặp.
 
 Xét theo phạm vi, giao tiếp bên ngoài bao gồm trao đổi giữa giao diện CRM hoặc nguồn thu nhận với máy chủ nghiệp vụ; giao tiếp nội bộ bao gồm trao đổi giữa máy chủ với dịch vụ xử lý ảnh và cơ sở dữ liệu. Sự phân tách này vừa giới hạn quyền truy cập vào dữ liệu nhạy cảm, vừa giữ cho thành phần xử lý ảnh độc lập với cấu trúc của CRM. Đồng thời, máy chủ nghiệp vụ trở thành điểm kiểm soát chung đối với xác thực, kiểm tra dữ liệu, ghi nhật ký và tính nhất quán của giao dịch.
 
 \section{Xây dựng chức năng tạo bản ghi quan sát}
 \label{section:4.2}
 
-Luồng này là cầu nối giữa dữ liệu camera và dữ liệu CRM. Một lượt xử lý bắt đầu từ khung hình có ngữ cảnh, đi qua kiểm tra đầu vào và xử lý ảnh, sau đó mới được diễn giải thành sự kiện thu nhận, các quan sát khuôn mặt và liên kết với khách hàng. Trình tự xây dựng gồm: (1) tiếp nhận và kiểm tra khung hình; (2) phát hiện tất cả khuôn mặt; (3) xử lý biểu cảm và đặc trưng trên từng khuôn mặt; (4) đối sánh với kho mẫu; (5) lưu từng quan sát và cập nhật lần mua sắm. Các trường hợp không có khuôn mặt hoặc ảnh hỏng dừng ở cấp sự kiện; trường hợp có nhiều khuôn mặt tiếp tục tạo nhiều quan sát độc lập.
+Luồng này là cầu nối giữa dữ liệu hình ảnh và dữ liệu CRM. Một lượt xử lý bắt đầu từ hình ảnh có ngữ cảnh, đi qua kiểm tra đầu vào và xử lý ảnh, sau đó được diễn giải thành sự kiện thu nhận và bản ghi quan sát gắn với khách hàng. Trình tự xây dựng gồm: (1) tiếp nhận và kiểm tra hình ảnh; (2) phát hiện vùng khuôn mặt; (3) xử lý biểu cảm và đặc trưng khuôn mặt; (4) đối sánh với kho mẫu; (5) lưu quan sát và cập nhật lần mua sắm. Trường hợp ảnh hỏng, không có khuôn mặt hoặc không đối sánh được với khách hàng đã đăng ký dừng ở cấp sự kiện thu nhận.
 
 \subsection{Tiếp nhận và kiểm tra dữ liệu}
 \label{subsection:4.2.1}
 
 Chức năng tiếp nhận được xây dựng để nhận đồng thời thông tin mô tả sự kiện và tệp ảnh. Bốn thông tin được kiểm tra gồm mã sự kiện, mã khu vực, thời gian ghi nhận có múi giờ và dữ liệu ảnh. Mã sự kiện có ràng buộc duy nhất tại bảng sự kiện thu nhận; vì vậy, gửi lại cùng một mã trả về tập kết quả đã có thay vì tạo thêm dữ liệu. Khu vực phải tồn tại và đang hoạt động. Ảnh rỗng hoặc vượt quá dung lượng cấu hình bị từ chối trước khi gọi dịch vụ xử lý ảnh.
 
-Các yêu cầu thiếu mã sự kiện, thiếu khu vực, có khu vực không hợp lệ, thiếu thời gian hoặc thiếu ảnh được ghi vào kho theo dõi lỗi tiếp nhận. Cách lưu này giúp báo cáo chất lượng thể hiện được lỗi xảy ra trước khi một sự kiện thu nhận được tạo. Những trạng thái chỉ xác định được sau khi ảnh đã được tiếp nhận, như không phát hiện được khuôn mặt hoặc ảnh không thể giải mã, được lưu ở cấp sự kiện. Việc phát hiện nhiều khuôn mặt không được xem là lỗi và làm phát sinh nhiều quan sát con.
+Các yêu cầu thiếu mã sự kiện, thiếu khu vực, có khu vực không hợp lệ, thiếu thời gian hoặc thiếu ảnh được ghi vào kho theo dõi lỗi tiếp nhận. Cách lưu này giúp báo cáo chất lượng thể hiện được lỗi xảy ra trước khi một sự kiện thu nhận được tạo. Những trạng thái ảnh chỉ xác định được sau khi tiếp nhận, như không phát hiện được khuôn mặt hoặc không thể giải mã, được lưu ở cấp sự kiện. Nếu kết quả không đạt ngưỡng đối sánh khách hàng, sự kiện vẫn được giữ để chống xử lý trùng nhưng không có bản ghi quan sát đi kèm.
 
 Màn hình tại Hình~\ref{fig:areas_ch4} trình bày các khu vực đã được khai báo để nguồn thu nhận gửi kèm dữ liệu. Thứ tự khu vực cũng được lưu để phát hiện vị trí bị thiếu trong một lần mua sắm.
 
@@ -203,7 +203,7 @@ Màn hình tại Hình~\ref{fig:areas_ch4} trình bày các khu vực đã đư�
 \subsection{Phát hiện khuôn mặt và hai nhánh nhận dạng}
 \label{subsection:4.2.2}
 
-Ảnh hợp lệ được giải mã và đưa vào mô hình phát hiện khuôn mặt. Khi không có khuôn mặt, hệ thống lưu trạng thái tại sự kiện thu nhận và không tạo quan sát. Khi có một hoặc nhiều khuôn mặt, các kết quả phát hiện được sắp xếp theo vị trí, đánh chỉ số và cắt thành những vùng ảnh riêng. Mỗi vùng hợp lệ được đưa độc lập vào nhánh phân loại bảy biểu cảm và nhánh tạo véc-tơ đặc trưng khuôn mặt. Nếu một vùng không thể cắt, chỉ quan sát tương ứng mang trạng thái lỗi; những vùng còn lại vẫn được xử lý.
+Ảnh hợp lệ được giải mã và đưa vào mô hình phát hiện khuôn mặt. Khi không có khuôn mặt, hệ thống lưu trạng thái tại sự kiện thu nhận và không tạo quan sát. Vùng khuôn mặt hợp lệ được đưa vào nhánh phân loại bảy biểu cảm và nhánh tạo véc-tơ đặc trưng khuôn mặt. Nếu vùng khuôn mặt không thể cắt, sự kiện được ghi nhận với trạng thái lỗi và dừng xử lý.
 
 Hai nhánh được xây dựng độc lập. Lỗi của mô hình FER không làm mất véc-tơ khuôn mặt đã tạo được; lỗi của ArcFace không làm mất nhãn biểu cảm đã phân loại được. Trạng thái phân loại biểu cảm và trạng thái nhận dạng được lưu riêng để phân biệt kết quả hợp lệ với trường hợp xử lý không thành công. Nhãn \textit{Neutral} chỉ được lưu khi là kết quả của mô hình, không được dùng thay cho trường hợp xử lý lỗi.
 
@@ -216,19 +216,19 @@ CRM cung cấp màn hình đăng ký mẫu khuôn mặt và tìm khách hàng b�
     \label{fig:face_management_ch4}
 \end{figure}
 
-\subsection{Lưu kết quả, xác nhận khách hàng và xử lý lại}
+\subsection{Lưu kết quả và xử lý lại}
 \label{subsection:4.2.3}
 
-Sự kiện thu nhận lưu mã sự kiện, khu vực, thời gian ghi nhận, thời gian máy chủ nhận, trạng thái khung hình và số khuôn mặt phát hiện được. Mỗi bản ghi quan sát con lưu thêm chỉ số khuôn mặt, khung bao, mức tin cậy phát hiện, nhãn biểu cảm, điểm dự đoán của bảy lớp, khoảng cách nhận dạng, các trạng thái xử lý và thông tin mô hình. Nếu biểu cảm hợp lệ nhưng không nhận dạng được khách hàng, quan sát vẫn được lưu để tham gia thống kê theo khu vực.
+Sự kiện thu nhận lưu mã sự kiện, khu vực, thời gian ghi nhận, thời gian máy chủ nhận và trạng thái xử lý ảnh. Khi đối sánh thành công với khách hàng đã đăng ký, bản ghi quan sát lưu khung bao, mức tin cậy phát hiện, nhãn biểu cảm, điểm dự đoán của bảy lớp, khoảng cách nhận dạng, các trạng thái xử lý và thông tin mô hình. Nếu không đạt ngưỡng đối sánh, hệ thống không tạo bản ghi quan sát.
 
-Màn hình chi tiết tại Hình~\ref{fig:observation_detail_ch4} hiển thị riêng trạng thái ảnh, trạng thái phân loại, trạng thái nhận dạng và các mô hình đã dùng. Đối với bản ghi chưa xác định, người quản lý có thể chọn một khách hàng đã đăng ký để xác nhận. Trước khi liên kết bản ghi với khách hàng và lần mua sắm phù hợp, hệ thống lưu lại kết quả cũ vào lịch sử thay đổi.
+Màn hình chi tiết tại Hình~\ref{fig:observation_detail_ch4} hiển thị riêng trạng thái ảnh, trạng thái phân loại, trạng thái nhận dạng và các mô hình đã dùng.
 
 Chức năng xử lý lại yêu cầu người quản lý cung cấp ảnh mới. Trước khi cập nhật, hệ thống lưu toàn bộ nhãn, mức tin cậy, điểm đối sánh, trạng thái và phiên bản mô hình cũ thành một phiên bản lịch sử. Vì vậy, kết quả mới không xóa dấu vết của lần xử lý trước.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png}
-    \caption{Chi tiết quan sát sau xác nhận và lịch sử thay đổi kết quả}
+    \caption{Chi tiết quan sát và lịch sử thay đổi kết quả}
     \label{fig:observation_detail_ch4}
 \end{figure}
 
@@ -284,27 +284,13 @@ Hình~\ref{fig:shopping_tracking_ch4} cho thấy danh sách lần mua sắm, chu
     \label{fig:shopping_tracking_ch4}
 \end{figure}
 
-\subsection{Xử lý bản ghi chưa xác định khách hàng}
-\label{subsection:4.3.4}
-
-Bản ghi không nhận dạng được khách hàng không được tự động ghép với một hồ sơ CRM và không tạo chuỗi cá nhân. CRM giữ riêng danh sách này để người quản lý kiểm tra. Nếu kết quả biểu cảm hợp lệ, bản ghi vẫn được dùng trong thống kê tổng hợp tại khu vực.
-
-Hình~\ref{fig:unidentified_observations_ch4} thể hiện danh sách bản ghi chưa xác định cùng khu vực, thời gian, kết quả biểu cảm và trạng thái nhận dạng. Nút kiểm tra mở màn hình chi tiết ở Hình~\ref{fig:observation_detail_ch4}; hệ thống không tự lựa chọn khách hàng gần giống nhất khi kết quả chưa đạt điều kiện nhận dạng.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_15_quan_sat_chua_xac_dinh.png}
-    \caption{Danh sách quan sát chưa xác định được khách hàng}
-    \label{fig:unidentified_observations_ch4}
-\end{figure}
-
 \section{Xây dựng chức năng phân tích và báo cáo}
 \label{section:4.4}
 
 \subsection{Phân bố biểu cảm theo khu vực và thời gian}
 \label{subsection:4.4.1}
 
-Báo cáo phân bố chỉ sử dụng các bản ghi có ảnh và kết quả phân loại biểu cảm hợp lệ. Máy chủ đếm riêng bảy nhãn trong từng khu vực và tính tỷ lệ trên tổng số quan sát hợp lệ của đúng khu vực đó. Người dùng có thể lọc theo khu vực, khoảng thời gian và ba phạm vi khách hàng: toàn bộ, đã xác định hoặc chưa xác định.
+Báo cáo phân bố chỉ sử dụng các bản ghi của khách hàng đã đăng ký có ảnh và kết quả phân loại biểu cảm hợp lệ. Máy chủ đếm riêng bảy nhãn trong từng khu vực và tính tỷ lệ trên tổng số quan sát hợp lệ của đúng khu vực đó. Người dùng có thể lọc theo khu vực và khoảng thời gian.
 
 Hình~\ref{fig:distribution_screen_ch4} trình bày đồng thời biểu đồ và bảng số liệu. Bảng trình bày cả số lượng và tỷ lệ để tránh diễn giải một tỷ lệ cao được tạo từ quá ít quan sát.
 

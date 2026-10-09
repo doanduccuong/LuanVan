@@ -114,8 +114,6 @@ EXP-IDENTITY-097,exp-identity-097-1,CUS-EXP-097,VISIT-EXP-IDENTITY-097,TP-ENTRAN
 EXP-IDENTITY-098,exp-identity-098-1,CUS-EXP-098,VISIT-EXP-IDENTITY-098,TP-DISPLAY,2026-09-25T01:40:00+07:00,observations/fairface-0098/01.jpg,VALID,MATCHED,2,fairface-0098,composite-layout-1
 EXP-IDENTITY-099,exp-identity-099-1,CUS-EXP-099,VISIT-EXP-IDENTITY-099,TP-CONSULT,2026-09-25T02:20:00+07:00,observations/fairface-0099/01.jpg,VALID,MATCHED,2,fairface-0099,composite-layout-1
 EXP-IDENTITY-100,exp-identity-100-1,CUS-EXP-100,VISIT-EXP-IDENTITY-100,TP-CHECKOUT,2026-09-25T03:00:00+07:00,observations/fairface-0110/01.jpg,VALID,MATCHED,2,fairface-0110,composite-layout-1
-EXP-UNKNOWN,exp-unknown-1,,,TP-DISPLAY,2026-09-25T04:30:00+07:00,observations/unknown/fairface-0108.jpg,VALID,NO_MATCH,2,fairface-0108,composite-layout-1
-EXP-UNKNOWN,exp-unknown-2,,,TP-CONSULT,2026-09-25T04:35:00+07:00,observations/unknown/fairface-0109.jpg,VALID,NO_MATCH,2,fairface-0109,composite-layout-2
 EXP-ERROR,exp-no-face,,,TP-ENTRANCE,2026-09-25T04:40:00+07:00,observations/errors/no-face.jpg,NO_FACE,NOT_RUN,0,,
 EXP-ERROR,exp-many-faces,,,TP-ENTRANCE,2026-09-25T04:41:00+07:00,observations/errors/multiple-faces.jpg,VALID,NO_MATCH,2,,
 EXP-ERROR,exp-invalid-image,,,TP-ENTRANCE,2026-09-25T04:42:00+07:00,observations/errors/invalid.jpg,INVALID_IMAGE,NOT_RUN,0,,

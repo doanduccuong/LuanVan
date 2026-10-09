@@ -313,8 +313,6 @@ def write_events() -> None:
                 subject=subject,
                 condition=f"composite-layout-{event_position}",
             )
-    add("EXP-UNKNOWN", "exp-unknown-1", "", "", "TP-DISPLAY", 4050, "observations/unknown/fairface-0108.jpg", identity_status="NO_MATCH", expected_face_count=2, subject="fairface-0108", condition="composite-layout-1")
-    add("EXP-UNKNOWN", "exp-unknown-2", "", "", "TP-CONSULT", 4055, "observations/unknown/fairface-0109.jpg", identity_status="NO_MATCH", expected_face_count=2, subject="fairface-0109", condition="composite-layout-2")
     add("EXP-ERROR", "exp-no-face", "", "", "TP-ENTRANCE", 4060, "observations/errors/no-face.jpg", image_status="NO_FACE", identity_status="NOT_RUN", expected_face_count=0)
     add("EXP-ERROR", "exp-many-faces", "", "", "TP-ENTRANCE", 4061, "observations/errors/multiple-faces.jpg", image_status="VALID", identity_status="NO_MATCH", expected_face_count=2)
     add("EXP-ERROR", "exp-invalid-image", "", "", "TP-ENTRANCE", 4062, "observations/errors/invalid.jpg", image_status="INVALID_IMAGE", identity_status="NOT_RUN", expected_face_count=0)
