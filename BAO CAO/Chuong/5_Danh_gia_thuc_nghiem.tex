@@ -408,11 +408,13 @@ Tuy nhiên, năm mẫu được tạo hoàn toàn tách biệt và lặp lại n
 \subsection{Mục tiêu và cách xây dựng dữ liệu}
 \label{subsection:5.4.1}
 
-Kịch bản đầu cuối được thiết kế để kiểm tra đúng luồng: ảnh đăng ký $\rightarrow$ camera tại nhiều điểm chạm $\rightarrow$ RetinaFace $\rightarrow$ ArcFace $\rightarrow$ DeepFace $\rightarrow$ quan sát $\rightarrow$ lần mua sắm $\rightarrow$ phân cụm chuỗi. KDEF gốc gồm 70 người và 4.900 ảnh được chụp ở bảy biểu cảm, năm góc nhìn và hai phiên \cite{lundqvist1998kdef}. Tuy nhiên, nguồn tệp thực tế của demo là bản phân phối đã xử lý trên Kaggle \cite{chenrich2024kdefkaggle}, gồm 2.938 ảnh trong bảy thư mục nhãn và 140 mã nhóm nguồn dạng số. Bản này không giữ tên tệp, mã phiên và mã góc chụp của KDEF gốc; do đó báo cáo không diễn giải 140 mã nhóm là 140 người KDEF độc lập và không tuyên bố đã sử dụng đủ 4.900 ảnh. Việc sử dụng ảnh vẫn được giới hạn trong demo nghiên cứu cục bộ và tuân thủ điều khoản công bố của KDEF \cite{kdefTerms}.
+Kịch bản đầu cuối được thiết kế để kiểm tra đúng luồng: ảnh đăng ký $\rightarrow$ dữ liệu camera tại nhiều điểm chạm $\rightarrow$ RetinaFace $\rightarrow$ ArcFace $\rightarrow$ DeepFace $\rightarrow$ quan sát $\rightarrow$ lần mua sắm $\rightarrow$ phân cụm chuỗi. Do phạm vi đề tài chưa có đủ camera và hạ tầng thu nhận đồng bộ tại nhiều điểm chạm, thực nghiệm không sử dụng luồng hình ảnh được ghi trực tiếp từ hệ thống camera vật lý. Thay vào đó, các ảnh được phát lại theo lịch định trước, gắn với điểm chạm và thời gian tương ứng để mô phỏng dữ liệu camera gửi vào hệ thống. Cách tổ chức này cho phép kiểm tra luồng xử lý phần mềm từ giao diện tiếp nhận ảnh trở đi, nhưng không đánh giá chất lượng thiết bị camera, đường truyền hoặc khả năng vận hành liên tục trong cửa hàng thực tế.
 
-Lần chạy đầu cuối mang mã \path{KDEF-KAGGLE-20261008-LIVE}. Từ 140 mã nhóm có đủ bảy thư mục nhãn, chương trình chọn cố định năm mã \path{KG011}, \path{KG039}, \path{KG061}, \path{KG074} và \path{KG112} bằng seed 20261008. Số lượng năm nhóm được chọn để tái hiện rõ luồng hệ thống, không nhằm ước lượng hiệu năng trên quần thể KDEF. Với mỗi nhóm, một ảnh \textit{Neutral} được dùng làm ảnh đăng ký; 35 ảnh khác, tương ứng bảy nhãn cho mỗi nhóm, được dành riêng để hiệu chỉnh ngưỡng định danh và không xuất hiện trong phần phát lại. Các ảnh còn lại tạo năm lượt mua sắm cho mỗi hồ sơ, mỗi lượt gồm bốn điểm chạm cách nhau năm phút. Tổng đầu vào là năm hồ sơ, 25 lượt và 100 khung camera.
+KDEF gốc gồm 70 người và 4.900 ảnh được chụp ở bảy biểu cảm, năm góc nhìn và hai phiên \cite{lundqvist1998kdef}. Tuy nhiên, nguồn tệp thực tế của demo là bản phân phối đã xử lý trên Kaggle \cite{chenrich2024kdefkaggle}, gồm 2.938 ảnh trong bảy thư mục nhãn và 140 mã nhóm nguồn dạng số. Bản này không giữ tên tệp, mã phiên và mã góc chụp của KDEF gốc; do đó báo cáo không diễn giải 140 mã nhóm là 140 người KDEF độc lập và không tuyên bố đã sử dụng đủ 4.900 ảnh. Việc sử dụng ảnh vẫn được giới hạn trong demo nghiên cứu cục bộ và tuân thủ điều khoản công bố của KDEF \cite{kdefTerms}.
 
-Nhãn thư mục Kaggle chỉ được dùng để chọn ảnh và đánh giá sau khi xử lý. Khi gửi ảnh, chương trình không truyền nhãn mong đợi cho dịch vụ thị giác; nhãn của chuỗi được đọc từ trường \texttt{expression\_label} do DeepFace trả về. Mỗi ảnh đều được gửi qua giao diện \texttt{POST /api/v1/observations} với nguồn \texttt{CAMERA}; dữ liệu không đi qua giao diện tạo quan sát mô phỏng. Tệp kê khai lưu tên tệp nguồn, hàm băm SHA-256, ảnh đăng ký, ảnh hiệu chỉnh, ảnh quan sát và thời gian phát.
+Lần chạy đầu cuối mang mã \path{KDEF-KAGGLE-20261008-LIVE}. Từ 140 mã nhóm có đủ bảy thư mục nhãn, chương trình chọn cố định năm mã \path{KG011}, \path{KG039}, \path{KG061}, \path{KG074} và \path{KG112} bằng seed 20261008. Số lượng năm nhóm được chọn để tái hiện rõ luồng hệ thống, không nhằm ước lượng hiệu năng trên quần thể KDEF. Với mỗi nhóm, một ảnh \textit{Neutral} được dùng làm ảnh đăng ký; 35 ảnh khác, tương ứng bảy nhãn cho mỗi nhóm, được dành riêng để hiệu chỉnh ngưỡng định danh và không xuất hiện trong phần phát lại. Các ảnh còn lại tạo năm lượt mua sắm cho mỗi hồ sơ, mỗi lượt gồm bốn điểm chạm cách nhau năm phút. Tổng đầu vào là năm hồ sơ, 25 lượt và 100 khung dữ liệu camera mô phỏng.
+
+Nhãn thư mục Kaggle chỉ được dùng để chọn ảnh và đánh giá sau khi xử lý. Khi gửi ảnh, chương trình không truyền nhãn mong đợi cho dịch vụ thị giác; nhãn của chuỗi được đọc từ trường \texttt{expression\_label} do DeepFace trả về. Mỗi ảnh được phát lại qua giao diện \texttt{POST /api/v1/observations} với loại nguồn \texttt{CAMERA}, giống dữ liệu mà nguồn camera cung cấp cho máy chủ nghiệp vụ. Giá trị \texttt{CAMERA} mô tả kênh tiếp nhận của hệ thống, không có nghĩa ảnh được thu trực tiếp từ camera vật lý trong thực nghiệm này. Tệp kê khai lưu tên tệp nguồn, hàm băm SHA-256, ảnh đăng ký, ảnh hiệu chỉnh, ảnh quan sát và thời gian phát.
 
 \begin{figure}[H]
     \centering
@@ -437,7 +439,7 @@ Toàn bộ 100 khung được RetinaFace phát hiện là ảnh hợp lệ và D
 
 \begin{table}[H]
     \centering
-    \caption{Kết quả xử lý 100 khung camera KDEF}
+    \caption{Kết quả xử lý 100 khung dữ liệu camera mô phỏng từ KDEF}
     \label{tab:kdef_identity_result_ch5}
     \begin{tabular}{|l|r|r|}
         \hline
@@ -457,7 +459,7 @@ Toàn bộ 100 khung được RetinaFace phát hiện là ảnh hợp lệ và D
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.86\textwidth]{Hinhve/Chuong5/5_21_kdef_ket_qua_dinh_danh.png}
-    \caption{Kết quả ghép định danh trên 100 khung camera KDEF}
+    \caption{Kết quả ghép định danh trên 100 khung dữ liệu camera mô phỏng từ KDEF}
     \label{fig:kdef_identity_result_ch5}
 \end{figure}
 
@@ -506,13 +508,13 @@ So sánh nhãn DeepFace với nhãn thư mục của 100 ảnh cho Accuracy bằ
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png}
-    \caption{Ma trận nhầm lẫn biểu cảm của 100 khung camera KDEF}
+    \caption{Ma trận nhầm lẫn biểu cảm của 100 khung dữ liệu camera mô phỏng từ KDEF}
     \label{fig:kdef_expression_confusion_ch5}
 \end{figure}
 
 Mô hình nhận diện tốt nhất lớp \textit{Happy} với F1 bằng 0,907, nhưng nhầm 14 trong 35 ảnh \textit{Neutral} thành \textit{Sad} và sáu trong mười ảnh \textit{Angry} thành \textit{Sad}. Do nguồn Kaggle đã qua xử lý và không có vòng gán nhãn lại độc lập, các con số chỉ mô tả mức phù hợp với nhãn thư mục của tập phát lại. Kết quả 0,540 không được thay bằng nhãn nguồn khi tạo chuỗi; chính các dự đoán thực này được chuyển sang bước phân cụm.
 
-\subsection{Kết quả phân cụm chuỗi từ nguồn Camera}
+\subsection{Kết quả phân cụm chuỗi từ dữ liệu camera mô phỏng}
 \label{subsection:5.4.4}
 
 Run phân tích chuỗi có mã \path{a845f266-7dab-4dff-ba42-a61a46930d7a}. Hệ thống nhận 25 lần mua sắm; điều kiện của kịch bản yêu cầu đủ bốn trạng thái nên sử dụng 22 chuỗi và loại ba chuỗi lần lượt chỉ có 3, 3 và 2 trạng thái. Với $N=22$, ngưỡng kích thước cụm tối thiểu bằng hai. Các phương án $K=2$ đến $K=6$ thỏa ngưỡng; $K=7$ đến $K=11$ bị loại vì xuất hiện cụm chỉ có một chuỗi.
@@ -522,14 +524,14 @@ Trong các phương án hợp lệ, $K=6$ có ASW lớn nhất bằng 0,4566, c�
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{Hinhve/Chuong5/5_26_kdef_chon_so_cum.png}
-    \caption{ASW và điều kiện kích thước cụm của run Camera KDEF}
+    \caption{ASW và điều kiện kích thước cụm của lần chạy trên dữ liệu camera mô phỏng}
     \label{fig:kdef_k_selection_ch5}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_22_kdef_tong_quan_phan_cum.png}
-    \caption{Run phân cụm nguồn Camera hoàn tất trên giao diện hệ thống}
+    \caption{Lần phân cụm dữ liệu camera mô phỏng hoàn tất trên giao diện hệ thống}
     \label{fig:kdef_cluster_overview_ch5}
 \end{figure}
 
@@ -537,7 +539,7 @@ Năm medoid và quy mô cụm được trình bày tại Bảng~\ref{tab:kdef_cl
 
 \begin{table}[H]
     \centering
-    \caption{Năm cụm của run Camera KDEF}
+    \caption{Năm cụm của lần chạy trên dữ liệu camera mô phỏng từ KDEF}
     \label{tab:kdef_cluster_result_ch5}
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{|c|l|r|r|r|}
@@ -560,7 +562,7 @@ Năm medoid và quy mô cụm được trình bày tại Bảng~\ref{tab:kdef_cl
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_23_kdef_cum_medoid.png}
-    \caption{Các medoid và thống kê cụm của run Camera KDEF}
+    \caption{Các medoid và thống kê cụm của dữ liệu camera mô phỏng từ KDEF}
     \label{fig:kdef_medoids_ch5}
 \end{figure}
 
@@ -581,8 +583,8 @@ Năm medoid và quy mô cụm được trình bày tại Bảng~\ref{tab:kdef_cl
 \subsection{Ý nghĩa và giới hạn của lần chạy đầu cuối}
 \label{subsection:5.4.5}
 
-Kịch bản chứng minh dữ liệu ảnh có thể đi hết luồng hiện thực: tạo hồ sơ bằng ảnh đăng ký, tiếp nhận ảnh tại nhiều điểm chạm, phát hiện khuôn mặt, ghép định danh, dự đoán biểu cảm, hình thành chuỗi, tính khoảng cách Optimal Matching, phân cụm PAM và truy vết medoid về quan sát ban đầu. Bộ kiểm tra tự động xác nhận 35 điều kiện về số lượt, thứ tự điểm chạm, nguồn dữ liệu và trạng thái run; toàn bộ điều kiện đều đạt. Các tệp \path{replay\_results.jsonl}, \path{kdef\_metrics.json}, \path{verification.json}, kết quả phân cụm và kê khai ảnh chụp được lưu dưới thư mục artifact của \path{KDEF-KAGGLE-20261008-LIVE}.
+Kịch bản chứng minh dữ liệu ảnh mô phỏng từ nguồn camera có thể đi hết luồng phần mềm: tạo hồ sơ bằng ảnh đăng ký, tiếp nhận ảnh tại nhiều điểm chạm, phát hiện khuôn mặt, ghép định danh, dự đoán biểu cảm, hình thành chuỗi, tính khoảng cách Optimal Matching, phân cụm PAM và truy vết medoid về quan sát ban đầu. Bộ kiểm tra tự động xác nhận 35 điều kiện về số lượt, thứ tự điểm chạm, nguồn dữ liệu và trạng thái run; toàn bộ điều kiện đều đạt. Các tệp \path{replay\_results.jsonl}, \path{kdef\_metrics.json}, \path{verification.json}, kết quả phân cụm và kê khai ảnh chụp được lưu dưới thư mục artifact của \path{KDEF-KAGGLE-20261008-LIVE}.
 
-Kết quả không cho phép kết luận khách hàng ``hài lòng'' hay ``không hài lòng''. Medoid chỉ mô tả kiểu chuỗi nhãn do mô hình quan sát; muốn gắn cụm với mức hài lòng cần thêm biến đối chứng độc lập. Thực nghiệm cũng chỉ dùng năm mã nhóm từ một bản KDEF đã qua xử lý, ảnh được dàn trên nền camera tổng hợp và ngưỡng định danh được hiệu chỉnh cho chính phạm vi demo. Vì vậy, tỷ lệ 96\%, Accuracy 0,540 và ASW 0,445 chỉ là kết quả của kịch bản kiểm nghiệm này, không phải tuyên bố hiệu năng trong cửa hàng thực tế hoặc trên toàn bộ KDEF.
+Kết quả không cho phép kết luận khách hàng ``hài lòng'' hay ``không hài lòng''. Medoid chỉ mô tả kiểu chuỗi nhãn do mô hình quan sát; muốn gắn cụm với mức hài lòng cần thêm biến đối chứng độc lập. Thực nghiệm cũng chỉ dùng năm mã nhóm từ một bản KDEF đã qua xử lý, ảnh được phát lại để mô phỏng dữ liệu camera và ngưỡng định danh được hiệu chỉnh cho chính phạm vi demo. Do chưa đánh giá bằng hệ thống camera vật lý tại cửa hàng, tỷ lệ 96\%, Accuracy 0,540 và ASW 0,445 chỉ là kết quả của kịch bản kiểm nghiệm phần mềm này, không phải tuyên bố hiệu năng trong môi trường vận hành thực tế hoặc trên toàn bộ KDEF.
 
 \end{document}

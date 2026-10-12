@@ -4,9 +4,9 @@
 \section{Tổng quan hệ thống}
 \label{section:4.1}
 
-Hệ thống được xây dựng để quản lý dữ liệu khách hàng, tiếp nhận hình ảnh tại các điểm chạm, nhận dạng khách hàng, ghi nhận biểu cảm và tổng hợp diễn biến biểu cảm trong từng lần mua sắm. Luồng xử lý bắt đầu khi nguồn thu nhận gửi ảnh kèm mã sự kiện, điểm chạm và thời gian ghi nhận. Kết quả xử lý ảnh được kết hợp với dữ liệu khách hàng để tạo bản ghi quan sát, liên kết vào lần mua sắm và cung cấp dữ liệu cho các chức năng phân tích.
+Hệ thống được xây dựng để quản lý dữ liệu khách hàng, tiếp nhận dữ liệu ảnh từ camera tại các điểm chạm, nhận dạng khách hàng, ghi nhận biểu cảm và tổng hợp diễn biến biểu cảm trong từng lần mua sắm. Luồng xử lý bắt đầu khi nguồn dữ liệu camera gửi ảnh kèm mã sự kiện, điểm chạm và thời gian ghi nhận. Kết quả xử lý ảnh được kết hợp với dữ liệu khách hàng để tạo bản ghi quan sát, liên kết vào lần mua sắm và cung cấp dữ liệu cho các chức năng phân tích.
 
-Kiến trúc hệ thống gồm giao diện web, máy chủ nghiệp vụ, dịch vụ xử lý ảnh, dịch vụ mô phỏng và cơ sở dữ liệu. Giao diện web tiếp nhận thao tác của người quản lý. Máy chủ nghiệp vụ cung cấp API, thực hiện các quy tắc quản lý dữ liệu và điều phối quá trình xử lý ảnh. Dịch vụ xử lý ảnh phát hiện khuôn mặt, phân loại biểu cảm và tạo véc-tơ đặc trưng danh tính. Cơ sở dữ liệu lưu thông tin khách hàng, mẫu khuôn mặt, điểm chạm, sản phẩm, đơn hàng, sự kiện ảnh, bản ghi quan sát, lần mua sắm và kết quả phân cụm. Dịch vụ mô phỏng tạo các sự kiện quan sát phục vụ quá trình chạy thử chức năng.
+Kiến trúc hệ thống gồm giao diện web, máy chủ nghiệp vụ, dịch vụ xử lý ảnh và cơ sở dữ liệu; nguồn dữ liệu camera là tác nhân bên ngoài cung cấp ảnh tại các điểm chạm. Giao diện web tiếp nhận thao tác của người quản lý. Máy chủ nghiệp vụ cung cấp API, thực hiện các quy tắc quản lý dữ liệu và điều phối quá trình xử lý ảnh. Dịch vụ xử lý ảnh phát hiện khuôn mặt, phân loại biểu cảm và tạo véc-tơ đặc trưng danh tính. Cơ sở dữ liệu lưu thông tin khách hàng, mẫu khuôn mặt, điểm chạm, sản phẩm, đơn hàng, sự kiện ảnh, bản ghi quan sát, lần mua sắm và kết quả phân cụm.
 
 \begin{figure}[H]
     \centering
@@ -22,14 +22,12 @@ Kiến trúc hệ thống gồm giao diện web, máy chủ nghiệp vụ, dịc
         \node[block] (browser) {Trình duyệt\\người quản lý};
         \node[block, right=of browser] (web) {Giao diện web\\React, Nginx};
         \node[block, right=of web] (api) {Máy chủ nghiệp vụ\\FastAPI};
-        \node[block, below=of api] (source) {Nguồn thu nhận\\ảnh tại điểm chạm};
-        \node[block, below=of web] (simulator) {Dịch vụ\\mô phỏng};
+        \node[block, below=of api] (source) {Nguồn dữ liệu camera\\tại điểm chạm};
         \node[block, right=of api, yshift=12mm] (vision) {Dịch vụ xử lý ảnh};
         \node[store, right=of api, yshift=-14mm] (database) {PostgreSQL\\và pgvector};
         \draw[both] (browser) -- node[note, above] {Giao diện} (web);
         \draw[both] (web) -- node[note, above] {API} (api);
         \draw[flow] (source) -- node[note, right] {Ảnh và\\ngữ cảnh} (api);
-        \draw[flow] (simulator) -- (api);
         \draw[both] (api) -- node[note, above] {Yêu cầu xử lý} (vision);
         \draw[both] (api) -- node[note, below] {Truy vấn dữ liệu} (database);
     \end{tikzpicture}%
@@ -38,7 +36,7 @@ Kiến trúc hệ thống gồm giao diện web, máy chủ nghiệp vụ, dịc
     \label{fig:component_architecture_ch4}
 \end{figure}
 
-Bảng~\ref{tab:system_components} trình bày công nghệ và nhiệm vụ của từng thành phần. Các thành phần được đóng gói thành các dịch vụ riêng và được khởi chạy bằng Docker Compose.
+Bảng~\ref{tab:system_components} trình bày công nghệ và nhiệm vụ của các thành phần phần mềm. Các thành phần này được đóng gói thành các dịch vụ riêng và được khởi chạy bằng Docker Compose. Nguồn dữ liệu camera được biểu diễn như một thành phần bên ngoài, cung cấp dữ liệu đầu vào cho máy chủ nghiệp vụ qua giao diện tiếp nhận ảnh; thành phần này không nằm trong phạm vi xây dựng của hệ thống.
 
 \begin{table}[H]
     \centering
@@ -53,8 +51,6 @@ Bảng~\ref{tab:system_components} trình bày công nghệ và nhiệm vụ c�
         Máy chủ nghiệp vụ & FastAPI, SQLAlchemy & Xác thực người dùng, cung cấp API, quản lý dữ liệu, gọi dịch vụ xử lý ảnh, đối sánh khách hàng và liên kết bản ghi theo lần mua sắm. \\
         \hline
         Dịch vụ xử lý ảnh & FastAPI, OpenCV, RetinaFace--MobileNet0.25, DeepFace Emotion, ArcFace & Phát hiện và căn chỉnh khuôn mặt, phân loại biểu cảm, tạo véc-tơ đặc trưng danh tính và trả kết quả theo từng khuôn mặt. \\
-        \hline
-        Dịch vụ mô phỏng & FastAPI & Tạo sự kiện quan sát và dữ liệu mua sắm để chạy thử các chức năng của hệ thống. \\
         \hline
         Cơ sở dữ liệu & PostgreSQL, pgvector, Alembic & Lưu dữ liệu nghiệp vụ, véc-tơ khuôn mặt và kết quả phân tích; quản lý thay đổi cấu trúc cơ sở dữ liệu. \\
         \hline
@@ -71,7 +67,7 @@ Các chức năng được cài đặt dựa trên kiến trúc tại Hình~\ref
 \subsection{Usecase tổng quan}
 \label{subsection:4.2.1}
 
-Hệ thống có hai tác nhân chính. Người quản lý sử dụng giao diện web để quản lý dữ liệu và xem kết quả phân tích. Nguồn thu nhận gửi ảnh cùng thông tin điểm chạm và thời gian để tạo dữ liệu quan sát. Các use case tổng quan được thể hiện tại Hình~\ref{fig:usecase_overview_ch4}.
+Hệ thống có hai tác nhân chính. Người quản lý sử dụng giao diện web để quản lý dữ liệu và xem kết quả phân tích. Nguồn dữ liệu camera gửi ảnh cùng thông tin điểm chạm và thời gian để tạo dữ liệu quan sát. Các use case tổng quan được thể hiện tại Hình~\ref{fig:usecase_overview_ch4}.
 
 \begin{figure}[H]
     \centering
@@ -89,7 +85,7 @@ Hệ thống có hai tác nhân chính. Người quản lý sử dụng giao di�
         \node[usecase, below=of catalog] (visit) {Theo dõi lần mua sắm};
         \node[usecase, below=of visit] (report) {Phân tích biểu cảm và phân cụm chuỗi};
         \node[usecase, right=32mm of catalog] (observation) {Gửi ảnh và tạo bản ghi quan sát};
-        \node[actor, right=of observation] (source) {Nguồn thu nhận};
+        \node[actor, right=of observation] (source) {Nguồn dữ liệu camera};
         \draw[relation] (manager) -- (login);
         \draw[relation] (manager) -- (customer);
         \draw[relation] (manager) -- (catalog);
@@ -102,7 +98,7 @@ Hệ thống có hai tác nhân chính. Người quản lý sử dụng giao di�
     \label{fig:usecase_overview_ch4}
 \end{figure}
 
-Người quản lý đăng nhập trước khi sử dụng các chức năng nghiệp vụ. Nhóm quản lý dữ liệu gồm khách hàng, mẫu khuôn mặt, sản phẩm, đơn hàng và điểm chạm. Nhóm theo dõi trình bày các bản ghi theo từng lần mua sắm. Nhóm phân tích cung cấp phân bố biểu cảm, sự thay đổi giữa các điểm chạm, chất lượng dữ liệu và phân cụm chuỗi trạng thái. Nguồn thu nhận tương tác với chức năng tạo bản ghi quan sát thông qua API.
+Người quản lý đăng nhập trước khi sử dụng các chức năng nghiệp vụ. Nhóm quản lý dữ liệu gồm khách hàng, mẫu khuôn mặt, sản phẩm, đơn hàng và điểm chạm. Nhóm theo dõi trình bày các bản ghi theo từng lần mua sắm. Nhóm phân tích cung cấp phân bố biểu cảm, sự thay đổi giữa các điểm chạm, chất lượng dữ liệu và phân cụm chuỗi trạng thái. Nguồn dữ liệu camera tương tác với chức năng tạo bản ghi quan sát thông qua API.
 
 \subsection{Phân rã chức năng}
 \label{subsection:4.2.2}
@@ -230,9 +226,9 @@ Các use case chính được đặc tả theo tác nhân, điều kiện thực
         \hline
         \textbf{Tên chức năng} & Tiếp nhận ảnh và tạo bản ghi quan sát \\
         \hline
-        \textbf{Tác nhân} & Nguồn thu nhận \\
+        \textbf{Tác nhân} & Nguồn dữ liệu camera \\
         \hline
-        \textbf{Sự kiện kích hoạt} & Nguồn thu nhận gửi ảnh, mã sự kiện, điểm chạm và thời gian ghi nhận. \\
+        \textbf{Sự kiện kích hoạt} & Nguồn dữ liệu camera gửi ảnh, mã sự kiện, điểm chạm và thời gian ghi nhận. \\
         \hline
         \textbf{Tiền điều kiện} & Điểm chạm đã được khai báo và đang hoạt động. \\
         \hline
@@ -298,7 +294,7 @@ Các use case chính được đặc tả theo tác nhân, điều kiện thực
 \section{Giao diện ứng dụng}
 \label{section:4.3}
 
-Giao diện ứng dụng được tổ chức theo thanh điều hướng bên trái. Các màn hình dưới đây được chụp lại từ hệ thống sau khi toàn bộ dịch vụ được khởi động và dữ liệu được tạo qua luồng xử lý của ứng dụng.
+Giao diện ứng dụng được tổ chức theo thanh điều hướng bên trái. Các màn hình dưới đây được chụp lại từ hệ thống sau khi các dịch vụ phần mềm được khởi động và dữ liệu camera được gửi qua luồng tiếp nhận, xử lý và lưu trữ của ứng dụng.
 
 \textbf{Màn hình đăng nhập.} Người quản lý nhập địa chỉ thư điện tử và mật khẩu để bắt đầu phiên sử dụng. Sau khi xác thực thành công, giao diện chuyển đến trang tổng quan.
 
