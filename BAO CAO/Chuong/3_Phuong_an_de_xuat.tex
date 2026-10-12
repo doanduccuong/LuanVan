@@ -4,9 +4,7 @@
 \section{Tổng quan phương pháp}
 \label{section:3.1}
 
-Giả pháp của luận văn là thay vì chỉ xem xét cảm xúc của tại một điểm cố định, ta sẽ tổ chức và kết hợp các kết quả nhận dạng biểu cảm tại nhiều điểm chạm thành dữ liệu có thể phân tích theo quá trình mua sắm của từng khách hàng. Để xem xét diễn biến qua các khu vực, 
-cần biết nhãn đó thuộc khách hàng nào, được ghi nhận ở đâu, vào thời điểm nào và trong lần mua sắm nào. 
-Phương pháp sẽ giải quyết lần lượt việc hình thành bản ghi, liên kết chuỗi và phân tích chuỗi đã hình thành.
+Giải pháp của luận văn là tổ chức và kết hợp kết quả nhận dạng biểu cảm tại nhiều điểm chạm, thay vì chỉ xem xét biểu cảm tại một vị trí cố định. Mỗi nhãn biểu cảm cần được đặt trong ngữ cảnh gồm khách hàng, điểm chạm, thời điểm và lần mua sắm tương ứng để có thể khảo sát diễn biến trong hành trình khách hàng. Trên cơ sở đó, luận văn đề xuất phương pháp gồm ba giai đoạn: hình thành bản ghi quan sát, liên kết các bản ghi thành chuỗi và phân tích các chuỗi đã hình thành.
 
 Trong phạm vi nghiên cứu, mỗi điểm chạm được gắn với một khu vực xác định trước trong cửa hàng, chẳng hạn tiếp đón, tư vấn hoặc thanh toán. Đầu vào gồm hình ảnh rời, mã điểm chạm và thời gian ghi nhận. Danh sách điểm chạm và các mẫu khuôn mặt tham chiếu của khách hàng đã đăng ký là dữ liệu được chuẩn bị trước. 
 Phương pháp chỉ nhận dạng các khách hàng đã có mẫu khuôn mặt trong kho tham chiếu. Nếu không tìm thấy mẫu phù hợp hoặc kết quả đối sánh không đạt ngưỡng chấp nhận, quan sát sẽ không được gắn với khách hàng và không được sử dụng để hình thành chuỗi hành trình cá nhân.
@@ -32,7 +30,7 @@ Quy trình tổng thể được trình bày tại Hình~\ref{fig:solution_flow}
     \label{fig:solution_flow}
 \end{figure}
 
-Bảng~\ref{tab:solution_stage_io} xác định đầu vào, quy tắc chính và đầu ra của từng giai đoạn. Mục~\ref{section:3.2} trình bày cách tạo một bản ghi tại điểm chạm; Mục~\ref{section:3.3} trình bày cơ chế hình thành chuỗi; Mục~\ref{section:3.4} trình bày các phép phân tích trên dữ liệu đó.
+Bảng~\ref{tab:solution_stage_io} xác định đầu vào, quy tắc chính và đầu ra của từng giai đoạn. Mục~\ref{section:3.2} trình bày cách tạo một bản ghi tại điểm chạm; Mục~\ref{section:3.3} trình bày cơ chế hình thành chuỗi; Mục~\ref{section:3.4} trình bày các phép phân tích trên dữ liệu đó. Chương này tập trung vào mô hình dữ liệu, quy tắc biến đổi và tiêu chí phân tích của phương pháp đề xuất; kiến trúc phần mềm, giao diện, API và cách tổ chức các thành phần triển khai được trình bày riêng ở Chương~4.
 
 \begin{table}[H]
     \centering
@@ -52,32 +50,27 @@ Bảng~\ref{tab:solution_stage_io} xác định đầu vào, quy tắc chính v�
     \end{tabular}
 \end{table}
 
-Phương pháp xem bảy nhãn biểu cảm là các trạng thái phân loại, những trạng thái này sẽ không được xử dụng thay cho kết quả đánh giá tổng thế xem khách hàng có hài 
-hay không. Nhận dạng khách hàng cung cấp căn cứ liên kết bản ghi, còn phân loại biểu cảm cung cấp trạng thái để phân tích; hai kết quả này sẽ được xử lí một cách độc lập với nhau. 
+Phương pháp xem bảy nhãn biểu cảm là các trạng thái phân loại, không sử dụng chúng như kết quả đánh giá tổng thể về mức độ hài lòng của khách hàng. Nhận dạng khách hàng cung cấp căn cứ để liên kết các bản ghi, còn phân loại biểu cảm cung cấp trạng thái cho phép phân tích chuỗi; hai kết quả được xác định độc lập trước khi kết hợp trong cùng một bản ghi quan sát.
 
 \section{Phương pháp hình thành bản ghi tại các điểm chạm}
 \label{section:3.2}
 
 Mục tiêu của giai đoạn này là chuyển dữ liệu ảnh thành một đơn vị quan sát có danh tính và ngữ cảnh cụ thể. Mỗi khuôn mặt được xử lý riêng; vì vậy, một ảnh có thể tạo nhiều bản ghi nếu chứa nhiều khách hàng được nhận dạng thành công. 
-Nhãn biểu cảm của một khuôn mặt sẽ được kết hợp với kết quả đối sánh của chính vùng khuôn mặt đó.
+Nhãn biểu cảm của một khuôn mặt được kết hợp với kết quả đối sánh của chính vùng khuôn mặt đó.
 
 \subsection{Xác định dữ liệu đầu vào và ngữ cảnh điểm chạm}
 \label{subsection:3.2.1}
 
-Một sự kiện thu nhận được biểu diễn bởi bộ dữ liệu $(e,I,a,t)$, trong đó $e$ là mã sự kiện, $I$ là ảnh, $a$ là mã điểm chạm và $t$ là thời điểm ghi nhận ảnh. Mã điểm chạm được lấy từ cấu hình nguồn thu nhận. Thời gian phải có thông tin múi giờ để các quan sát từ nhiều nguồn có thể được đưa về cùng một mốc so sánh.
+Một sự kiện thu nhận được biểu diễn bởi bộ dữ liệu $(e,I,a,t)$, trong đó $e$ là mã sự kiện, $I$ là ảnh, $a$ là mã điểm chạm và $t$ là thời điểm ghi nhận ảnh. Phương pháp giả định mã điểm chạm thuộc tập điểm chạm đã xác định trước, ảnh có thể giải mã và thời điểm có đủ thông tin để quy đổi về cùng một mốc so sánh. Thời điểm thu nhận ảnh, thay vì thời điểm xử lý, được sử dụng để thiết lập thứ tự quan sát.
 
-Tệp ảnh phải là định dạng được hỗ trợ và phải được hệ thống giải mã thành công, điểm chạm phải nằm trong danh sách đang sử dụng và thời gian phải hợp lệ trước khi tiến hành xử lý. Thời điểm ghi nhận ảnh được giữ làm thời gian của bản ghi, vì thời gian truyền và xử lý có thể khác nhau giữa các nguồn. 
-Mỗi ảnh được gắn một mã sự kiện duy nhất. Khi nhận được yêu cầu có mã sự kiện đã tồn tại, hệ thống xem đó là yêu cầu gửi lại và sử dụng kết quả đã xử lý, thay vì tạo thêm bản ghi quan sát.
-
-Đầu vào là các ảnh rời do nguồn thu nhận lựa chọn. Hai ảnh khác nhau chụp liên tiếp cùng một khách hàng vẫn được xem là hai sự kiện khác nhau. Do đó, cơ chế chống gửi lặp không ảnh hưởng đến việc thống kê số lượng sự kiện dựa trên tần suất lấy mẫu của nguồn. Tần suất lấy mẫu cần được kiểm soát tại nguồn và được xem xét khi so sánh số lượng quan sát giữa các điểm chạm.
+Mã sự kiện $e$ dùng để phân biệt các lần thu nhận và loại bỏ bản sao của cùng một sự kiện. Hai ảnh khác nhau được ghi nhận liên tiếp vẫn là hai sự kiện độc lập, kể cả khi chứa cùng một khách hàng. Vì vậy, số lượng quan sát phụ thuộc vào chiến lược lấy mẫu ảnh; tần suất lấy mẫu cần được giữ nhất quán hoặc được kiểm soát khi so sánh phân bố giữa các điểm chạm.
 
 \subsection{Phát hiện và trích xuất vùng khuôn mặt}
 \label{subsection:3.2.2}
 
-Phương pháp sử dụng RetinaFace với mạng nền MobileNet0.25 để định vị khuôn mặt. Cấu hình này được lựa chọn vì đạt sự cân bằng tốt giữa chất lượng phát hiện và tốc độ xử lý trên CPU trong thực nghiệm so sánh với Haar Cascade và MTCNN; kết quả chi tiết được trình bày tại Mục~\ref{subsection:5.1.2}
-. Bộ phát hiện trả về khung bao, điểm tin cậy phát hiện và các điểm mốc khuôn mặt. Các khung bao được lọc theo ngưỡng tin cậy phát hiện và bước loại bỏ khung bao chồng lặp. Ngưỡng này kiểm soát việc chấp nhận một vùng ảnh là khuôn mặt, khác với ngưỡng đối sánh danh tính ở bước sau.
+Phương pháp sử dụng RetinaFace với mạng nền MobileNet0.25 để định vị khuôn mặt. Cấu hình này được lựa chọn vì đạt sự cân bằng tốt giữa chất lượng phát hiện và tốc độ xử lý trên CPU trong thực nghiệm so sánh với Haar Cascade và MTCNN; kết quả chi tiết được trình bày tại Mục~\ref{subsection:5.1.2}. Bộ phát hiện trả về khung bao, điểm tin cậy phát hiện và các điểm mốc khuôn mặt. Các khung bao được lọc theo ngưỡng tin cậy phát hiện và bước loại bỏ khung bao chồng lặp. Ngưỡng này kiểm soát việc chấp nhận một vùng ảnh là khuôn mặt, khác với ngưỡng đối sánh danh tính ở bước sau.
 
-Với mỗi khuôn mặt được phát hiện, hệ thống điều chỉnh tọa độ khung bao để bảo đảm không vượt ra ngoài phạm vi ảnh, sau đó cắt vùng ảnh tương ứng. Vùng khuôn mặt chỉ được chấp nhận khi có chiều rộng và chiều cao lớn hơn không. Nếu ảnh không chứa khuôn mặt hợp lệ, hệ thống sẽ coi đó là lỗi và  không tạo bản ghi quan sát. Trường hợp ảnh có nhiều khuôn mặt, mỗi khuôn mặt hợp lệ được xử lý độc lập; vùng cắt không hợp lệ sẽ bị loại bỏ mà không làm ảnh hưởng đến các khuôn mặt còn lại. Các vùng khuôn mặt hợp lệ sau đó được chuyển sang nhánh phân loại biểu cảm và nhánh trích xuất đặc trưng danh tính
+Với mỗi khuôn mặt được phát hiện, tọa độ khung bao được giới hạn trong phạm vi ảnh trước khi cắt vùng ảnh tương ứng. Vùng khuôn mặt chỉ được chấp nhận khi có chiều rộng và chiều cao lớn hơn không. Ảnh không có vùng khuôn mặt hợp lệ không tạo ra bản ghi quan sát. Nếu ảnh có nhiều khuôn mặt, mỗi vùng hợp lệ được xem là một ứng viên quan sát độc lập, còn vùng cắt không hợp lệ bị loại. Các vùng khuôn mặt hợp lệ sau đó được chuyển đồng thời sang nhánh phân loại biểu cảm và nhánh trích xuất đặc trưng danh tính.
 
 Vùng khuôn mặt được cắt ở bước trước được căn chỉnh hình học bằng năm điểm mốc do RetinaFace xác định, gồm hai mắt, mũi và hai khóe miệng. Từ các điểm mốc này, phương pháp ước lượng phép biến đổi đồng dạng để xoay, thay đổi tỷ lệ và đưa khuôn mặt về vị trí chuẩn. Quy trình từ ảnh đầu vào đến vùng khuôn mặt hợp lệ được tóm tắt tại Hình~\ref{fig:face_extraction_pipeline}. Ảnh sau căn chỉnh được sử dụng làm đầu vào chung cho nhánh phân loại biểu cảm và nhánh trích xuất đặc trưng danh tính. Trước khi suy luận, mỗi nhánh tiếp tục thay đổi kích thước và chuẩn hóa ảnh theo yêu cầu của mô hình tương ứng. Việc căn chỉnh giúp giảm ảnh hưởng của độ nghiêng và sự khác biệt về tỷ lệ khuôn mặt; tuy nhiên, độ sáng, độ mờ, che khuất và sai số phát hiện điểm mốc vẫn có thể ảnh hưởng đến kết quả phân loại biểu cảm và đối sánh danh tính.
 
@@ -116,12 +109,12 @@ Nhánh biểu cảm sử dụng mô hình CNN Emotion được cung cấp bởi 
     \label{eq:ch3_expression_decision}
 \end{equation}
 
-Bản ghi giữ nhãn $\widehat{y}$, mức tin cậy $q$ và véc-tơ điểm số của cả bảy lớp. Mức tin cậy được sử dụng khi lựa chọn quan sát đại diện hoặc xử lý trường hợp các nhãn có cùng tần suất. Ví dụ, nếu nhãn \textit{Vui} và \textit{Trung tính} cùng xuất hiện nhiều nhất với số lần bằng nhau, hệ thống ưu tiên nhãn có quan sát đạt mức tin cậy cao hơn. Khi mô hình xử lý thành công, nhánh biểu cảm trả về một trong bảy nhãn biểu cảm cùng điểm số tương ứng của từng lớp. Nếu quá trình suy luận không thực hiện được hoặc phát sinh lỗi, kết quả biểu cảm được để trống thay vì tự động gán nhãn nào đó ví dụ như \textit{Neutral}. 
+Bản ghi quan sát giữ nhãn $\widehat{y}$, mức tin cậy $q$ và véc-tơ điểm số của cả bảy lớp. Mức tin cậy được sử dụng khi lựa chọn quan sát đại diện hoặc xử lý trường hợp các nhãn có cùng tần suất. Ví dụ, nếu \textit{Happy} và \textit{Neutral} có cùng số lần xuất hiện lớn nhất, nhãn có tổng mức tin cậy cao hơn được ưu tiên. Khi không thu được kết quả suy luận hợp lệ, trường biểu cảm được xem là thiếu dữ liệu thay vì tự động gán một nhãn mặc định như \textit{Neutral}.
 
 \subsection{Xác định khách hàng bằng đối sánh khuôn mặt}
 \label{subsection:3.2.4}
 
-Nhánh nhận dạng danh tính sử dụng mô hình ArcFace được cung cấp bởi thư viện DeepFace để chuyển vùng khuôn mặt đã căn chỉnh thành véc-tơ đặc trưng $\boldsymbol{z}\in\mathbb{R}^{512}$ \cite{deng2019arcface}. Cơ sở dữ liệu chứa các véc-tơ đặc trưng $\boldsymbol{z}_j$ được tạo từ ảnh khuôn mặt mẫu của khách hàng. Đối với mỗi vùng khuôn mặt được phát hiện và căn chỉnh ở bước trước, hệ thống tính khoảng cách cô-sin giữa véc-tơ $\boldsymbol{z}$ vừa tạo và từng véc-tơ $\boldsymbol{z}_j$ đã lưu:
+Nhánh nhận dạng danh tính sử dụng mô hình ArcFace được cung cấp bởi thư viện DeepFace để chuyển vùng khuôn mặt đã căn chỉnh thành véc-tơ đặc trưng $\boldsymbol{z}\in\mathbb{R}^{512}$ \cite{deng2019arcface}. Tập tham chiếu gồm các véc-tơ đặc trưng $\boldsymbol{z}_j$ được tạo từ ảnh khuôn mặt mẫu của khách hàng. Đối với mỗi vùng khuôn mặt được phát hiện và căn chỉnh ở bước trước, khoảng cách cô-sin giữa véc-tơ $\boldsymbol{z}$ vừa tạo và từng véc-tơ tham chiếu $\boldsymbol{z}_j$ được tính theo:
 \begin{equation}
     d(\boldsymbol{z},\boldsymbol{z}_j)
     =1-\frac{\boldsymbol{z}^{\mathsf T}\boldsymbol{z}_j}
@@ -129,22 +122,22 @@ Nhánh nhận dạng danh tính sử dụng mô hình ArcFace được cung cấ
     \label{eq:ch3_identity_distance}
 \end{equation}
 
-Khoảng cách càng nhỏ thì hai véc-tơ càng giống nhau. Hệ thống tính khoảng cách đến tất cả các mẫu đang được sử dụng trong cơ sở dữ liệu và chọn mẫu có khoảng cách nhỏ nhất:
+Khoảng cách càng nhỏ thì hai véc-tơ càng giống nhau. Mẫu tham chiếu có khoảng cách nhỏ nhất được xác định bởi:
 \begin{equation}
     j^{*}=\underset{j}{\arg\min}\;d(\boldsymbol{z},\boldsymbol{z}_j),
     \qquad d_{\min}=d(\boldsymbol{z},\boldsymbol{z}_{j^{*}}).
     \label{eq:ch3_identity_nearest}
 \end{equation}
-Khách hàng gắn với mẫu $\boldsymbol{z}_{j^{*}}$ được xác định là người xuất hiện trong ảnh khi $d_{\min}\leq\tau_{\mathrm{id}}$, trong đó $\tau_{\mathrm{id}}$ là ngưỡng đối sánh danh tính. Nếu $d_{\min}>\tau_{\mathrm{id}}$, khuôn mặt được xem là không khớp với khách hàng nào trong cơ sở dữ liệu. Một khách hàng có thể có nhiều ảnh mẫu; hệ thống so sánh riêng với từng mẫu và sử dụng mẫu có khoảng cách nhỏ nhất để xác định khách hàng.
+Khách hàng gắn với mẫu $\boldsymbol{z}_{j^{*}}$ được xác định là người xuất hiện trong ảnh khi $d_{\min}\leq\tau_{\mathrm{id}}$, trong đó $\tau_{\mathrm{id}}$ là ngưỡng đối sánh danh tính. Nếu $d_{\min}>\tau_{\mathrm{id}}$, khuôn mặt được xem là không khớp với khách hàng nào trong tập tham chiếu. Khi một khách hàng có nhiều ảnh mẫu, phép so sánh được thực hiện với từng mẫu và sử dụng khoảng cách nhỏ nhất làm căn cứ quyết định.
 
-Luận văn kế thừa phương pháp phân tích đường cong ROC \cite{fawcett2006roc} và áp dụng phương pháp này để xác định ngưỡng đối sánh $\tau_{\mathrm{id}}$. Từ tập ảnh hiệu chỉnh, các cặp ảnh cùng người và các cặp ảnh của hai người khác nhau được tạo ra, sau đó khoảng cách cô-sin được tính cho từng cặp. Các giá trị khoảng cách quan sát được lần lượt được sử dụng làm ngưỡng ứng viên. Tại mỗi ngưỡng, tỷ lệ nhận đúng được tính trên các cặp ảnh cùng người và tỷ lệ nhận nhầm được tính trên các cặp ảnh của hai người khác nhau; hai tỷ lệ này tạo thành một điểm trên đường cong ROC. Luận văn đặt tỷ lệ nhận nhầm mục tiêu bằng 0 và chọn ngưỡng có tỷ lệ nhận đúng cao nhất trong số các ngưỡng đáp ứng điều kiện này. Nếu nhiều ngưỡng cho cùng tỷ lệ nhận đúng, ngưỡng lớn nhất được sử dụng. Ngưỡng được chọn được lưu lại và sử dụng trong quá trình đối sánh danh tính.
+Luận văn kế thừa phương pháp phân tích đường cong ROC \cite{fawcett2006roc} để xác định ngưỡng đối sánh $\tau_{\mathrm{id}}$. Từ tập ảnh hiệu chỉnh, các cặp ảnh cùng người và các cặp ảnh của hai người khác nhau được tạo ra, sau đó khoảng cách cô-sin được tính cho từng cặp. Các giá trị khoảng cách quan sát được lần lượt được xem là ngưỡng ứng viên. Tại mỗi ngưỡng, tỷ lệ nhận đúng được tính trên các cặp cùng người và tỷ lệ nhận nhầm được tính trên các cặp khác người; hai tỷ lệ này tạo thành một điểm trên đường cong ROC. Phương án đề xuất đặt tỷ lệ nhận nhầm mục tiêu bằng 0 và chọn ngưỡng có tỷ lệ nhận đúng cao nhất trong số các ngưỡng đáp ứng điều kiện này. Nếu nhiều ngưỡng cho cùng tỷ lệ nhận đúng, ngưỡng lớn nhất được chọn.
 
 \subsection{Kết hợp kết quả thành bản ghi tại điểm chạm}
 \label{subsection:3.2.5}
 
-Sau khi một vùng khuôn mặt được đối sánh thành công với khách hàng trong cơ sở dữ liệu, hệ thống sẽ tạo một bản ghi quan sát. Bản ghi này lưu kết quả nhận dạng khách hàng, kết quả phân loại biểu cảm, mã sự kiện, vị trí của khuôn mặt trong ảnh, điểm chạm và thời gian ghi nhận. Các trường thông tin của bản ghi được trình bày tại Bảng 3.2
+Một bản ghi quan sát được hình thành khi vùng khuôn mặt có thể gắn với một khách hàng theo quy tắc đối sánh ở Mục~\ref{subsection:3.2.4}. Bản ghi kết hợp danh tính, biểu cảm và ngữ cảnh thu nhận của cùng một vùng khuôn mặt. Các nhóm thông tin cần thiết cho các bước liên kết và phân tích tiếp theo được trình bày tại Bảng~\ref{tab:observation_fields}.
 
-\begin{table}[H]
+\begin{table}[htbp]
     \centering
     \caption{Thông tin được giữ trong một bản ghi quan sát}
     \label{tab:observation_fields}
@@ -161,12 +154,12 @@ Sau khi một vùng khuôn mặt được đối sánh thành công với khách
         \hline
         Biểu cảm & Nhãn dự đoán, mức tin cậy và điểm số của bảy lớp; để trống nếu phân loại không thành công \\
         \hline
-        Chất lượng và nguồn gốc xử lý & Trạng thái ảnh, trạng thái hai nhánh, phiên bản mô hình và nguồn dữ liệu để kiểm tra điều kiện phân tích \\
+        Chất lượng và khả năng truy vết & Chỉ báo hợp lệ của ảnh, danh tính và biểu cảm; thông tin nguồn và mô hình cần thiết để kiểm tra điều kiện phân tích \\
         \hline
     \end{tabular}
 \end{table}
 
-Điều kiện tạo bản ghi và điều kiện sử dụng biểu cảm cần được phân biệt. Nếu đã xác định được khách hàng nhưng nhánh biểu cảm thất bại, bản ghi vẫn ghi nhận sự xuất hiện của khách hàng và có thể tham gia xác định lần mua sắm. Tuy nhiên, bản ghi đó không đóng góp một nhãn cho thống kê hoặc chuỗi trạng thái. Ngược lại, nếu phân loại được biểu cảm nhưng không xác định được khách hàng, kết quả không được tạo thành bản ghi của một chuỗi cá nhân trong phạm vi phương pháp này.
+Điều kiện hình thành quan sát của khách hàng và điều kiện sử dụng nhãn biểu cảm cần được phân biệt. Nếu danh tính được xác định nhưng biểu cảm không hợp lệ, quan sát vẫn có thể tham gia xác định lần mua sắm nhưng không đóng góp nhãn cho thống kê hoặc chuỗi trạng thái. Ngược lại, nếu phân loại được biểu cảm nhưng không xác định được khách hàng, kết quả không được đưa vào chuỗi hành trình cá nhân trong phạm vi phương pháp này.
 
 Đầu ra của giai đoạn là các bản ghi tại điểm chạm có mã khách hàng và thời gian, cùng thông tin cho biết biểu cảm có hợp lệ hay không. Việc ghép các bản ghi thành một lần mua sắm được thực hiện theo cơ chế ở Mục~\ref{section:3.3}.
 
@@ -178,14 +171,14 @@ Giai đoạn liên kết xác định các bản ghi thuộc cùng một lần m
 \subsection{Nguyên tắc phân tách bản ghi theo khách hàng và lần mua sắm}
 \label{subsection:3.3.1}
 
-Các bản ghi được nhóm theo mã khách hàng và sắp xếp theo thời gian ghi nhận. Nếu khoảng thời gian giữa hai bản ghi liên tiếp không vượt quá ngưỡng $\Delta$, các bản ghi này được xếp vào cùng một lần mua sắm. Nếu khoảng thời gian vượt quá $\Delta$, bản ghi sau được xem là điểm bắt đầu của một lần mua sắm mới. Luận văn sử dụng ngưỡng $\Delta=30$ phút trong quá trình thực nghiệm.
+Các bản ghi được nhóm theo mã khách hàng và sắp xếp theo thời gian ghi nhận. Nếu khoảng thời gian giữa hai bản ghi liên tiếp không vượt quá ngưỡng $\Delta$, các bản ghi này được xếp vào cùng một lần mua sắm. Nếu khoảng thời gian vượt quá $\Delta$, bản ghi sau được xem là điểm bắt đầu của một lần mua sắm mới. Trong phương án đề xuất, ngưỡng được chọn là $\Delta=30$ phút.
 
-Với luồng bản ghi có thời gian không giảm, gọi $t_{\mathrm{last}}$ là thời điểm quan sát gần nhất của lần mua sắm đang xét và $t_i$ là thời điểm của bản ghi mới. Nếu chưa có lần mua sắm đang hoạt động, bản ghi khởi tạo một lần mới. Nếu đã có, bản ghi được thêm vào lần hiện tại khi
+Gọi $t_{\mathrm{last}}$ là thời điểm của quan sát gần nhất trong lần mua sắm đang xét và $t_i$ là thời điểm của bản ghi kế tiếp sau khi sắp xếp. Nếu chưa hình thành lần mua sắm, bản ghi đầu tiên khởi tạo một lần mới; nếu đã có, bản ghi được đưa vào lần hiện tại khi
 \begin{equation}
     0\leq t_i-t_{\mathrm{last}}\leq\Delta.
     \label{eq:ch3_visit_link}
 \end{equation}
-Khi $t_i-t_{\mathrm{last}}>\Delta$, lần trước kết thúc tại mốc quan sát cuối của nó và bản ghi mới bắt đầu một lần mua sắm khác. Việc kiểm tra này diễn ra khi có bản ghi mới của cùng khách hàng. Khu vực thanh toán hoặc sự xuất hiện của đơn hàng không tự quyết định ranh giới chuỗi.
+Khi $t_i-t_{\mathrm{last}}>\Delta$, lần trước kết thúc tại mốc quan sát cuối của nó và bản ghi kế tiếp bắt đầu một lần mua sắm khác. Khu vực thanh toán hoặc sự xuất hiện của đơn hàng không tự quyết định ranh giới chuỗi.
 
 Ngưỡng $\Delta$ ảnh hưởng trực tiếp đến dữ liệu phân tích: ngưỡng quá ngắn có thể chia một lần mua sắm thành nhiều chuỗi, còn ngưỡng quá dài có thể ghép hai lần đến cửa hàng. Vì vậy, cần giữ cố định ngưỡng trong một phép so sánh và đánh giá lại khi thay đổi bối cảnh thu nhận. Cơ chế cũng phụ thuộc vào chất lượng đối sánh danh tính; nhận dạng nhầm có thể đưa bản ghi vào sai khách hàng trước khi quy tắc sắp xếp các bản ghi theo thời gian được áp dụng.
 
@@ -198,18 +191,18 @@ Trong một lần mua sắm $v$, chuỗi quan sát được biểu diễn dướ
     \qquad t_{v,1}\leq t_{v,2}\leq\cdots\leq t_{v,n_v},
     \label{eq:ch3_observation_sequence}
 \end{equation}
-trong đó mỗi $o_{v,i}$ giữ điểm chạm, thời gian và kết quả xử lý của một bản ghi. Nếu nhiều bản ghi có cùng thời gian, mã bản ghi được sử dụng để duy trì thứ tự hiển thị ổn định. Thứ tự theo mã bản ghi không phản ánh thứ tự xảy ra thực tế của các quan sát.
+trong đó mỗi $o_{v,i}$ chứa điểm chạm, thời gian và kết quả xử lý của một bản ghi. Nếu nhiều bản ghi có cùng thời gian, mã bản ghi chỉ được dùng làm tiêu chí phụ để tạo thứ tự xác định, không được diễn giải là thứ tự xảy ra thực tế của các quan sát.
 
 Nếu cùng một thời điểm có các bản ghi tại những điểm chạm khác nhau trong một lần mua sắm, các bản ghi đó được xem là xung đột thứ tự. Chúng vẫn có thể đóng góp vào thống kê độc lập tại điểm chạm nếu biểu cảm hợp lệ, nhưng bị loại trước khi tạo cặp thay đổi và chuỗi trạng thái để phân cụm. Phương pháp không chọn một bản ghi để giữ lại chỉ vì nó có mức tin cậy biểu cảm hoặc điểm đối sánh tốt hơn.
 
-Khi một khu vực dự kiến không có quan sát, phương pháp ghi nhận tình trạng thiếu dữ liệu, không chèn một nhãn giả định vào chuỗi. Dữ liệu thiếu có thể do khách hàng không đi qua khu vực, nguồn thu nhận bỏ lỡ hoặc mô hình không tạo được kết quả hợp lệ. Vì vậy, chuỗi sau khi lọc chỉ phản ánh các điểm chạm đã được ghi nhận; giữa hai quan sát liên tiếp vẫn có thể có điểm chạm không được hệ thống ghi lại.
+Khi một khu vực dự kiến không có quan sát, phương pháp ghi nhận tình trạng thiếu dữ liệu, không chèn một nhãn giả định vào chuỗi. Dữ liệu thiếu có thể do khách hàng không đi qua khu vực, nguồn thu nhận bỏ lỡ hoặc mô hình không tạo được kết quả hợp lệ. Vì vậy, chuỗi sau khi lọc chỉ phản ánh các điểm chạm đã được ghi nhận; giữa hai quan sát liên tiếp vẫn có thể tồn tại điểm chạm không được quan sát.
 
-Các bản ghi của cùng một khách hàng phải được sắp xếp theo thời gian trước khi chia thành từng lần mua sắm. Nguyên nhân là phương pháp xác định hai bản ghi có thuộc cùng một lần mua sắm hay không bằng cách tính khoảng thời gian giữa chúng. Ví dụ, ba bản ghi có thời gian 09:00, 09:20 và 09:40 đều cách nhau không quá 30 phút nên được xếp vào cùng một lần mua sắm. Tuy nhiên, nếu bản ghi 09:40 được xử lý trước bản ghi 09:20, khoảng cách từ 09:00 đến 09:40 là 40 phút và có thể làm dữ liệu bị chia sai. Vì vậy, bản ghi được gửi đến muộn phải được đưa về đúng vị trí thời gian trước khi áp dụng nguyên tắc phân chia đã trình bày ở Mục \ref{subsection:3.3.1}
+Các bản ghi của cùng một khách hàng phải được sắp xếp theo thời gian trước khi chia thành từng lần mua sắm vì quy tắc phân tách dựa trên khoảng cách giữa các quan sát liên tiếp. Ví dụ, ba bản ghi tại 09:00, 09:20 và 09:40 đều cách bản ghi liền trước không quá 30 phút nên thuộc cùng một lần mua sắm. Nếu áp dụng quy tắc trên một thứ tự khác với thứ tự thời gian, ranh giới lần mua sắm có thể bị xác định sai. Do đó, thứ tự thu nhận hoặc thứ tự xử lý không được dùng thay cho thời điểm quan sát trong quy tắc tại Mục~\ref{subsection:3.3.1}.
 
 \subsection{Gom quan sát thành các chuỗi dữ liệu tại điểm chạm}
 \label{subsection:3.3.3}
 
-Đầu vào của bước này là chuỗi quan sát đã được xử lý tại Mục~\ref{subsection:3.3.2}. Những bản ghi liên tiếp có cùng mã điểm chạm được gom thành một chuỗi dữ liệu tại điểm chạm. Mỗi chuỗi dữ liệu lưu mã điểm chạm, thời gian của bản ghi đầu tiên và cuối cùng, danh sách các bản ghi thuộc chuỗi và tổng số quan sát. Một chuỗi dữ liệu mới được tạo khi mã điểm chạm thay đổi.
+Đầu vào của bước này là chuỗi quan sát đã được xử lý tại Mục~\ref{subsection:3.3.2}. Những bản ghi liên tiếp có cùng mã điểm chạm được gom thành một chuỗi dữ liệu tại điểm chạm. Mỗi chuỗi dữ liệu được đặc trưng bởi mã điểm chạm, thời gian của bản ghi đầu tiên và cuối cùng, tập bản ghi thành phần và tổng số quan sát. Một chuỗi dữ liệu mới được xác lập khi mã điểm chạm thay đổi.
 
 Ví dụ, dãy điểm chạm $A,A,B,B,A$ được chia thành ba chuỗi dữ liệu theo thứ tự $A\rightarrow B\rightarrow A$. Chuỗi thứ nhất gồm hai bản ghi đầu tại $A$, chuỗi thứ hai gồm hai bản ghi tại $B$ và chuỗi thứ ba gồm bản ghi cuối tại $A$. Bản ghi tại $A$ ở cuối dãy không được gộp với hai bản ghi tại $A$ ở đầu dãy vì giữa chúng có các bản ghi tại điểm $B$. Cách xử lý này thể hiện việc khách hàng rời điểm $A$, chuyển sang điểm $B$ rồi quay lại điểm $A$.
 
@@ -253,9 +246,12 @@ Nếu nhiều nhãn có cùng số lần xuất hiện lớn nhất, tổng mứ
 Trên cơ sở các phương pháp phân tích chuỗi được trình bày tại Mục~\ref{section:2.4}, luận văn áp dụng Optimal Matching để đo độ khác biệt giữa các chuỗi trạng thái, PAM để phân cụm các chuỗi tương tự và Average Silhouette Width để hỗ trợ lựa chọn số cụm. Phương pháp phân tích được tổ chức theo ba mức: thống kê phân bố biểu cảm tại từng điểm chạm, xác định sự thay đổi biểu cảm giữa các điểm chạm liên tiếp và phân cụm toàn bộ chuỗi trạng thái. Mỗi mức phân tích sử dụng một dạng dữ liệu đầu vào và cung cấp một góc nhìn khác nhau về diễn biến biểu cảm trong quá trình mua sắm.
 
 
-\subsection{Thống kê phân bố biểu cảm tại điểm chạm}
+\subsection{Phân tích phân bố và thay đổi biểu cảm theo điểm chạm}
 \label{subsection:3.4.1}
 
+Phân tích ở cấp điểm chạm được thực hiện theo hai mức bổ sung cho nhau. Mức thứ nhất mô tả cơ cấu biểu cảm tại từng điểm chạm; mức thứ hai xem xét sự chuyển đổi biểu cảm giữa hai điểm chạm liên tiếp trong cùng một lần mua sắm. Cách tổ chức này cho phép vừa nhận diện trạng thái biểu cảm phổ biến tại mỗi khu vực, vừa theo dõi chiều hướng thay đổi của biểu cảm trong hành trình khách hàng.
+
+\noindent\textbf{Phân bố biểu cảm tại từng điểm chạm.}
 Đơn vị thống kê là một bản ghi có ảnh hợp lệ, xác định được khách hàng và có nhãn biểu cảm hợp lệ. Tại mỗi điểm chạm trong khoảng thời gian được chọn, gọi $n_k$ là số bản ghi mang biểu cảm thứ $k$, với $k=1,2,\ldots,7$. Tổng số bản ghi $N$ và tỷ lệ $P_k$ của từng biểu cảm được tính theo
 \begin{equation}
     N=n_1+n_2+\cdots+n_7,
@@ -264,10 +260,8 @@ Trên cơ sở các phương pháp phân tích chuỗi được trình bày tạ
 \end{equation}
 Kết quả trình bày đồng thời số lượng và tỷ lệ của từng nhãn. Khoảng thời gian phân tích có thể được chia thành các khoảng nhỏ hơn và áp dụng cùng phép đếm để quan sát sự thay đổi tại một điểm chạm. Khi so sánh các khu vực hoặc các khoảng thời gian, phạm vi dữ liệu và cách lấy mẫu được giữ thống nhất.
 
-\subsection{Phân tích thay đổi biểu cảm giữa các điểm chạm}
-\label{subsection:3.4.2}
-
-Phép phân tích sử dụng các đoạn điểm chạm đã được hình thành từ bản ghi hợp lệ và không xung đột thời gian. Mỗi đoạn được chọn một bản ghi đại diện theo một trong ba quy tắc: bản ghi đầu tiên để mô tả nhãn lúc bắt đầu được quan sát, bản ghi cuối cùng để mô tả nhãn ở cuối đoạn, hoặc bản ghi có mức tin cậy cao nhất. Cấu hình mặc định dùng mức tin cậy cao nhất; quy tắc được chọn phải áp dụng nhất quán cho toàn bộ phép phân tích.
+\noindent\textbf{Thay đổi biểu cảm giữa các điểm chạm.}
+Phép phân tích sử dụng các đoạn điểm chạm đã được hình thành từ bản ghi hợp lệ và không xung đột thời gian. Biểu cảm của mỗi đoạn có thể được xác định theo ba quy tắc, tùy mục tiêu phân tích: nhãn của bản ghi đầu tiên mô tả trạng thái khi bắt đầu được quan sát, nhãn của bản ghi cuối cùng mô tả trạng thái ở cuối đoạn, còn nhãn của bản ghi có mức tin cậy cao nhất đại diện cho quan sát rõ nhất trong đoạn. Phương án đề xuất sử dụng quy tắc mức tin cậy cao nhất và áp dụng nhất quán trên toàn bộ tập dữ liệu được so sánh.
 
 Hai đoạn liên tiếp trong cùng một lần mua sắm tạo một cặp có hướng từ điểm chạm trước sang điểm chạm sau. Với chuỗi đoạn $A\rightarrow B\rightarrow C$, các cặp được tạo là $A\rightarrow B$ và $B\rightarrow C$.
 
@@ -278,33 +272,21 @@ Với mỗi hướng di chuyển giữa hai điểm chạm, gọi $n_{k,l}$ là 
 \end{equation}
 Mỗi lần xuất hiện của một cặp điểm chạm được tính là một cặp quan sát. Trường hợp $k=l$ biểu thị nhãn được giữ nguyên, còn $k\ne l$ biểu thị nhãn đã thay đổi. Kết quả gồm số lượng và tỷ lệ của từng tổ hợp biểu cảm giữa hai điểm chạm.
 
-\subsection{Đo độ khác biệt giữa các chuỗi trạng thái}
-\label{subsection:3.4.3}
+\subsection{Phân cụm chuỗi trạng thái và lựa chọn số cụm}
+\label{subsection:3.4.2}
 
-Luận văn áp dụng Optimal Matching (OM), được trình bày tại Mục~\ref{subsection:2.4.2}, để đo độ khác biệt giữa từng cặp chuỗi trạng thái $S_v$ được hình thành tại Mục~\ref{subsection:3.3.4}. Đầu vào của phép so sánh gồm các nhãn biểu cảm được sắp xếp theo thứ tự xuất hiện của các chuỗi dữ liệu tại điểm chạm.
+Quy trình phân cụm gồm ba bước liên tiếp: đo độ khác biệt giữa các chuỗi trạng thái bằng Optimal Matching (OM), phân cụm từ ma trận khoảng cách bằng PAM và lựa chọn số cụm bằng Average Silhouette Width (ASW). Các phương pháp này đã được trình bày tại Mục~\ref{subsection:2.4.2}.
+
+Trước hết, OM được sử dụng để đo độ khác biệt giữa từng cặp chuỗi trạng thái $S_v$ được hình thành tại Mục~\ref{subsection:3.3.4}. Đầu vào của phép so sánh gồm các nhãn biểu cảm được sắp xếp theo thứ tự xuất hiện của các chuỗi dữ liệu tại điểm chạm.
 
 Khi áp dụng OM, chi phí chèn và xóa được đặt bằng 1. Chi phí thay thế bằng 0 đối với hai nhãn giống nhau và bằng 2 đối với hai nhãn khác nhau; mức chi phí này được áp dụng như nhau cho mọi cặp nhãn biểu cảm. Khoảng cách được giữ ở dạng giá trị thô và không chuẩn hóa theo độ dài chuỗi.
 
-Các khoảng cách OM giữa từng cặp chuỗi được tổng hợp thành ma trận khoảng cách $D$ có kích thước $N\times N$, với $N$ là số chuỗi được đưa vào phân tích. Ma trận $D$ là đầu vào của thuật toán PAM tại Mục~\ref{subsection:3.4.4}. Mã điểm chạm, thời điểm và thời lượng được lưu cùng chuỗi để mô tả kết quả, nhưng không tham gia trực tiếp vào phép tính khoảng cách OM.
+Các khoảng cách OM giữa từng cặp chuỗi được tổng hợp thành ma trận khoảng cách $D$ có kích thước $N\times N$, với $N$ là số chuỗi được đưa vào phân tích. Mã điểm chạm, thời điểm và thời lượng được giữ làm thông tin mô tả chuỗi, nhưng không tham gia trực tiếp vào phép tính khoảng cách OM.
 
-\subsection{Phân cụm chuỗi và lựa chọn số cụm}
-\label{subsection:3.4.4}
+Tiếp theo, ma trận khoảng cách $D$ được đưa vào PAM để phân cụm các chuỗi trạng thái. Với mỗi giá trị $K$, kết quả gồm nhãn cụm của từng chuỗi và chuỗi medoid đại diện cho mỗi cụm.
 
-Luận văn áp dụng PAM và ASW đã được trình bày tại Mục~\ref{subsection:2.4.2}. Ma trận khoảng cách $D$ được đưa vào PAM để phân cụm các chuỗi trạng thái. Với mỗi giá trị $K$, kết quả gồm nhãn cụm của từng chuỗi và chuỗi medoid đại diện cho mỗi cụm.
-
-PAM được chạy lần lượt với các giá trị $K$ bắt đầu từ 2. Giới hạn trên của $K$ được xác định từ tổng số chuỗi, số chuỗi trạng thái phân biệt, kích thước cụm tối thiểu và giới hạn được thiết lập từ trước. Kích thước cụm tối thiểu được lấy theo giá trị lớn hơn giữa số lượng tối thiểu tuyệt đối và tỷ lệ tối thiểu trên tổng số chuỗi. Các phương án tạo ra cụm nhỏ hơn giới hạn này được loại khỏi tập ứng viên.
+Phương pháp khảo sát lần lượt các giá trị $K$ bắt đầu từ 2. Giới hạn trên của $K$ được xác định từ tổng số chuỗi, số chuỗi trạng thái phân biệt, kích thước cụm tối thiểu và giới hạn khảo sát đặt trước. Kích thước cụm tối thiểu được lấy theo giá trị lớn hơn giữa số lượng tối thiểu tuyệt đối và tỷ lệ tối thiểu trên tổng số chuỗi. Các phương án tạo ra cụm nhỏ hơn giới hạn này bị loại khỏi tập ứng viên.
 
 ASW được tính cho từng phương án còn lại. Gọi $A^*$ là giá trị ASW lớn nhất, luận văn chọn giá trị $K$ nhỏ nhất có ASW không thấp hơn $A^*-\varepsilon$, với $\varepsilon=0{,}02$. Kết quả cuối cùng gồm số cụm được chọn, chuỗi medoid của từng cụm, số chuỗi trong cụm, nhãn cụm của từng lần mua sắm, khoảng cách đến medoid và hệ số silhouette.
-
-\subsection{Tổ chức kết quả và kiểm soát phạm vi diễn giải}
-\label{subsection:3.4.5}
-
-Đầu ra phân bố gồm số bản ghi và tỷ lệ nhãn theo điểm chạm, thời gian. Đầu ra thay đổi gồm số cặp, tỷ lệ tổ hợp nhãn và quy tắc chọn đại diện. Kết quả phân cụm giữ tham số, số chuỗi được xét và bị loại, các giá trị $K$ khảo sát, $K$ được chọn và ASW. Mỗi cụm có medoid và quy mô; mỗi lần mua sắm có mã cụm, khoảng cách đến medoid và silhouette để truy vết.
-
-Chất lượng dữ liệu được theo dõi qua số đầu vào lỗi, ảnh không có khuôn mặt, vùng cắt lỗi, khuôn mặt không được gán khách hàng, bản ghi thiếu biểu cảm, quan sát xung đột và chuỗi không đủ dữ liệu. Các tỷ lệ phải nêu rõ mẫu số là sự kiện ảnh, khuôn mặt, bản ghi hay chuỗi; những đơn vị này không thể dùng thay nhau. Thông tin thiếu điểm chạm được giữ cùng kết quả để đánh giá độ bao phủ của quan sát.
-
-Sai số phát hiện có thể làm mất quan sát; sai số đối sánh có thể đưa quan sát vào sai khách hàng; sai số FER có thể đổi nhãn đại diện và khoảng cách giữa các chuỗi. Gom đoạn không khắc phục toàn bộ sai lệch lấy mẫu hoặc nhận dạng. Vì vậy, cấu trúc chuỗi hợp lệ và ASW cao không thay thế cho đánh giá chất lượng các mô hình đầu vào.
-
-Tên cụm được đặt sau khi xem xét medoid và các thành viên. Một cụm có nhiều nhãn \textit{Happy} chưa thể được gọi là nhóm khách hàng hài lòng. Để giải thích khác biệt giữa các cụm bằng đơn hàng, khảo sát hoặc phản hồi, cần có dữ liệu đối chiếu và thiết kế phân tích phù hợp. Sự xuất hiện của đơn hàng hay thay đổi nhãn giữa hai điểm chạm chưa chứng minh quan hệ nguyên nhân--kết quả.
 
 \end{document}
