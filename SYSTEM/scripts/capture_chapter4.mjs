@@ -31,7 +31,14 @@ await page.evaluate(() => window.scrollTo(0, 0))
 await page.screenshot({ path: `${output}/4_13_bien_thien_theo_thoi_gian_khu_vuc.png`, fullPage: false })
 await capture('4_02_danh_sach_khach_hang', '/customers')
 
-await page.getByPlaceholder('Tìm theo mã, tên hoặc số điện thoại').fill('CUS-EXP-001')
+const customerCode = await page.evaluate(async () => {
+  const response = await fetch('/api/v1/customers?page_size=1')
+  if (!response.ok) throw new Error(`Không đọc được danh sách khách hàng: ${response.status}`)
+  const result = await response.json()
+  if (!result.items?.length) throw new Error('Không có khách hàng để chụp hồ sơ')
+  return result.items[0].customer_code
+})
+await page.getByPlaceholder('Tìm theo mã, tên hoặc số điện thoại').fill(customerCode)
 await page.getByPlaceholder('Tìm theo mã, tên hoặc số điện thoại').press('Enter')
 await page.waitForTimeout(400)
 await page.getByRole('button', { name: 'Hồ sơ' }).click()

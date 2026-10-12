@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-10-08T15:32:57.038Z",
+  "capturedAt": "2026-10-12T02:15:12.279Z",
   "runId": "KDEF-KAGGLE-20261008-LIVE",
   "allRuntimeChecksPass": true,
   "containers": [
@@ -64,7 +64,7 @@
       "url": "http://127.0.0.1:8000/health/ready",
       "status": 200,
       "ok": true,
-      "elapsedMs": 13,
+      "elapsedMs": 20,
       "body": "{\"status\":\"ready\"}"
     },
     {
@@ -72,7 +72,7 @@
       "url": "http://127.0.0.1:8001/health/ready",
       "status": 200,
       "ok": true,
-      "elapsedMs": 2,
+      "elapsedMs": 4,
       "body": "{\"status\":\"ready\",\"backend\":\"DeepFaceRetinaFaceEngine\"}"
     },
     {
@@ -80,7 +80,7 @@
       "url": "http://127.0.0.1:8002/health/ready",
       "status": 200,
       "ok": true,
-      "elapsedMs": 61,
+      "elapsedMs": 115,
       "body": "{\"status\":\"ready\"}"
     },
     {
@@ -88,7 +88,7 @@
       "url": "http://127.0.0.1:8080/",
       "status": 200,
       "ok": true,
-      "elapsedMs": 1,
+      "elapsedMs": 4,
       "body": "<!doctype html>\n<html lang=\"vi\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <meta name=\"description\" con"
     }
   ],

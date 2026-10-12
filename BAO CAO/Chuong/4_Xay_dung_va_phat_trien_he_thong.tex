@@ -1,429 +1,447 @@
 \documentclass[../LuanVan.tex]{subfiles}
 \begin{document}
 
-\section{Tổng quan, cấu trúc chức năng và kiến trúc hệ thống}
+\section{Tổng quan hệ thống}
 \label{section:4.1}
 
-Chương này trình bày cách hệ thống được xây dựng từ yêu cầu nghiệp vụ thành các nhóm chức năng, thành phần phần mềm, luồng xử lý và giao diện sử dụng. Các hình chụp giao diện trong chương có mục đích chỉ ra nơi người quản lý thực hiện từng chức năng và dữ liệu nào được hiển thị. Dữ liệu thử nghiệm, tiêu chí đạt và bằng chứng cho kết quả vận hành được tách sang Chương 5.
+Hệ thống được xây dựng để quản lý dữ liệu khách hàng, tiếp nhận hình ảnh tại các điểm chạm, nhận dạng khách hàng, ghi nhận biểu cảm và tổng hợp diễn biến biểu cảm trong từng lần mua sắm. Luồng xử lý bắt đầu khi nguồn thu nhận gửi ảnh kèm mã sự kiện, điểm chạm và thời gian ghi nhận. Kết quả xử lý ảnh được kết hợp với dữ liệu khách hàng để tạo bản ghi quan sát, liên kết vào lần mua sắm và cung cấp dữ liệu cho các chức năng phân tích.
 
-Hệ thống được thiết kế cho một cửa hàng, trong đó dữ liệu hình ảnh tại các khu vực được liên kết với hồ sơ khách hàng, lần mua sắm và dữ liệu giao dịch. Về mặt chức năng, hệ thống được chia thành ba nhóm chính: tiếp nhận và xử lý quan sát; quản lý CRM và lần mua sắm; phân tích và báo cáo. Về mặt phần mềm, các nhóm chức năng này được phân bổ cho giao diện CRM, máy chủ nghiệp vụ, dịch vụ xử lý ảnh và cơ sở dữ liệu.
-
-\subsection{Cấu trúc chức năng của hệ thống}
-\label{subsection:4.1.1}
-
-Nhóm tiếp nhận và xử lý quan sát chịu trách nhiệm kiểm tra dữ liệu đầu vào, phát hiện khuôn mặt, phân loại biểu cảm, tạo đặc trưng khuôn mặt và lưu kết quả xử lý. Nhóm CRM và lần mua sắm quản lý khách hàng, sự đồng ý sử dụng dữ liệu khuôn mặt, khu vực, sản phẩm, đơn hàng và chuỗi quan sát của từng lần mua sắm. Nhóm phân tích và báo cáo tổng hợp phân bố biểu cảm, biến thiên theo thời gian, thay đổi giữa các khu vực và chất lượng dữ liệu. Cấu trúc này được thể hiện tại Hình~\ref{fig:function_structure_ch4}.
+Kiến trúc hệ thống gồm giao diện web, máy chủ nghiệp vụ, dịch vụ xử lý ảnh, dịch vụ mô phỏng và cơ sở dữ liệu. Giao diện web tiếp nhận thao tác của người quản lý. Máy chủ nghiệp vụ cung cấp API, thực hiện các quy tắc quản lý dữ liệu và điều phối quá trình xử lý ảnh. Dịch vụ xử lý ảnh phát hiện khuôn mặt, phân loại biểu cảm và tạo véc-tơ đặc trưng danh tính. Cơ sở dữ liệu lưu thông tin khách hàng, mẫu khuôn mặt, điểm chạm, sản phẩm, đơn hàng, sự kiện ảnh, bản ghi quan sát, lần mua sắm và kết quả phân cụm. Dịch vụ mô phỏng tạo các sự kiện quan sát phục vụ quá trình chạy thử chức năng.
 
 \begin{figure}[H]
     \centering
     \resizebox{0.98\textwidth}{!}{%
     \begin{tikzpicture}[
-        node distance=7mm and 11mm,
-        root/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=3.2cm, font=\small\bfseries},
-        group/.style={draw, rounded corners=2pt, align=center, minimum height=12mm, text width=3.6cm, font=\small\bfseries},
-        item/.style={draw, align=left, minimum height=17mm, text width=5.2cm, font=\scriptsize},
-        flow/.style={-{Latex[length=2mm]}, thick}
-    ]
-        \node[root] (system) {Hệ thống CRM và phân tích biểu cảm};
-        \node[group, right=of system, yshift=23mm] (observation) {Tiếp nhận và xử lý quan sát};
-        \node[group, right=of system] (crm) {CRM và lần mua sắm};
-        \node[group, right=of system, yshift=-23mm] (report) {Phân tích và báo cáo};
-        \node[item, right=of observation] (observation_items) {Kiểm tra dữ liệu đầu vào; phát hiện khuôn mặt; phân loại biểu cảm; tạo đặc trưng khuôn mặt; lưu kết quả và lịch sử xử lý};
-        \node[item, right=of crm] (crm_items) {Quản lý khách hàng, sự đồng ý, khu vực, sản phẩm, đơn hàng; liên kết quan sát theo lần mua sắm};
-        \node[item, right=of report] (report_items) {Phân bố biểu cảm; biến thiên theo thời gian; thay đổi giữa các khu vực; báo cáo chất lượng dữ liệu};
-        \draw[flow] (system) -- (observation);
-        \draw[flow] (system) -- (crm);
-        \draw[flow] (system) -- (report);
-        \draw[flow] (observation) -- (observation_items);
-        \draw[flow] (crm) -- (crm_items);
-        \draw[flow] (report) -- (report_items);
-    \end{tikzpicture}%
-    }
-    \caption{Cấu trúc các nhóm chức năng của hệ thống}
-    \label{fig:function_structure_ch4}
-\end{figure}
-
-Ba nhóm chức năng không hoạt động tách rời. Kết quả của nhóm xử lý quan sát là đầu vào để hình thành lần mua sắm; dữ liệu CRM và lần mua sắm tiếp tục cung cấp ngữ cảnh cho nhóm phân tích. Cách phân nhóm này cũng xác định cấu trúc trình bày của các Mục~\ref{section:4.2}, \ref{section:4.3} và \ref{section:4.4}.
-
-\subsection{Tác nhân và các trường hợp sử dụng chính}
-\label{subsection:4.1.2}
-
-Hệ thống có ba tác nhân theo nghĩa chức năng. Người quản lý thao tác trên CRM để quản lý dữ liệu và xem kết quả. Nguồn thu nhận gửi khung hình cùng ngữ cảnh khu vực, thời gian và mã sự kiện. Quản trị hệ thống cấu hình tài khoản, khu vực, phiên bản mô hình và theo dõi trạng thái dịch vụ. Dịch vụ xử lý ảnh và cơ sở dữ liệu là thành phần bên trong, không phải tác nhân sử dụng trực tiếp.
-
-\begin{table}[H]
-    \centering
-    \caption{Tác nhân và các trường hợp sử dụng chính}
-    \label{tab:actors_use_cases_ch4}
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}p{5.8cm}|>{\raggedright\arraybackslash}p{7.0cm}|}
-        \hline
-        \textbf{Tác nhân} & \textbf{Trường hợp sử dụng} & \textbf{Kết quả cần tạo ra} \\
-        \hline
-        Người quản lý & Quản lý khách hàng, dữ liệu khuôn mặt, sản phẩm, đơn hàng và khu vực & Dữ liệu CRM được tạo, cập nhật và tra cứu theo quyền của người dùng \\
-        \hline
-        Người quản lý & Theo dõi lần mua sắm; kiểm tra, xác nhận hoặc xử lý lại quan sát & Quan sát được liên kết đúng ngữ cảnh và mọi thay đổi đều có lịch sử \\
-        \hline
-        Người quản lý & Xem phân bố biểu cảm, biến thiên theo thời gian, thay đổi giữa các khu vực và chất lượng dữ liệu & Kết quả tổng hợp được tính từ các bản ghi đủ điều kiện và có thể lọc \\
-        \hline
-        Nguồn thu nhận & Gửi ảnh kèm khu vực, thời điểm và mã sự kiện & Một sự kiện thu nhận và từ không đến nhiều quan sát khuôn mặt được hình thành \\
-        \hline
-        Quản trị hệ thống & Quản lý tài khoản, cấu hình và trạng thái vận hành & Các dịch vụ được kiểm soát và cấu hình được truy vết \\
-        \hline
-    \end{tabular}}
-\end{table}
-
-Việc tách trường hợp sử dụng theo tác nhân giúp xác định rõ đầu vào và đầu ra của từng chức năng. Đặc biệt, một khung hình không đồng nhất với một khách hàng: nguồn thu nhận tạo một sự kiện ở cấp khung hình, còn hệ thống tạo một quan sát riêng cho mỗi khuôn mặt được phát hiện. Vì vậy, cảnh có nhiều người vẫn được tiếp nhận và không bị loại chỉ vì có nhiều hơn một khuôn mặt.
-
-\subsection{Kiến trúc các thành phần}
-\label{subsection:4.1.3}
-
-Hệ thống áp dụng cách tổ chức phân tách theo trách nhiệm. Giao diện CRM đảm nhiệm tầng trình bày; máy chủ nghiệp vụ là điểm điều phối các quy tắc và dữ liệu; dịch vụ xử lý ảnh cung cấp kết quả suy luận; PostgreSQL đảm nhiệm lưu trữ lâu dài. Máy chủ nghiệp vụ nằm ở trung tâm kiến trúc và là thành phần duy nhất được phép đồng thời gọi dịch vụ xử lý ảnh, truy cập dữ liệu CRM và quyết định việc liên kết một quan sát với khách hàng hoặc lần mua sắm. Cách tổ chức này ngăn giao diện tự thực hiện quy tắc nghiệp vụ, đồng thời ngăn dịch vụ xử lý ảnh tự thay đổi hồ sơ khách hàng.
-
-Hình~\ref{fig:component_architecture_ch4} thể hiện hướng phụ thuộc giữa các thành phần. Trình duyệt nhận giao diện do máy chủ web cung cấp và gửi yêu cầu nghiệp vụ đến máy chủ nghiệp vụ thông qua giao diện trao đổi dữ liệu thống nhất. Nguồn thu nhận ảnh cũng gửi dữ liệu vào máy chủ nghiệp vụ thay vì gọi trực tiếp dịch vụ xử lý ảnh. Máy chủ nghiệp vụ chuyển tạm thời nội dung ảnh đến dịch vụ xử lý ảnh qua kênh giao tiếp nội bộ, nhận kết quả có cấu trúc rồi mới thực hiện đối sánh, liên kết và lưu trữ. Dịch vụ xử lý ảnh và cơ sở dữ liệu không phụ thuộc vào giao diện CRM; dịch vụ xử lý ảnh cũng không truy cập trực tiếp cơ sở dữ liệu.
-
-\begin{figure}[H]
-    \centering
-    \resizebox{0.98\textwidth}{!}{%
-    \begin{tikzpicture}[
-        node distance=11mm and 15mm,
-        block/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=3.1cm, font=\small},
-        store/.style={draw, cylinder, shape border rotate=90, aspect=0.25, align=center, minimum height=15mm, text width=3.0cm, font=\small},
+        node distance=12mm and 16mm,
+        block/.style={draw, rounded corners=2pt, align=center, minimum height=14mm, text width=3.2cm, font=\small},
+        store/.style={draw, cylinder, shape border rotate=90, aspect=0.25, align=center, minimum height=16mm, text width=3.0cm, font=\small},
         flow/.style={-{Latex[length=2mm]}, thick},
-        bidirectional/.style={{Latex[length=2mm]}-{Latex[length=2mm]}, thick},
-        label/.style={font=\scriptsize, align=center}
+        both/.style={{Latex[length=2mm]}-{Latex[length=2mm]}, thick},
+        note/.style={font=\scriptsize, align=center}
     ]
         \node[block] (browser) {Trình duyệt\\người quản lý};
-        \node[block, right=of browser] (web) {Giao diện CRM\\React và Nginx};
+        \node[block, right=of browser] (web) {Giao diện web\\React, Nginx};
         \node[block, right=of web] (api) {Máy chủ nghiệp vụ\\FastAPI};
-        \node[block, below=of api] (source) {Nguồn thu nhận\\ảnh và ngữ cảnh};
-        \node[block, right=of api, yshift=11mm] (vision) {Dịch vụ xử lý ảnh};
-        \node[store, right=of api, yshift=-13mm] (database) {PostgreSQL\\và pgvector};
-        \draw[bidirectional] (browser) -- node[label, above] {Giao diện\\người dùng} (web);
-        \draw[bidirectional] (web) -- node[label, above] {Yêu cầu và\\kết quả} (api);
-        \draw[flow] (source) -- node[label, right] {ảnh, khu vực,\\thời gian} (api);
-        \draw[bidirectional] (api) -- node[label, above] {Giao tiếp nội bộ} (vision);
-        \draw[bidirectional] (api) -- node[label, below] {Truy vấn và\\giao dịch} (database);
+        \node[block, below=of api] (source) {Nguồn thu nhận\\ảnh tại điểm chạm};
+        \node[block, below=of web] (simulator) {Dịch vụ\\mô phỏng};
+        \node[block, right=of api, yshift=12mm] (vision) {Dịch vụ xử lý ảnh};
+        \node[store, right=of api, yshift=-14mm] (database) {PostgreSQL\\và pgvector};
+        \draw[both] (browser) -- node[note, above] {Giao diện} (web);
+        \draw[both] (web) -- node[note, above] {API} (api);
+        \draw[flow] (source) -- node[note, right] {Ảnh và\\ngữ cảnh} (api);
+        \draw[flow] (simulator) -- (api);
+        \draw[both] (api) -- node[note, above] {Yêu cầu xử lý} (vision);
+        \draw[both] (api) -- node[note, below] {Truy vấn dữ liệu} (database);
     \end{tikzpicture}%
     }
-    \caption{Kiến trúc và hướng phụ thuộc giữa các thành phần}
+    \caption{Kiến trúc tổng quan của hệ thống}
     \label{fig:component_architecture_ch4}
 \end{figure}
 
-Bảng~\ref{tab:system_components} tổng hợp công nghệ và trách nhiệm của từng thành phần trong kiến trúc. Công nghệ được lựa chọn theo vai trò của thành phần, trong khi quy tắc nghiệp vụ vẫn được tập trung tại máy chủ để tránh phân tán quyết định trên nhiều lớp.
+Bảng~\ref{tab:system_components} trình bày công nghệ và nhiệm vụ của từng thành phần. Các thành phần được đóng gói thành các dịch vụ riêng và được khởi chạy bằng Docker Compose.
 
 \begin{table}[H]
     \centering
-    \caption{Phân bổ trách nhiệm giữa các thành phần phần mềm}
+    \caption{Các thành phần của hệ thống}
     \label{tab:system_components}
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}p{8.0cm}|}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{3.8cm}|>{\raggedright\arraybackslash}p{6.8cm}|}
         \hline
-        \textbf{Thành phần} & \textbf{Công nghệ} & \textbf{Trách nhiệm trong thiết kế} \\
+        \textbf{Thành phần} & \textbf{Công nghệ} & \textbf{Nhiệm vụ} \\
         \hline
-        Giao diện CRM & React, TypeScript, Ant Design, ECharts, Nginx & Thu nhận thao tác của người dùng, gọi API, quản lý trạng thái hiển thị và trình bày hồ sơ, lần mua sắm, đơn hàng cùng các báo cáo. \\
+        Giao diện web & React, TypeScript, Ant Design, ECharts, Nginx & Hiển thị các chức năng CRM, theo dõi lần mua sắm, báo cáo biểu cảm và kết quả phân cụm chuỗi. \\
         \hline
-        Máy chủ nghiệp vụ & FastAPI, SQLAlchemy & Xác thực, kiểm tra yêu cầu, điều phối xử lý ảnh, đối sánh khách hàng, thực hiện quy tắc lần mua sắm, quản lý giao dịch dữ liệu và cung cấp API. \\
+        Máy chủ nghiệp vụ & FastAPI, SQLAlchemy & Xác thực người dùng, cung cấp API, quản lý dữ liệu, gọi dịch vụ xử lý ảnh, đối sánh khách hàng và liên kết bản ghi theo lần mua sắm. \\
         \hline
-        Dịch vụ xử lý ảnh & FastAPI, OpenCV; RetinaFace--MobileNet0.25; mô hình Emotion qua DeepFace; ArcFace & Kiểm tra và giải mã ảnh, phát hiện vùng khuôn mặt, phân loại biểu cảm, tạo véc-tơ đặc trưng và trả kết quả cùng thông tin mô hình. \\
+        Dịch vụ xử lý ảnh & FastAPI, OpenCV, RetinaFace--MobileNet0.25, DeepFace Emotion, ArcFace & Phát hiện và căn chỉnh khuôn mặt, phân loại biểu cảm, tạo véc-tơ đặc trưng danh tính và trả kết quả theo từng khuôn mặt. \\
         \hline
-        Cơ sở dữ liệu & PostgreSQL 16, pgvector, Alembic & Lưu sự kiện thu nhận, các quan sát khuôn mặt, dữ liệu CRM, véc-tơ mẫu, lần mua sắm, đơn hàng, nhật ký và lịch sử xử lý; duy trì khóa, quan hệ và phiên bản cấu trúc dữ liệu. \\
+        Dịch vụ mô phỏng & FastAPI & Tạo sự kiện quan sát và dữ liệu mua sắm để chạy thử các chức năng của hệ thống. \\
         \hline
-    \end{tabular}}
+        Cơ sở dữ liệu & PostgreSQL, pgvector, Alembic & Lưu dữ liệu nghiệp vụ, véc-tơ khuôn mặt và kết quả phân tích; quản lý thay đổi cấu trúc cơ sở dữ liệu. \\
+        \hline
+    \end{tabular}
 \end{table}
 
-\textbf{Giao diện CRM.} Giao diện được xây dựng bằng React và TypeScript. Sau bước biên dịch, Nginx phục vụ các tệp tĩnh của giao diện cho trình duyệt và chuyển tiếp các yêu cầu nghiệp vụ đến máy chủ API dưới cùng một địa chỉ truy cập. Nginx không xử lý nhận dạng hay quy tắc CRM; vai trò của nó là phân phối giao diện, định tuyến yêu cầu và tách máy chủ ứng dụng khỏi kết nối trực tiếp của trình duyệt. Thành phần giao diện tổ chức các biểu mẫu, bảng dữ liệu, chức năng tải ảnh và biểu đồ; mọi dữ liệu nghiệp vụ đều được trao đổi với máy chủ thông qua API. Giao diện chỉ trình bày kết quả do máy chủ trả về, không trực tiếp tính báo cáo chính thức, không quyết định quyền truy cập và không kết nối đến PostgreSQL. Việc giữ ranh giới này giúp các quy tắc vẫn có hiệu lực khi yêu cầu đến từ một nguồn khác ngoài giao diện web.
+Khi nhận một sự kiện ảnh, máy chủ nghiệp vụ kiểm tra dữ liệu đầu vào rồi chuyển ảnh sang dịch vụ xử lý ảnh. Mỗi khuôn mặt hợp lệ tạo một kết quả gồm khung bao, nhãn biểu cảm, mức tin cậy và véc-tơ đặc trưng. Máy chủ sử dụng véc-tơ này để đối sánh với dữ liệu khuôn mặt đã lưu. Khi xác định được khách hàng, bản ghi quan sát được tạo và liên kết với lần mua sắm tương ứng. Các bản ghi sau đó được sử dụng để thống kê biểu cảm tại điểm chạm, phân tích sự thay đổi giữa các điểm chạm và phân cụm chuỗi trạng thái.
 
-\textbf{Máy chủ nghiệp vụ.} FastAPI tiếp nhận yêu cầu từ giao diện và nguồn thu nhận, kiểm tra dữ liệu vào, xác thực người dùng và quản lý phiên làm việc. Thành phần này sử dụng SQLAlchemy để thao tác dữ liệu theo giao dịch, gọi dịch vụ xử lý ảnh với thời gian chờ cấu hình được, sau đó áp dụng các quy tắc đối sánh khách hàng, tạo hoặc cập nhật lần mua sắm và liên kết đơn hàng. Các truy vấn tổng hợp báo cáo cũng được thực hiện tại máy chủ để mọi giao diện sử dụng cùng một cách tính. Vì vậy, đây là nơi tập trung các quyết định nghiệp vụ của hệ thống.
-
-\textbf{Dịch vụ xử lý ảnh.} Dịch vụ được xây dựng như một thành phần độc lập, nhận ảnh từ máy chủ nghiệp vụ và trả về trạng thái của khung hình cùng danh sách kết quả theo từng khuôn mặt. Mỗi phần tử trong danh sách gồm chỉ số khuôn mặt, khung bao, mức tin cậy phát hiện, kết quả phân loại biểu cảm và véc-tơ đặc trưng. Dịch vụ không nhận mã khách hàng, không đọc dữ liệu CRM và không tự kết luận danh tính. Sau khi trả kết quả, ảnh truy vấn và véc-tơ tạm thời không được dịch vụ lưu thành hồ sơ nghiệp vụ. Thiết kế này cho phép thay cấu hình mô hình mà không làm thay đổi các chức năng CRM.
-
-\textbf{Cơ sở dữ liệu.} PostgreSQL lưu đồng thời dữ liệu quan hệ và véc-tơ 512 chiều của mẫu khuôn mặt thông qua kiểu dữ liệu do pgvector cung cấp. Dữ liệu ảnh được tổ chức thành hai cấp: sự kiện thu nhận đại diện cho khung hình, còn quan sát đại diện cho từng khuôn mặt trong khung hình đó. Mã sự kiện là duy nhất ở cấp sự kiện thu nhận; trong bảng quan sát, cặp mã sự kiện và chỉ số khuôn mặt ngăn tạo trùng cùng một kết quả. Các khóa ngoại bảo toàn quan hệ giữa sự kiện, quan sát, khách hàng, lần mua sắm và đơn hàng. Alembic được sử dụng để quản lý tuần tự các thay đổi cấu trúc dữ liệu. Khi hệ thống khởi động bằng Docker Compose, các thay đổi này được áp dụng hoàn tất trước khi máy chủ nghiệp vụ bắt đầu phục vụ yêu cầu.
-
-Trong cấu hình đóng gói, PostgreSQL phải đạt trạng thái sẵn sàng trước khi tiến trình cập nhật cấu trúc chạy; máy chủ nghiệp vụ chỉ khởi động sau khi cập nhật hoàn tất và dịch vụ xử lý ảnh đã sẵn sàng. Trọng số của mô hình được gắn vào dịch vụ xử lý ảnh ở chế độ chỉ đọc, còn dữ liệu PostgreSQL được đặt trong vùng lưu trữ riêng. Hướng phụ thuộc tổng quát là giao diện $\rightarrow$ máy chủ nghiệp vụ $\rightarrow$ dịch vụ xử lý ảnh hoặc cơ sở dữ liệu; không có phụ thuộc ngược từ tầng dưới lên giao diện.
-
-\subsection{Giao tiếp giữa các thành phần}
-\label{subsection:4.1.4}
-
-Giao tiếp trong hệ thống được tổ chức xoay quanh máy chủ nghiệp vụ. Giao diện CRM và nguồn thu nhận không truy cập trực tiếp dịch vụ xử lý ảnh hoặc cơ sở dữ liệu; ngược lại, dịch vụ xử lý ảnh cũng không chủ động gọi giao diện hay đọc dữ liệu CRM. Máy chủ nghiệp vụ đóng vai trò trung gian tiếp nhận yêu cầu, kiểm tra điều kiện thực hiện, điều phối các thành phần phía sau và chuẩn hóa kết quả trả về. Ranh giới này bảo đảm mỗi thành phần chỉ trao đổi những dữ liệu cần thiết cho trách nhiệm của mình.
-
-Các luồng giao tiếp chính được tổng hợp trong Bảng~\ref{tab:component_communication}. Dữ liệu trao đổi được mô tả theo ý nghĩa nghiệp vụ thay vì theo đường dẫn API cụ thể, qua đó làm rõ quan hệ giữa các thành phần mà không phụ thuộc vào cách tổ chức mã nguồn.
-
-\begin{table}[H]
-    \centering
-    \caption{Các luồng giao tiếp chính giữa những thành phần của hệ thống}
-    \label{tab:component_communication}
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{5.2cm}|>{\raggedright\arraybackslash}p{5.0cm}|}
-        \hline
-        \textbf{Thành phần gửi} & \textbf{Thành phần nhận} & \textbf{Dữ liệu trao đổi} & \textbf{Mục đích} \\
-        \hline
-        Giao diện CRM & Máy chủ nghiệp vụ & Thông tin đăng nhập, điều kiện tra cứu và dữ liệu do người quản lý nhập & Thực hiện các chức năng quản lý, xác nhận dữ liệu và xem báo cáo \\
-        \hline
-        Nguồn thu nhận & Máy chủ nghiệp vụ & Ảnh, mã sự kiện, khu vực và thời điểm quan sát & Tạo một sự kiện quan sát có ngữ cảnh và có khả năng kiểm tra trùng lặp \\
-        \hline
-        Máy chủ nghiệp vụ & Dịch vụ xử lý ảnh & Ảnh cần phân tích và yêu cầu xử lý & Phát hiện khuôn mặt, phân loại biểu cảm và tạo véc-tơ đặc trưng \\
-        \hline
-        Dịch vụ xử lý ảnh & Máy chủ nghiệp vụ & Trạng thái khung hình và danh sách khung bao, biểu cảm, véc-tơ đặc trưng của từng khuôn mặt & Cung cấp các kết quả kỹ thuật độc lập để máy chủ tạo quan sát và áp dụng quy tắc nghiệp vụ \\
-        \hline
-        Máy chủ nghiệp vụ & Cơ sở dữ liệu & Truy vấn, dữ liệu tạo mới hoặc cập nhật và thông tin nhật ký & Bảo toàn hồ sơ CRM, quan sát, lần mua sắm và lịch sử thay đổi \\
-        \hline
-    \end{tabular}}
-\end{table}
-
-Đối với luồng tạo bản ghi quan sát, quá trình giao tiếp diễn ra theo năm bước. Thứ nhất, nguồn thu nhận gửi ảnh kèm mã sự kiện, khu vực và thời điểm ghi nhận. Thứ hai, máy chủ kiểm tra tính đầy đủ của yêu cầu, sự tồn tại của khu vực, định dạng thời gian, giới hạn của ảnh và khả năng trùng sự kiện. Chỉ dữ liệu vượt qua bước kiểm tra này mới được chuyển sang dịch vụ xử lý ảnh. Thứ ba, dịch vụ xử lý ảnh giải mã ảnh, phát hiện vùng khuôn mặt và thực hiện hai nhánh phân loại biểu cảm, tạo véc-tơ đặc trưng trên vùng cắt hợp lệ. Trạng thái xử lý và kết quả được trả về trong cùng một lần giao tiếp để tránh truyền lại ảnh nguồn.
-
-Thứ tư, máy chủ nghiệp vụ tạo một sự kiện thu nhận cho hình ảnh và đối sánh véc-tơ khuôn mặt với các mẫu đã đăng ký theo ngưỡng nhận dạng đang được cấu hình. Khi xác định được khách hàng, máy chủ tìm lần mua sắm đang hoạt động hoặc tạo lần mua sắm phù hợp với thời điểm quan sát. Thứ năm, kết quả được lưu thành một bản ghi quan sát gắn với khách hàng, lần mua sắm và phiên bản mô hình. Vì vậy, dịch vụ xử lý ảnh chỉ cung cấp kết quả suy luận, còn quyết định liên kết dữ liệu vẫn thuộc về máy chủ nghiệp vụ.
-
-Đối với các thao tác trên giao diện CRM, trình duyệt gửi yêu cầu đến máy chủ và nhận lại dữ liệu đã được kiểm tra theo quyền của người dùng. Các thao tác tạo, sửa, xác nhận khách hàng hoặc xử lý lại quan sát đều được máy chủ kiểm tra trước khi ghi vào cơ sở dữ liệu. Với các chức năng báo cáo, giao diện chỉ gửi điều kiện lọc và trình bày kết quả; việc lựa chọn bản ghi hợp lệ, tổng hợp số liệu và tính các chỉ số được thực hiện tập trung tại máy chủ. Cách tổ chức này giúp cùng một quy tắc được áp dụng cho mọi nguồn truy cập và tránh sai khác giữa số liệu hiển thị trên các màn hình.
-
-Luồng giao tiếp cũng phân biệt lỗi tiếp nhận với lỗi xử lý. Yêu cầu thiếu thông tin hoặc có ngữ cảnh không hợp lệ bị dừng trước khi gọi dịch vụ xử lý ảnh và được ghi nhận để phục vụ báo cáo chất lượng dữ liệu. Ảnh không có khuôn mặt hoặc không thể giải mã vẫn tạo trạng thái ở cấp sự kiện thu nhận nhưng không tạo quan sát giả. Nếu dịch vụ xử lý ảnh không phản hồi trong thời gian cấu hình, máy chủ ghi nhận lỗi mô hình và không tiếp tục đối sánh khách hàng. Mã sự kiện duy nhất cho phép nguồn thu nhận gửi lại cùng hình ảnh mà không tạo thêm sự kiện hoặc quan sát trùng lặp.
-
-Xét theo phạm vi, giao tiếp bên ngoài bao gồm trao đổi giữa giao diện CRM hoặc nguồn thu nhận với máy chủ nghiệp vụ; giao tiếp nội bộ bao gồm trao đổi giữa máy chủ với dịch vụ xử lý ảnh và cơ sở dữ liệu. Sự phân tách này vừa giới hạn quyền truy cập vào dữ liệu nhạy cảm, vừa giữ cho thành phần xử lý ảnh độc lập với cấu trúc của CRM. Đồng thời, máy chủ nghiệp vụ trở thành điểm kiểm soát chung đối với xác thực, kiểm tra dữ liệu, ghi nhật ký và tính nhất quán của giao dịch.
-
-\section{Xây dựng chức năng tạo bản ghi quan sát}
+\section{Cài đặt hệ thống}
 \label{section:4.2}
 
-Luồng này là cầu nối giữa dữ liệu hình ảnh và dữ liệu CRM. Một lượt xử lý bắt đầu từ hình ảnh có ngữ cảnh, đi qua kiểm tra đầu vào và xử lý ảnh, sau đó được diễn giải thành sự kiện thu nhận và bản ghi quan sát gắn với khách hàng. Trình tự xây dựng gồm: (1) tiếp nhận và kiểm tra hình ảnh; (2) phát hiện vùng khuôn mặt; (3) xử lý biểu cảm và đặc trưng khuôn mặt; (4) đối sánh với kho mẫu; (5) lưu quan sát và cập nhật lần mua sắm. Trường hợp ảnh hỏng, không có khuôn mặt hoặc không đối sánh được với khách hàng đã đăng ký dừng ở cấp sự kiện thu nhận.
+Các chức năng được cài đặt dựa trên kiến trúc tại Hình~\ref{fig:component_architecture_ch4}. Phần này trình bày tác nhân sử dụng, cách phân rã chức năng và đặc tả các chức năng chính đã được xây dựng.
 
-\subsection{Tiếp nhận và kiểm tra dữ liệu}
+\subsection{Usecase tổng quan}
 \label{subsection:4.2.1}
 
-Chức năng tiếp nhận được xây dựng để nhận đồng thời thông tin mô tả sự kiện và tệp ảnh. Bốn thông tin được kiểm tra gồm mã sự kiện, mã khu vực, thời gian ghi nhận có múi giờ và dữ liệu ảnh. Mã sự kiện có ràng buộc duy nhất tại bảng sự kiện thu nhận; vì vậy, gửi lại cùng một mã trả về tập kết quả đã có thay vì tạo thêm dữ liệu. Khu vực phải tồn tại và đang hoạt động. Ảnh rỗng hoặc vượt quá dung lượng cấu hình bị từ chối trước khi gọi dịch vụ xử lý ảnh.
-
-Các yêu cầu thiếu mã sự kiện, thiếu khu vực, có khu vực không hợp lệ, thiếu thời gian hoặc thiếu ảnh được ghi vào kho theo dõi lỗi tiếp nhận. Cách lưu này giúp báo cáo chất lượng thể hiện được lỗi xảy ra trước khi một sự kiện thu nhận được tạo. Những trạng thái ảnh chỉ xác định được sau khi tiếp nhận, như không phát hiện được khuôn mặt hoặc không thể giải mã, được lưu ở cấp sự kiện. Nếu kết quả không đạt ngưỡng đối sánh khách hàng, sự kiện vẫn được giữ để chống xử lý trùng nhưng không có bản ghi quan sát đi kèm.
-
-Màn hình tại Hình~\ref{fig:areas_ch4} trình bày các khu vực đã được khai báo để nguồn thu nhận gửi kèm dữ liệu. Thứ tự khu vực cũng được lưu để phát hiện vị trí bị thiếu trong một lần mua sắm.
+Hệ thống có hai tác nhân chính. Người quản lý sử dụng giao diện web để quản lý dữ liệu và xem kết quả phân tích. Nguồn thu nhận gửi ảnh cùng thông tin điểm chạm và thời gian để tạo dữ liệu quan sát. Các use case tổng quan được thể hiện tại Hình~\ref{fig:usecase_overview_ch4}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_06_khu_vuc.png}
-    \caption{Danh sách các khu vực được xác định trước trong cửa hàng}
-    \label{fig:areas_ch4}
+    \resizebox{0.98\textwidth}{!}{%
+    \begin{tikzpicture}[
+        node distance=7mm and 21mm,
+        actor/.style={draw, rounded corners=2pt, align=center, minimum height=12mm, text width=2.8cm, font=\small\bfseries},
+        usecase/.style={draw, ellipse, align=center, minimum height=11mm, text width=4.8cm, font=\small},
+        relation/.style={thick}
+    ]
+        \node[actor] (manager) {Người quản lý};
+        \node[usecase, right=of manager, yshift=35mm] (login) {Đăng nhập và đăng xuất};
+        \node[usecase, below=of login] (customer) {Quản lý khách hàng và dữ liệu khuôn mặt};
+        \node[usecase, below=of customer] (catalog) {Quản lý sản phẩm, đơn hàng và điểm chạm};
+        \node[usecase, below=of catalog] (visit) {Theo dõi lần mua sắm};
+        \node[usecase, below=of visit] (report) {Phân tích biểu cảm và phân cụm chuỗi};
+        \node[usecase, right=32mm of catalog] (observation) {Gửi ảnh và tạo bản ghi quan sát};
+        \node[actor, right=of observation] (source) {Nguồn thu nhận};
+        \draw[relation] (manager) -- (login);
+        \draw[relation] (manager) -- (customer);
+        \draw[relation] (manager) -- (catalog);
+        \draw[relation] (manager) -- (visit);
+        \draw[relation] (manager) -- (report);
+        \draw[relation] (source) -- (observation);
+    \end{tikzpicture}%
+    }
+    \caption{Usecase tổng quan của hệ thống}
+    \label{fig:usecase_overview_ch4}
 \end{figure}
 
-\subsection{Phát hiện khuôn mặt và hai nhánh nhận dạng}
+Người quản lý đăng nhập trước khi sử dụng các chức năng nghiệp vụ. Nhóm quản lý dữ liệu gồm khách hàng, mẫu khuôn mặt, sản phẩm, đơn hàng và điểm chạm. Nhóm theo dõi trình bày các bản ghi theo từng lần mua sắm. Nhóm phân tích cung cấp phân bố biểu cảm, sự thay đổi giữa các điểm chạm, chất lượng dữ liệu và phân cụm chuỗi trạng thái. Nguồn thu nhận tương tác với chức năng tạo bản ghi quan sát thông qua API.
+
+\subsection{Phân rã chức năng}
 \label{subsection:4.2.2}
 
-Ảnh hợp lệ được giải mã và đưa vào mô hình phát hiện khuôn mặt. Khi không có khuôn mặt, hệ thống lưu trạng thái tại sự kiện thu nhận và không tạo quan sát. Vùng khuôn mặt hợp lệ được đưa vào nhánh phân loại bảy biểu cảm và nhánh tạo véc-tơ đặc trưng khuôn mặt. Nếu vùng khuôn mặt không thể cắt, sự kiện được ghi nhận với trạng thái lỗi và dừng xử lý.
-
-Hai nhánh được xây dựng độc lập. Lỗi của mô hình FER không làm mất véc-tơ khuôn mặt đã tạo được; lỗi của ArcFace không làm mất nhãn biểu cảm đã phân loại được. Trạng thái phân loại biểu cảm và trạng thái nhận dạng được lưu riêng để phân biệt kết quả hợp lệ với trường hợp xử lý không thành công. Nhãn \textit{Neutral} chỉ được lưu khi là kết quả của mô hình, không được dùng thay cho trường hợp xử lý lỗi.
-
-CRM cung cấp màn hình đăng ký mẫu khuôn mặt và tìm khách hàng bằng ảnh như Hình~\ref{fig:face_management_ch4}. Chỉ khách hàng đã đồng ý sử dụng dữ liệu khuôn mặt mới được tạo mẫu tham chiếu.
+Các chức năng của hệ thống được chia thành ba nhóm: quản lý dữ liệu CRM, xử lý quan sát và lần mua sắm, phân tích và báo cáo. Cấu trúc phân rã được thể hiện tại Hình~\ref{fig:function_decomposition_ch4}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png}
-    \caption{Chức năng đăng ký và tìm khách hàng bằng ảnh}
-    \label{fig:face_management_ch4}
+    \resizebox{0.98\textwidth}{!}{%
+    \begin{tikzpicture}[
+        node distance=9mm and 9mm,
+        root/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=3.6cm, font=\small\bfseries},
+        group/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=4.2cm, font=\small\bfseries},
+        item/.style={draw, align=left, minimum height=28mm, text width=4.6cm, font=\scriptsize},
+        flow/.style={-{Latex[length=2mm]}, thick}
+    ]
+        \node[root] (system) {Hệ thống CRM và phân tích biểu cảm};
+        \node[group, below left=15mm and 42mm of system] (crm) {Quản lý dữ liệu CRM};
+        \node[group, below=15mm of system] (observation) {Quan sát và lần mua sắm};
+        \node[group, below right=15mm and 42mm of system] (analysis) {Phân tích và báo cáo};
+        \node[item, below=of crm] (crmitems) {Quản lý khách hàng và sự đồng ý; đăng ký, xóa và tìm mẫu khuôn mặt; quản lý nhóm sản phẩm, sản phẩm, đơn hàng và điểm chạm.};
+        \node[item, below=of observation] (observationitems) {Tiếp nhận sự kiện ảnh; phát hiện và căn chỉnh khuôn mặt; phân loại biểu cảm; đối sánh danh tính; tạo bản ghi quan sát; liên kết và theo dõi lần mua sắm.};
+        \node[item, below=of analysis] (analysisitems) {Thống kê phân bố biểu cảm; theo dõi biến thiên theo thời gian; phân tích thay đổi giữa điểm chạm; báo cáo chất lượng; phân cụm chuỗi trạng thái.};
+        \draw[flow] (system) -- (crm);
+        \draw[flow] (system) -- (observation);
+        \draw[flow] (system) -- (analysis);
+        \draw[flow] (crm) -- (crmitems);
+        \draw[flow] (observation) -- (observationitems);
+        \draw[flow] (analysis) -- (analysisitems);
+    \end{tikzpicture}%
+    }
+    \caption{Phân rã chức năng của hệ thống}
+    \label{fig:function_decomposition_ch4}
 \end{figure}
 
-\subsection{Lưu kết quả và xử lý lại}
+Nhóm quản lý dữ liệu CRM cung cấp thông tin khách hàng và dữ liệu mua hàng. Nhóm quan sát tiếp nhận ảnh, tạo kết quả nhận dạng và tổ chức các bản ghi theo từng lần mua sắm. Nhóm phân tích sử dụng các bản ghi đã hình thành để tạo báo cáo và chuỗi trạng thái. Dữ liệu được trao đổi giữa ba nhóm thông qua máy chủ nghiệp vụ và cơ sở dữ liệu.
+
+\subsection{Đặc tả chức năng}
 \label{subsection:4.2.3}
 
-Sự kiện thu nhận lưu mã sự kiện, khu vực, thời gian ghi nhận, thời gian máy chủ nhận và trạng thái xử lý ảnh. Khi đối sánh thành công với khách hàng đã đăng ký, bản ghi quan sát lưu khung bao, mức tin cậy phát hiện, nhãn biểu cảm, điểm dự đoán của bảy lớp, khoảng cách nhận dạng, các trạng thái xử lý và thông tin mô hình. Nếu không đạt ngưỡng đối sánh, hệ thống không tạo bản ghi quan sát.
+Các use case chính được đặc tả theo tác nhân, điều kiện thực hiện, luồng xử lý và kết quả đầu ra.
 
-Màn hình chi tiết tại Hình~\ref{fig:observation_detail_ch4} hiển thị riêng trạng thái ảnh, trạng thái phân loại, trạng thái nhận dạng và các mô hình đã dùng.
+\begin{table}[H]
+    \centering
+    \caption{Đặc tả UC01 -- Đăng nhập}
+    \label{tab:uc01_login_ch4}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{10.9cm}|}
+        \hline
+        \textbf{Mã use case} & UC01 \\
+        \hline
+        \textbf{Tên chức năng} & Đăng nhập \\
+        \hline
+        \textbf{Tác nhân} & Người quản lý \\
+        \hline
+        \textbf{Sự kiện kích hoạt} & Người quản lý mở trang đăng nhập và gửi thông tin tài khoản. \\
+        \hline
+        \textbf{Tiền điều kiện} & Tài khoản đã được tạo trong hệ thống. \\
+        \hline
+        \textbf{Luồng chính} & 1) Nhập địa chỉ thư điện tử và mật khẩu; 2) giao diện gửi yêu cầu xác thực; 3) máy chủ kiểm tra tài khoản và mật khẩu; 4) phiên đăng nhập được tạo; 5) giao diện chuyển đến trang tổng quan. \\
+        \hline
+        \textbf{Luồng thay thế} & Thông tin không hợp lệ được trả về cùng thông báo đăng nhập không thành công. \\
+        \hline
+        \textbf{Kết quả} & Người quản lý truy cập được các chức năng của hệ thống. \\
+        \hline
+    \end{tabular}
+\end{table}
 
-Chức năng xử lý lại yêu cầu người quản lý cung cấp ảnh mới. Trước khi cập nhật, hệ thống lưu toàn bộ nhãn, mức tin cậy, điểm đối sánh, trạng thái và phiên bản mô hình cũ thành một phiên bản lịch sử. Vì vậy, kết quả mới không xóa dấu vết của lần xử lý trước.
+\begin{table}[H]
+    \centering
+    \caption{Đặc tả UC02 -- Quản lý khách hàng và dữ liệu khuôn mặt}
+    \label{tab:uc02_customer_ch4}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{10.9cm}|}
+        \hline
+        \textbf{Mã use case} & UC02 \\
+        \hline
+        \textbf{Tên chức năng} & Quản lý khách hàng và dữ liệu khuôn mặt \\
+        \hline
+        \textbf{Tác nhân} & Người quản lý \\
+        \hline
+        \textbf{Sự kiện kích hoạt} & Người quản lý mở chức năng Khách hàng hoặc Dữ liệu khuôn mặt. \\
+        \hline
+        \textbf{Tiền điều kiện} & Người quản lý đã đăng nhập. \\
+        \hline
+        \textbf{Luồng chính} & 1) Tạo hoặc chọn hồ sơ khách hàng; 2) cập nhật thông tin và trạng thái đồng ý sử dụng dữ liệu khuôn mặt; 3) chọn ảnh đăng ký; 4) dịch vụ xử lý ảnh tạo véc-tơ đặc trưng; 5) máy chủ lưu mẫu khuôn mặt gắn với khách hàng; 6) hồ sơ và lịch sử mua hàng được hiển thị khi tra cứu. \\
+        \hline
+        \textbf{Luồng thay thế} & Ảnh không đọc được hoặc không có khuôn mặt hợp lệ được trả về trạng thái lỗi tương ứng. \\
+        \hline
+        \textbf{Kết quả} & Hồ sơ khách hàng và mẫu khuôn mặt được lưu trong cơ sở dữ liệu. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Đặc tả UC03 -- Quản lý sản phẩm, đơn hàng và điểm chạm}
+    \label{tab:uc03_catalog_ch4}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{10.9cm}|}
+        \hline
+        \textbf{Mã use case} & UC03 \\
+        \hline
+        \textbf{Tên chức năng} & Quản lý sản phẩm, đơn hàng và điểm chạm \\
+        \hline
+        \textbf{Tác nhân} & Người quản lý \\
+        \hline
+        \textbf{Sự kiện kích hoạt} & Người quản lý chọn chức năng Sản phẩm, Mua hàng hoặc Khu vực. \\
+        \hline
+        \textbf{Tiền điều kiện} & Người quản lý đã đăng nhập. \\
+        \hline
+        \textbf{Luồng chính} & 1) Tạo nhóm sản phẩm và sản phẩm; 2) khai báo các điểm chạm cùng thứ tự; 3) tạo đơn hàng cho khách hàng; 4) thêm sản phẩm và số lượng; 5) máy chủ tính giá trị từng dòng và tổng đơn; 6) đơn hàng được liên kết với lần mua sắm phù hợp. \\
+        \hline
+        \textbf{Luồng thay thế} & Dữ liệu thiếu trường bắt buộc hoặc tham chiếu đến khách hàng, sản phẩm hay điểm chạm không tồn tại được từ chối. \\
+        \hline
+        \textbf{Kết quả} & Danh mục, điểm chạm và lịch sử mua hàng được cập nhật. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Đặc tả UC04 -- Tiếp nhận ảnh và tạo bản ghi quan sát}
+    \label{tab:uc04_observation_ch4}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{10.9cm}|}
+        \hline
+        \textbf{Mã use case} & UC04 \\
+        \hline
+        \textbf{Tên chức năng} & Tiếp nhận ảnh và tạo bản ghi quan sát \\
+        \hline
+        \textbf{Tác nhân} & Nguồn thu nhận \\
+        \hline
+        \textbf{Sự kiện kích hoạt} & Nguồn thu nhận gửi ảnh, mã sự kiện, điểm chạm và thời gian ghi nhận. \\
+        \hline
+        \textbf{Tiền điều kiện} & Điểm chạm đã được khai báo và đang hoạt động. \\
+        \hline
+        \textbf{Luồng chính} & 1) Máy chủ kiểm tra dữ liệu đầu vào; 2) ảnh được chuyển sang dịch vụ xử lý ảnh; 3) khuôn mặt được phát hiện, căn chỉnh và đưa vào hai nhánh nhận dạng; 4) máy chủ đối sánh véc-tơ khuôn mặt với dữ liệu đã lưu; 5) kết quả được lưu thành sự kiện ảnh và các bản ghi quan sát; 6) bản ghi xác định được khách hàng được liên kết với lần mua sắm. \\
+        \hline
+        \textbf{Luồng thay thế} & Mã sự kiện đã tồn tại trả về kết quả đã lưu; ảnh lỗi hoặc không có khuôn mặt được lưu với trạng thái xử lý tương ứng; khuôn mặt không đạt ngưỡng đối sánh không tạo bản ghi gắn với khách hàng. \\
+        \hline
+        \textbf{Kết quả} & Sự kiện ảnh và các bản ghi quan sát hợp lệ được lưu trong cơ sở dữ liệu. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Đặc tả UC05 -- Theo dõi lần mua sắm}
+    \label{tab:uc05_visit_ch4}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{10.9cm}|}
+        \hline
+        \textbf{Mã use case} & UC05 \\
+        \hline
+        \textbf{Tên chức năng} & Theo dõi lần mua sắm \\
+        \hline
+        \textbf{Tác nhân} & Người quản lý \\
+        \hline
+        \textbf{Sự kiện kích hoạt} & Người quản lý mở chức năng Theo dõi mua sắm và chọn một lần mua sắm. \\
+        \hline
+        \textbf{Tiền điều kiện} & Người quản lý đã đăng nhập và đã có bản ghi quan sát. \\
+        \hline
+        \textbf{Luồng chính} & 1) Giao diện tải danh sách lần mua sắm; 2) người quản lý chọn một lần; 3) máy chủ trả thông tin khách hàng, chuỗi điểm chạm, các quan sát và đơn hàng; 4) giao diện sắp xếp bản ghi theo thời gian; 5) người quản lý mở chi tiết một quan sát để xem kết quả nhận dạng và lịch sử xử lý. \\
+        \hline
+        \textbf{Luồng thay thế} & Lần mua sắm không có đơn hàng vẫn hiển thị chuỗi quan sát và trạng thái tương ứng. \\
+        \hline
+        \textbf{Kết quả} & Toàn bộ diễn biến đã ghi nhận của lần mua sắm được hiển thị theo thời gian. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Đặc tả UC06 -- Phân tích biểu cảm và phân cụm chuỗi}
+    \label{tab:uc06_analysis_ch4}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{10.9cm}|}
+        \hline
+        \textbf{Mã use case} & UC06 \\
+        \hline
+        \textbf{Tên chức năng} & Phân tích biểu cảm và phân cụm chuỗi \\
+        \hline
+        \textbf{Tác nhân} & Người quản lý \\
+        \hline
+        \textbf{Sự kiện kích hoạt} & Người quản lý mở chức năng Phân tích biểu cảm và lựa chọn phạm vi dữ liệu. \\
+        \hline
+        \textbf{Tiền điều kiện} & Người quản lý đã đăng nhập và dữ liệu quan sát đã được lưu. \\
+        \hline
+        \textbf{Luồng chính} & 1) Chọn điểm chạm, khoảng thời gian hoặc nguồn dữ liệu; 2) máy chủ tổng hợp phân bố, biến thiên hoặc cặp thay đổi; 3) với phân cụm, máy chủ tạo chuỗi trạng thái và ma trận khoảng cách; 4) PAM được chạy với các giá trị số cụm; 5) ASW được dùng để chọn số cụm; 6) giao diện hiển thị medoid, quy mô cụm và danh sách lần mua sắm được gán cụm. \\
+        \hline
+        \textbf{Luồng thay thế} & Khi dữ liệu không đủ điều kiện cho phép phân tích đã chọn, máy chủ trả trạng thái và lý do tương ứng. \\
+        \hline
+        \textbf{Kết quả} & Báo cáo biểu cảm hoặc kết quả phân cụm được hiển thị và lưu theo lần phân tích. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section{Giao diện ứng dụng}
+\label{section:4.3}
+
+Giao diện ứng dụng được tổ chức theo thanh điều hướng bên trái. Các màn hình dưới đây được chụp lại từ hệ thống sau khi toàn bộ dịch vụ được khởi động và dữ liệu được tạo qua luồng xử lý của ứng dụng.
+
+\textbf{Màn hình đăng nhập.} Người quản lý nhập địa chỉ thư điện tử và mật khẩu để bắt đầu phiên sử dụng. Sau khi xác thực thành công, giao diện chuyển đến trang tổng quan.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png}
-    \caption{Chi tiết quan sát và lịch sử thay đổi kết quả}
-    \label{fig:observation_detail_ch4}
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_00_dang_nhap.png}
+    \caption{Giao diện đăng nhập}
+    \label{fig:login_screen_ch4}
 \end{figure}
 
-\section{Xây dựng chức năng CRM và liên kết lần mua sắm}
-\label{section:4.3}
+\textbf{Màn hình tổng quan.} Trang tổng quan hiển thị số khách hàng, sản phẩm, lần mua sắm, doanh thu và các biểu đồ biểu cảm theo khu vực hoặc thời gian.
 
-\subsection{Quản lý khách hàng và dữ liệu mua hàng}
-\label{subsection:4.3.1}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_01_tong_quan.png}
+    \caption{Giao diện tổng quan hệ thống}
+    \label{fig:dashboard_screen_ch4}
+\end{figure}
 
-Hồ sơ khách hàng gồm mã, họ tên, số điện thoại, thư điện tử, ảnh đại diện, trạng thái và thông tin đồng ý sử dụng dữ liệu khuôn mặt. Danh sách hỗ trợ tìm theo mã, tên hoặc số điện thoại. Khi mở hồ sơ, CRM hiển thị thông tin khách hàng cùng lịch sử đơn hàng như Hình~\ref{fig:customer_history_ch4}.
+\textbf{Màn hình khách hàng.} Danh sách khách hàng hỗ trợ tìm kiếm theo mã, họ tên hoặc số điện thoại. Người quản lý có thể tạo hồ sơ mới và mở chi tiết từng khách hàng.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_02_danh_sach_khach_hang.png}
+    \caption{Giao diện danh sách khách hàng}
+    \label{fig:customer_list_ch4}
+\end{figure}
+
+Màn hình hồ sơ trình bày thông tin khách hàng và lịch sử đơn hàng đã lưu. Dữ liệu này được sử dụng để tra cứu các lần mua sắm và kết quả phân tích liên quan.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png}
-    \caption{Hồ sơ khách hàng và lịch sử mua hàng}
-    \label{fig:customer_history_ch4}
+    \caption{Giao diện hồ sơ và lịch sử mua hàng của khách hàng}
+    \label{fig:customer_profile_ch4}
 \end{figure}
 
-\subsection{Quản lý sản phẩm và đơn hàng}
-\label{subsection:4.3.2}
+\textbf{Màn hình dữ liệu khuôn mặt.} Chức năng này gồm hai phần: đăng ký ảnh khuôn mặt cho khách hàng và tìm khách hàng bằng một ảnh truy vấn. Kết quả tìm kiếm hiển thị trạng thái đối sánh cùng khoảng cách giữa các véc-tơ đặc trưng.
 
-Sản phẩm được tổ chức theo nhóm và có mã, tên, giá hiện tại cùng trạng thái. Khi tạo đơn hàng, mã, tên và đơn giá được sao chép vào từng dòng đơn. Do đó, thay đổi giá sản phẩm sau này không làm thay đổi giá trị của đơn hàng đã phát sinh.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png}
+    \caption{Giao diện đăng ký và tìm kiếm khách hàng bằng khuôn mặt}
+    \label{fig:face_management_ch4}
+\end{figure}
 
-Nếu người dùng không chỉ định mã lần mua sắm, máy chủ tìm lần mua sắm của cùng khách hàng có khoảng thời gian bao phủ thời điểm tạo đơn. Nếu người dùng chỉ định mã, máy chủ kiểm tra cả khách hàng và thời gian trước khi tạo liên kết. Đơn hàng không thỏa mãn điều kiện vẫn được lưu mà không liên kết với lần mua sắm.
+\textbf{Màn hình sản phẩm.} Người quản lý tạo nhóm sản phẩm, thêm sản phẩm và theo dõi mã, tên, nhóm, giá hiện tại cùng trạng thái sử dụng.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_04_danh_muc_san_pham.png}
-    \caption{Danh mục sản phẩm đã được tạo trong CRM}
+    \caption{Giao diện quản lý sản phẩm}
     \label{fig:products_ch4}
 \end{figure}
+
+\textbf{Màn hình lịch sử mua hàng.} Danh sách đơn hàng trình bày khách hàng, thời gian, tổng tiền và trạng thái. Khi chọn một đơn hàng, giao diện hiển thị các sản phẩm và giá trị từng dòng.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_05_lich_su_mua_hang.png}
-    \caption{Danh sách đơn hàng và dữ liệu lịch sử mua hàng}
+    \caption{Giao diện lịch sử mua hàng}
     \label{fig:orders_ch4}
 \end{figure}
 
-\subsection{Khởi tạo, cập nhật và kết thúc lần mua sắm}
-\label{subsection:4.3.3}
+\textbf{Màn hình khu vực.} Các điểm chạm được khai báo bằng mã, tên, thứ tự và trạng thái hoạt động. Mã điểm chạm được gửi kèm mỗi sự kiện ảnh để xác định vị trí quan sát.
 
-Khi một quan sát xác định được khách hàng, máy chủ tìm lần mua sắm đang hoạt động của người đó. Quan sát mới được thêm vào lần hiện tại nếu thời gian cách quan sát gần nhất không quá 30 phút. Nếu vượt quá khoảng này, lần cũ được đóng do quá thời gian và một lần mới được tạo. Nguyên nhân kết thúc \texttt{TIMEOUT} được lưu để phục vụ tra cứu.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_06_khu_vuc.png}
+    \caption{Giao diện quản lý điểm chạm}
+    \label{fig:touchpoints_ch4}
+\end{figure}
 
-Các quan sát được đọc theo thời gian ghi nhận, không theo thời gian máy chủ nhận. Khi hai khu vực khác nhau có cùng thời điểm trong một lần mua sắm, cả hai bản ghi được đánh dấu xung đột và không được dùng để tạo cặp thay đổi. Nếu chuỗi có khu vực đầu và khu vực sau nhưng thiếu một khu vực ở giữa theo thứ tự cấu hình, giao diện hiển thị rõ tên khu vực bị thiếu và không tự tạo nhãn thay thế.
-
-Hình~\ref{fig:shopping_tracking_ch4} cho thấy danh sách lần mua sắm, chuỗi khu vực, cảnh báo khu vực thiếu, phân bố nhãn trong lần đang xem và đơn hàng liên quan. Người dùng có thể chọn từng quan sát để mở thông tin chi tiết.
+\textbf{Màn hình theo dõi mua sắm.} Giao diện hiển thị danh sách các lần mua sắm và phần chi tiết của lần đang chọn. Các quan sát được sắp xếp theo thời gian, kèm điểm chạm, biểu cảm, nguồn dữ liệu và đơn hàng liên quan.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_07_theo_doi_mua_sam.png}
-    \caption{Theo dõi các quan sát trong một lần mua sắm}
+    \caption{Giao diện theo dõi lần mua sắm}
     \label{fig:shopping_tracking_ch4}
 \end{figure}
 
-\section{Xây dựng chức năng phân tích và báo cáo}
-\label{section:4.4}
+Người quản lý có thể mở một bản ghi để xem mã sự kiện, thời gian, điểm chạm, khung bao khuôn mặt, nhãn biểu cảm, khoảng cách nhận dạng, trạng thái xử lý và các phiên bản mô hình đã sử dụng.
 
-\subsection{Phân bố biểu cảm theo khu vực và thời gian}
-\label{subsection:4.4.1}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png}
+    \caption{Giao diện chi tiết bản ghi quan sát}
+    \label{fig:observation_detail_ch4}
+\end{figure}
 
-Báo cáo phân bố chỉ sử dụng các bản ghi của khách hàng đã đăng ký có ảnh và kết quả phân loại biểu cảm hợp lệ. Máy chủ đếm riêng bảy nhãn trong từng khu vực và tính tỷ lệ trên tổng số quan sát hợp lệ của đúng khu vực đó. Người dùng có thể lọc theo khu vực và khoảng thời gian.
-
-Hình~\ref{fig:distribution_screen_ch4} trình bày đồng thời biểu đồ và bảng số liệu. Bảng trình bày cả số lượng và tỷ lệ để tránh diễn giải một tỷ lệ cao được tạo từ quá ít quan sát.
+\textbf{Màn hình phân bố biểu cảm.} Người quản lý chọn điểm chạm và khoảng thời gian. Kết quả gồm biểu đồ số quan sát và bảng số lượng, tỷ lệ của bảy nhãn biểu cảm tại từng điểm chạm.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png}
-    \caption{Phân bố bảy nhãn biểu cảm tại từng khu vực}
+    \caption{Giao diện thống kê phân bố biểu cảm tại điểm chạm}
     \label{fig:distribution_screen_ch4}
 \end{figure}
 
-Trang tổng quan còn có mục theo dõi biến thiên trong cùng một khu vực. Máy chủ nhóm các quan sát theo khoảng 5, 15, 30 hoặc 60 phút rồi đếm từng nhãn trong mỗi khoảng. Hình~\ref{fig:timeline_area_ch4} là kết quả hiển thị trong cùng một ngày và cùng một khu vực.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png}
-    \caption{Biến thiên số quan sát theo thời gian trong cùng khu vực}
-    \label{fig:timeline_area_ch4}
-\end{figure}
-
-\subsection{Thay đổi biểu cảm giữa các khu vực}
-\label{subsection:4.4.2}
-
-Máy chủ sắp xếp các bản ghi hợp lệ của từng lần mua sắm theo thời gian. Các bản ghi liên tiếp tại cùng một khu vực được xem là một nhóm. Người dùng chọn một trong ba cách lấy bản ghi đại diện: bản ghi đầu tiên, bản ghi cuối cùng hoặc bản ghi có mức tin cậy cao nhất. Sau đó, hệ thống tạo cặp từ hai nhóm khu vực liên tiếp và đếm tổ hợp nhãn trước--sau.
-
-Kết quả gồm số lần và tỷ lệ trong cặp khu vực đang xét. Bản ghi có xung đột thời gian bị loại khỏi bước tạo cặp. Hình~\ref{fig:change_screen_ch4} thể hiện cùng số liệu dưới dạng sơ đồ luồng và bảng. Báo cáo chỉ cho biết nhãn nào được ghi nhận trước và sau khi khách hàng xuất hiện tại hai khu vực liên tiếp. Chẳng hạn, một cặp \textit{Neutral}--\textit{Happy} được tính là một lần thay đổi nhãn, nhưng không được diễn giải trực tiếp là trải nghiệm của khách hàng đã được cải thiện. Hệ thống chưa có dữ liệu khảo sát mức độ hài lòng để kiểm chứng cách diễn giải đó và cũng không áp dụng ma trận chuyển tiếp Markov.
+\textbf{Màn hình thay đổi biểu cảm.} Giao diện cho phép chọn cách lấy bản ghi đại diện tại mỗi đoạn điểm chạm và hiển thị các tổ hợp biểu cảm giữa hai điểm chạm liên tiếp bằng biểu đồ cùng bảng số liệu.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png}
-    \caption{Số lượng và tỷ lệ thay đổi nhãn giữa các khu vực liên tiếp}
+    \caption{Giao diện phân tích thay đổi biểu cảm giữa các điểm chạm}
     \label{fig:change_screen_ch4}
 \end{figure}
 
-\subsection{Phân cụm chuỗi biểu cảm}
-\label{subsection:4.4.3}
-
-Chức năng phân cụm được hiện thực thành mô-đun thuần \texttt{sequence\_analysis.py} và một nhóm giao diện API riêng. API chỉ lấy các quan sát thuộc đúng một nguồn và một mã lần chạy. Với nguồn \texttt{SIMULATOR}, điều kiện lọc dùng \texttt{simulation\_run\_id}; với nguồn \texttt{CAMERA}, điều kiện lọc dùng \texttt{experiment\_run\_id}. Quy tắc này ngăn dữ liệu mô phỏng, dữ liệu ảnh KDEF và các lần chạy khác nhau bị trộn vào cùng một ma trận.
-
-Mô-đun thực hiện bốn bước. Thứ nhất, các quan sát được nhóm theo \texttt{visit\_id}, sắp xếp theo \texttt{observed\_at} và gom các khung liên tiếp tại cùng điểm chạm thành một trạng thái đại diện. Thứ hai, \texttt{SequenceData} và \texttt{get\_distance\_matrix} của Sequenzo tạo ma trận Optimal Matching với \texttt{sm=CONSTANT}, \texttt{indel=1} và \texttt{norm=none}. Ma trận phải vuông, đối xứng, hữu hạn, không âm và có đường chéo bằng không trước khi được sử dụng. Thứ ba, \texttt{k\_medoids\_range} chạy PAM trên phạm vi \(K\) hợp lệ; \texttt{observation\_silhouette} tính silhouette của từng chuỗi. Thứ tư, mã ánh xạ chỉ số do thư viện trả về sang \texttt{visit\_id}, medoid và chuỗi gốc.
-
-Kết quả được lưu trong ba bảng. \texttt{sequence\_analysis\_runs} lưu nguồn, tham số, phiên bản thuật toán, danh sách phương án \(K\), \(K\) được chọn, ASW, cảnh báo và SHA-256 của ma trận khoảng cách. \texttt{sequence\_cluster\_summaries} lưu medoid, kích thước, tỷ lệ, silhouette trung bình và khoảng cách trung vị của mỗi cụm. \texttt{sequence\_cluster\_assignments} lưu quan hệ giữa visit và cụm, chuỗi đầu vào, metadata điểm chạm, khoảng cách tới medoid và silhouette. Việc lưu theo lần chạy cho phép giữ nhiều kết quả với cấu hình khác nhau mà không ghi đè dữ liệu quan sát.
-
-Các giao diện chính gồm:
-\begin{itemize}
-    \item \texttt{POST /api/v1/sequence-analyses}: tạo một lần phân tích từ mã lần phát dữ liệu;
-    \item \texttt{GET /api/v1/sequence-analyses}: lấy lịch sử và trạng thái các lần chạy;
-    \item \texttt{GET /api/v1/sequence-analyses/\{id\}/clusters}: lấy medoid và thống kê cụm;
-    \item \texttt{GET /api/v1/sequence-analyses/\{id\}/assignments}: lấy danh sách visit đã gán cụm;
-    \item \texttt{PATCH /api/v1/sequence-analyses/\{id\}/clusters/\{cluster\_id\}}: lưu tên diễn giải do người phân tích đặt.
-\end{itemize}
-
-Trên giao diện, tab \textit{Phân cụm chuỗi} cho phép tạo hoặc chọn một lần phân tích đã lưu. Phần tổng quan hiển thị số chuỗi được dùng và bị loại, \(K\), ASW, đồ thị ASW theo \(K\) và bảng điều kiện kích thước cụm. Hình~\ref{fig:sequence_overview_ch4} là ảnh chụp trực tiếp của lần chạy đầu-cuối bằng ảnh KDEF qua nguồn \texttt{CAMERA}; mã nguồn dữ liệu và trạng thái \texttt{COMPLETED} xuất hiện ngay trên màn hình để truy vết.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_20_tong_quan_phan_cum_chuoi.png}
-    \caption{Tổng quan lần phân tích chuỗi và quá trình chọn số cụm}
-    \label{fig:sequence_overview_ch4}
-\end{figure}
-
-Hình~\ref{fig:sequence_medoids_ch4} hiển thị đầy đủ các medoid. Mỗi thẻ là một chuỗi có thật trong dữ liệu, kèm số thành viên, tỷ lệ, silhouette trung bình và khoảng cách trung vị. Ô tên cụm không được điền tự động; người phân tích chỉ đặt tên sau khi xem chuỗi đại diện.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_21_cum_va_medoid.png}
-    \caption{Các cụm và chuỗi medoid được trả từ PAM}
-    \label{fig:sequence_medoids_ch4}
-\end{figure}
-
-Bảng assignment cho phép lọc theo cụm và mở ngược lại lần mua sắm. Liên kết này bảo đảm một kết quả phân cụm có thể truy vết về bốn quan sát gốc thay vì chỉ tồn tại như số liệu tổng hợp. Hình~\ref{fig:sequence_assignments_ch4} và Hình~\ref{fig:sequence_trace_ch4} minh họa hai đầu của liên kết này. Giao diện cũng hiển thị cảnh báo rằng cụm là kiểu diễn biến tương tự, không tự động biểu thị mức hài lòng.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_22_danh_sach_gan_cum.png}
-    \caption{Danh sách lần mua sắm cùng cụm, khoảng cách và silhouette}
-    \label{fig:sequence_assignments_ch4}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_23_truy_vet_cum_ve_hanh_trinh.png}
-    \caption{Truy vết một assignment về bốn quan sát của lần mua sắm}
-    \label{fig:sequence_trace_ch4}
-\end{figure}
-
-Tài liệu OpenAPI của máy chủ đang chạy được dùng để đối chiếu các giao diện đã mô tả với đường dẫn thực tế. Hình~\ref{fig:sequence_api_docs_ch4} chỉ được chụp sau khi trang tài liệu tải được nhóm endpoint \path{/api/v1/sequence-analyses}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_24_tai_lieu_api_phan_cum_chuoi.png}
-    \caption{Các endpoint phân cụm chuỗi trong tài liệu OpenAPI đang chạy}
-    \label{fig:sequence_api_docs_ch4}
-\end{figure}
-
-Thành phần phân tích chuỗi được nối vào đúng dữ liệu đã có của hệ thống. Hồ sơ khách hàng vẫn được tạo ở chức năng CRM và liên kết với mẫu khuôn mặt; quan sát nguồn Camera vẫn đi qua dịch vụ thị giác và được ghép vào lần mua sắm trước khi có thể tham gia phân cụm. Hình~\ref{fig:kdef_customers_ch4} cho thấy năm hồ sơ thử nghiệm cùng ảnh đăng ký thực được máy chủ web phục vụ. Hình~\ref{fig:kdef_journey_ch4} cho thấy một hồ sơ trong số đó được tái hiện tại bốn điểm chạm; nguồn của từng quan sát được lưu là \textit{Camera}, không phải \textit{Simulator}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_25_danh_sach_khach_kdef.png}
-    \caption{Hồ sơ và ảnh đăng ký KDEF được nạp vào chức năng khách hàng}
-    \label{fig:kdef_customers_ch4}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_27_hanh_trinh_kdef_bon_diem_cham.png}
-    \caption{Hành trình bốn điểm chạm được tạo từ các quan sát nguồn Camera}
-    \label{fig:kdef_journey_ch4}
-\end{figure}
-
-Hệ thống tích hợp được đóng gói bằng Docker Compose. Tại thời điểm chụp bằng chứng, PostgreSQL, dịch vụ thị giác, API, dịch vụ mô phỏng và giao diện web đều ở trạng thái hoạt động; tiến trình migration đã kết thúc với mã thoát 0. Ngoài trạng thái container, chương trình kiểm chứng gọi trực tiếp các endpoint sẵn sàng của API, Vision, Simulator và trang web, tất cả đều trả HTTP 200. Hình~\ref{fig:docker_status_ch4} được sinh trực tiếp từ kết quả \texttt{docker compose ps --all} và các phản hồi HTTP; dữ liệu máy đọc tương ứng được lưu cùng artifact của lần chạy KDEF.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_29_trang_thai_he_thong_docker.png}
-    \caption{Trạng thái Docker Compose và các endpoint tại thời điểm kiểm chứng}
-    \label{fig:docker_status_ch4}
-\end{figure}
-
-\subsection{Báo cáo chất lượng dữ liệu}
-\label{subsection:4.4.4}
-
-Báo cáo chất lượng tổng hợp ba nhóm thông tin. Nhóm thứ nhất là tổ hợp trạng thái ảnh, biểu cảm và danh tính. Nhóm thứ hai là các yêu cầu đầu vào không đủ điều kiện tạo bản ghi. Nhóm thứ ba gồm bản ghi đến chậm, xung đột thời gian, số khu vực bị thiếu và số lần mua sắm đủ điều kiện phân tích. Báo cáo dùng cùng bộ lọc khu vực và thời gian với báo cáo phân bố.
-
-Hình~\ref{fig:data_quality_ch4} cho thấy các chỉ số được trình bày trước biểu đồ và bảng trạng thái. Các chỉ số này được dùng để xác định phần dữ liệu nào đã tham gia báo cáo biểu cảm và phần nào bị loại.
+\textbf{Màn hình chất lượng dữ liệu.} Các chỉ số gồm số khung hình, số khuôn mặt, bản ghi đến chậm, xung đột thời gian, điểm chạm bị thiếu và số lượng theo từng trạng thái xử lý.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_10_chat_luong_du_lieu.png}
-    \caption{Báo cáo chất lượng của dữ liệu đã tiếp nhận và liên kết}
+    \caption{Giao diện báo cáo chất lượng dữ liệu}
     \label{fig:data_quality_ch4}
 \end{figure}
 
-Các chức năng và quy tắc xử lý trên xác định cấu trúc phần mềm của hệ thống. Trạng thái vận hành của hệ thống tích hợp, dữ liệu chạy thử, kết quả kiểm thử và các giới hạn thực nghiệm được trình bày riêng tại Chương 5.
+\textbf{Màn hình phân cụm chuỗi.} Người quản lý chọn nguồn dữ liệu và mã lần chạy để tạo một lần phân tích. Phần tổng quan hiển thị số chuỗi được sử dụng, số chuỗi bị loại, số cụm được chọn, ASW và kết quả theo từng giá trị $K$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_20_tong_quan_phan_cum_chuoi.png}
+    \caption{Giao diện tổng quan kết quả phân cụm chuỗi}
+    \label{fig:sequence_overview_ch4}
+\end{figure}
+
+Mỗi cụm được trình bày bằng chuỗi medoid, số lượng thành viên, tỷ lệ, silhouette trung bình và khoảng cách trung vị. Người quản lý có thể đặt tên cho cụm sau khi xem chuỗi đại diện.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_21_cum_va_medoid.png}
+    \caption{Giao diện danh sách cụm và chuỗi medoid}
+    \label{fig:sequence_medoids_ch4}
+\end{figure}
+
+Bảng gán cụm hiển thị mã lần mua sắm, chuỗi trạng thái, cụm được gán, khoảng cách đến medoid và silhouette. Nút xem hành trình mở lại lần mua sắm tương ứng để đối chiếu với các bản ghi quan sát.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_22_danh_sach_gan_cum.png}
+    \caption{Giao diện danh sách lần mua sắm được gán cụm}
+    \label{fig:sequence_assignments_ch4}
+\end{figure}
 
 \end{document}

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-08T15:22:49.711137+00:00",
+  "created_at": "2026-10-12T02:17:25.437193+00:00",
   "experiment_run_id": "KDEF-KAGGLE-20261008-LIVE",
   "passed": true,
   "checks": [
@@ -52,7 +52,7 @@
       "expected": 5
     },
     {
-      "name": "observed touchpoints preserve chronology 7e03f958-8197-4670-a8f6-1b07f42cfb3f",
+      "name": "observed touchpoints preserve chronology 77999ca4-2be0-4153-ab26-228ec5087a61",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -68,7 +68,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 2c0bf5fa-74f5-463c-bf96-3457e00cb1d3",
+      "name": "observed touchpoints preserve chronology f8ffb46f-65a1-4dab-9e93-5a0da0f1b78e",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -84,35 +84,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 67d4be1c-cbd2-44a4-b264-f1fe62a6080f",
-      "passed": true,
-      "actual": [
-        "TP-ENTRANCE",
-        "TP-DISPLAY",
-        "TP-CHECKOUT"
-      ],
-      "expected": [
-        "TP-ENTRANCE",
-        "TP-DISPLAY",
-        "TP-CHECKOUT"
-      ]
-    },
-    {
-      "name": "observed touchpoints preserve chronology 104f799f-f422-4bb6-89bd-b97427d9d9e7",
-      "passed": true,
-      "actual": [
-        "TP-ENTRANCE",
-        "TP-DISPLAY",
-        "TP-CHECKOUT"
-      ],
-      "expected": [
-        "TP-ENTRANCE",
-        "TP-DISPLAY",
-        "TP-CHECKOUT"
-      ]
-    },
-    {
-      "name": "observed touchpoints preserve chronology 0ded2429-ea3d-4f22-9000-ac35ac1207b7",
+      "name": "observed touchpoints preserve chronology c45d69a3-3137-412d-8f07-8a9225167a6c",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -128,7 +100,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology faa7438b-a1b9-4d9b-81ae-4c8c327b1977",
+      "name": "observed touchpoints preserve chronology 8df2d990-7b4c-4a19-ab71-c9f35d34cbef",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -144,7 +116,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology abddb576-4e96-4ae8-bb15-cc70224cc154",
+      "name": "observed touchpoints preserve chronology 8f9e9f07-5a11-4660-9156-376fcc2519d4",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -160,7 +132,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 4d4aef09-12ec-4167-9613-098e9ede3d88",
+      "name": "observed touchpoints preserve chronology 3d1eb49e-9c3a-4de8-9606-fa8fcb39f2d3",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -176,7 +148,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology efa07c7b-44f0-43f2-8c08-207f437a8701",
+      "name": "observed touchpoints preserve chronology 655afd0f-b35e-44ac-8330-c4ea2ec4f788",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -192,19 +164,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 774a353f-dda7-4aea-a278-0df52d619477",
-      "passed": true,
-      "actual": [
-        "TP-ENTRANCE",
-        "TP-CONSULT"
-      ],
-      "expected": [
-        "TP-ENTRANCE",
-        "TP-CONSULT"
-      ]
-    },
-    {
-      "name": "observed touchpoints preserve chronology 0b6ee87e-981b-4445-90ec-c0ee6af9fd32",
+      "name": "observed touchpoints preserve chronology cac24872-4ba3-477f-b595-7c18e7054b88",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -220,7 +180,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 32226969-e6de-4c83-bd25-45a3455d5c1f",
+      "name": "observed touchpoints preserve chronology 917cba93-eabb-41ca-bd7a-bda63a0db420",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -236,7 +196,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology e1d7f233-fdd7-48b5-bb63-0ad511d26e28",
+      "name": "observed touchpoints preserve chronology aeb7e427-ea3b-4018-b6e8-4bf687d5897c",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -252,7 +212,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 34a4d400-b116-4555-882f-bccf7798d43c",
+      "name": "observed touchpoints preserve chronology 3289fc06-a6be-447f-875f-d65960897000",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -268,7 +228,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology c425e991-35dc-4667-9b45-ec2042e187d1",
+      "name": "observed touchpoints preserve chronology 66e172ba-08a1-44a7-a019-553495638e01",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -284,7 +244,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 6e873669-1c6d-41d4-869c-8b4de6aedd9e",
+      "name": "observed touchpoints preserve chronology 752545f1-f274-412d-aa85-2224f1d0b711",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -300,7 +260,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology d2bd39c5-7d52-453c-8a8d-6f3adb02dc29",
+      "name": "observed touchpoints preserve chronology f26b33bd-cfdd-4a1e-af3a-89387803cb73",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -316,7 +276,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology c965f453-0d8b-4673-8c01-877d256217d2",
+      "name": "observed touchpoints preserve chronology 9be060ba-d151-4eed-a3ff-ec3efc5d3eee",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -332,7 +292,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 01b700e9-1172-4494-920d-8fbf6bb0fcc6",
+      "name": "observed touchpoints preserve chronology 59036e69-6265-426d-9e6a-8d608c6990f2",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -348,7 +308,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 2a667302-e158-4160-8823-0149dbc82134",
+      "name": "observed touchpoints preserve chronology f948a24e-103a-4fdd-875f-f772536bbbf4",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -364,7 +324,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 4992c364-0f91-46de-8fb9-0271a5c20131",
+      "name": "observed touchpoints preserve chronology fad5ddb0-177b-4312-824b-0287a8800fa5",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -380,7 +340,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 76916597-2863-4f27-af61-62c9fb1a8dfd",
+      "name": "observed touchpoints preserve chronology 91044aca-69e8-4123-b581-d3f351bac92b",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -396,7 +356,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology dccfea43-9a88-46d4-982e-c88dcc94b4fa",
+      "name": "observed touchpoints preserve chronology b572c65d-a237-46b3-bb64-59a6b8a9bbba",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -412,7 +372,7 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology a248e858-13cd-4bfe-a68e-6c0ea664f0b1",
+      "name": "observed touchpoints preserve chronology 1588b1b5-b895-4741-9fa1-e924891b4c1d",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -428,7 +388,55 @@
       ]
     },
     {
-      "name": "observed touchpoints preserve chronology 4e0cb0ab-5849-4359-aeb4-4740b1853a54",
+      "name": "observed touchpoints preserve chronology 298c7e46-dcb3-4ef6-972c-d856e75f2397",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 85a33163-74e9-45a3-ab4e-f81552a8b527",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 53374423-7841-43b8-8348-d914f3d0f84d",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology cc4d9569-dc75-4faa-857e-6fb5de5fd16f",
       "passed": true,
       "actual": [
         "TP-ENTRANCE",
@@ -446,7 +454,7 @@
     {
       "name": "completed sequence analysis",
       "passed": true,
-      "actual": "a845f266-7dab-4dff-ba42-a61a46930d7a",
+      "actual": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
       "expected": "one completed analysis"
     },
     {
@@ -454,13 +462,13 @@
       "passed": true,
       "actual": {
         "received": 25,
-        "used": 22,
-        "excluded": 3
+        "used": 25,
+        "excluded": 0
       },
       "expected": {
         "received": 25,
-        "used": 22,
-        "excluded": 3
+        "used": 25,
+        "excluded": 0
       }
     }
   ],
@@ -468,14 +476,14 @@
     "capture_event_count": 100,
     "valid_image_count": 100,
     "identity": {
-      "correct_match_count": 96,
-      "no_match_count": 4,
+      "correct_match_count": 100,
+      "no_match_count": 0,
       "false_match_count": 0,
-      "correct_match_rate": 0.96
+      "correct_match_rate": 1.0
     },
     "expression": {
-      "accuracy": 0.54,
-      "macro_f1_present_classes": 0.40540862910674236,
+      "accuracy": 0.37,
+      "macro_f1_present_classes": 0.3522425490351363,
       "expected_distribution": {
         "Neutral": 35,
         "Happy": 40,
@@ -484,19 +492,18 @@
         "Angry": 10
       },
       "predicted_distribution": {
-        "Sad": 21,
-        "Neutral": 18,
-        "Angry": 12,
-        "Happy": 35,
-        "Surprise": 8,
-        "Fear": 6
+        "Angry": 34,
+        "Sad": 17,
+        "Surprise": 17,
+        "Neutral": 11,
+        "Happy": 21
       },
       "per_class": {
         "Angry": {
           "support": 10,
-          "precision": 0.16666666666666666,
-          "recall": 0.2,
-          "f1": 0.1818181818181818
+          "precision": 0.14705882352941177,
+          "recall": 0.5,
+          "f1": 0.22727272727272727
         },
         "Disgust": {
           "support": 0,
@@ -512,38 +519,38 @@
         },
         "Happy": {
           "support": 40,
-          "precision": 0.9714285714285714,
-          "recall": 0.85,
-          "f1": 0.9066666666666667
+          "precision": 0.9523809523809523,
+          "recall": 0.5,
+          "f1": 0.6557377049180327
         },
         "Sad": {
           "support": 5,
-          "precision": 0.047619047619047616,
-          "recall": 0.2,
-          "f1": 0.07692307692307693
+          "precision": 0.17647058823529413,
+          "recall": 0.6,
+          "f1": 0.2727272727272727
         },
         "Surprise": {
           "support": 10,
-          "precision": 0.375,
-          "recall": 0.3,
-          "f1": 0.33333333333333326
+          "precision": 0.4117647058823529,
+          "recall": 0.7,
+          "f1": 0.5185185185185185
         },
         "Neutral": {
           "support": 35,
-          "precision": 0.7777777777777778,
-          "recall": 0.4,
-          "f1": 0.5283018867924528
+          "precision": 0.18181818181818182,
+          "recall": 0.05714285714285714,
+          "f1": 0.08695652173913043
         }
       },
       "confusion_matrix": {
         "Angry": {
-          "Angry": 2,
+          "Angry": 5,
           "Disgust": 0,
           "Fear": 0,
           "Happy": 0,
-          "Sad": 6,
-          "Surprise": 0,
-          "Neutral": 2
+          "Sad": 4,
+          "Surprise": 1,
+          "Neutral": 0
         },
         "Disgust": {
           "Angry": 0,
@@ -564,40 +571,40 @@
           "Neutral": 0
         },
         "Happy": {
-          "Angry": 0,
+          "Angry": 5,
           "Disgust": 0,
-          "Fear": 2,
-          "Happy": 34,
-          "Sad": 0,
-          "Surprise": 4,
-          "Neutral": 0
+          "Fear": 0,
+          "Happy": 20,
+          "Sad": 4,
+          "Surprise": 3,
+          "Neutral": 8
         },
         "Sad": {
           "Angry": 1,
           "Disgust": 0,
           "Fear": 0,
-          "Happy": 1,
-          "Sad": 1,
+          "Happy": 0,
+          "Sad": 3,
           "Surprise": 1,
-          "Neutral": 1
+          "Neutral": 0
         },
         "Surprise": {
-          "Angry": 2,
+          "Angry": 1,
           "Disgust": 0,
-          "Fear": 4,
-          "Happy": 0,
+          "Fear": 0,
+          "Happy": 1,
           "Sad": 0,
-          "Surprise": 3,
+          "Surprise": 7,
           "Neutral": 1
         },
         "Neutral": {
-          "Angry": 7,
+          "Angry": 22,
           "Disgust": 0,
           "Fear": 0,
           "Happy": 0,
-          "Sad": 14,
-          "Surprise": 0,
-          "Neutral": 14
+          "Sad": 6,
+          "Surprise": 5,
+          "Neutral": 2
         }
       }
     }
@@ -607,13 +614,7 @@
       "image_status": "VALID",
       "expression_status": "VALID",
       "identity_status": "MATCHED",
-      "count": 96
-    },
-    {
-      "image_status": "VALID",
-      "expression_status": "VALID",
-      "identity_status": "NO_MATCH",
-      "count": 4
+      "count": 100
     }
   ]
 }

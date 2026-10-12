@@ -1,6 +1,6 @@
 # Đặc tả kỹ thuật cũ – Không dùng để triển khai hệ thống CRM
 
-> **Trạng thái: đã thay thế.** Tài liệu này mô tả thử nghiệm dùng mã hành trình được cấp từ bên ngoài và không nhận dạng khách hàng. Phương án hiện tại đã thay đổi. Kế hoạch coding nằm tại `SYSTEM_DEVELOPMENT/IMPLEMENTATION_PLAN.md`; đặc tả dùng để triển khai nằm tại `SYSTEM_DEVELOPMENT/TECH_SPEC.md`.
+> **Trạng thái: đã thay thế.** Tài liệu này mô tả thử nghiệm dùng mã hành trình được cấp từ bên ngoài và không nhận dạng khách hàng. Phương án hiện tại đã thay đổi; nội dung này chỉ được giữ để tham chiếu lịch sử và không dùng làm đặc tả triển khai.
 
 # Đặc tả kỹ thuật – Phương pháp đề xuất cho Chương 3
 

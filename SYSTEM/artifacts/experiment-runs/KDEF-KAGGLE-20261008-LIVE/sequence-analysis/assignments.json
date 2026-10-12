@@ -1,538 +1,868 @@
 {
   "items": [
     {
-      "id": "11527b96-e25c-42cb-a0ef-dda87c471d1e",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "0b6ee87e-981b-4445-90ec-c0ee6af9fd32",
+      "id": "b85eaffd-6336-430e-9e1f-bef7fe87e32c",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "752545f1-f274-412d-aa85-2224f1d0b711",
       "cluster_id": 1,
       "sequence": [
-        "Neutral",
-        "Fear",
-        "Happy",
-        "Happy"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-10T03:20:00+00:00",
-          "ended_at": "2026-10-10T03:20:00+00:00",
-          "observation_ids": [
-            "3c6cc9ae-8e0d-4201-92b2-6cef4bc7e9a2"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.8830737471580505
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-10T03:25:00+00:00",
-          "ended_at": "2026-10-10T03:25:00+00:00",
-          "observation_ids": [
-            "92148c5f-7e49-4841-b2e9-7910cff6b15a"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9934672113339431
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-10T03:30:00+00:00",
-          "ended_at": "2026-10-10T03:30:00+00:00",
-          "observation_ids": [
-            "29bb8a9f-08e2-4c85-a162-153672e97c75"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-10T03:35:00+00:00",
-          "ended_at": "2026-10-10T03:35:00+00:00",
-          "observation_ids": [
-            "54da67cf-6161-42a5-8ee7-b71fbb0f0cf8"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9999984502792358
-        }
-      ],
-      "distance_to_medoid": 0.0,
-      "silhouette": 0.1428571428571429,
-      "visit_started_at": "2026-10-10T03:20:00+00:00",
-      "customer": {
-        "id": "8f8101be-29b1-4c00-9183-68c3bd4f3e57",
-        "customer_code": "CUS-KDEF-005",
-        "full_name": "Khách hàng KDEF KG112"
-      }
-    },
-    {
-      "id": "fb22ca8e-7870-4b0b-bc22-ad30a72bff20",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "34a4d400-b116-4555-882f-bccf7798d43c",
-      "cluster_id": 1,
-      "sequence": [
-        "Neutral",
         "Surprise",
-        "Happy",
-        "Happy"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-10T02:20:00+00:00",
-          "ended_at": "2026-10-10T02:20:00+00:00",
-          "observation_ids": [
-            "98602aa0-f46e-4771-9b11-9f9f9d6eed54"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9990471005439758
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-10T02:25:00+00:00",
-          "ended_at": "2026-10-10T02:25:00+00:00",
-          "observation_ids": [
-            "f973d46b-8a2b-4ea7-984c-7430a7977f56"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.5925153493881226
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-10T02:30:00+00:00",
-          "ended_at": "2026-10-10T02:30:00+00:00",
-          "observation_ids": [
-            "bb74b5c1-b6a3-4fdf-9986-384f74d9562a"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-10T02:35:00+00:00",
-          "ended_at": "2026-10-10T02:35:00+00:00",
-          "observation_ids": [
-            "9c640d5f-2a41-407a-8c28-926e28eb6fec"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        }
-      ],
-      "distance_to_medoid": 2.0,
-      "silhouette": 0.1428571428571429,
-      "visit_started_at": "2026-10-10T02:20:00+00:00",
-      "customer": {
-        "id": "106d46a1-93ba-4f08-9f1e-e8b89cfda5c8",
-        "customer_code": "CUS-KDEF-002",
-        "full_name": "Khách hàng KDEF KG039"
-      }
-    },
-    {
-      "id": "64a269e3-14e5-43a6-8cf8-0873e4fa28ec",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "c965f453-0d8b-4673-8c01-877d256217d2",
-      "cluster_id": 1,
-      "sequence": [
-        "Happy",
         "Surprise",
-        "Fear",
+        "Angry",
         "Surprise"
       ],
       "sequence_metadata": [
         {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
           "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-09T02:40:00+00:00",
-          "ended_at": "2026-10-09T02:40:00+00:00",
+          "started_at": "2026-10-10T02:40:00+00:00",
+          "ended_at": "2026-10-10T02:40:00+00:00",
           "observation_ids": [
-            "187a8b9f-e179-4c99-847e-e7a708bb90e0"
+            "785ff963-c31f-4048-a0ef-04992a18fcce"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9891353243074015
+          "mean_confidence": 0.33133765085486755
         },
         {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
           "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-09T02:45:00+00:00",
-          "ended_at": "2026-10-09T02:45:00+00:00",
+          "started_at": "2026-10-10T02:45:00+00:00",
+          "ended_at": "2026-10-10T02:45:00+00:00",
           "observation_ids": [
-            "860bf5a4-51d2-4b2c-91bf-f0a2ac6aa26c"
+            "93ce6078-b5c7-4014-a0f0-c759c22dc73f"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9981976746438548
+          "mean_confidence": 0.9951946139335632
         },
         {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
           "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-09T02:50:00+00:00",
-          "ended_at": "2026-10-09T02:50:00+00:00",
+          "started_at": "2026-10-10T02:50:00+00:00",
+          "ended_at": "2026-10-10T02:50:00+00:00",
           "observation_ids": [
-            "eea56678-43e6-497a-8501-6f393a747dc0"
+            "1ced7793-1c0a-4576-8ac5-a86b19412137"
           ],
           "support_count": 1,
-          "mean_confidence": 0.6968422532081604
+          "mean_confidence": 0.48325613041258636
         },
         {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
           "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-09T02:55:00+00:00",
-          "ended_at": "2026-10-09T02:55:00+00:00",
+          "started_at": "2026-10-10T02:55:00+00:00",
+          "ended_at": "2026-10-10T02:55:00+00:00",
           "observation_ids": [
-            "e8e026af-8927-4593-a360-157ab760ec28"
+            "07898b2c-ee7d-462b-8715-18b235ce5a07"
           ],
           "support_count": 1,
-          "mean_confidence": 0.995345413684845
+          "mean_confidence": 0.8538146018981934
         }
       ],
-      "distance_to_medoid": 6.0,
-      "silhouette": 0.09523809523809519,
-      "visit_started_at": "2026-10-09T02:40:00+00:00",
+      "distance_to_medoid": 0.0,
+      "silhouette": 0.5454545454545455,
+      "visit_started_at": "2026-10-10T02:40:00+00:00",
       "customer": {
-        "id": "470e2da5-732b-43e7-8f3c-aa3d7558bab3",
+        "id": "ca2dc474-abee-41fd-b792-4460f1fe4a9f",
         "customer_code": "CUS-KDEF-003",
         "full_name": "Khách hàng KDEF KG061"
       }
     },
     {
-      "id": "edbaf218-e6c3-4ee1-b3ee-90eacce66535",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "7e03f958-8197-4670-a8f6-1b07f42cfb3f",
+      "id": "afd5d25c-9a8a-4bb1-b3ec-ea20585e7e7d",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "cac24872-4ba3-477f-b595-7c18e7054b88",
       "cluster_id": 1,
       "sequence": [
-        "Happy",
-        "Neutral",
         "Surprise",
-        "Happy"
+        "Sad",
+        "Angry",
+        "Surprise"
       ],
       "sequence_metadata": [
         {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-11T02:40:00+00:00",
+          "ended_at": "2026-10-11T02:40:00+00:00",
+          "observation_ids": [
+            "46f7016e-9043-4ca5-87e6-51bede0e197f"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.33133765085486755
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-11T02:45:00+00:00",
+          "ended_at": "2026-10-11T02:45:00+00:00",
+          "observation_ids": [
+            "fe06dd02-e660-489c-963d-77e51a12eb1e"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.5825262665748596
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-11T02:50:00+00:00",
+          "ended_at": "2026-10-11T02:50:00+00:00",
+          "observation_ids": [
+            "47f90668-b812-4d0c-8bb2-60b229fc51be"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.999396562576294
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-11T02:55:00+00:00",
+          "ended_at": "2026-10-11T02:55:00+00:00",
+          "observation_ids": [
+            "4b9359d3-09ba-420a-8f28-b11327c9cf41"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9746853739398271
+        }
+      ],
+      "distance_to_medoid": 2.0,
+      "silhouette": 0.31818181818181823,
+      "visit_started_at": "2026-10-11T02:40:00+00:00",
+      "customer": {
+        "id": "ca2dc474-abee-41fd-b792-4460f1fe4a9f",
+        "customer_code": "CUS-KDEF-003",
+        "full_name": "Khách hàng KDEF KG061"
+      }
+    },
+    {
+      "id": "4913310c-aa4c-4891-b77b-d16f08838db0",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "c45d69a3-3137-412d-8f07-8a9225167a6c",
+      "cluster_id": 1,
+      "sequence": [
+        "Angry",
+        "Surprise",
+        "Surprise",
+        "Surprise"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-12T02:40:00+00:00",
+          "ended_at": "2026-10-12T02:40:00+00:00",
+          "observation_ids": [
+            "316690ca-4a4d-4045-ae9c-3983b9cee734"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.6784878756418377
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-12T02:45:00+00:00",
+          "ended_at": "2026-10-12T02:45:00+00:00",
+          "observation_ids": [
+            "8509b72f-8948-48e4-9f81-660465cf2287"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.5182641744613647
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-12T02:50:00+00:00",
+          "ended_at": "2026-10-12T02:50:00+00:00",
+          "observation_ids": [
+            "3a2e43e2-a8f8-42e2-ae4e-f675e06d3d5c"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9992834926505694
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-12T02:55:00+00:00",
+          "ended_at": "2026-10-12T02:55:00+00:00",
+          "observation_ids": [
+            "fc256b39-d7c9-41ac-952b-65880c8fd818"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.8538146018981934
+        }
+      ],
+      "distance_to_medoid": 2.0,
+      "silhouette": 0.31818181818181823,
+      "visit_started_at": "2026-10-12T02:40:00+00:00",
+      "customer": {
+        "id": "ca2dc474-abee-41fd-b792-4460f1fe4a9f",
+        "customer_code": "CUS-KDEF-003",
+        "full_name": "Khách hàng KDEF KG061"
+      }
+    },
+    {
+      "id": "0cc0b920-000d-4fea-80a7-8a2e1938a185",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "77999ca4-2be0-4153-ab26-228ec5087a61",
+      "cluster_id": 2,
+      "sequence": [
+        "Happy",
+        "Angry",
+        "Surprise",
+        "Neutral"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
           "touchpoint_name": "Cửa vào",
           "started_at": "2026-10-12T03:20:00+00:00",
           "ended_at": "2026-10-12T03:20:00+00:00",
           "observation_ids": [
-            "2add8cfe-e3a0-40f5-b1b5-dd231924c21e"
+            "ab6625d2-3729-4ca1-a823-658b09ae1483"
           ],
           "support_count": 1,
-          "mean_confidence": 1.0
+          "mean_confidence": 0.9999790191675402
         },
         {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
           "touchpoint_name": "Khu trưng bày sản phẩm",
           "started_at": "2026-10-12T03:25:00+00:00",
           "ended_at": "2026-10-12T03:25:00+00:00",
           "observation_ids": [
-            "cfc0e192-708e-460e-b20d-06ac2875f6fb"
+            "06fe6fc1-fc44-43d8-b353-ad112db0684a"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9488437175750732
+          "mean_confidence": 0.7841269712599481
         },
         {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
           "touchpoint_name": "Khu tư vấn",
           "started_at": "2026-10-12T03:30:00+00:00",
           "ended_at": "2026-10-12T03:30:00+00:00",
           "observation_ids": [
-            "d4c2d6f9-0d29-48f0-9000-489ca5ebb308"
+            "b8bd093f-0e49-4a4e-8747-87c6aca84c66"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9998657107273168
+          "mean_confidence": 0.8971135142906291
         },
         {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
           "touchpoint_name": "Quầy thanh toán",
           "started_at": "2026-10-12T03:35:00+00:00",
           "ended_at": "2026-10-12T03:35:00+00:00",
           "observation_ids": [
-            "4298bc73-b09d-4fa5-97fd-ece4b044b57a"
+            "2f1a7bcd-5112-4748-9bb3-1239571d5c54"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9999984502792358
+          "mean_confidence": 0.9805028426946905
         }
       ],
-      "distance_to_medoid": 4.0,
-      "silhouette": 0.0714285714285714,
+      "distance_to_medoid": 0.0,
+      "silhouette": 0.375,
       "visit_started_at": "2026-10-12T03:20:00+00:00",
       "customer": {
-        "id": "8f8101be-29b1-4c00-9183-68c3bd4f3e57",
+        "id": "7d513a01-d0b0-4e25-8335-d05256ea8524",
         "customer_code": "CUS-KDEF-005",
         "full_name": "Khách hàng KDEF KG112"
       }
     },
     {
-      "id": "72edafc9-268e-46be-bcde-5b5fdf940aba",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "c425e991-35dc-4667-9b45-ec2042e187d1",
-      "cluster_id": 1,
-      "sequence": [
-        "Sad",
-        "Fear",
-        "Happy",
-        "Happy"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-10T02:00:00+00:00",
-          "ended_at": "2026-10-10T02:00:00+00:00",
-          "observation_ids": [
-            "682275ab-c41d-4077-9fd8-a49b18e48fae"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9611594127226576
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-10T02:05:00+00:00",
-          "ended_at": "2026-10-10T02:05:00+00:00",
-          "observation_ids": [
-            "9662f28a-a09c-4d50-b716-b299c7b6f1cf"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9596072435379028
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-10T02:10:00+00:00",
-          "ended_at": "2026-10-10T02:10:00+00:00",
-          "observation_ids": [
-            "1db3729c-748d-458c-a1fa-38ea753fed13"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9713601469993591
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-10T02:15:00+00:00",
-          "ended_at": "2026-10-10T02:15:00+00:00",
-          "observation_ids": [
-            "aeebe69e-994b-4a28-9525-15fcd02a454f"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        }
-      ],
-      "distance_to_medoid": 2.0,
-      "silhouette": 0.0714285714285714,
-      "visit_started_at": "2026-10-10T02:00:00+00:00",
-      "customer": {
-        "id": "37575925-3d82-4de2-9754-d61757d4846c",
-        "customer_code": "CUS-KDEF-001",
-        "full_name": "Khách hàng KDEF KG011"
-      }
-    },
-    {
-      "id": "7f426cba-a928-4aa9-8705-657c80db6ca1",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "32226969-e6de-4c83-bd25-45a3455d5c1f",
-      "cluster_id": 1,
-      "sequence": [
-        "Angry",
-        "Neutral",
-        "Happy",
-        "Happy"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-10T03:00:00+00:00",
-          "ended_at": "2026-10-10T03:00:00+00:00",
-          "observation_ids": [
-            "1f7cd3db-1dd0-4ef3-acf7-f974bff4e608"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9358056149366863
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-10T03:05:00+00:00",
-          "ended_at": "2026-10-10T03:05:00+00:00",
-          "observation_ids": [
-            "1bb6a200-82c6-4dae-98f4-19478110aedc"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9791536306325949
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-10T03:10:00+00:00",
-          "ended_at": "2026-10-10T03:10:00+00:00",
-          "observation_ids": [
-            "cd4e8091-ddfc-4be8-8c10-cd7f9c9d377f"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.999999821186055
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-10T03:15:00+00:00",
-          "ended_at": "2026-10-10T03:15:00+00:00",
-          "observation_ids": [
-            "85d73071-0482-4959-9397-4a7c387d909c"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        }
-      ],
-      "distance_to_medoid": 2.0,
-      "silhouette": 0.0714285714285714,
-      "visit_started_at": "2026-10-10T03:00:00+00:00",
-      "customer": {
-        "id": "01373eef-acf5-410c-8a15-a233579a9a30",
-        "customer_code": "CUS-KDEF-004",
-        "full_name": "Khách hàng KDEF KG074"
-      }
-    },
-    {
-      "id": "0ec70691-58a4-4c70-9a4b-5c878c1d936f",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "0ded2429-ea3d-4f22-9000-ac35ac1207b7",
-      "cluster_id": 1,
-      "sequence": [
-        "Happy",
-        "Sad",
-        "Fear",
-        "Happy"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-12T02:00:00+00:00",
-          "ended_at": "2026-10-12T02:00:00+00:00",
-          "observation_ids": [
-            "2d7aa5f7-1327-4173-b4a5-17063eea7dc3"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.999784529209137
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-12T02:05:00+00:00",
-          "ended_at": "2026-10-12T02:05:00+00:00",
-          "observation_ids": [
-            "e57f31e9-c573-4a4a-8982-99302719eb5d"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.8885895742667229
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-12T02:10:00+00:00",
-          "ended_at": "2026-10-12T02:10:00+00:00",
-          "observation_ids": [
-            "77b55ffb-366d-4428-b040-daf57c5e4f0c"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.6181515000047088
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-12T02:15:00+00:00",
-          "ended_at": "2026-10-12T02:15:00+00:00",
-          "observation_ids": [
-            "9dad75de-df7a-4957-b30f-c2602883310a"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        }
-      ],
-      "distance_to_medoid": 4.0,
-      "silhouette": 0.0714285714285714,
-      "visit_started_at": "2026-10-12T02:00:00+00:00",
-      "customer": {
-        "id": "37575925-3d82-4de2-9754-d61757d4846c",
-        "customer_code": "CUS-KDEF-001",
-        "full_name": "Khách hàng KDEF KG011"
-      }
-    },
-    {
-      "id": "a9f9574e-83a6-4fa1-a81d-eb080c186657",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "2c0bf5fa-74f5-463c-bf96-3457e00cb1d3",
-      "cluster_id": 1,
+      "id": "a3959627-c5ba-44c5-b7ec-3dc76402f2fc",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "f8ffb46f-65a1-4dab-9e93-5a0da0f1b78e",
+      "cluster_id": 2,
       "sequence": [
         "Happy",
         "Angry",
         "Angry",
-        "Happy"
+        "Neutral"
       ],
       "sequence_metadata": [
         {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
           "touchpoint_name": "Cửa vào",
           "started_at": "2026-10-12T03:00:00+00:00",
           "ended_at": "2026-10-12T03:00:00+00:00",
           "observation_ids": [
-            "41596be7-be4a-4d0c-b10b-65535ae60b42"
+            "82558dec-cd0b-4099-96db-2d9e50431e3d"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9999998807907104
+          "mean_confidence": 0.9651818871498108
         },
         {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
           "touchpoint_name": "Khu trưng bày sản phẩm",
           "started_at": "2026-10-12T03:05:00+00:00",
           "ended_at": "2026-10-12T03:05:00+00:00",
           "observation_ids": [
-            "b0882101-3d89-40af-b177-686c37f14dc9"
+            "1eebfd4d-b249-4dd7-9124-eb783d6025e9"
           ],
           "support_count": 1,
-          "mean_confidence": 0.6372454762458801
+          "mean_confidence": 0.9222898483276367
         },
         {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
           "touchpoint_name": "Khu tư vấn",
           "started_at": "2026-10-12T03:10:00+00:00",
           "ended_at": "2026-10-12T03:10:00+00:00",
           "observation_ids": [
-            "dbb8e9cd-f9e6-47f7-9988-d18e315a3c44"
+            "44164931-1fb0-4e8a-9d28-801b3d61d7b7"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9817838647107916
+          "mean_confidence": 0.8810344863554529
         },
         {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
           "touchpoint_name": "Quầy thanh toán",
           "started_at": "2026-10-12T03:15:00+00:00",
           "ended_at": "2026-10-12T03:15:00+00:00",
           "observation_ids": [
-            "34316cfd-f2ae-4bac-8804-a41fd4b8deaf"
+            "d36f777f-d7cc-49e2-ab46-e26e2d1cc0e5"
           ],
           "support_count": 1,
-          "mean_confidence": 1.0
+          "mean_confidence": 0.7019703388214111
         }
       ],
-      "distance_to_medoid": 4.0,
-      "silhouette": -0.06666666666666664,
+      "distance_to_medoid": 2.0,
+      "silhouette": 0.0,
       "visit_started_at": "2026-10-12T03:00:00+00:00",
       "customer": {
-        "id": "01373eef-acf5-410c-8a15-a233579a9a30",
+        "id": "d48f2887-98ab-4907-8429-fee861542f8b",
         "customer_code": "CUS-KDEF-004",
         "full_name": "Khách hàng KDEF KG074"
       }
     },
     {
-      "id": "ed142266-57ad-4d26-9fa9-0813b3965d27",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "76916597-2863-4f27-af61-62c9fb1a8dfd",
+      "id": "8b59a5c1-bc54-4de9-94cb-a3c68f85be9a",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "fad5ddb0-177b-4312-824b-0287a8800fa5",
       "cluster_id": 2,
+      "sequence": [
+        "Angry",
+        "Happy",
+        "Angry",
+        "Surprise"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-09T02:40:00+00:00",
+          "ended_at": "2026-10-09T02:40:00+00:00",
+          "observation_ids": [
+            "2bec0175-5fcf-4b6e-93be-cc8fff188ac8"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.6784878756418377
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-09T02:45:00+00:00",
+          "ended_at": "2026-10-09T02:45:00+00:00",
+          "observation_ids": [
+            "2d9cba80-6a13-4da1-a5ac-bc2df5e4a229"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.353972780230906
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-09T02:50:00+00:00",
+          "ended_at": "2026-10-09T02:50:00+00:00",
+          "observation_ids": [
+            "ae9a3b8c-25d4-4189-8afb-0e6bdd7edea4"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.48325613041258636
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-09T02:55:00+00:00",
+          "ended_at": "2026-10-09T02:55:00+00:00",
+          "observation_ids": [
+            "6c7d03a3-3706-49b5-ab61-a14c992265cc"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.8538146018981934
+        }
+      ],
+      "distance_to_medoid": 2.0,
+      "silhouette": 0.0,
+      "visit_started_at": "2026-10-09T02:40:00+00:00",
+      "customer": {
+        "id": "ca2dc474-abee-41fd-b792-4460f1fe4a9f",
+        "customer_code": "CUS-KDEF-003",
+        "full_name": "Khách hàng KDEF KG061"
+      }
+    },
+    {
+      "id": "67fb27a5-3be7-4e07-a740-eb40992f777a",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "3289fc06-a6be-447f-875f-d65960897000",
+      "cluster_id": 2,
+      "sequence": [
+        "Angry",
+        "Surprise",
+        "Happy",
+        "Neutral"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-10T03:20:00+00:00",
+          "ended_at": "2026-10-10T03:20:00+00:00",
+          "observation_ids": [
+            "e6207f68-bf0b-4c4c-819b-9578557f21e1"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.8376523062768348
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-10T03:25:00+00:00",
+          "ended_at": "2026-10-10T03:25:00+00:00",
+          "observation_ids": [
+            "9756c61c-cdd8-4b49-9130-28f4abe898f2"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7897348278602856
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-10T03:30:00+00:00",
+          "ended_at": "2026-10-10T03:30:00+00:00",
+          "observation_ids": [
+            "cf14ec99-5b1b-4988-99f6-759d7d90a04e"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9999951124191284
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-10T03:35:00+00:00",
+          "ended_at": "2026-10-10T03:35:00+00:00",
+          "observation_ids": [
+            "b70b0781-68a9-401b-8061-031cf3e49e56"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9805028426946905
+        }
+      ],
+      "distance_to_medoid": 2.0,
+      "silhouette": -0.047619047619047575,
+      "visit_started_at": "2026-10-10T03:20:00+00:00",
+      "customer": {
+        "id": "7d513a01-d0b0-4e25-8335-d05256ea8524",
+        "customer_code": "CUS-KDEF-005",
+        "full_name": "Khách hàng KDEF KG112"
+      }
+    },
+    {
+      "id": "c006cf91-6225-4fa4-98f9-89c987a5ed39",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "85a33163-74e9-45a3-ab4e-f81552a8b527",
+      "cluster_id": 2,
+      "sequence": [
+        "Surprise",
+        "Surprise",
+        "Neutral",
+        "Neutral"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-08T02:40:00+00:00",
+          "ended_at": "2026-10-08T02:40:00+00:00",
+          "observation_ids": [
+            "73b9ab6f-4580-4ecb-bec5-b137f26e178c"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.33133765085486755
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-08T02:45:00+00:00",
+          "ended_at": "2026-10-08T02:45:00+00:00",
+          "observation_ids": [
+            "a7dc5ed8-8359-4954-8745-eeece0050df3"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.5182641744613647
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-08T02:50:00+00:00",
+          "ended_at": "2026-10-08T02:50:00+00:00",
+          "observation_ids": [
+            "cf19e444-704e-4504-940c-8b7da253e9c7"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7616629600524902
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-08T02:55:00+00:00",
+          "ended_at": "2026-10-08T02:55:00+00:00",
+          "observation_ids": [
+            "d1b6b34a-c5be-4d6c-bf41-87e8108acc06"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.5235876753084466
+        }
+      ],
+      "distance_to_medoid": 4.0,
+      "silhouette": -0.2,
+      "visit_started_at": "2026-10-08T02:40:00+00:00",
+      "customer": {
+        "id": "ca2dc474-abee-41fd-b792-4460f1fe4a9f",
+        "customer_code": "CUS-KDEF-003",
+        "full_name": "Khách hàng KDEF KG061"
+      }
+    },
+    {
+      "id": "04ff96a4-0901-490d-8fe8-55c873125b6a",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "53374423-7841-43b8-8348-d914f3d0f84d",
+      "cluster_id": 3,
+      "sequence": [
+        "Sad",
+        "Sad",
+        "Sad",
+        "Angry"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-08T02:20:00+00:00",
+          "ended_at": "2026-10-08T02:20:00+00:00",
+          "observation_ids": [
+            "313ac472-320e-47a9-a7d1-edaf304fd906"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7126421928405762
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-08T02:25:00+00:00",
+          "ended_at": "2026-10-08T02:25:00+00:00",
+          "observation_ids": [
+            "4b4e6236-636a-4fd0-9e51-4369589c3f39"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.6383496903389507
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-08T02:30:00+00:00",
+          "ended_at": "2026-10-08T02:30:00+00:00",
+          "observation_ids": [
+            "6fac2c52-be43-4f4e-a5bf-fa45724c3e02"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9031121730804443
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-08T02:35:00+00:00",
+          "ended_at": "2026-10-08T02:35:00+00:00",
+          "observation_ids": [
+            "e2eebee9-8976-4b37-a1b8-e5e409cb191a"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7738955886488451
+        }
+      ],
+      "distance_to_medoid": 2.0,
+      "silhouette": 0.5,
+      "visit_started_at": "2026-10-08T02:20:00+00:00",
+      "customer": {
+        "id": "82cca7ab-f8d9-4711-8d8f-3eda16e17e95",
+        "customer_code": "CUS-KDEF-002",
+        "full_name": "Khách hàng KDEF KG039"
+      }
+    },
+    {
+      "id": "92b0c2f7-437b-4351-a6d1-bef1f8ccd90b",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "917cba93-eabb-41ca-bd7a-bda63a0db420",
+      "cluster_id": 3,
+      "sequence": [
+        "Sad",
+        "Sad",
+        "Sad",
+        "Sad"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-11T02:20:00+00:00",
+          "ended_at": "2026-10-11T02:20:00+00:00",
+          "observation_ids": [
+            "f3d2cb4e-16d2-49f2-b3fd-003e8f39185a"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7126421928405762
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-11T02:25:00+00:00",
+          "ended_at": "2026-10-11T02:25:00+00:00",
+          "observation_ids": [
+            "604e300d-a7bd-480f-bc39-123351cefe7b"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.8869978324177465
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-11T02:30:00+00:00",
+          "ended_at": "2026-10-11T02:30:00+00:00",
+          "observation_ids": [
+            "6ef4633a-3f86-48d1-879a-65a46c69283b"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.6049807667732239
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-11T02:35:00+00:00",
+          "ended_at": "2026-10-11T02:35:00+00:00",
+          "observation_ids": [
+            "3be21e7c-505c-4c48-af60-b9fa5bae2a04"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.46177029609680176
+        }
+      ],
+      "distance_to_medoid": 0.0,
+      "silhouette": 0.5,
+      "visit_started_at": "2026-10-11T02:20:00+00:00",
+      "customer": {
+        "id": "82cca7ab-f8d9-4711-8d8f-3eda16e17e95",
+        "customer_code": "CUS-KDEF-002",
+        "full_name": "Khách hàng KDEF KG039"
+      }
+    },
+    {
+      "id": "66032a6b-d25f-4771-810c-fcc96e74a7ef",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "8f9e9f07-5a11-4660-9156-376fcc2519d4",
+      "cluster_id": 4,
+      "sequence": [
+        "Happy",
+        "Angry",
+        "Happy",
+        "Happy"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-12T02:00:00+00:00",
+          "ended_at": "2026-10-12T02:00:00+00:00",
+          "observation_ids": [
+            "f1cc23d7-706e-4755-b7c9-08387f1767b1"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7826183438301086
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-12T02:05:00+00:00",
+          "ended_at": "2026-10-12T02:05:00+00:00",
+          "observation_ids": [
+            "6d4b49ae-eb2d-4011-a418-0c7047dc0154"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9874421939184898
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-12T02:10:00+00:00",
+          "ended_at": "2026-10-12T02:10:00+00:00",
+          "observation_ids": [
+            "20666b96-268e-4c2d-9051-441dda092380"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.5615524984331428
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-12T02:15:00+00:00",
+          "ended_at": "2026-10-12T02:15:00+00:00",
+          "observation_ids": [
+            "deab00fd-5ed5-4c8c-b5ea-7407d287602e"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.4662036895751953
+        }
+      ],
+      "distance_to_medoid": 0.0,
+      "silhouette": 0.75,
+      "visit_started_at": "2026-10-12T02:00:00+00:00",
+      "customer": {
+        "id": "39dec5ab-3b0e-48bb-aa58-899fe785c912",
+        "customer_code": "CUS-KDEF-001",
+        "full_name": "Khách hàng KDEF KG011"
+      }
+    },
+    {
+      "id": "cb2f0aab-ad88-48d4-8462-e57274e6ec67",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "b572c65d-a237-46b3-bb64-59a6b8a9bbba",
+      "cluster_id": 4,
+      "sequence": [
+        "Happy",
+        "Angry",
+        "Happy",
+        "Happy"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-09T02:00:00+00:00",
+          "ended_at": "2026-10-09T02:00:00+00:00",
+          "observation_ids": [
+            "7a4545aa-c669-4bfc-a52b-2c5c3ace8656"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7826183438301086
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-09T02:05:00+00:00",
+          "ended_at": "2026-10-09T02:05:00+00:00",
+          "observation_ids": [
+            "22d9dea7-0311-45df-b339-b963f3d17fc3"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.3851503363341293
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-09T02:10:00+00:00",
+          "ended_at": "2026-10-09T02:10:00+00:00",
+          "observation_ids": [
+            "29708354-2592-467a-963c-2b27cfb6a634"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.8943296074867249
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-09T02:15:00+00:00",
+          "ended_at": "2026-10-09T02:15:00+00:00",
+          "observation_ids": [
+            "369a713a-2301-4f1e-9117-a11eeeddcd2c"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.4662036895751953
+        }
+      ],
+      "distance_to_medoid": 0.0,
+      "silhouette": 0.75,
+      "visit_started_at": "2026-10-09T02:00:00+00:00",
+      "customer": {
+        "id": "39dec5ab-3b0e-48bb-aa58-899fe785c912",
+        "customer_code": "CUS-KDEF-001",
+        "full_name": "Khách hàng KDEF KG011"
+      }
+    },
+    {
+      "id": "35c87bfd-8395-4ad6-a8d8-7c86fc342706",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "9be060ba-d151-4eed-a3ff-ec3efc5d3eee",
+      "cluster_id": 4,
+      "sequence": [
+        "Angry",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-10T02:00:00+00:00",
+          "ended_at": "2026-10-10T02:00:00+00:00",
+          "observation_ids": [
+            "4caa1d8a-08b6-44e9-a519-39de3485b7da"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9953407043624765
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-10T02:05:00+00:00",
+          "ended_at": "2026-10-10T02:05:00+00:00",
+          "observation_ids": [
+            "57535d45-2b47-4a29-89bd-c68a86e2b0b7"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9998005032539368
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-10T02:10:00+00:00",
+          "ended_at": "2026-10-10T02:10:00+00:00",
+          "observation_ids": [
+            "4809fa45-9b1d-429d-bcf6-63993dc2dfbd"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.8943296074867249
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-10T02:15:00+00:00",
+          "ended_at": "2026-10-10T02:15:00+00:00",
+          "observation_ids": [
+            "a2dbc757-5b72-4f96-9b1f-adeccc023d70"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.4662036895751953
+        }
+      ],
+      "distance_to_medoid": 2.0,
+      "silhouette": 0.5,
+      "visit_started_at": "2026-10-10T02:00:00+00:00",
+      "customer": {
+        "id": "39dec5ab-3b0e-48bb-aa58-899fe785c912",
+        "customer_code": "CUS-KDEF-001",
+        "full_name": "Khách hàng KDEF KG011"
+      }
+    },
+    {
+      "id": "6c841710-a9a2-45f2-a8e8-a1d29d0d5e4b",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "1588b1b5-b895-4741-9fa1-e924891b4c1d",
+      "cluster_id": 5,
       "sequence": [
         "Angry",
         "Angry",
@@ -541,919 +871,787 @@
       ],
       "sequence_metadata": [
         {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-08T03:00:00+00:00",
-          "ended_at": "2026-10-08T03:00:00+00:00",
-          "observation_ids": [
-            "a51666aa-3255-41c1-83af-897042f65717"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9358056149366863
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-08T03:05:00+00:00",
-          "ended_at": "2026-10-08T03:05:00+00:00",
-          "observation_ids": [
-            "66608820-b386-473b-a229-6a2352c153c8"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.6372454762458801
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-08T03:10:00+00:00",
-          "ended_at": "2026-10-08T03:10:00+00:00",
-          "observation_ids": [
-            "49e44743-d467-48f9-bb6f-28a2d063f1be"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.7988834024806735
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-08T03:15:00+00:00",
-          "ended_at": "2026-10-08T03:15:00+00:00",
-          "observation_ids": [
-            "937bab2b-41f8-402e-8fa7-e85067b147a9"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.904164839287381
-        }
-      ],
-      "distance_to_medoid": 4.0,
-      "silhouette": 0.3563218390804597,
-      "visit_started_at": "2026-10-08T03:00:00+00:00",
-      "customer": {
-        "id": "01373eef-acf5-410c-8a15-a233579a9a30",
-        "customer_code": "CUS-KDEF-004",
-        "full_name": "Khách hàng KDEF KG074"
-      }
-    },
-    {
-      "id": "58006e54-a77f-4f18-9f9c-cfb774a34b90",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "4d4aef09-12ec-4167-9613-098e9ede3d88",
-      "cluster_id": 2,
-      "sequence": [
-        "Sad",
-        "Angry",
-        "Angry",
-        "Sad"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-11T02:40:00+00:00",
-          "ended_at": "2026-10-11T02:40:00+00:00",
-          "observation_ids": [
-            "ac3f0b84-b151-4403-949c-37b63ff4369d"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.5340863188556623
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-11T02:45:00+00:00",
-          "ended_at": "2026-10-11T02:45:00+00:00",
-          "observation_ids": [
-            "7daa36ae-df18-4712-ac8f-5e20a27e590d"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.5740856274417417
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-11T02:50:00+00:00",
-          "ended_at": "2026-10-11T02:50:00+00:00",
-          "observation_ids": [
-            "92444030-c995-4d8b-b99a-c676b3121553"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.7137874364852905
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-11T02:55:00+00:00",
-          "ended_at": "2026-10-11T02:55:00+00:00",
-          "observation_ids": [
-            "336cf0ea-1fa2-4de2-a38d-650fc35e7c00"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9974831941743858
-        }
-      ],
-      "distance_to_medoid": 2.0,
-      "silhouette": 0.16666666666666663,
-      "visit_started_at": "2026-10-11T02:40:00+00:00",
-      "customer": {
-        "id": "470e2da5-732b-43e7-8f3c-aa3d7558bab3",
-        "customer_code": "CUS-KDEF-003",
-        "full_name": "Khách hàng KDEF KG061"
-      }
-    },
-    {
-      "id": "269cd365-6c19-481e-94d9-5371df97ed1e",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "abddb576-4e96-4ae8-bb15-cc70224cc154",
-      "cluster_id": 2,
-      "sequence": [
-        "Angry",
-        "Sad",
-        "Angry",
-        "Sad"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-11T03:00:00+00:00",
-          "ended_at": "2026-10-11T03:00:00+00:00",
-          "observation_ids": [
-            "71be43eb-49d2-4c13-857e-cee5c48a4bb6"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9358056149366863
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-11T03:05:00+00:00",
-          "ended_at": "2026-10-11T03:05:00+00:00",
-          "observation_ids": [
-            "78cc9aac-1f76-47b7-a3f1-07e35656610c"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.3360278606414795
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-11T03:10:00+00:00",
-          "ended_at": "2026-10-11T03:10:00+00:00",
-          "observation_ids": [
-            "114c773b-2fdf-4000-bc7c-5a33257fe4f8"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.5053235882134929
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-11T03:15:00+00:00",
-          "ended_at": "2026-10-11T03:15:00+00:00",
-          "observation_ids": [
-            "a60a27ca-155a-418b-87d0-9b3e914da2ad"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9284301996231079
-        }
-      ],
-      "distance_to_medoid": 0.0,
-      "silhouette": 0.16666666666666663,
-      "visit_started_at": "2026-10-11T03:00:00+00:00",
-      "customer": {
-        "id": "01373eef-acf5-410c-8a15-a233579a9a30",
-        "customer_code": "CUS-KDEF-004",
-        "full_name": "Khách hàng KDEF KG074"
-      }
-    },
-    {
-      "id": "ff52e0dc-f4d8-421d-952b-5587f0ac651f",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "e1d7f233-fdd7-48b5-bb63-0ad511d26e28",
-      "cluster_id": 2,
-      "sequence": [
-        "Sad",
-        "Angry",
-        "Fear",
-        "Surprise"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-10T02:40:00+00:00",
-          "ended_at": "2026-10-10T02:40:00+00:00",
-          "observation_ids": [
-            "b494b736-c423-4a0b-85c2-905cc6d6b7b7"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.5340863188556623
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-10T02:45:00+00:00",
-          "ended_at": "2026-10-10T02:45:00+00:00",
-          "observation_ids": [
-            "46797405-29c9-4027-b7e9-5306ca6a7844"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9173013666508953
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-10T02:50:00+00:00",
-          "ended_at": "2026-10-10T02:50:00+00:00",
-          "observation_ids": [
-            "3a245890-5854-4088-9c9c-1b739986bdd7"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.6968422532081604
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-10T02:55:00+00:00",
-          "ended_at": "2026-10-10T02:55:00+00:00",
-          "observation_ids": [
-            "79ea2219-c9ef-4ceb-a52b-b96313c0b739"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.995345413684845
-        }
-      ],
-      "distance_to_medoid": 4.0,
-      "silhouette": 0.11111111111111105,
-      "visit_started_at": "2026-10-10T02:40:00+00:00",
-      "customer": {
-        "id": "470e2da5-732b-43e7-8f3c-aa3d7558bab3",
-        "customer_code": "CUS-KDEF-003",
-        "full_name": "Khách hàng KDEF KG061"
-      }
-    },
-    {
-      "id": "8e6994f7-5658-4948-81de-b2c6863ebd4a",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "01b700e9-1172-4494-920d-8fbf6bb0fcc6",
-      "cluster_id": 3,
-      "sequence": [
-        "Happy",
-        "Happy",
-        "Happy",
-        "Happy"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-09T02:20:00+00:00",
-          "ended_at": "2026-10-09T02:20:00+00:00",
-          "observation_ids": [
-            "88182cdb-3db3-4f80-8bf1-bf48867a6bc2"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-09T02:25:00+00:00",
-          "ended_at": "2026-10-09T02:25:00+00:00",
-          "observation_ids": [
-            "25ef28b8-6e19-427b-8e63-68cea00b8290"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-09T02:30:00+00:00",
-          "ended_at": "2026-10-09T02:30:00+00:00",
-          "observation_ids": [
-            "fab53bf3-a4bb-4403-ac2c-8a670ecd456a"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-09T02:35:00+00:00",
-          "ended_at": "2026-10-09T02:35:00+00:00",
-          "observation_ids": [
-            "35861d70-8594-438e-97ac-8922067043da"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        }
-      ],
-      "distance_to_medoid": 0.0,
-      "silhouette": 1.0,
-      "visit_started_at": "2026-10-09T02:20:00+00:00",
-      "customer": {
-        "id": "106d46a1-93ba-4f08-9f1e-e8b89cfda5c8",
-        "customer_code": "CUS-KDEF-002",
-        "full_name": "Khách hàng KDEF KG039"
-      }
-    },
-    {
-      "id": "e45165cd-5376-4159-bfb9-50f119435a26",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "2a667302-e158-4160-8823-0149dbc82134",
-      "cluster_id": 3,
-      "sequence": [
-        "Happy",
-        "Happy",
-        "Happy",
-        "Happy"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-09T02:00:00+00:00",
-          "ended_at": "2026-10-09T02:00:00+00:00",
-          "observation_ids": [
-            "0293d405-3502-436d-b798-b83e99ea7546"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.999784529209137
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-09T02:05:00+00:00",
-          "ended_at": "2026-10-09T02:05:00+00:00",
-          "observation_ids": [
-            "14a54f90-23ba-4660-aad9-77bced9cce68"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9999979734420776
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-09T02:10:00+00:00",
-          "ended_at": "2026-10-09T02:10:00+00:00",
-          "observation_ids": [
-            "12c97b06-daea-4764-96bd-eefbfcbc2d01"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9713601469993591
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-09T02:15:00+00:00",
-          "ended_at": "2026-10-09T02:15:00+00:00",
-          "observation_ids": [
-            "ad111df0-23f4-4dca-bea8-37005a8e6b84"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        }
-      ],
-      "distance_to_medoid": 0.0,
-      "silhouette": 1.0,
-      "visit_started_at": "2026-10-09T02:00:00+00:00",
-      "customer": {
-        "id": "37575925-3d82-4de2-9754-d61757d4846c",
-        "customer_code": "CUS-KDEF-001",
-        "full_name": "Khách hàng KDEF KG011"
-      }
-    },
-    {
-      "id": "7ec7430f-90d5-4db2-97f9-27172fad5092",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "6e873669-1c6d-41d4-869c-8b4de6aedd9e",
-      "cluster_id": 3,
-      "sequence": [
-        "Happy",
-        "Happy",
-        "Happy",
-        "Happy"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-09T03:20:00+00:00",
-          "ended_at": "2026-10-09T03:20:00+00:00",
-          "observation_ids": [
-            "0167ac4b-8c24-423c-8f48-0a3ba3456b8b"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-09T03:25:00+00:00",
-          "ended_at": "2026-10-09T03:25:00+00:00",
-          "observation_ids": [
-            "a5e5dcb1-29a7-42e9-a316-f880d83aca68"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-09T03:30:00+00:00",
-          "ended_at": "2026-10-09T03:30:00+00:00",
-          "observation_ids": [
-            "46a6152b-9b02-4f85-8095-fe9a14655851"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-09T03:35:00+00:00",
-          "ended_at": "2026-10-09T03:35:00+00:00",
-          "observation_ids": [
-            "c6a9d921-58e9-4919-a8be-aa538ec8fcc9"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9999984502792358
-        }
-      ],
-      "distance_to_medoid": 0.0,
-      "silhouette": 1.0,
-      "visit_started_at": "2026-10-09T03:20:00+00:00",
-      "customer": {
-        "id": "8f8101be-29b1-4c00-9183-68c3bd4f3e57",
-        "customer_code": "CUS-KDEF-005",
-        "full_name": "Khách hàng KDEF KG112"
-      }
-    },
-    {
-      "id": "2f501996-7fdc-443e-a034-d25932a5a8f6",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "d2bd39c5-7d52-453c-8a8d-6f3adb02dc29",
-      "cluster_id": 3,
-      "sequence": [
-        "Happy",
-        "Happy",
-        "Happy",
-        "Happy"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-09T03:00:00+00:00",
-          "ended_at": "2026-10-09T03:00:00+00:00",
-          "observation_ids": [
-            "575c1f85-3e02-478a-8536-9e98e5f4e100"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9999998807907104
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-09T03:05:00+00:00",
-          "ended_at": "2026-10-09T03:05:00+00:00",
-          "observation_ids": [
-            "0a1b74aa-bde1-4c10-99dc-d3ade11a9c84"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-09T03:10:00+00:00",
-          "ended_at": "2026-10-09T03:10:00+00:00",
-          "observation_ids": [
-            "ed276011-2cd6-4c0a-8ff1-9b4384c4d4cc"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.999999821186055
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-09T03:15:00+00:00",
-          "ended_at": "2026-10-09T03:15:00+00:00",
-          "observation_ids": [
-            "5f004b83-387c-466c-98f7-15af4d705142"
-          ],
-          "support_count": 1,
-          "mean_confidence": 1.0
-        }
-      ],
-      "distance_to_medoid": 0.0,
-      "silhouette": 1.0,
-      "visit_started_at": "2026-10-09T03:00:00+00:00",
-      "customer": {
-        "id": "01373eef-acf5-410c-8a15-a233579a9a30",
-        "customer_code": "CUS-KDEF-004",
-        "full_name": "Khách hàng KDEF KG074"
-      }
-    },
-    {
-      "id": "d1f7c646-4a82-460d-a968-7893e550b1e7",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "4e0cb0ab-5849-4359-aeb4-4740b1853a54",
-      "cluster_id": 4,
-      "sequence": [
-        "Sad",
-        "Sad",
-        "Sad",
-        "Sad"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-08T02:00:00+00:00",
-          "ended_at": "2026-10-08T02:00:00+00:00",
-          "observation_ids": [
-            "cc1cf8f5-c903-4c5d-b251-af799eb6ec68"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.9611594127226576
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-08T02:05:00+00:00",
-          "ended_at": "2026-10-08T02:05:00+00:00",
-          "observation_ids": [
-            "669dadeb-25d3-4ea0-8b94-ad75a200fb56"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.8885895742667229
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-08T02:10:00+00:00",
-          "ended_at": "2026-10-08T02:10:00+00:00",
-          "observation_ids": [
-            "faebdbc8-29bb-4c13-862f-d947a989c297"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.7442016906497847
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-08T02:15:00+00:00",
-          "ended_at": "2026-10-08T02:15:00+00:00",
-          "observation_ids": [
-            "420ebe2c-94ca-4a74-a0c0-36195855da72"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.8943293690681458
-        }
-      ],
-      "distance_to_medoid": 0.0,
-      "silhouette": 1.0,
-      "visit_started_at": "2026-10-08T02:00:00+00:00",
-      "customer": {
-        "id": "37575925-3d82-4de2-9754-d61757d4846c",
-        "customer_code": "CUS-KDEF-001",
-        "full_name": "Khách hàng KDEF KG011"
-      }
-    },
-    {
-      "id": "f98f8b88-40f3-435f-bd21-c2252f5fea10",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "dccfea43-9a88-46d4-982e-c88dcc94b4fa",
-      "cluster_id": 4,
-      "sequence": [
-        "Sad",
-        "Sad",
-        "Sad",
-        "Sad"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
-          "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-08T02:40:00+00:00",
-          "ended_at": "2026-10-08T02:40:00+00:00",
-          "observation_ids": [
-            "9606bdb8-7478-4f26-b75b-151652955b4f"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.5340863188556623
-        },
-        {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
-          "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-08T02:45:00+00:00",
-          "ended_at": "2026-10-08T02:45:00+00:00",
-          "observation_ids": [
-            "570392f6-ccc1-4345-b59a-70135aef5b00"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.5095081329345703
-        },
-        {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
-          "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-08T02:50:00+00:00",
-          "ended_at": "2026-10-08T02:50:00+00:00",
-          "observation_ids": [
-            "ae8ae199-9f15-4713-bd59-58baf9ec3c90"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.6052534454758828
-        },
-        {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
-          "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-08T02:55:00+00:00",
-          "ended_at": "2026-10-08T02:55:00+00:00",
-          "observation_ids": [
-            "9e9f68be-ff35-404a-b52e-743e723d7aa8"
-          ],
-          "support_count": 1,
-          "mean_confidence": 0.6793472553077632
-        }
-      ],
-      "distance_to_medoid": 0.0,
-      "silhouette": 1.0,
-      "visit_started_at": "2026-10-08T02:40:00+00:00",
-      "customer": {
-        "id": "470e2da5-732b-43e7-8f3c-aa3d7558bab3",
-        "customer_code": "CUS-KDEF-003",
-        "full_name": "Khách hàng KDEF KG061"
-      }
-    },
-    {
-      "id": "76ee417a-99e2-4d3c-b70a-d4614858bd5f",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "4992c364-0f91-46de-8fb9-0271a5c20131",
-      "cluster_id": 5,
-      "sequence": [
-        "Neutral",
-        "Neutral",
-        "Neutral",
-        "Neutral"
-      ],
-      "sequence_metadata": [
-        {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
           "touchpoint_name": "Cửa vào",
           "started_at": "2026-10-08T03:20:00+00:00",
           "ended_at": "2026-10-08T03:20:00+00:00",
           "observation_ids": [
-            "665b2c11-c112-47dd-9441-7382c323e0cc"
+            "59020ec3-5840-49e2-8f22-b71e3d15b36a"
           ],
           "support_count": 1,
-          "mean_confidence": 0.8830737471580505
+          "mean_confidence": 0.8376523062768348
         },
         {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
           "touchpoint_name": "Khu trưng bày sản phẩm",
           "started_at": "2026-10-08T03:25:00+00:00",
           "ended_at": "2026-10-08T03:25:00+00:00",
           "observation_ids": [
-            "d4411ba2-08bb-4620-8022-13c076b00fac"
+            "78417dfd-ffd3-4ae4-b373-bb09c2c3b523"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9488437175750732
+          "mean_confidence": 0.7841269712599481
         },
         {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
           "touchpoint_name": "Khu tư vấn",
           "started_at": "2026-10-08T03:30:00+00:00",
           "ended_at": "2026-10-08T03:30:00+00:00",
           "observation_ids": [
-            "0bdc96f8-4ec8-48c0-b1e1-d7d1b9675224"
+            "66faf70d-ee11-4b09-82bd-b8b5248a6670"
           ],
           "support_count": 1,
-          "mean_confidence": 0.7884652614593506
+          "mean_confidence": 0.7111074580082247
         },
         {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
           "touchpoint_name": "Quầy thanh toán",
           "started_at": "2026-10-08T03:35:00+00:00",
           "ended_at": "2026-10-08T03:35:00+00:00",
           "observation_ids": [
-            "28c9aabc-b543-48b6-afac-883e8e6405a9"
+            "b932bb4f-9623-4b59-bca5-f0cbf4bb64eb"
           ],
           "support_count": 1,
-          "mean_confidence": 0.8599526882171631
+          "mean_confidence": 0.9825568795204163
         }
       ],
-      "distance_to_medoid": 2.0,
+      "distance_to_medoid": 0.0,
       "silhouette": 0.7142857142857143,
       "visit_started_at": "2026-10-08T03:20:00+00:00",
       "customer": {
-        "id": "8f8101be-29b1-4c00-9183-68c3bd4f3e57",
+        "id": "7d513a01-d0b0-4e25-8335-d05256ea8524",
         "customer_code": "CUS-KDEF-005",
         "full_name": "Khách hàng KDEF KG112"
       }
     },
     {
-      "id": "1b2ffb22-a76c-4185-80cd-e36b0cd78440",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "a248e858-13cd-4bfe-a68e-6c0ea664f0b1",
+      "id": "2b6580ff-5342-4362-a2c2-166a52eabc58",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "cc4d9569-dc75-4faa-857e-6fb5de5fd16f",
       "cluster_id": 5,
       "sequence": [
-        "Neutral",
-        "Neutral",
-        "Neutral",
-        "Neutral"
+        "Angry",
+        "Angry",
+        "Angry",
+        "Angry"
       ],
       "sequence_metadata": [
         {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
           "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-08T02:20:00+00:00",
-          "ended_at": "2026-10-08T02:20:00+00:00",
+          "started_at": "2026-10-08T02:00:00+00:00",
+          "ended_at": "2026-10-08T02:00:00+00:00",
           "observation_ids": [
-            "8a4c8705-abb7-4fbb-996a-661d3b88eeec"
+            "3a69c3c8-8e3c-48b8-ac09-b7d7bbf012bb"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9990471005439758
+          "mean_confidence": 0.9953407043624765
         },
         {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
           "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-08T02:25:00+00:00",
-          "ended_at": "2026-10-08T02:25:00+00:00",
+          "started_at": "2026-10-08T02:05:00+00:00",
+          "ended_at": "2026-10-08T02:05:00+00:00",
           "observation_ids": [
-            "7d46fe1e-1139-4307-baa7-3103889d31fd"
+            "57b1c5e9-a1a1-457b-8571-0c1ec77da876"
           ],
           "support_count": 1,
-          "mean_confidence": 0.991935133934021
+          "mean_confidence": 0.9874421939184898
         },
         {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
           "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-08T02:30:00+00:00",
-          "ended_at": "2026-10-08T02:30:00+00:00",
+          "started_at": "2026-10-08T02:10:00+00:00",
+          "ended_at": "2026-10-08T02:10:00+00:00",
           "observation_ids": [
-            "a3f5ff60-baf0-4d9b-bbd5-ea63fb9781df"
+            "c9ea4113-120d-4076-8b25-e497288438dd"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9569751620292664
+          "mean_confidence": 0.9917966718552513
         },
         {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
           "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-08T02:35:00+00:00",
-          "ended_at": "2026-10-08T02:35:00+00:00",
+          "started_at": "2026-10-08T02:15:00+00:00",
+          "ended_at": "2026-10-08T02:15:00+00:00",
           "observation_ids": [
-            "90ac3d1c-41f7-4d01-af7d-c27c9460f02e"
+            "5aba6a2b-7fd9-458d-81ab-5d69e5409ded"
           ],
           "support_count": 1,
-          "mean_confidence": 0.988905668258667
+          "mean_confidence": 0.9956395027422609
         }
       ],
-      "distance_to_medoid": 2.0,
+      "distance_to_medoid": 0.0,
       "silhouette": 0.7142857142857143,
-      "visit_started_at": "2026-10-08T02:20:00+00:00",
+      "visit_started_at": "2026-10-08T02:00:00+00:00",
       "customer": {
-        "id": "106d46a1-93ba-4f08-9f1e-e8b89cfda5c8",
-        "customer_code": "CUS-KDEF-002",
-        "full_name": "Khách hàng KDEF KG039"
+        "id": "39dec5ab-3b0e-48bb-aa58-899fe785c912",
+        "customer_code": "CUS-KDEF-001",
+        "full_name": "Khách hàng KDEF KG011"
       }
     },
     {
-      "id": "8c6a402c-c79d-4f48-8c85-5fdb3b27249f",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "faa7438b-a1b9-4d9b-81ae-4c8c327b1977",
+      "id": "abfe5c84-d162-40fb-8abc-7eace28e523b",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "298c7e46-dcb3-4ef6-972c-d856e75f2397",
       "cluster_id": 5,
       "sequence": [
-        "Neutral",
-        "Neutral",
-        "Sad",
-        "Neutral"
+        "Angry",
+        "Angry",
+        "Angry",
+        "Angry"
       ],
       "sequence_metadata": [
         {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-08T03:00:00+00:00",
+          "ended_at": "2026-10-08T03:00:00+00:00",
+          "observation_ids": [
+            "6f79b28b-00b5-4ac7-a6ce-d282f48a2a6b"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9163180589675903
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-08T03:05:00+00:00",
+          "ended_at": "2026-10-08T03:05:00+00:00",
+          "observation_ids": [
+            "d61fc0a1-8a15-4a8e-a72d-dbb103b93653"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9222898483276367
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-08T03:10:00+00:00",
+          "ended_at": "2026-10-08T03:10:00+00:00",
+          "observation_ids": [
+            "35f572a8-257a-42d1-9ffd-083c12be59c8"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9620884702100193
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-08T03:15:00+00:00",
+          "ended_at": "2026-10-08T03:15:00+00:00",
+          "observation_ids": [
+            "49e1f36f-b969-4017-b7cb-1d4350c63e29"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.8628474988250434
+        }
+      ],
+      "distance_to_medoid": 0.0,
+      "silhouette": 0.7142857142857143,
+      "visit_started_at": "2026-10-08T03:00:00+00:00",
+      "customer": {
+        "id": "d48f2887-98ab-4907-8429-fee861542f8b",
+        "customer_code": "CUS-KDEF-004",
+        "full_name": "Khách hàng KDEF KG074"
+      }
+    },
+    {
+      "id": "47fa16c8-b021-483d-bc1a-5a344f3b52fa",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "3d1eb49e-9c3a-4de8-9606-fa8fcb39f2d3",
+      "cluster_id": 5,
+      "sequence": [
+        "Angry",
+        "Sad",
+        "Angry",
+        "Angry"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
           "touchpoint_name": "Cửa vào",
           "started_at": "2026-10-11T03:20:00+00:00",
           "ended_at": "2026-10-11T03:20:00+00:00",
           "observation_ids": [
-            "03763ad5-2f71-4c6d-a065-c255df102fbd"
+            "7db19b20-adf9-4153-83b0-23b437facfda"
           ],
           "support_count": 1,
-          "mean_confidence": 0.8830737471580505
+          "mean_confidence": 0.8376523062768348
         },
         {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
           "touchpoint_name": "Khu trưng bày sản phẩm",
           "started_at": "2026-10-11T03:25:00+00:00",
           "ended_at": "2026-10-11T03:25:00+00:00",
           "observation_ids": [
-            "50879188-7e69-4df8-962f-c07d969d62e0"
+            "23aacf74-93d1-4b36-8c47-66367c160382"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9657313227653503
+          "mean_confidence": 0.9094445217317912
         },
         {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
           "touchpoint_name": "Khu tư vấn",
           "started_at": "2026-10-11T03:30:00+00:00",
           "ended_at": "2026-10-11T03:30:00+00:00",
           "observation_ids": [
-            "d5fc0db6-c56b-49ce-a3a6-9d45d5882886"
+            "3ebe2d38-85fc-420a-a0a4-5e0be1378611"
           ],
           "support_count": 1,
-          "mean_confidence": 0.6056952476501465
+          "mean_confidence": 0.9770893481863322
         },
         {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
           "touchpoint_name": "Quầy thanh toán",
           "started_at": "2026-10-11T03:35:00+00:00",
           "ended_at": "2026-10-11T03:35:00+00:00",
           "observation_ids": [
-            "47669f1f-cb98-4a48-960e-7521789a4d9d"
+            "b5a25f28-eddd-4517-8644-5596930fd45c"
           ],
           "support_count": 1,
-          "mean_confidence": 0.7812159061431885
+          "mean_confidence": 0.9829978942871094
         }
       ],
-      "distance_to_medoid": 0.0,
-      "silhouette": 0.6666666666666666,
+      "distance_to_medoid": 2.0,
+      "silhouette": 0.52,
       "visit_started_at": "2026-10-11T03:20:00+00:00",
       "customer": {
-        "id": "8f8101be-29b1-4c00-9183-68c3bd4f3e57",
+        "id": "7d513a01-d0b0-4e25-8335-d05256ea8524",
         "customer_code": "CUS-KDEF-005",
         "full_name": "Khách hàng KDEF KG112"
       }
     },
     {
-      "id": "c7cddf85-723e-4631-9782-f22b9a17d416",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "efa07c7b-44f0-43f2-8c08-207f437a8701",
+      "id": "d23a0dda-f119-4cbd-92d3-cbe06df1ac19",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "aeb7e427-ea3b-4018-b6e8-4bf687d5897c",
       "cluster_id": 5,
       "sequence": [
-        "Neutral",
+        "Angry",
+        "Surprise",
+        "Angry",
+        "Angry"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-11T02:00:00+00:00",
+          "ended_at": "2026-10-11T02:00:00+00:00",
+          "observation_ids": [
+            "91cd22f2-6631-4539-abab-d35c54099cb8"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9953407043624765
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-11T02:05:00+00:00",
+          "ended_at": "2026-10-11T02:05:00+00:00",
+          "observation_ids": [
+            "1a9b6265-ef38-4338-8e0a-3e7c1d68f818"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9683793187141418
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-11T02:10:00+00:00",
+          "ended_at": "2026-10-11T02:10:00+00:00",
+          "observation_ids": [
+            "51c93616-2d10-4031-b02b-7c01ffd68cff"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9995259642318466
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-11T02:15:00+00:00",
+          "ended_at": "2026-10-11T02:15:00+00:00",
+          "observation_ids": [
+            "1729278b-d5d3-45d8-aa85-28021daf5a5c"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.921728069885258
+        }
+      ],
+      "distance_to_medoid": 2.0,
+      "silhouette": 0.4,
+      "visit_started_at": "2026-10-11T02:00:00+00:00",
+      "customer": {
+        "id": "39dec5ab-3b0e-48bb-aa58-899fe785c912",
+        "customer_code": "CUS-KDEF-001",
+        "full_name": "Khách hàng KDEF KG011"
+      }
+    },
+    {
+      "id": "7152ffca-1431-477d-ba72-79548ca63fc2",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "655afd0f-b35e-44ac-8330-c4ea2ec4f788",
+      "cluster_id": 5,
+      "sequence": [
+        "Angry",
+        "Angry",
+        "Sad",
+        "Sad"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-11T03:00:00+00:00",
+          "ended_at": "2026-10-11T03:00:00+00:00",
+          "observation_ids": [
+            "f8ee8316-88f8-4b11-90da-ed39c1d55487"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9163180589675903
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-11T03:05:00+00:00",
+          "ended_at": "2026-10-11T03:05:00+00:00",
+          "observation_ids": [
+            "e86da60a-ade9-47c6-afe2-007e5dad883e"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.941898763179779
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-11T03:10:00+00:00",
+          "ended_at": "2026-10-11T03:10:00+00:00",
+          "observation_ids": [
+            "a03290b5-ff71-4ec5-88b1-cbdc282135b4"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9222074151039124
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-11T03:15:00+00:00",
+          "ended_at": "2026-10-11T03:15:00+00:00",
+          "observation_ids": [
+            "a281c4a7-ba5b-4708-8726-bfe83ce53cff"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.8937872521623673
+        }
+      ],
+      "distance_to_medoid": 4.0,
+      "silhouette": 0.0,
+      "visit_started_at": "2026-10-11T03:00:00+00:00",
+      "customer": {
+        "id": "d48f2887-98ab-4907-8429-fee861542f8b",
+        "customer_code": "CUS-KDEF-004",
+        "full_name": "Khách hàng KDEF KG074"
+      }
+    },
+    {
+      "id": "b961ca12-31d3-4933-910b-43f40b77f613",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "f26b33bd-cfdd-4a1e-af3a-89387803cb73",
+      "cluster_id": 6,
+      "sequence": [
+        "Sad",
+        "Surprise",
+        "Sad",
+        "Happy"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-10T02:20:00+00:00",
+          "ended_at": "2026-10-10T02:20:00+00:00",
+          "observation_ids": [
+            "ea63d3b9-a307-46c9-b515-f2ea42ab2593"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7126421928405762
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-10T02:25:00+00:00",
+          "ended_at": "2026-10-10T02:25:00+00:00",
+          "observation_ids": [
+            "d2c5716c-5b1b-4275-ae09-4cb70ad68880"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9169051051139832
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-10T02:30:00+00:00",
+          "ended_at": "2026-10-10T02:30:00+00:00",
+          "observation_ids": [
+            "faa5ae9a-71a1-49bf-ae29-556c8f8f1431"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9768703566116307
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-10T02:35:00+00:00",
+          "ended_at": "2026-10-10T02:35:00+00:00",
+          "observation_ids": [
+            "c3a6b8bc-9b4f-43f4-b398-14b0894ede55"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9999935626983643
+        }
+      ],
+      "distance_to_medoid": 0.0,
+      "silhouette": 0.5,
+      "visit_started_at": "2026-10-10T02:20:00+00:00",
+      "customer": {
+        "id": "82cca7ab-f8d9-4711-8d8f-3eda16e17e95",
+        "customer_code": "CUS-KDEF-002",
+        "full_name": "Khách hàng KDEF KG039"
+      }
+    },
+    {
+      "id": "ef66fb49-d20f-4d43-8471-726778b0b75b",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "91044aca-69e8-4123-b581-d3f351bac92b",
+      "cluster_id": 6,
+      "sequence": [
+        "Sad",
         "Happy",
         "Sad",
+        "Happy"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-09T02:20:00+00:00",
+          "ended_at": "2026-10-09T02:20:00+00:00",
+          "observation_ids": [
+            "c4cbcfdd-2926-4940-a249-4ee79d175162"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7861488334029219
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-09T02:25:00+00:00",
+          "ended_at": "2026-10-09T02:25:00+00:00",
+          "observation_ids": [
+            "b2c028a5-8f1b-48cb-b514-035164164859"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9999785423253229
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-09T02:30:00+00:00",
+          "ended_at": "2026-10-09T02:30:00+00:00",
+          "observation_ids": [
+            "77a32d04-efc0-495f-b1d5-080e095ed4a4"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9768703566116307
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-09T02:35:00+00:00",
+          "ended_at": "2026-10-09T02:35:00+00:00",
+          "observation_ids": [
+            "f96a4271-eed3-44fb-9e3b-194f1f1f5ce5"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9999935626983643
+        }
+      ],
+      "distance_to_medoid": 2.0,
+      "silhouette": 0.5,
+      "visit_started_at": "2026-10-09T02:20:00+00:00",
+      "customer": {
+        "id": "82cca7ab-f8d9-4711-8d8f-3eda16e17e95",
+        "customer_code": "CUS-KDEF-002",
+        "full_name": "Khách hàng KDEF KG039"
+      }
+    },
+    {
+      "id": "fd626ed4-f4ee-423d-acb1-18e04b89b414",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "8df2d990-7b4c-4a19-ab71-c9f35d34cbef",
+      "cluster_id": 6,
+      "sequence": [
+        "Sad",
+        "Sad",
+        "Surprise",
+        "Happy"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-12T02:20:00+00:00",
+          "ended_at": "2026-10-12T02:20:00+00:00",
+          "observation_ids": [
+            "5dc0c1dd-6c9e-434b-81f6-cd0e9db11b05"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7861488334029219
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-12T02:25:00+00:00",
+          "ended_at": "2026-10-12T02:25:00+00:00",
+          "observation_ids": [
+            "c408c62b-42ae-4e6b-ac17-a2f8c84a47a4"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.6383496903389507
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-12T02:30:00+00:00",
+          "ended_at": "2026-10-12T02:30:00+00:00",
+          "observation_ids": [
+            "db0612df-d63e-49d2-83a2-8577b0d80a1e"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9999192953109741
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-12T02:35:00+00:00",
+          "ended_at": "2026-10-12T02:35:00+00:00",
+          "observation_ids": [
+            "b0a30db7-e0c4-4bc0-973c-4b03431e9ae3"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9999935626983643
+        }
+      ],
+      "distance_to_medoid": 2.0,
+      "silhouette": 0.5,
+      "visit_started_at": "2026-10-12T02:20:00+00:00",
+      "customer": {
+        "id": "82cca7ab-f8d9-4711-8d8f-3eda16e17e95",
+        "customer_code": "CUS-KDEF-002",
+        "full_name": "Khách hàng KDEF KG039"
+      }
+    },
+    {
+      "id": "20a0bf9f-6e1b-4ec2-82a5-3edfc9f6e207",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "59036e69-6265-426d-9e6a-8d608c6990f2",
+      "cluster_id": 7,
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Happy",
         "Neutral"
       ],
       "sequence_metadata": [
         {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
           "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-11T02:20:00+00:00",
-          "ended_at": "2026-10-11T02:20:00+00:00",
+          "started_at": "2026-10-09T03:20:00+00:00",
+          "ended_at": "2026-10-09T03:20:00+00:00",
           "observation_ids": [
-            "ce5ebe60-ecfa-4dd3-86b0-988c560226e7"
+            "1178db51-2926-4ce4-a76b-ece52ba95880"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9990471005439758
+          "mean_confidence": 0.9999790191675402
         },
         {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
           "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-11T02:25:00+00:00",
-          "ended_at": "2026-10-11T02:25:00+00:00",
+          "started_at": "2026-10-09T03:25:00+00:00",
+          "ended_at": "2026-10-09T03:25:00+00:00",
           "observation_ids": [
-            "7573077c-0d0c-46fd-9e7d-9447b9b71eb5"
+            "7a934203-7db3-44c6-a13b-1021a08a551d"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9803813684213978
+          "mean_confidence": 0.9785649180412292
         },
         {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
           "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-11T02:30:00+00:00",
-          "ended_at": "2026-10-11T02:30:00+00:00",
+          "started_at": "2026-10-09T03:30:00+00:00",
+          "ended_at": "2026-10-09T03:30:00+00:00",
           "observation_ids": [
-            "adc635b1-3b64-498c-a9f4-923785e52036"
+            "a52970f4-5727-4320-b532-a925dafd1c25"
           ],
           "support_count": 1,
-          "mean_confidence": 0.7936553113049639
+          "mean_confidence": 0.9999951124191284
         },
         {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
           "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-11T02:35:00+00:00",
-          "ended_at": "2026-10-11T02:35:00+00:00",
+          "started_at": "2026-10-09T03:35:00+00:00",
+          "ended_at": "2026-10-09T03:35:00+00:00",
           "observation_ids": [
-            "dfe692cd-3f4c-4c8b-a5b2-d2b9c08c8c2f"
+            "ecce02c9-cf0f-496e-87e3-3a899ba4ab5e"
           ],
           "support_count": 1,
-          "mean_confidence": 0.39108094573020935
+          "mean_confidence": 0.9805028426946905
+        }
+      ],
+      "distance_to_medoid": 0.0,
+      "silhouette": 0.75,
+      "visit_started_at": "2026-10-09T03:20:00+00:00",
+      "customer": {
+        "id": "7d513a01-d0b0-4e25-8335-d05256ea8524",
+        "customer_code": "CUS-KDEF-005",
+        "full_name": "Khách hàng KDEF KG112"
+      }
+    },
+    {
+      "id": "53967e76-f5de-435c-990b-49b0aeacbd45",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "f948a24e-103a-4fdd-875f-f772536bbbf4",
+      "cluster_id": 7,
+      "sequence": [
+        "Happy",
+        "Neutral",
+        "Happy",
+        "Neutral"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-09T03:00:00+00:00",
+          "ended_at": "2026-10-09T03:00:00+00:00",
+          "observation_ids": [
+            "efe2b243-69fa-4f40-9527-99b8f5177684"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9651818871498108
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-09T03:05:00+00:00",
+          "ended_at": "2026-10-09T03:05:00+00:00",
+          "observation_ids": [
+            "64d192a7-e249-430f-906f-8be67dba2f9a"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.6658667922019958
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-09T03:10:00+00:00",
+          "ended_at": "2026-10-09T03:10:00+00:00",
+          "observation_ids": [
+            "37e09029-153a-467e-a54c-968c6bb6cd57"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9924388523363383
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-09T03:15:00+00:00",
+          "ended_at": "2026-10-09T03:15:00+00:00",
+          "observation_ids": [
+            "68fa3c7c-f0f9-451a-96eb-5c26353335d7"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7019703388214111
+        }
+      ],
+      "distance_to_medoid": 0.0,
+      "silhouette": 0.75,
+      "visit_started_at": "2026-10-09T03:00:00+00:00",
+      "customer": {
+        "id": "d48f2887-98ab-4907-8429-fee861542f8b",
+        "customer_code": "CUS-KDEF-004",
+        "full_name": "Khách hàng KDEF KG074"
+      }
+    },
+    {
+      "id": "cd10b9b0-97da-4348-9069-add43c0b15f5",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "66e172ba-08a1-44a7-a019-553495638e01",
+      "cluster_id": 7,
+      "sequence": [
+        "Angry",
+        "Neutral",
+        "Happy",
+        "Neutral"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-10T03:00:00+00:00",
+          "ended_at": "2026-10-10T03:00:00+00:00",
+          "observation_ids": [
+            "7c4872bc-60a9-4258-9ed7-66ce39a82126"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9163180589675903
+        },
+        {
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-10T03:05:00+00:00",
+          "ended_at": "2026-10-10T03:05:00+00:00",
+          "observation_ids": [
+            "46915d25-46e2-4f5a-ab6a-34756339fffc"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9954734444618225
+        },
+        {
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-10T03:10:00+00:00",
+          "ended_at": "2026-10-10T03:10:00+00:00",
+          "observation_ids": [
+            "1c76c191-8d71-4397-b434-56f2f2ad2736"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9924388523363383
+        },
+        {
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-10T03:15:00+00:00",
+          "ended_at": "2026-10-10T03:15:00+00:00",
+          "observation_ids": [
+            "bb0460d2-8488-4624-92ce-79206ccd2fdf"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.7019703388214111
         }
       ],
       "distance_to_medoid": 2.0,
-      "silhouette": 0.2982456140350877,
-      "visit_started_at": "2026-10-11T02:20:00+00:00",
+      "silhouette": 0.4444444444444445,
+      "visit_started_at": "2026-10-10T03:00:00+00:00",
       "customer": {
-        "id": "106d46a1-93ba-4f08-9f1e-e8b89cfda5c8",
-        "customer_code": "CUS-KDEF-002",
-        "full_name": "Khách hàng KDEF KG039"
+        "id": "d48f2887-98ab-4907-8429-fee861542f8b",
+        "customer_code": "CUS-KDEF-004",
+        "full_name": "Khách hàng KDEF KG074"
       }
     }
   ],
   "page": 1,
   "page_size": 200,
-  "total": 22
+  "total": 25
 }

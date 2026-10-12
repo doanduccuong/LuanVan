@@ -431,7 +431,7 @@ Nhãn thư mục Kaggle chỉ được dùng để chọn ảnh và đánh giá 
 \subsection{Kết quả xử lý ảnh và liên kết hành trình}
 \label{subsection:5.4.2}
 
-Ngưỡng khoảng cách ArcFace được xác định trên 35 ảnh hiệu chỉnh dành riêng. Tập hiệu chỉnh tạo 105 cặp cùng nhóm và 490 cặp khác nhóm. Quy tắc chọn yêu cầu không có cặp khác nhóm nào bị chấp nhận nhầm, sau đó tối đa hóa tỷ lệ chấp nhận cặp cùng nhóm. Ngưỡng thu được là 0,6393; tỷ lệ chấp nhận cặp cùng nhóm trên tập hiệu chỉnh là 0,9048 và tỷ lệ loại cặp khác nhóm là 1,0000. Đây là ngưỡng vận hành cho năm nhóm trong demo, không phải ước lượng hiệu năng định danh trên dân số.
+Ngưỡng khoảng cách ArcFace được xác định trên 35 ảnh hiệu chỉnh dành riêng bằng phương pháp lựa chọn điểm vận hành trên đường cong ROC. Tập hiệu chỉnh tạo 105 cặp ảnh của cùng một người và 490 cặp ảnh của hai người khác nhau. Mỗi khoảng cách quan sát được được dùng làm một ngưỡng ứng viên để tính tỷ lệ nhận đúng và tỷ lệ nhận nhầm. Với tỷ lệ nhận nhầm mục tiêu bằng 0, điểm có tỷ lệ nhận đúng cao nhất cho ngưỡng 0,6393; tỷ lệ nhận đúng trên tập hiệu chỉnh là 0,9048 và tỷ lệ nhận nhầm là 0.
 
 Toàn bộ 100 khung được RetinaFace phát hiện là ảnh hợp lệ và DeepFace trả một nhãn biểu cảm. ArcFace ghép đúng 96 khung với hồ sơ dự kiến, bốn khung trả \texttt{NO\_MATCH} và không có khung nào bị ghép sang khách hàng khác. Bảng~\ref{tab:kdef_identity_result_ch5} và Hình~\ref{fig:kdef_identity_result_ch5} trình bày trực tiếp các số đếm này.
 

@@ -2,6 +2,8 @@ import { chromium } from '/Users/sotatek/.cache/codex-runtimes/codex-primary-run
 import { copyFile, mkdir, writeFile } from 'node:fs/promises'
 
 const sourceRunId = process.env.SOURCE_RUN_ID ?? 'KDEF-KAGGLE-20261008-LIVE'
+const expectedVisits = Number(process.env.EXPECTED_USED_VISITS ?? 25)
+const expectedK = Number(process.env.EXPECTED_K ?? 7)
 const baseUrl = process.env.WEB_URL ?? 'http://127.0.0.1:8080'
 const projectRoot = '/Users/sotatek/Desktop/Do An'
 const artifactOutput = `${projectRoot}/SYSTEM/artifacts/experiment-runs/${sourceRunId}/screenshots`
@@ -33,7 +35,7 @@ await page.getByLabel('Mật khẩu').fill(process.env.DEMO_USER_PASSWORD ?? 'de
 await page.getByRole('button', { name: 'Đăng nhập' }).click()
 await page.waitForURL('**/dashboard')
 
-const verified = await page.evaluate(async requestedRun => {
+const verified = await page.evaluate(async ({ requestedRun, requiredVisits, requiredK }) => {
   const [customersResponse, visitsResponse, observationsResponse, analysesResponse] = await Promise.all([
     fetch('/api/v1/customers?page_size=100&search=CUS-KDEF'),
     fetch('/api/v1/visits'),
@@ -50,7 +52,7 @@ const verified = await page.evaluate(async requestedRun => {
   const run = analyses.find(item => item.source_run_id === requestedRun && item.status === 'COMPLETED')
   if (customers.total !== 5) throw new Error(`Yêu cầu 5 khách KDEF, API trả ${customers.total}`)
   if (observations.total !== 100) throw new Error(`Yêu cầu 100 quan sát CAMERA, API trả ${observations.total}`)
-  if (!run || run.used_visit_count !== 22 || run.selected_k !== 5) {
+  if (!run || run.used_visit_count !== requiredVisits || run.selected_k !== requiredK) {
     throw new Error('Kết quả phân tích chuỗi không khớp run KDEF đã kiểm chứng')
   }
   for (const customer of customers.items) {
@@ -80,7 +82,7 @@ const verified = await page.evaluate(async requestedRun => {
     analysisRunId: run.id,
     targetVisit
   }
-}, sourceRunId)
+}, { requestedRun: sourceRunId, requiredVisits: expectedVisits, requiredK: expectedK })
 
 await page.goto(`${baseUrl}/customers`, { waitUntil: 'networkidle' })
 const search = page.getByPlaceholder('Tìm theo mã, tên hoặc số điện thoại')

@@ -15,6 +15,17 @@ from .settings import get_settings
 
 
 LABELS = ("Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral")
+FACE_ALIGNMENT_SIZE = 112
+FACE_ALIGNMENT_TEMPLATE = np.asarray(
+    [
+        [38.2946, 51.6963],
+        [73.5318, 51.5014],
+        [56.0252, 71.7366],
+        [41.5493, 92.3655],
+        [70.7299, 92.2041],
+    ],
+    dtype=np.float32,
+)
 
 
 @dataclass
@@ -59,6 +70,32 @@ def normalize_embedding(values: np.ndarray) -> list[float]:
     if not math.isfinite(norm) or norm == 0:
         raise ValueError("INVALID_EMBEDDING")
     return (vector / norm).tolist()
+
+
+def estimate_face_alignment(landmarks: list[list[float]] | np.ndarray) -> np.ndarray:
+    """Estimate a similarity transform from RetinaFace landmarks to ArcFace's template."""
+    source = np.asarray(landmarks, dtype=np.float32)
+    if source.shape != (5, 2) or not np.isfinite(source).all():
+        raise ValueError("INVALID_FACE_LANDMARKS")
+    matrix, _ = cv2.estimateAffinePartial2D(source, FACE_ALIGNMENT_TEMPLATE, method=cv2.LMEDS)
+    if matrix is None or matrix.shape != (2, 3) or not np.isfinite(matrix).all():
+        raise ValueError("INVALID_FACE_ALIGNMENT")
+    return matrix.astype(np.float32)
+
+
+def align_face(image_bgr: np.ndarray, landmarks: list[list[float]] | np.ndarray) -> np.ndarray:
+    matrix = estimate_face_alignment(landmarks)
+    aligned = cv2.warpAffine(
+        image_bgr,
+        matrix,
+        (FACE_ALIGNMENT_SIZE, FACE_ALIGNMENT_SIZE),
+        flags=cv2.INTER_LINEAR,
+        borderMode=cv2.BORDER_CONSTANT,
+        borderValue=(0, 0, 0),
+    )
+    if aligned.size == 0:
+        raise ValueError("INVALID_FACE_ALIGNMENT")
+    return aligned
 
 
 class OpenCVDemoEngine(VisionEngine):
@@ -221,16 +258,26 @@ class DeepFaceRetinaFaceEngine(VisionEngine):
                 box=[float(x1), float(y1), float(x2), float(y2)],
                 detection_score=detection["score"],
             )
+        try:
+            aligned_face = align_face(image, detection["landmarks"])
+        except (KeyError, TypeError, ValueError, cv2.error):
+            return FaceAnalysis(
+                face_index=face_index,
+                image_status="INVALID_FACE_CROP",
+                box=[float(x1), float(y1), float(x2), float(y2)],
+                detection_score=detection["score"],
+            )
         expression_status = "MODEL_ERROR"
         label = None
         confidence = None
         scores = None
         try:
             emotion_result = self.DeepFace.analyze(
-                img_path=crop,
+                img_path=aligned_face,
                 actions=["emotion"],
                 detector_backend="skip",
                 enforce_detection=False,
+                # RetinaFace landmarks were already used to align the face once.
                 align=False,
                 silent=True,
             )
@@ -249,10 +296,11 @@ class DeepFaceRetinaFaceEngine(VisionEngine):
         embedding = None
         try:
             representations = self.DeepFace.represent(
-                img_path=crop,
+                img_path=aligned_face,
                 model_name="ArcFace",
                 detector_backend="skip",
                 enforce_detection=False,
+                # Avoid a second alignment after the shared geometric transform.
                 align=False,
                 normalization="ArcFace",
             )

@@ -2,20 +2,19 @@ from __future__ import annotations
 
 import itertools
 import json
-import math
 import statistics
+from dataclasses import asdict
 from datetime import datetime, timezone
 
 import httpx
 
+from app.threshold_calibration import (
+    build_roc_curve,
+    cosine_distance,
+    roc_auc,
+    select_roc_threshold,
+)
 from demo_common import ARTIFACT_ROOT, DATASET_ROOT, VISION_URL, save_json
-
-
-def cosine_distance(a: list[float], b: list[float]) -> float:
-    dot = sum(x * y for x, y in zip(a, b, strict=True))
-    norm_a = math.sqrt(sum(x * x for x in a))
-    norm_b = math.sqrt(sum(y * y for y in b))
-    return 1 - dot / (norm_a * norm_b)
 
 
 def analyze(path):
@@ -47,32 +46,23 @@ def main() -> None:
             if other <= subject:
                 continue
             negatives.extend(cosine_distance(a, b) for a in vectors for b in other_vectors)
-    candidates = sorted(set(positives + negatives))
-    best = None
-    for threshold in candidates:
-        true_positive_rate = sum(value <= threshold for value in positives) / len(positives)
-        true_negative_rate = sum(value > threshold for value in negatives) / len(negatives)
-        # Sai ghép khách nguy hiểm hơn bỏ sót trong luồng CRM. Ưu tiên tuyệt đối
-        # ngưỡng không tạo false match trên tập calibration dành riêng, sau đó
-        # tối đa hóa TPR và chọn ngưỡng lớn hơn nếu các chỉ số bằng nhau.
-        candidate = (
-            true_negative_rate == 1.0,
-            true_positive_rate,
-            true_negative_rate,
-            threshold,
-        )
-        if best is None or candidate > best:
-            best = candidate
-    assert best is not None
+    target_false_positive_rate = 0.0
+    roc_points = build_roc_curve(positives, negatives)
+    selected_point = select_roc_threshold(roc_points, target_false_positive_rate)
     artifact = {
         "version": f"kdef-kaggle-operational-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}",
-        "threshold": best[3],
+        "threshold": selected_point.threshold,
+        "selection_method": "roc-operating-point-at-target-fpr",
         "selection_rule": (
-            "require zero false matches on reserved calibration pairs; "
-            "then maximize true-positive rate and choose the largest tied threshold"
+            "maximize true-positive rate subject to false-positive rate <= target; "
+            "ties choose the largest threshold"
         ),
-        "true_positive_rate": best[1],
-        "true_negative_rate": best[2],
+        "target_false_positive_rate": target_false_positive_rate,
+        "true_positive_rate": selected_point.true_positive_rate,
+        "false_positive_rate": selected_point.false_positive_rate,
+        "true_negative_rate": 1.0 - selected_point.false_positive_rate,
+        "roc_auc": roc_auc(roc_points),
+        "roc_points": [asdict(point) for point in roc_points],
         "positive_pairs": len(positives),
         "negative_pairs": len(negatives),
         "subjects": sorted(embeddings),

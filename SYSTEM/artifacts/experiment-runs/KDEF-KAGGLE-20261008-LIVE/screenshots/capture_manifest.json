@@ -1,79 +1,79 @@
 {
-  "capturedAt": "2026-10-08T15:32:07.637Z",
+  "capturedAt": "2026-10-12T02:15:18.827Z",
   "baseUrl": "http://127.0.0.1:8080",
   "sourceRunId": "KDEF-KAGGLE-20261008-LIVE",
   "sourceType": "CAMERA",
-  "analysisRunId": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-  "selectedK": 5,
-  "averageSilhouetteWidth": 0.44519318149082204,
-  "usedVisitCount": 22,
+  "analysisRunId": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+  "selectedK": 7,
+  "averageSilhouetteWidth": 0.43266002886002897,
+  "usedVisitCount": 25,
   "trace": {
-    "clusterCount": 5,
-    "assignmentCount": 22,
+    "clusterCount": 7,
+    "assignmentCount": 25,
     "assignment": {
-      "id": "11527b96-e25c-42cb-a0ef-dda87c471d1e",
-      "run_id": "a845f266-7dab-4dff-ba42-a61a46930d7a",
-      "visit_id": "0b6ee87e-981b-4445-90ec-c0ee6af9fd32",
+      "id": "b85eaffd-6336-430e-9e1f-bef7fe87e32c",
+      "run_id": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
+      "visit_id": "752545f1-f274-412d-aa85-2224f1d0b711",
       "cluster_id": 1,
       "sequence": [
-        "Neutral",
-        "Fear",
-        "Happy",
-        "Happy"
+        "Surprise",
+        "Surprise",
+        "Angry",
+        "Surprise"
       ],
       "sequence_metadata": [
         {
-          "touchpoint_id": "96b01ed6-8760-4473-919c-e3a394a69129",
+          "touchpoint_id": "a439229d-a500-43e5-b6b6-ca01e224b2dc",
           "touchpoint_name": "Cửa vào",
-          "started_at": "2026-10-10T03:20:00+00:00",
-          "ended_at": "2026-10-10T03:20:00+00:00",
+          "started_at": "2026-10-10T02:40:00+00:00",
+          "ended_at": "2026-10-10T02:40:00+00:00",
           "observation_ids": [
-            "3c6cc9ae-8e0d-4201-92b2-6cef4bc7e9a2"
+            "785ff963-c31f-4048-a0ef-04992a18fcce"
           ],
           "support_count": 1,
-          "mean_confidence": 0.8830737471580505
+          "mean_confidence": 0.33133765085486755
         },
         {
-          "touchpoint_id": "1804f9af-eb7f-41b0-a6ca-9bd2fe27e29c",
+          "touchpoint_id": "22c4ab31-0915-4f24-9f49-82cea6563ab4",
           "touchpoint_name": "Khu trưng bày sản phẩm",
-          "started_at": "2026-10-10T03:25:00+00:00",
-          "ended_at": "2026-10-10T03:25:00+00:00",
+          "started_at": "2026-10-10T02:45:00+00:00",
+          "ended_at": "2026-10-10T02:45:00+00:00",
           "observation_ids": [
-            "92148c5f-7e49-4841-b2e9-7910cff6b15a"
+            "93ce6078-b5c7-4014-a0f0-c759c22dc73f"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9934672113339431
+          "mean_confidence": 0.9951946139335632
         },
         {
-          "touchpoint_id": "625169f8-d444-4c2f-a392-6daf99ca2276",
+          "touchpoint_id": "251977c9-cd84-4004-bbe5-fdee596c895e",
           "touchpoint_name": "Khu tư vấn",
-          "started_at": "2026-10-10T03:30:00+00:00",
-          "ended_at": "2026-10-10T03:30:00+00:00",
+          "started_at": "2026-10-10T02:50:00+00:00",
+          "ended_at": "2026-10-10T02:50:00+00:00",
           "observation_ids": [
-            "29bb8a9f-08e2-4c85-a162-153672e97c75"
+            "1ced7793-1c0a-4576-8ac5-a86b19412137"
           ],
           "support_count": 1,
-          "mean_confidence": 1
+          "mean_confidence": 0.48325613041258636
         },
         {
-          "touchpoint_id": "d58844a4-af4c-4db8-acfd-1033415f9f54",
+          "touchpoint_id": "9bb0b4c1-aaed-4cce-86cd-6982f2c3978d",
           "touchpoint_name": "Quầy thanh toán",
-          "started_at": "2026-10-10T03:35:00+00:00",
-          "ended_at": "2026-10-10T03:35:00+00:00",
+          "started_at": "2026-10-10T02:55:00+00:00",
+          "ended_at": "2026-10-10T02:55:00+00:00",
           "observation_ids": [
-            "54da67cf-6161-42a5-8ee7-b71fbb0f0cf8"
+            "07898b2c-ee7d-462b-8715-18b235ce5a07"
           ],
           "support_count": 1,
-          "mean_confidence": 0.9999984502792358
+          "mean_confidence": 0.8538146018981934
         }
       ],
       "distance_to_medoid": 0,
-      "silhouette": 0.1428571428571429,
-      "visit_started_at": "2026-10-10T03:20:00+00:00",
+      "silhouette": 0.5454545454545455,
+      "visit_started_at": "2026-10-10T02:40:00+00:00",
       "customer": {
-        "id": "8f8101be-29b1-4c00-9183-68c3bd4f3e57",
-        "customer_code": "CUS-KDEF-005",
-        "full_name": "Khách hàng KDEF KG112"
+        "id": "ca2dc474-abee-41fd-b792-4460f1fe4a9f",
+        "customer_code": "CUS-KDEF-003",
+        "full_name": "Khách hàng KDEF KG061"
       }
     },
     "observationCount": 4

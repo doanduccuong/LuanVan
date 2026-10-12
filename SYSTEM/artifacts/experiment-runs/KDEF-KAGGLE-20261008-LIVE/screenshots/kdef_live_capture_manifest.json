@@ -1,17 +1,17 @@
 {
-  "capturedAt": "2026-10-08T15:32:01.854Z",
+  "capturedAt": "2026-10-12T02:15:15.839Z",
   "sourceRunId": "KDEF-KAGGLE-20261008-LIVE",
   "sourceType": "CAMERA",
   "verified": {
     "customerCount": 5,
     "observationCount": 100,
     "receivedVisitCount": 25,
-    "usedVisitCount": 22,
-    "excludedVisitCount": 3,
-    "selectedK": 5,
-    "analysisRunId": "a845f266-7dab-4dff-ba42-a61a46930d7a",
+    "usedVisitCount": 25,
+    "excludedVisitCount": 0,
+    "selectedK": 7,
+    "analysisRunId": "cdcf144d-b0aa-4b92-a7d4-69f6af0b0da7",
     "targetVisit": {
-      "id": "7e03f958-8197-4670-a8f6-1b07f42cfb3f",
+      "id": "77999ca4-2be0-4153-ab26-228ec5087a61",
       "customerCode": "CUS-KDEF-005"
     }
   },
