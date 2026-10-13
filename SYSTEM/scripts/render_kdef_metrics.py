@@ -105,7 +105,7 @@ def render_identity_outcomes(metrics: dict) -> None:
     ax.set_ylabel("Số khung camera")
     ax.set_title("Kết quả ghép định danh trên 100 khung camera KDEF")
     ax.grid(axis="y", alpha=0.22)
-    for bar, value in zip(bars, values, strict=True):
+    for bar, value in zip(bars, values):
         ax.text(bar.get_x() + bar.get_width() / 2, value + 2, str(value), ha="center", fontweight="bold")
     fig.text(
         0.01,

@@ -1,0 +1,22 @@
+run:
+  seed: 20261013
+
+paths:
+  dataset_npz: data/kdef_service_tensors_20261013.npz
+  dataset_manifest: data/kdef_service_tensors_20261013.json
+  artifacts_root: artifacts
+  initial_weights: artifacts/fer2013-emotion-finetune-001/models/deepface_emotion_finetuned.weights.h5
+
+training:
+  batch_size: 64
+  epochs: 30
+  learning_rate: 0.00001
+  patience: 6
+  min_delta: 0.001
+  use_class_weights: true
+  deterministic_ops: true
+  augmentation:
+    horizontal_flip: true
+    rotation_factor: 0.02
+    translation_factor: 0.02
+    contrast_factor: 0.05

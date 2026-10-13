@@ -21,10 +21,12 @@ services:
       args:
         INSTALL_MODEL_DEPS: ${INSTALL_MODEL_DEPS:-true}
     env_file: ${ENV_FILE:-.env.example}
+    environment:
+      EMOTION_WEIGHTS_SHA256: ${EMOTION_WEIGHTS_SHA256:-f49a354ea2ada36e94d017f8959df1e336da1c1c289188a4ee6b67bc05bab13a}
     volumes:
       - ../COMPARE_FACE_DETECTION/vendor/Pytorch_Retinaface:/models/Pytorch_Retinaface:ro
       - ../COMPARE_FACE_DETECTION/weights/mobilenet0.25_Final.pth:/models/mobilenet0.25_Final.pth:ro
-      - ../TRAIN_DEEPFACE_EMOTION/artifacts/fer2013-emotion-finetune-001/models/deepface_emotion_finetuned.weights.h5:/models/deepface_emotion_finetuned.weights.h5:ro
+      - ${EMOTION_WEIGHTS_HOST_PATH:-../TRAIN_DEEPFACE_EMOTION/artifacts/fer2013-emotion-finetune-001/models/deepface_emotion_finetuned.weights.h5}:/models/deepface_emotion_finetuned.weights.h5:ro
       - ${HOME}/.deepface:/root/.deepface:ro
     ports:
       - "8001:8001"

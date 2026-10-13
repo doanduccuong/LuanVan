@@ -298,7 +298,7 @@ Sau khi tạo hồ sơ, ảnh được đưa qua luồng tạo mẫu khuôn mặ
 \subsection{Môi trường và trình tự thực hiện}
 \label{subsection:5.4.1}
 
-Hệ thống được dựng lại bằng Docker Compose trên máy MacBook Pro sử dụng bộ xử lý Apple M4 Pro với 12 lõi CPU và 24 GB bộ nhớ. Các thành phần thuộc phạm vi đánh giá gồm PostgreSQL/pgvector, dịch vụ xử lý ảnh, tiến trình cập nhật cấu trúc cơ sở dữ liệu (migration), máy chủ nghiệp vụ và giao diện web. Dịch vụ xử lý ảnh sử dụng trọng số CNN Emotion sau tinh chỉnh đã đánh giá tại Mục~\ref{subsection:5.2.5}. Nguồn ảnh camera được biểu diễn bởi chương trình phát dữ liệu bên ngoài hệ thống; thành phần này chỉ gọi giao diện tiếp nhận ảnh và không thay thế logic xử lý của các dịch vụ. Do ảnh được phát lại từ bộ dữ liệu thay vì thu đồng thời từ bốn camera vật lý, thực nghiệm kiểm tra luồng phần mềm, không đánh giá thiết bị camera, đường truyền thời gian thực hoặc khả năng vận hành liên tục tại cửa hàng.
+Hệ thống được dựng lại bằng Docker Compose trên máy MacBook Pro sử dụng bộ xử lý Apple M4 Pro với 12 lõi CPU và 24 GB bộ nhớ. Các thành phần thuộc phạm vi đánh giá gồm PostgreSQL/pgvector, dịch vụ xử lý ảnh, tiến trình cập nhật cấu trúc cơ sở dữ liệu (migration), máy chủ nghiệp vụ và giao diện web. Dịch vụ xử lý ảnh sử dụng RetinaFace để phát hiện khuôn mặt, ArcFace để ghép định danh và CNN Emotion để phân loại biểu cảm; các trọng số và tham số được cố định trước khi phát dữ liệu. Nguồn ảnh camera được biểu diễn bởi chương trình phát dữ liệu bên ngoài hệ thống; thành phần này gọi cùng giao diện tiếp nhận ảnh dành cho nguồn camera. Do ảnh được phát lại từ bộ dữ liệu thay vì thu đồng thời từ bốn camera vật lý, thực nghiệm tập trung vào luồng xử lý phần mềm từ tiếp nhận ảnh đến kết quả phân tích.
 
 \begin{table}[H]
     \centering
@@ -376,7 +376,7 @@ Từ 97 quan sát đã ghép định danh, hệ thống tạo 25 lần mua sắm
 \subsection{Đánh giá hiệu quả phân loại biểu cảm trong luồng đầu cuối}
 \label{subsection:5.4.3}
 
-Nhãn do CNN Emotion dự đoán được đối chiếu với nhãn thư mục sau khi quá trình phát dữ liệu kết thúc. Trong 100 ảnh đầu vào, 97 ảnh có nhãn biểu cảm được lưu cùng quan sát và 40 ảnh có nhãn đúng. Tỷ lệ đầu vào tạo được nhãn đúng là $40/100=0{,}400$; Accuracy riêng trên các dự đoán được lưu là $40/97=0{,}412$. Ba ảnh không tạo được quan sát được tính vào cột \textit{Missing}. Macro-F1 đầu cuối bằng 0,391 trên cả bảy lớp; khi tính Recall, các ảnh thiếu kết quả vẫn nằm trong tổng số đầu vào của lớp tương ứng.
+Nhãn do CNN Emotion dự đoán được đối chiếu với nhãn thư mục sau khi quá trình phát dữ liệu kết thúc. Trong 100 ảnh đầu vào, 97 ảnh có nhãn biểu cảm được lưu cùng quan sát và 62 ảnh có nhãn đúng. Tỷ lệ đầu vào tạo được nhãn đúng là $62/100=0{,}620$; Accuracy riêng trên các dự đoán được lưu là $62/97=0{,}639$. Ba ảnh không tạo được quan sát được tính vào cột \textit{Missing}. Macro-F1 đầu cuối bằng 0,614 trên cả bảy lớp; khi tính Recall, các ảnh thiếu kết quả vẫn nằm trong tổng số đầu vào của lớp tương ứng.
 
 \begin{table}[H]
     \centering
@@ -386,19 +386,19 @@ Nhãn do CNN Emotion dự đoán được đối chiếu với nhãn thư mục 
         \hline
         \textbf{Lớp} & \textbf{Số mẫu} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
         \hline
-        Angry & 12 & 0,184 & 0,583 & 0,280 \\
+        Angry & 12 & 0,500 & 0,583 & 0,538 \\
         \hline
-        Disgust & 23 & 0,000 & 0,000 & 0,000 \\
+        Disgust & 23 & 1,000 & 0,652 & 0,789 \\
         \hline
-        Fear & 12 & 0,000 & 0,000 & 0,000 \\
+        Fear & 12 & 0,500 & 0,333 & 0,400 \\
         \hline
         Happy & 9 & 0,625 & 0,556 & 0,588 \\
         \hline
-        Sad & 17 & 0,667 & 0,588 & 0,625 \\
+        Sad & 17 & 0,500 & 0,588 & 0,541 \\
         \hline
-        Surprise & 15 & 1,000 & 0,733 & 0,846 \\
+        Surprise & 15 & 1,000 & 0,867 & 0,929 \\
         \hline
-        Neutral & 12 & 0,304 & 0,583 & 0,400 \\
+        Neutral & 12 & 0,421 & 0,667 & 0,516 \\
         \hline
     \end{tabular}
 \end{table}
@@ -410,16 +410,14 @@ Nhãn do CNN Emotion dự đoán được đối chiếu với nhãn thư mục 
     \label{fig:kdef_expression_confusion_ch5}
 \end{figure}
 
-Xét trên toàn bộ 100 ảnh đầu vào, hệ thống tạo được nhãn đúng cho 40 ảnh. Hiệu quả giữa các lớp không đồng đều: \textit{Surprise} có F1 cao nhất, bằng 0,846; \textit{Sad} và \textit{Happy} lần lượt đạt F1 bằng 0,625 và 0,588. Ngược lại, \textit{Disgust} không có dự đoán đúng trong 23 ảnh và 20 ảnh của lớp này bị dự đoán thành \textit{Angry}; \textit{Fear} cũng không có dự đoán đúng trong 12 ảnh. Vì vậy, mặc dù chức năng phân loại biểu cảm đã hoạt động trong luồng đầu cuối, mức đúng 40\% và sự chênh lệch lớn giữa các lớp cho thấy kết quả biểu cảm vẫn chưa đạt độ tin cậy cao.
-
-Để xem xét ảnh hưởng của tư thế khuôn mặt, luận văn đối chiếu thêm với lần chạy sử dụng cùng 100 vị trí sự kiện, nhãn đối chiếu, thời điểm, kích thước ảnh nguồn và trọng số mô hình, nhưng ảnh gần chính diện đã được dành cho tạo mẫu hồ sơ và hiệu chỉnh nên dữ liệu camera chủ yếu còn lại các góc nghiêng. Ở phép đo trực tiếp trước bước ghép định danh, lần chạy đó dự đoán đúng 28/100 ảnh và có Macro-F1 bằng 0,237. Khi dành ảnh gần chính diện cho camera, số dự đoán đúng tăng lên 40/100 và Macro-F1 tăng lên 0,389; 19 ảnh chuyển từ sai thành đúng, trong khi bảy ảnh chuyển từ đúng thành sai. Hai lớp \textit{Disgust} và \textit{Fear} vẫn không có dự đoán đúng sau thay đổi này.
+Xét trên toàn bộ 100 ảnh đầu vào, hệ thống tạo được nhãn đúng cho 62 ảnh. \textit{Surprise} có F1 cao nhất, bằng 0,929, tiếp theo là \textit{Disgust} với 0,789. Các lớp \textit{Happy}, \textit{Sad}, \textit{Angry} và \textit{Neutral} đạt F1 trong khoảng từ 0,516 đến 0,588. \textit{Fear} có kết quả thấp nhất với F1 bằng 0,400: bốn ảnh được dự đoán đúng, sáu ảnh bị gán thành \textit{Sad} và hai ảnh bị gán thành \textit{Angry}. Ma trận nhầm lẫn cũng cho thấy năm ảnh \textit{Angry} bị gán thành \textit{Neutral}, bốn ảnh \textit{Happy} bị gán thành \textit{Fear} và bốn ảnh \textit{Neutral} bị gán thành \textit{Sad}. Kết quả này cho thấy mô hình đã nhận diện đúng phần lớn đầu vào nhưng hiệu quả vẫn khác nhau giữa các lớp biểu cảm.
 
 \subsection{Kết quả tạo và phân cụm chuỗi trạng thái}
 \label{subsection:5.4.4}
 
 Từ 25 lần mua sắm đã hình thành, hệ thống sắp xếp các nhãn biểu cảm dự đoán theo thứ tự bốn điểm chạm để tạo chuỗi trạng thái. Có 23 lần mua sắm tạo được chuỗi đủ bốn trạng thái; một lần chỉ có ba trạng thái và một lần chỉ có hai trạng thái do một số ảnh không ghép được định danh. Vì vậy, đầu vào của bước phân cụm gồm 23 chuỗi có cùng độ dài bốn. Các trạng thái trong chuỗi là kết quả dự đoán của hệ thống, không phải nhãn gốc của KDEF.
 
-Quy trình phân cụm tại Chương~3 được áp dụng trực tiếp cho 23 chuỗi này. Các phương án từ $K=2$ đến $K=5$ đáp ứng điều kiện mỗi cụm có ít nhất hai chuỗi. Các phương án từ $K=6$ đến $K=11$ tạo ra cụm chỉ có một chuỗi nên bị loại. Trong các phương án hợp lệ, $K=3$ có ASW lớn nhất, bằng 0,2422, và được chọn làm kết quả cuối cùng.
+Quy trình phân cụm tại Chương~3 được áp dụng trực tiếp cho 23 chuỗi này. Các phương án từ $K=2$ đến $K=6$ đáp ứng điều kiện mỗi cụm có ít nhất hai chuỗi. Các phương án từ $K=7$ đến $K=11$ tạo ra cụm chỉ có một chuỗi nên bị loại. Trong các phương án hợp lệ, $K=2$ có ASW lớn nhất, bằng 0,2171, và được chọn làm kết quả cuối cùng.
 
 \begin{figure}[H]
     \centering
@@ -437,21 +435,19 @@ Quy trình phân cụm tại Chương~3 được áp dụng trực tiếp cho 23
         \hline
         \textbf{Cụm} & \textbf{Chuỗi medoid} & \textbf{Số chuỗi} & \textbf{Tỷ lệ} & \textbf{Silhouette TB} \\
         \hline
-        1 & Surprise $\rightarrow$ Surprise $\rightarrow$ Happy $\rightarrow$ Happy & 3 & 13,0\% & 0,196 \\
+        1 & Happy $\rightarrow$ Happy $\rightarrow$ Angry $\rightarrow$ Surprise & 6 & 26,1\% & 0,257 \\
         \hline
-        2 & Neutral $\rightarrow$ Angry $\rightarrow$ Neutral $\rightarrow$ Angry & 13 & 56,5\% & 0,164 \\
-        \hline
-        3 & Sad $\rightarrow$ Angry $\rightarrow$ Angry $\rightarrow$ Angry & 7 & 30,4\% & 0,408 \\
+        2 & Sad $\rightarrow$ Neutral $\rightarrow$ Surprise $\rightarrow$ Disgust & 17 & 73,9\% & 0,203 \\
         \hline
     \end{tabular}}
 \end{table}
 
-Cụm 2 có số lượng lớn nhất với 13 chuỗi, tiếp theo là cụm 3 với bảy chuỗi và cụm 1 với ba chuỗi. Xét mức độ tách cụm, cụm 3 có silhouette trung bình cao nhất, bằng 0,408; cụm 1 đạt 0,196 và cụm 2 đạt 0,164. Có ba chuỗi mang silhouette âm, cho thấy các chuỗi này gần với cụm khác hơn cụm được gán. Các medoid trong Bảng~\ref{tab:kdef_cluster_result_ch5} là ba chuỗi biểu cảm đại diện thu được từ dữ liệu thử nghiệm. Hình~\ref{fig:kdef_medoids_ch5} và Hình~\ref{fig:kdef_assignments_ch5} trình bày chuỗi medoid và danh sách các lần mua sắm thuộc từng cụm.
+Cụm 2 có số lượng lớn nhất với 17 chuỗi, chiếm 73,9\%; cụm 1 gồm sáu chuỗi, chiếm 26,1\%. Silhouette trung bình của hai cụm lần lượt bằng 0,203 và 0,257; không có chuỗi nào mang silhouette âm. Các medoid trong Bảng~\ref{tab:kdef_cluster_result_ch5} là hai chuỗi biểu cảm đại diện thu được từ dữ liệu thử nghiệm. Hình~\ref{fig:kdef_medoids_ch5} và Hình~\ref{fig:kdef_assignments_ch5} trình bày hai chuỗi medoid và danh sách các lần mua sắm thuộc từng cụm.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_23_kdef_cum_medoid.png}
-    \caption{Medoid và thống kê của ba cụm trên giao diện hệ thống}
+    \caption{Medoid và thống kê của hai cụm trên giao diện hệ thống}
     \label{fig:kdef_medoids_ch5}
 \end{figure}
 
@@ -491,19 +487,17 @@ Bảng~\ref{tab:end_to_end_effectiveness_ch5} tổng hợp kết quả theo từ
         \hline
         Tạo lần mua sắm & Đủ bốn điểm chạm, đúng thứ tự & 23/25 & Hai hành trình thiếu quan sát do không khớp định danh. \\
         \hline
-        Kết quả biểu cảm đầu cuối & Tỷ lệ nhãn đúng trên đầu vào; Macro-F1 & 0,400; 0,391 & Accuracy trên 97 kết quả được lưu là 0,412. \\
+        Kết quả biểu cảm đầu cuối & Tỷ lệ nhãn đúng trên đầu vào; Macro-F1 & 0,620; 0,614 & Accuracy trên 97 kết quả được lưu là 0,639. \\
         \hline
-        Phân cụm chuỗi & Chuỗi được sử dụng; ASW & 23/25; 0,2422 & Ba cụm; hai chuỗi bị loại vì thiếu trạng thái. \\
+        Phân cụm chuỗi & Chuỗi được sử dụng; ASW & 23/25; 0,2171 & Hai cụm; hai chuỗi bị loại vì thiếu trạng thái. \\
         \hline
         Kiểm tra và truy vết & Điều kiện kiểm tra đạt & 35/35 & Kết quả phân tích liên kết được về dữ liệu nguồn. \\
         \hline
     \end{tabular}}
 \end{table}
 
-Đối với phân loại biểu cảm, 40 trong 100 ảnh đầu vào tạo được nhãn đúng; Accuracy trên 97 ảnh có kết quả là 0,412 và Macro-F1 đầu cuối là 0,391. Kết quả tăng so với lần chạy ảnh nghiêng nhưng số dự đoán sai vẫn chiếm 57/100 ảnh và ba ảnh không tạo được quan sát. Hai lớp \textit{Disgust} và \textit{Fear} không có dự đoán đúng, trong khi \textit{Happy}, \textit{Sad}, \textit{Surprise} và \textit{Neutral} đạt kết quả cao hơn. Ba ảnh không ghép được định danh làm hai hành trình bị thiếu trạng thái. Ở bước phân cụm, ASW bằng 0,2422 và ba chuỗi có silhouette âm, cho thấy mức độ tách cụm còn thấp. Hệ thống đã tạo được các chuỗi biểu cảm đại diện và duy trì liên kết truy vết, nhưng phân loại biểu cảm vẫn là công đoạn có hiệu quả thấp nhất trong luồng đầu cuối.
+Đối với phân loại biểu cảm, 62 trong 100 ảnh đầu vào tạo được nhãn đúng; Accuracy trên 97 ảnh có kết quả là 0,639 và Macro-F1 đầu cuối là 0,614. Trong 38 ảnh còn lại, 35 ảnh có nhãn dự đoán khác nhãn đối chiếu và ba ảnh không tạo được quan sát do không ghép được định danh. Ba ảnh này làm hai hành trình bị thiếu trạng thái. Ở bước phân cụm, 23 chuỗi đủ điều kiện được chia thành hai cụm với ASW bằng 0,2171; không có chuỗi mang silhouette âm. Kết quả kiểm tra 35/35 điều kiện và liên kết truy vết từ cụm về từng quan sát cho thấy toàn bộ các công đoạn trong phạm vi kịch bản đã trao đổi và lưu trữ dữ liệu đúng cấu trúc.
 
-Bộ dữ liệu camera thử nghiệm được tạo một lần cho lần chạy này. Vì vậy, thực nghiệm chưa xác định kết quả phân cụm có ổn định hay không khi tạo lại dữ liệu với những lựa chọn ảnh và biểu cảm ngẫu nhiên khác. Biểu cảm tại bốn điểm chạm được lựa chọn độc lập để chuỗi không bị sắp đặt trước; cách tạo này không phản ánh tần suất xuất hiện hoặc mối liên hệ giữa các biểu cảm trong hành vi khách hàng thực tế. Do đó, kết quả phân cụm chỉ được sử dụng để kiểm tra hoạt động của luồng tạo chuỗi và phân cụm trong hệ thống.
-
-Kết quả phân cụm xác định được ba chuỗi biểu cảm đại diện như trình bày trong Bảng~\ref{tab:kdef_cluster_result_ch5}. Mỗi chuỗi đại diện là medoid của một cụm, tức chuỗi có tổng khoảng cách nhỏ nhất đến các chuỗi còn lại trong cùng cụm. Ba medoid tóm tắt ba dạng diễn biến biểu cảm xuất hiện trong dữ liệu thử nghiệm. Do kịch bản KDEF không tạo đơn hàng, thực nghiệm chưa đánh giá mối liên hệ giữa các chuỗi đại diện này với dữ liệu mua hàng.
+Biểu cảm tại bốn điểm chạm được lựa chọn độc lập nên các chuỗi không được sắp đặt trước. Kết quả phân cụm xác định được hai chuỗi biểu cảm đại diện như trình bày trong Bảng~\ref{tab:kdef_cluster_result_ch5}. Mỗi chuỗi là medoid của một cụm, tức chuỗi có tổng khoảng cách nhỏ nhất đến các chuỗi còn lại trong cùng cụm. Hai medoid thu được là \textit{Happy--Happy--Angry--Surprise} và \textit{Sad--Neutral--Surprise--Disgust}.
 
 \end{document}
