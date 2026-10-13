@@ -1,0 +1,6 @@
+customer_code,full_name,phone,email,subject_id,profile_image_url
+CUS-KDEF-001,Khách hàng KDEF KG011,0910000001,kdef.kg011@example.com,KG011,/demo/customers/CUS-KDEF-001.jpg
+CUS-KDEF-002,Khách hàng KDEF KG039,0910000002,kdef.kg039@example.com,KG039,/demo/customers/CUS-KDEF-002.jpg
+CUS-KDEF-003,Khách hàng KDEF KG061,0910000003,kdef.kg061@example.com,KG061,/demo/customers/CUS-KDEF-003.jpg
+CUS-KDEF-004,Khách hàng KDEF KG074,0910000004,kdef.kg074@example.com,KG074,/demo/customers/CUS-KDEF-004.jpg
+CUS-KDEF-005,Khách hàng KDEF KG112,0910000005,kdef.kg112@example.com,KG112,/demo/customers/CUS-KDEF-005.jpg

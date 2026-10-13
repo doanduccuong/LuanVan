@@ -5,6 +5,7 @@ const baseUrl = process.env.WEB_URL ?? 'http://127.0.0.1:8080'
 const apiDocsUrl = process.env.API_DOCS_URL ?? 'http://127.0.0.1:8000/docs'
 const sourceRunId = process.env.SOURCE_RUN_ID
 const sourceType = process.env.SOURCE_TYPE ?? 'SIMULATOR'
+const updateReport = process.env.UPDATE_REPORT !== 'false'
 const expectedVisits = Number(process.env.EXPECTED_USED_VISITS ?? 125)
 const expectedK = process.env.EXPECTED_K ? Number(process.env.EXPECTED_K) : null
 if (!sourceRunId) throw new Error('Thiếu SOURCE_RUN_ID')
@@ -44,15 +45,15 @@ const page = await context.newPage()
 async function saveScreenshot(artifactName, reportName, implementationName = null) {
   const artifactPath = `${artifactOutput}/${artifactName}`
   await page.screenshot({ path: artifactPath, fullPage: false })
-  await copyFile(artifactPath, `${reportOutput}/${reportName}`)
-  if (implementationName) await copyFile(artifactPath, `${implementationOutput}/${implementationName}`)
+  if (updateReport) await copyFile(artifactPath, `${reportOutput}/${reportName}`)
+  if (updateReport && implementationName) await copyFile(artifactPath, `${implementationOutput}/${implementationName}`)
 }
 
 async function saveElementScreenshot(locator, artifactName, reportName, implementationName = null) {
   const artifactPath = `${artifactOutput}/${artifactName}`
   await locator.screenshot({ path: artifactPath })
-  await copyFile(artifactPath, `${reportOutput}/${reportName}`)
-  if (implementationName) await copyFile(artifactPath, `${implementationOutput}/${implementationName}`)
+  if (updateReport) await copyFile(artifactPath, `${reportOutput}/${reportName}`)
+  if (updateReport && implementationName) await copyFile(artifactPath, `${implementationOutput}/${implementationName}`)
 }
 
 await page.goto(`${baseUrl}/login`, { waitUntil: 'networkidle' })
@@ -100,13 +101,20 @@ await page.getByText(`Nguồn: ${sourceType} / ${sourceRunId}`, { exact: true })
 await page.getByText(`K=${target.selected_k}`, { exact: true }).waitFor()
 await page.keyboard.press('Escape')
 
-await page.evaluate(() => window.scrollTo(0, 620))
-await page.waitForTimeout(250)
+await page.setViewportSize({ width: 1600, height: 1350 })
+await page.getByText('Kết quả đã lưu', { exact: true }).scrollIntoViewIfNeeded()
+await page.evaluate(() => {
+  const title = [...document.querySelectorAll('.ant-card-head-title')].find(node => node.textContent === 'Kết quả đã lưu')
+  if (title) window.scrollTo(0, title.getBoundingClientRect().top + window.scrollY - 15)
+})
+// ECharts animates the line: wait for its full draw before saving evidence.
+await page.waitForTimeout(1800)
 await saveScreenshot(
   'E07_E08_sequence_run_overview.png',
   reportFiles.overview,
   '4_20_tong_quan_phan_cum_chuoi.png'
 )
+await page.setViewportSize({ width: 1600, height: 1100 })
 
 await page.getByText('Cụm và chuỗi đại diện (medoid)', { exact: true }).scrollIntoViewIfNeeded()
 await page.waitForTimeout(300)
@@ -143,7 +151,9 @@ await sequencePath.scrollIntoViewIfNeeded()
 await docsPage.waitForTimeout(300)
 const apiArtifactPath = `${artifactOutput}/E12_sequence_api_docs.png`
 await docsPage.screenshot({ path: apiArtifactPath, fullPage: false })
-await copyFile(apiArtifactPath, `${implementationOutput}/4_24_tai_lieu_api_phan_cum_chuoi.png`)
+if (updateReport) {
+  await copyFile(apiArtifactPath, `${implementationOutput}/4_24_tai_lieu_api_phan_cum_chuoi.png`)
+}
 
 await writeFile(
   `${artifactOutput}/capture_manifest.json`,

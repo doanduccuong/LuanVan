@@ -4,6 +4,8 @@ import { copyFile, mkdir, writeFile } from 'node:fs/promises'
 const sourceRunId = process.env.SOURCE_RUN_ID ?? 'KDEF-KAGGLE-20261008-LIVE'
 const expectedVisits = Number(process.env.EXPECTED_USED_VISITS ?? 25)
 const expectedK = Number(process.env.EXPECTED_K ?? 7)
+const expectedObservations = Number(process.env.EXPECTED_OBSERVATIONS ?? 100)
+const updateReport = process.env.UPDATE_REPORT !== 'false'
 const baseUrl = process.env.WEB_URL ?? 'http://127.0.0.1:8080'
 const projectRoot = '/Users/sotatek/Desktop/Do An'
 const artifactOutput = `${projectRoot}/SYSTEM/artifacts/experiment-runs/${sourceRunId}/screenshots`
@@ -25,8 +27,8 @@ const page = await context.newPage()
 async function capture(artifactName, chapter4Name, chapter5Name) {
   const artifactPath = `${artifactOutput}/${artifactName}`
   await page.screenshot({ path: artifactPath, fullPage: false })
-  if (chapter4Name) await copyFile(artifactPath, `${chapter4Output}/${chapter4Name}`)
-  if (chapter5Name) await copyFile(artifactPath, `${chapter5Output}/${chapter5Name}`)
+  if (updateReport && chapter4Name) await copyFile(artifactPath, `${chapter4Output}/${chapter4Name}`)
+  if (updateReport && chapter5Name) await copyFile(artifactPath, `${chapter5Output}/${chapter5Name}`)
 }
 
 await page.goto(`${baseUrl}/login`, { waitUntil: 'networkidle' })
@@ -35,7 +37,7 @@ await page.getByLabel('Mật khẩu').fill(process.env.DEMO_USER_PASSWORD ?? 'de
 await page.getByRole('button', { name: 'Đăng nhập' }).click()
 await page.waitForURL('**/dashboard')
 
-const verified = await page.evaluate(async ({ requestedRun, requiredVisits, requiredK }) => {
+const verified = await page.evaluate(async ({ requestedRun, requiredVisits, requiredK, requiredObservations }) => {
   const [customersResponse, visitsResponse, observationsResponse, analysesResponse] = await Promise.all([
     fetch('/api/v1/customers?page_size=100&search=CUS-KDEF'),
     fetch('/api/v1/visits'),
@@ -51,7 +53,7 @@ const verified = await page.evaluate(async ({ requestedRun, requiredVisits, requ
   const analyses = await analysesResponse.json()
   const run = analyses.find(item => item.source_run_id === requestedRun && item.status === 'COMPLETED')
   if (customers.total !== 5) throw new Error(`Yêu cầu 5 khách KDEF, API trả ${customers.total}`)
-  if (observations.total !== 100) throw new Error(`Yêu cầu 100 quan sát CAMERA, API trả ${observations.total}`)
+  if (observations.total !== requiredObservations) throw new Error(`Yêu cầu ${requiredObservations} quan sát CAMERA, API trả ${observations.total}`)
   if (!run || run.used_visit_count !== requiredVisits || run.selected_k !== requiredK) {
     throw new Error('Kết quả phân tích chuỗi không khớp run KDEF đã kiểm chứng')
   }
@@ -82,7 +84,7 @@ const verified = await page.evaluate(async ({ requestedRun, requiredVisits, requ
     analysisRunId: run.id,
     targetVisit
   }
-}, { requestedRun: sourceRunId, requiredVisits: expectedVisits, requiredK: expectedK })
+}, { requestedRun: sourceRunId, requiredVisits: expectedVisits, requiredK: expectedK, requiredObservations: expectedObservations })
 
 await page.goto(`${baseUrl}/customers`, { waitUntil: 'networkidle' })
 const search = page.getByPlaceholder('Tìm theo mã, tên hoặc số điện thoại')

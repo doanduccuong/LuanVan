@@ -6,7 +6,6 @@ import hashlib
 import json
 import random
 import re
-import shutil
 from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -41,15 +40,7 @@ TOUCHPOINTS = [
     ("TP-CONSULT", "Khu tư vấn", 3),
     ("TP-CHECKOUT", "Quầy thanh toán", 4),
 ]
-ARCHETYPES = {
-    "archetype_01": ("Neutral", "Neutral", "Neutral", "Neutral"),
-    "archetype_02": ("Happy", "Happy", "Happy", "Happy"),
-    "archetype_03": ("Neutral", "Surprise", "Happy", "Happy"),
-    "archetype_04": ("Neutral", "Sad", "Angry", "Angry"),
-    # Cùng tỷ lệ nhãn với archetype_03 nhưng khác thứ tự để so sánh với
-    # baseline tỷ lệ trạng thái vốn không giữ thông tin trình tự.
-    "archetype_05": ("Happy", "Neutral", "Surprise", "Happy"),
-}
+VISITS_PER_CUSTOMER = 5
 CAMERA_PRIORITY = (
     ("B", "S"),
     ("B", "HL"),
@@ -189,6 +180,42 @@ def ordered_kaggle_candidates(paths: list[Path]) -> list[Path]:
     return sorted(paths, key=lambda path: (frontal_score(path), path.name), reverse=True)
 
 
+def partition_kaggle_sources(
+    ordered_sources: dict[str, list[Path]],
+    camera_pose_policy: str,
+) -> tuple[Path, dict[str, Path], dict[str, list[Path]]]:
+    """Assign disjoint source images to enrollment, calibration and camera roles."""
+
+    if any(len(paths) < 3 for paths in ordered_sources.values()):
+        raise ValueError("Mỗi nhóm và nhãn cần ít nhất ba ảnh để tách ba vai trò")
+
+    if camera_pose_policy == "frontal-camera":
+        enrollment_source = ordered_sources["Neutral"][1]
+        calibration_sources = {
+            label: (paths[2] if label == "Neutral" else paths[1])
+            for label, paths in ordered_sources.items()
+        }
+        pools = {label: [paths[0]] for label, paths in ordered_sources.items()}
+        return enrollment_source, calibration_sources, pools
+
+    if camera_pose_policy != "remaining-after-reservation":
+        raise ValueError(f"Chính sách tư thế camera không hợp lệ: {camera_pose_policy}")
+    enrollment_source = ordered_sources["Neutral"][0]
+    calibration_sources = {
+        label: (paths[1] if label == "Neutral" else paths[0])
+        for label, paths in ordered_sources.items()
+    }
+    pools = {
+        label: [
+            path
+            for path in paths
+            if path not in {enrollment_source, calibration_sources[label]}
+        ]
+        for label, paths in ordered_sources.items()
+    }
+    return enrollment_source, calibration_sources, pools
+
+
 def render_on_canvas(
     source: Path,
     output: Path,
@@ -257,7 +284,37 @@ def camera_candidates(
     return result
 
 
-def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_id: str) -> None:
+def sample_camera_images(pools: dict[str, list[Path]], rng: random.Random, count: int):
+    """Uniform label, then uniform source image; sampling with replacement.
+
+    Reserved enrollment/calibration images must be removed by the caller.
+    No source sequence or cluster target is supplied to this sampler.
+    """
+    labels = sorted(pools)
+    if len(labels) != 7 or any(not pools[label] for label in labels):
+        raise ValueError("Cần đủ bảy nhãn với ảnh quan sát ngoài tập đăng ký/hiệu chỉnh")
+    return [(label, rng.choice(pools[label])) for label in (rng.choice(labels) for _ in range(count))]
+
+
+def sample_touchpoint_time_offsets(
+    rng: random.Random,
+    count: int,
+    *,
+    minimum_gap_minutes: int = 5,
+    maximum_gap_minutes: int = 15,
+) -> list[int]:
+    """Return cumulative observation offsets with independently sampled gaps."""
+    if count < 1 or minimum_gap_minutes < 1 or maximum_gap_minutes < minimum_gap_minutes:
+        raise ValueError("Cấu hình khoảng thời gian giữa các điểm chạm không hợp lệ")
+    offsets = [0]
+    for _ in range(1, count):
+        offsets.append(offsets[-1] + rng.randint(minimum_gap_minutes, maximum_gap_minutes))
+    return offsets
+
+
+def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_id: str,
+            camera_seed: int = 20261013,
+            camera_pose_policy: str = "remaining-after-reservation") -> None:
     if not kdef_root.exists() or not kdef_root.is_dir():
         raise SystemExit(f"Không tìm thấy thư mục KDEF: {kdef_root}")
     images, ignored = discover_images(kdef_root)
@@ -269,6 +326,8 @@ def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_i
         kaggle_images, ignored = discover_kaggle_images(kdef_root)
         eligible = eligible_kaggle_groups(kaggle_images)
         source_layout = "kaggle_label_folders"
+    if camera_pose_policy == "frontal-camera" and source_layout != "kaggle_label_folders":
+        raise SystemExit("Chính sách frontal-camera hiện chỉ áp dụng cho nguồn Kaggle đã xử lý")
     if len(eligible) < customer_count:
         raise SystemExit(
             f"Nguồn KDEF chỉ có {len(eligible)} nhóm đủ bảy nhãn, cần {customer_count}"
@@ -276,7 +335,7 @@ def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_i
     selected = sorted(random.Random(seed).sample(eligible, customer_count))
 
     if DATASET_ROOT.exists():
-        shutil.rmtree(DATASET_ROOT)
+        raise SystemExit(f"Không ghi đè dữ liệu cũ: {DATASET_ROOT}; đặt DEMO_DATASET_ROOT mới")
     for relative in ("customer_images", "enrollment", "calibration", "observations", "expected"):
         (DATASET_ROOT / relative).mkdir(parents=True, exist_ok=True)
 
@@ -292,6 +351,11 @@ def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_i
         ((420, 92), 525, 4),
         ((475, 78), 550, 8),
         ((438, 96), 520, -3),
+    )
+    sampling_protocol = (
+        "uniform-label-then-frontal-source-with-replacement-v1"
+        if camera_pose_policy == "frontal-camera"
+        else "uniform-label-then-image-with-replacement-v1"
     )
 
     for customer_index, subject_id in enumerate(selected, 1):
@@ -309,14 +373,16 @@ def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_i
                 label: ordered_kaggle_candidates(kaggle_images[(subject_id, label)])
                 for label in LABEL_TO_CODE
             }
-            neutral_candidates = ordered_sources["Neutral"]
-            enrollment_source = neutral_candidates[0]
+            enrollment_source, calibration_sources, pools = partition_kaggle_sources(
+                ordered_sources,
+                camera_pose_policy,
+            )
             enrollment_session = "not_available"
-            enrollment_angle = "frontal_selected_by_detector"
-            calibration_sources = {
-                label: (paths[1] if label == "Neutral" else paths[0])
-                for label, paths in ordered_sources.items()
-            }
+            enrollment_angle = (
+                "non_camera_reserved_candidate_2"
+                if camera_pose_policy == "frontal-camera"
+                else "frontal_selected_by_detector"
+            )
         profile_output = DATASET_ROOT / "customer_images" / f"{customer_code}.jpg"
         write_profile(enrollment_source, profile_output)
         customers.append(
@@ -373,7 +439,11 @@ def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_i
                     "output_sha256": checksum(calibration_output),
                     "expression_label": label,
                     "session": "B" if source_layout == "official_filename_layout" else "not_available",
-                    "angle": "S" if source_layout == "official_filename_layout" else "calibration_reserved",
+                    "angle": (
+                        "S"
+                        if source_layout == "official_filename_layout"
+                        else "non_camera_calibration_reserved"
+                    ),
                     **calibration_transform,
                 }
             )
@@ -387,35 +457,32 @@ def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_i
                 ]
                 for label, code in LABEL_TO_CODE.items()
             }
-        else:
-            pools = {
-                label: [
-                    path
-                    for path in ordered_sources[label]
-                    if path not in {enrollment_source, calibration_sources[label]}
-                ]
-                for label in LABEL_TO_CODE
-            }
-        consumed = Counter()
-        for visit_index, (archetype_id, sequence) in enumerate(ARCHETYPES.items(), 1):
-            scenario_id = f"KDEF-{subject_id}-{archetype_id}"
+        # For the Kaggle layout, pools were assigned together with the reserved
+        # roles above so the three roles remain disjoint by source hash.
+        # Independent RNG per customer, separate from subject selection and calibration.
+        rng = random.Random(f"{camera_seed}:{subject_id}")
+        time_rng = random.Random(f"{camera_seed}:{subject_id}:time")
+        sampled = sample_camera_images(pools, rng, VISITS_PER_CUSTOMER * len(TOUCHPOINTS))
+        for visit_index in range(1, VISITS_PER_CUSTOMER + 1):
+            scenario_id = f"KDEF-{subject_id}-RANDOM-{visit_index:02d}"
             visit_key = f"VISIT-{experiment_run_id}-{subject_id}-{visit_index:02d}"
-            for event_index, ((touchpoint_code, _name, _order), label) in enumerate(
-                zip(TOUCHPOINTS, sequence, strict=True),
+            start = (visit_index - 1) * len(TOUCHPOINTS)
+            time_offsets = sample_touchpoint_time_offsets(time_rng, len(TOUCHPOINTS))
+            for event_index, ((touchpoint_code, _name, _order), (label, source)) in enumerate(
+                zip(TOUCHPOINTS, sampled[start:start + len(TOUCHPOINTS)], strict=True),
                 1,
             ):
-                pool_index = consumed[label]
-                if not pools[label]:
-                    raise RuntimeError(f"Không có ảnh {label} cho {subject_id}")
-                source = pools[label][pool_index % len(pools[label])]
-                consumed[label] += 1
                 if source_layout == "official_filename_layout":
                     source_meta = parse_kdef_filename(source)
                     source_session = source_meta["session"]
                     source_angle = source_meta["angle"]
                 else:
                     source_session = "not_available"
-                    source_angle = f"candidate_{pool_index % len(pools[label]) + 1}"
+                    source_angle = (
+                        "frontal_selected_by_detector"
+                        if camera_pose_policy == "frontal-camera"
+                        else f"candidate_{ordered_sources[label].index(source) + 1}"
+                    )
                 event_id = f"{experiment_run_id}-{subject_id}-V{visit_index:02d}-E{event_index:02d}"
                 output = DATASET_ROOT / "observations" / subject_id / f"V{visit_index:02d}-E{event_index:02d}.jpg"
                 offset, target_height, brightness = layouts[event_index - 1]
@@ -429,13 +496,13 @@ def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_i
                 )
                 observed_at = base + timedelta(
                     days=visit_index - 1,
-                    minutes=(customer_index - 1) * 20 + (event_index - 1) * 5,
+                    minutes=(customer_index - 1) * 20 + time_offsets[event_index - 1],
                 )
                 events.append(
                     {
                         "experiment_run_id": experiment_run_id,
                         "scenario_id": scenario_id,
-                        "archetype_id": archetype_id,
+                        "sampling_protocol": sampling_protocol,
                         "event_id": event_id,
                         "expected_customer_code": customer_code,
                         "expected_visit_key": visit_key,
@@ -478,14 +545,14 @@ def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_i
     expected = {
         "experiment_run_id": experiment_run_id,
         "customer_count": customer_count,
-        "visits_per_customer": len(ARCHETYPES),
+        "visits_per_customer": VISITS_PER_CUSTOMER,
         "events_per_visit": len(TOUCHPOINTS),
-        "expected_visit_count": customer_count * len(ARCHETYPES),
-        "expected_event_count": customer_count * len(ARCHETYPES) * len(TOUCHPOINTS),
-        "customers": {row["customer_code"]: {"subject_id": row["subject_id"], "expected_visits": len(ARCHETYPES)} for row in customers},
+        "expected_visit_count": customer_count * VISITS_PER_CUSTOMER,
+        "expected_event_count": customer_count * VISITS_PER_CUSTOMER * len(TOUCHPOINTS),
+        "customers": {row["customer_code"]: {"subject_id": row["subject_id"], "expected_visits": VISITS_PER_CUSTOMER} for row in customers},
         "scenarios": {
             row["scenario_id"]: {
-                "archetype_id": row["archetype_id"],
+                "sampling_protocol": row["sampling_protocol"],
                 "customer_code": row["expected_customer_code"],
                 "touchpoints": [item[0] for item in TOUCHPOINTS],
             }
@@ -508,6 +575,19 @@ def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_i
             ),
             "eligible_source_group_count": len(eligible),
             "seed": seed,
+            "camera_seed": camera_seed,
+            "sampling_protocol": sampling_protocol,
+            "camera_pose_policy": camera_pose_policy,
+            "touchpoint_time_protocol": {
+                "method": "independent-discrete-uniform-gaps",
+                "minimum_gap_minutes": 5,
+                "maximum_gap_minutes": 15,
+            },
+            "source_reuse_allowed": True,
+            "camera_layouts": layouts,
+            "visits_per_customer": VISITS_PER_CUSTOMER,
+            "expected_expression_distribution": dict(Counter(row["expected_expression_label"] for row in events)),
+            "unique_observation_sources": len({row["source_sha256"] for row in image_manifest if row["role"] == "observation"}),
             "experiment_run_id": experiment_run_id,
             "selected_subjects": selected,
             "customer_count": customer_count,
@@ -526,6 +606,12 @@ if __name__ == "__main__":
     parser.add_argument("--kdef-root", type=Path, required=True)
     parser.add_argument("--customer-count", type=int, default=25)
     parser.add_argument("--seed", type=int, default=20261008)
+    parser.add_argument("--camera-seed", type=int, default=20261013)
+    parser.add_argument(
+        "--camera-pose-policy",
+        choices=("remaining-after-reservation", "frontal-camera"),
+        default="remaining-after-reservation",
+    )
     parser.add_argument("--experiment-run-id", default="KDEF-DEMO-20261008")
     args = parser.parse_args()
     if not 4 <= args.customer_count <= 70:
@@ -537,4 +623,6 @@ if __name__ == "__main__":
         customer_count=args.customer_count,
         seed=args.seed,
         experiment_run_id=args.experiment_run_id,
+        camera_seed=args.camera_seed,
+        camera_pose_policy=args.camera_pose_policy,
     )

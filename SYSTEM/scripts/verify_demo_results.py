@@ -51,6 +51,10 @@ def main() -> None:
         for expected_label in expression_labels
     }
     per_class: dict[str, dict] = {}
+    for label in expression_labels:
+        confusion_matrix[label]["Missing"] = sum(
+            expected_label == label and actual is None for expected_label, actual in expression_pairs
+        )
     f1_values: list[float] = []
     for label in expression_labels:
         support = sum(1 for expected_label, _ in expression_pairs if expected_label == label)
@@ -79,6 +83,13 @@ def main() -> None:
             "correct_match_rate": identity_correct / len(replay_rows),
         },
         "expression": {
+            "scope": "End-to-end stored predictions; missing identity matches have no stored expression.",
+            "prediction_count": sum(actual is not None for _, actual in expression_pairs),
+            "missing_prediction_count": sum(actual is None for _, actual in expression_pairs),
+            "accuracy_on_available_predictions": (
+                sum(expected == actual for expected, actual in expression_pairs)
+                / max(1, sum(actual is not None for _, actual in expression_pairs))
+            ),
             "accuracy": sum(expected == actual for expected, actual in expression_pairs) / len(expression_pairs),
             "macro_f1_present_classes": sum(f1_values) / len(f1_values),
             "expected_distribution": dict(Counter(expected for expected, _ in expression_pairs)),
@@ -196,10 +207,10 @@ def main() -> None:
                 {
                     "name": "sequence analysis uses every complete four-touchpoint visit",
                     "passed": (
-                        matching[0]["received_visit_count"] == expected["expected_visit_count"]
+                        matching[0]["received_visit_count"] == len(run_visits)
                         and matching[0]["used_visit_count"] == complete_visit_count
                         and matching[0]["excluded_visit_count"]
-                        == expected["expected_visit_count"] - complete_visit_count
+                        == len(run_visits) - complete_visit_count
                     ),
                     "actual": {
                         "received": matching[0]["received_visit_count"],
@@ -207,15 +218,21 @@ def main() -> None:
                         "excluded": matching[0]["excluded_visit_count"],
                     },
                     "expected": {
-                        "received": expected["expected_visit_count"],
+                        "received": len(run_visits),
                         "used": complete_visit_count,
-                        "excluded": expected["expected_visit_count"] - complete_visit_count,
+                        "excluded": len(run_visits) - complete_visit_count,
                     },
                 }
             )
         quality = client.get("/reports/data-quality").raise_for_status().json()
         distribution = client.get("/reports/expression-distribution").raise_for_status().json()
         changes = client.get("/reports/expression-changes").raise_for_status().json()
+        metrics["journeys"] = {
+            "planned": expected["expected_visit_count"],
+            "created": len(run_visits),
+            "complete": complete_visit_count,
+            "incomplete": len(run_visits) - complete_visit_count,
+        }
 
     payload = {
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -230,6 +247,7 @@ def main() -> None:
     save_json(output / "kdef_metrics.json", metrics)
     save_json(output / "report_distribution.json", distribution)
     save_json(output / "report_changes.json", changes)
+    save_json(output / "visits.json", run_visits)
     print(f"Kết quả: {sum(check['passed'] for check in checks)}/{len(checks)} điều kiện đạt")
     if not payload["passed"]:
         raise SystemExit(1)

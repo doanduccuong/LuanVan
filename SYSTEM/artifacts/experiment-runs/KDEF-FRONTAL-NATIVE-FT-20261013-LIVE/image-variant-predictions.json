@@ -1,0 +1,5902 @@
+[
+  {
+    "image_path": "observations/KG011/V01-E01.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V01-E01",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.6408636355914852,
+      "scores": {
+        "Angry": 0.05329814870942525,
+        "Disgust": 3.217355818130846e-08,
+        "Fear": 0.0016816538829597166,
+        "Happy": 2.0142811997702053e-07,
+        "Sad": 0.6408636355914852,
+        "Surprise": 1.9686039572792916e-07,
+        "Neutral": 0.3041561427209462
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        543.0,
+        230.0,
+        763.0,
+        551.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "3a5a6d27239f574788291866ab0700c175ef2545a44c7b7dc9676e0ae4cb528f"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.7953444719314575,
+      "scores": {
+        "Angry": 0.06142406165599823,
+        "Disgust": 1.0349821621957744e-07,
+        "Fear": 0.0016879879403859377,
+        "Happy": 3.5883078908227617e-07,
+        "Sad": 0.7953444719314575,
+        "Surprise": 2.8024555831507314e-07,
+        "Neutral": 0.1415427327156067
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        126.0,
+        208.0,
+        441.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "664257792a83bd3773ccf13933d4b4442c72e5da5929504e2747807149260e08"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V01-E02.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V01-E02",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.567446768283844,
+      "scores": {
+        "Angry": 0.08825748413801193,
+        "Disgust": 6.838801596131816e-07,
+        "Fear": 0.00038959801895543933,
+        "Happy": 6.627452239627019e-05,
+        "Sad": 0.567446768283844,
+        "Surprise": 5.1670426728378516e-06,
+        "Neutral": 0.3438340425491333
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        515.0,
+        230.0,
+        724.0,
+        536.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "b886228dd00298281630c54a72a31b56ea7321b0ca9f41fadebf2651c3bc26bf"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.528698205947876,
+      "scores": {
+        "Angry": 0.05841853469610214,
+        "Disgust": 2.9232910492282826e-06,
+        "Fear": 0.0018094051629304886,
+        "Happy": 0.00037064653588458896,
+        "Sad": 0.41068506240844727,
+        "Surprise": 1.5203855582512915e-05,
+        "Neutral": 0.528698205947876
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        135.0,
+        206.0,
+        448.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "df7db0bda0264158554b48a04eec86c5e21b2b24cbc2d5e17b0aa530fd73dabe"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V01-E03.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V01-E03",
+    "rendered": {
+      "label": "Fear",
+      "confidence": 0.4454698860645294,
+      "scores": {
+        "Angry": 0.2380773425102234,
+        "Disgust": 0.00017290457617491484,
+        "Fear": 0.4454698860645294,
+        "Happy": 0.10544663667678833,
+        "Sad": 0.0431198813021183,
+        "Surprise": 0.1104683130979538,
+        "Neutral": 0.05724499002099037
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        574.0,
+        236.0,
+        792.0,
+        549.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "db5b637051ddb6c7b9e7c01f489ef98d268025224c263ba6a80402c8e7bf7777"
+    },
+    "native": {
+      "label": "Surprise",
+      "confidence": 0.414000044584269,
+      "scores": {
+        "Angry": 0.18144308847867388,
+        "Disgust": 0.0006121640178775468,
+        "Fear": 0.34794684076942917,
+        "Happy": 0.033699366903380525,
+        "Sad": 0.015504608876453772,
+        "Surprise": 0.414000044584269,
+        "Neutral": 0.006793796671921411
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        128.0,
+        206.0,
+        462.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "758d516d154f9acd9abe11754711ceb5e091412f59ee157641f8e0cbc66919ad"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V01-E04.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V01-E04",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.8555569562647912,
+      "scores": {
+        "Angry": 0.8555569562647912,
+        "Disgust": 0.12070912097150809,
+        "Fear": 0.008950768572137868,
+        "Happy": 2.6194911439879174e-05,
+        "Sad": 0.012770198115420229,
+        "Surprise": 0.0009940333558415386,
+        "Neutral": 0.000992755464777676
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        526.0,
+        235.0,
+        736.0,
+        540.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "480d3457e2c40a993fafdc50849cbb42ff670189a1ff8a00da694b01b7731628"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9824267625808716,
+      "scores": {
+        "Angry": 0.9824267625808716,
+        "Disgust": 0.015092628076672554,
+        "Fear": 0.0017232508398592472,
+        "Happy": 2.2232759420148795e-06,
+        "Sad": 0.0007031261920928955,
+        "Surprise": 3.9132715755840763e-05,
+        "Neutral": 1.2908625649288297e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        119.0,
+        197.0,
+        448.0,
+        659.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "67b00d81b8c9a426717acb593cff9ac179531209d701fae21d3a9e88abd6791c"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V02-E01.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V02-E01",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.7654354572296143,
+      "scores": {
+        "Angry": 0.7654354572296143,
+        "Disgust": 4.361726091417495e-09,
+        "Fear": 0.19076181948184967,
+        "Happy": 1.472932467549981e-06,
+        "Sad": 0.04377950727939606,
+        "Surprise": 1.7124053286465823e-09,
+        "Neutral": 2.172664608224295e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        552.0,
+        225.0,
+        767.0,
+        548.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "0384766006baa7c6d69df63391af93a1f4837c21e85b87f02fcdb35c212258d5"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9637361168861389,
+      "scores": {
+        "Angry": 0.9637361168861389,
+        "Disgust": 8.600528067503888e-10,
+        "Fear": 0.0028809020295739174,
+        "Happy": 3.715623506650445e-06,
+        "Sad": 0.03313058614730835,
+        "Surprise": 1.9415555829738196e-09,
+        "Neutral": 0.0002487247111275792
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        136.0,
+        185.0,
+        469.0,
+        649.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "abe3a736755cca15baf0226c6cd9a6e8ab2ababdad2569f35c4d4d6552055d3c"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V02-E02.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V02-E02",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.8162151575088501,
+      "scores": {
+        "Angry": 0.11971448361873627,
+        "Disgust": 1.9348868590896018e-05,
+        "Fear": 0.0028276967350393534,
+        "Happy": 8.71150132297771e-06,
+        "Sad": 0.8162151575088501,
+        "Surprise": 1.8450593870511511e-06,
+        "Neutral": 0.06121280789375305
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        510.0,
+        238.0,
+        715.0,
+        537.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "7488f10e3c40ee9dda48ef0a6de1086ba08852020ec5abce0a9e263b3e4fa51f"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.9852176308631897,
+      "scores": {
+        "Angry": 0.009716778062283993,
+        "Disgust": 9.221879008691758e-05,
+        "Fear": 0.0015652700094506145,
+        "Happy": 0.00013075060269329697,
+        "Sad": 0.9852176308631897,
+        "Surprise": 1.0563672958596726e-06,
+        "Neutral": 0.0032763020135462284
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        123.0,
+        223.0,
+        431.0,
+        649.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "b8a6ff1cc8ad3eb1455d04a734a490e26f31131203e26035bead523915ffc9e0"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V02-E03.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V02-E03",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.9912293548124644,
+      "scores": {
+        "Angry": 0.9912293548124644,
+        "Disgust": 0.007704542943360981,
+        "Fear": 0.0005004687416646625,
+        "Happy": 1.1280174239125243e-05,
+        "Sad": 0.00046631338642356615,
+        "Surprise": 4.973700857550702e-05,
+        "Neutral": 3.836841143721559e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        573.0,
+        231.0,
+        793.0,
+        537.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "41590b449ff57ae2dd4da1497f28f7a3be429cdfc598e0345e647b9445f7f806"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9824267625808716,
+      "scores": {
+        "Angry": 0.9824267625808716,
+        "Disgust": 0.015092628076672554,
+        "Fear": 0.0017232508398592472,
+        "Happy": 2.2232759420148795e-06,
+        "Sad": 0.0007031261920928955,
+        "Surprise": 3.9132715755840763e-05,
+        "Neutral": 1.2908625649288297e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        119.0,
+        197.0,
+        448.0,
+        659.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "67b00d81b8c9a426717acb593cff9ac179531209d701fae21d3a9e88abd6791c"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V02-E04.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V02-E04",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.5167620778083801,
+      "scores": {
+        "Angry": 0.0741165429353714,
+        "Disgust": 6.490143277915195e-06,
+        "Fear": 0.003142931964248419,
+        "Happy": 0.00028246958390809596,
+        "Sad": 0.5167620778083801,
+        "Surprise": 4.690190326073207e-05,
+        "Neutral": 0.4056425392627716
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        530.0,
+        234.0,
+        737.0,
+        541.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "3e31796173cc6714fe3857707481600f7d10c3c63e40d8fb96956fcb11a7003e"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.528698205947876,
+      "scores": {
+        "Angry": 0.05841853469610214,
+        "Disgust": 2.9232910492282826e-06,
+        "Fear": 0.0018094051629304886,
+        "Happy": 0.00037064653588458896,
+        "Sad": 0.41068506240844727,
+        "Surprise": 1.5203855582512915e-05,
+        "Neutral": 0.528698205947876
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        135.0,
+        206.0,
+        448.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "df7db0bda0264158554b48a04eec86c5e21b2b24cbc2d5e17b0aa530fd73dabe"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V03-E01.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V03-E01",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.5205535602899528,
+      "scores": {
+        "Angry": 0.0607842243185177,
+        "Disgust": 3.2654301903705644e-06,
+        "Fear": 0.0012356974921046192,
+        "Happy": 0.0004098299203711701,
+        "Sad": 0.4169952223894133,
+        "Surprise": 1.82015239196108e-05,
+        "Neutral": 0.5205535602899528
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        550.0,
+        232.0,
+        764.0,
+        546.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "d27c7ab875113ca7bb2acf8b63524e3e8937f170adfe1e87b42ed31256fcab50"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.528698205947876,
+      "scores": {
+        "Angry": 0.05841853469610214,
+        "Disgust": 2.9232910492282826e-06,
+        "Fear": 0.0018094051629304886,
+        "Happy": 0.00037064653588458896,
+        "Sad": 0.41068506240844727,
+        "Surprise": 1.5203855582512915e-05,
+        "Neutral": 0.528698205947876
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        135.0,
+        206.0,
+        448.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "df7db0bda0264158554b48a04eec86c5e21b2b24cbc2d5e17b0aa530fd73dabe"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V03-E02.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V03-E02",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.46219927072525024,
+      "scores": {
+        "Angry": 0.14560964703559875,
+        "Disgust": 1.1503045698191272e-06,
+        "Fear": 0.0013448039535433054,
+        "Happy": 1.1352747151249787e-06,
+        "Sad": 0.46219927072525024,
+        "Surprise": 5.802663736176328e-07,
+        "Neutral": 0.3908434212207794
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        512.0,
+        231.0,
+        725.0,
+        540.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "27302a1891487ee6c74ef914f1c786449031319ef407b660798b1b605ff82663"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.7953444719314575,
+      "scores": {
+        "Angry": 0.06142406165599823,
+        "Disgust": 1.0349821621957744e-07,
+        "Fear": 0.0016879879403859377,
+        "Happy": 3.5883078908227617e-07,
+        "Sad": 0.7953444719314575,
+        "Surprise": 2.8024555831507314e-07,
+        "Neutral": 0.1415427327156067
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        126.0,
+        208.0,
+        441.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "664257792a83bd3773ccf13933d4b4442c72e5da5929504e2747807149260e08"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V03-E03.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V03-E03",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.5004717707633972,
+      "scores": {
+        "Angry": 0.05753578618168831,
+        "Disgust": 1.940712337500372e-07,
+        "Fear": 0.00028387692873366177,
+        "Happy": 7.987568096723408e-05,
+        "Sad": 0.44162625074386597,
+        "Surprise": 2.210319053119747e-06,
+        "Neutral": 0.5004717707633972
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        575.0,
+        228.0,
+        790.0,
+        543.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "9fbcdfe1be8ace5d5c03250561114048d4dc243424e756565c590b1560552709"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.528698205947876,
+      "scores": {
+        "Angry": 0.05841853469610214,
+        "Disgust": 2.9232910492282826e-06,
+        "Fear": 0.0018094051629304886,
+        "Happy": 0.00037064653588458896,
+        "Sad": 0.41068506240844727,
+        "Surprise": 1.5203855582512915e-05,
+        "Neutral": 0.528698205947876
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        135.0,
+        206.0,
+        448.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "df7db0bda0264158554b48a04eec86c5e21b2b24cbc2d5e17b0aa530fd73dabe"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V03-E04.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V03-E04",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.5167620778083801,
+      "scores": {
+        "Angry": 0.0741165429353714,
+        "Disgust": 6.490143277915195e-06,
+        "Fear": 0.003142931964248419,
+        "Happy": 0.00028246958390809596,
+        "Sad": 0.5167620778083801,
+        "Surprise": 4.690190326073207e-05,
+        "Neutral": 0.4056425392627716
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        530.0,
+        234.0,
+        737.0,
+        541.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "3e31796173cc6714fe3857707481600f7d10c3c63e40d8fb96956fcb11a7003e"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.528698205947876,
+      "scores": {
+        "Angry": 0.05841853469610214,
+        "Disgust": 2.9232910492282826e-06,
+        "Fear": 0.0018094051629304886,
+        "Happy": 0.00037064653588458896,
+        "Sad": 0.41068506240844727,
+        "Surprise": 1.5203855582512915e-05,
+        "Neutral": 0.528698205947876
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        135.0,
+        206.0,
+        448.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "df7db0bda0264158554b48a04eec86c5e21b2b24cbc2d5e17b0aa530fd73dabe"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V04-E01.jpg",
+    "expected_label": "Happy",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V04-E01",
+    "rendered": {
+      "label": "Happy",
+      "confidence": 0.999943733215332,
+      "scores": {
+        "Angry": 7.813887918928231e-07,
+        "Disgust": 2.7099916061201768e-11,
+        "Fear": 7.166827131754872e-10,
+        "Happy": 0.999943733215332,
+        "Sad": 5.331771171768196e-05,
+        "Surprise": 1.6052387197262874e-09,
+        "Neutral": 2.152266006305581e-06
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        548.0,
+        225.0,
+        765.0,
+        550.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f36e4f317571094f94cfef2e744c7c51c8f93424daac20adf6d4ec5981bca1aa"
+    },
+    "native": {
+      "label": "Happy",
+      "confidence": 0.9987778067588806,
+      "scores": {
+        "Angry": 3.232993549318053e-05,
+        "Disgust": 2.8823721187620777e-09,
+        "Fear": 1.0776026293513041e-08,
+        "Happy": 0.9987778067588806,
+        "Sad": 0.0011541680432856083,
+        "Surprise": 4.18285281966746e-08,
+        "Neutral": 3.55678130290471e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        133.0,
+        197.0,
+        451.0,
+        653.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "a4de2545bfdcbc5c680ec92b13aded2989a0b8198383ad32aa2cf9d06504ea0b"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V04-E02.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V04-E02",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.8162151575088501,
+      "scores": {
+        "Angry": 0.11971448361873627,
+        "Disgust": 1.9348868590896018e-05,
+        "Fear": 0.0028276967350393534,
+        "Happy": 8.71150132297771e-06,
+        "Sad": 0.8162151575088501,
+        "Surprise": 1.8450593870511511e-06,
+        "Neutral": 0.06121280789375305
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        510.0,
+        238.0,
+        715.0,
+        537.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "7488f10e3c40ee9dda48ef0a6de1086ba08852020ec5abce0a9e263b3e4fa51f"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.9852176308631897,
+      "scores": {
+        "Angry": 0.009716778062283993,
+        "Disgust": 9.221879008691758e-05,
+        "Fear": 0.0015652700094506145,
+        "Happy": 0.00013075060269329697,
+        "Sad": 0.9852176308631897,
+        "Surprise": 1.0563672958596726e-06,
+        "Neutral": 0.0032763020135462284
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        123.0,
+        223.0,
+        431.0,
+        649.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "b8a6ff1cc8ad3eb1455d04a734a490e26f31131203e26035bead523915ffc9e0"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V04-E03.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V04-E03",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.9708131551742554,
+      "scores": {
+        "Angry": 0.9708131551742554,
+        "Disgust": 5.32431805311262e-08,
+        "Fear": 0.026343941688537598,
+        "Happy": 2.8838564958277857e-06,
+        "Sad": 0.0028358425479382277,
+        "Surprise": 2.710602586830646e-08,
+        "Neutral": 4.108472239749972e-06
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        567.0,
+        220.0,
+        793.0,
+        536.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "36a9eb26d510d24ea8bee137c9997ba1a118502fcbf29e2f2e5754aaf5327165"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9637361168861389,
+      "scores": {
+        "Angry": 0.9637361168861389,
+        "Disgust": 8.600528067503888e-10,
+        "Fear": 0.0028809020295739174,
+        "Happy": 3.715623506650445e-06,
+        "Sad": 0.03313058614730835,
+        "Surprise": 1.9415555829738196e-09,
+        "Neutral": 0.0002487247111275792
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        136.0,
+        185.0,
+        469.0,
+        649.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "abe3a736755cca15baf0226c6cd9a6e8ab2ababdad2569f35c4d4d6552055d3c"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V04-E04.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V04-E04",
+    "rendered": {
+      "label": "Fear",
+      "confidence": 0.32268616557121277,
+      "scores": {
+        "Angry": 0.19694353640079498,
+        "Disgust": 0.0002169419458368793,
+        "Fear": 0.32268616557121277,
+        "Happy": 0.11880499869585037,
+        "Sad": 0.10051880031824112,
+        "Surprise": 0.042715419083833694,
+        "Neutral": 0.21811410784721375
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        527.0,
+        238.0,
+        736.0,
+        547.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "15a946a6b71177a772ef9db3eefa3333dc48e8683005ebd525729c052f5715e3"
+    },
+    "native": {
+      "label": "Surprise",
+      "confidence": 0.414000044584269,
+      "scores": {
+        "Angry": 0.18144308847867388,
+        "Disgust": 0.0006121640178775468,
+        "Fear": 0.34794684076942917,
+        "Happy": 0.033699366903380525,
+        "Sad": 0.015504608876453772,
+        "Surprise": 0.414000044584269,
+        "Neutral": 0.006793796671921411
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        128.0,
+        206.0,
+        462.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "758d516d154f9acd9abe11754711ceb5e091412f59ee157641f8e0cbc66919ad"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V05-E01.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V05-E01",
+    "rendered": {
+      "label": "Fear",
+      "confidence": 0.6597304940223694,
+      "scores": {
+        "Angry": 0.036172784864902496,
+        "Disgust": 0.00016715735546313226,
+        "Fear": 0.6597304940223694,
+        "Happy": 0.01258368045091629,
+        "Sad": 0.00042968677007593215,
+        "Surprise": 0.29081594944000244,
+        "Neutral": 0.00010025037045124918
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        546.0,
+        235.0,
+        760.0,
+        549.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f2c2cdddf597b6688c3cc3bb61a56c1b4587aec5b372858d0cc3bb680743cb8c"
+    },
+    "native": {
+      "label": "Surprise",
+      "confidence": 0.414000044584269,
+      "scores": {
+        "Angry": 0.18144308847867388,
+        "Disgust": 0.0006121640178775468,
+        "Fear": 0.34794684076942917,
+        "Happy": 0.033699366903380525,
+        "Sad": 0.015504608876453772,
+        "Surprise": 0.414000044584269,
+        "Neutral": 0.006793796671921411
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        128.0,
+        206.0,
+        462.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "758d516d154f9acd9abe11754711ceb5e091412f59ee157641f8e0cbc66919ad"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V05-E02.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V05-E02",
+    "rendered": {
+      "label": "Surprise",
+      "confidence": 0.416671807567585,
+      "scores": {
+        "Angry": 0.15590884720735831,
+        "Disgust": 8.765243341657868e-05,
+        "Fear": 0.33038659872928855,
+        "Happy": 0.03947110336846729,
+        "Sad": 0.03056053440633621,
+        "Surprise": 0.416671807567585,
+        "Neutral": 0.02691348429998662
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        513.0,
+        237.0,
+        718.0,
+        544.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "0429895ac6c76818523092372f82a21efeb7d280786a451ea98f072530a0eda2"
+    },
+    "native": {
+      "label": "Surprise",
+      "confidence": 0.414000044584269,
+      "scores": {
+        "Angry": 0.18144308847867388,
+        "Disgust": 0.0006121640178775468,
+        "Fear": 0.34794684076942917,
+        "Happy": 0.033699366903380525,
+        "Sad": 0.015504608876453772,
+        "Surprise": 0.414000044584269,
+        "Neutral": 0.006793796671921411
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        128.0,
+        206.0,
+        462.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "758d516d154f9acd9abe11754711ceb5e091412f59ee157641f8e0cbc66919ad"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V05-E03.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V05-E03",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.9912293548124644,
+      "scores": {
+        "Angry": 0.9912293548124644,
+        "Disgust": 0.007704542943360981,
+        "Fear": 0.0005004687416646625,
+        "Happy": 1.1280174239125243e-05,
+        "Sad": 0.00046631338642356615,
+        "Surprise": 4.973700857550702e-05,
+        "Neutral": 3.836841143721559e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        573.0,
+        231.0,
+        793.0,
+        537.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "41590b449ff57ae2dd4da1497f28f7a3be429cdfc598e0345e647b9445f7f806"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9824267625808716,
+      "scores": {
+        "Angry": 0.9824267625808716,
+        "Disgust": 0.015092628076672554,
+        "Fear": 0.0017232508398592472,
+        "Happy": 2.2232759420148795e-06,
+        "Sad": 0.0007031261920928955,
+        "Surprise": 3.9132715755840763e-05,
+        "Neutral": 1.2908625649288297e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        119.0,
+        197.0,
+        448.0,
+        659.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "67b00d81b8c9a426717acb593cff9ac179531209d701fae21d3a9e88abd6791c"
+    }
+  },
+  {
+    "image_path": "observations/KG011/V05-E04.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG011-V05-E04",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.5591740345462581,
+      "scores": {
+        "Angry": 0.0992850422433044,
+        "Disgust": 2.1247785598456972e-07,
+        "Fear": 0.0031330734030499104,
+        "Happy": 8.531240436335222e-07,
+        "Sad": 0.5591740345462581,
+        "Surprise": 6.013168348617001e-07,
+        "Neutral": 0.33840616574324167
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        524.0,
+        230.0,
+        738.0,
+        546.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "42adc02f92e9cc046bec24e368278157fb3fc61ee6c36a1415742ac211acbbc8"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.7953444719314575,
+      "scores": {
+        "Angry": 0.06142406165599823,
+        "Disgust": 1.0349821621957744e-07,
+        "Fear": 0.0016879879403859377,
+        "Happy": 3.5883078908227617e-07,
+        "Sad": 0.7953444719314575,
+        "Surprise": 2.8024555831507314e-07,
+        "Neutral": 0.1415427327156067
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        126.0,
+        208.0,
+        441.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "664257792a83bd3773ccf13933d4b4442c72e5da5929504e2747807149260e08"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V01-E01.jpg",
+    "expected_label": "Happy",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V01-E01",
+    "rendered": {
+      "label": "Happy",
+      "confidence": 0.9999997019767584,
+      "scores": {
+        "Angry": 7.674218662774819e-11,
+        "Disgust": 1.4659574342107301e-12,
+        "Fear": 4.322308827716879e-13,
+        "Happy": 0.9999997019767584,
+        "Sad": 1.5534358726026525e-08,
+        "Surprise": 1.097593869460869e-11,
+        "Neutral": 2.95318631609918e-07
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        538.0,
+        226.0,
+        764.0,
+        554.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "bf184cc6a98152ff7b8dbe885319ca0be0384072feaac564f8bc6ef9635d02a0"
+    },
+    "native": {
+      "label": "Happy",
+      "confidence": 1.0,
+      "scores": {
+        "Angry": 4.665039462717216e-15,
+        "Disgust": 9.680643416482896e-26,
+        "Fear": 7.74044709025768e-22,
+        "Happy": 1.0,
+        "Sad": 2.899929103274135e-14,
+        "Surprise": 8.156626585362637e-16,
+        "Neutral": 7.712740168752674e-11
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        124.0,
+        206.0,
+        458.0,
+        666.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "cd0a5442d57c8ee6d933d8e514f6aea11ef8089b81c9052382aabec5978c816d"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V01-E02.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V01-E02",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.6359042308273453,
+      "scores": {
+        "Angry": 0.09014093668108801,
+        "Disgust": 0.002967904731580897,
+        "Fear": 0.042426882977895916,
+        "Happy": 0.0010864828429509904,
+        "Sad": 0.6359042308273453,
+        "Surprise": 0.0016896013246239022,
+        "Neutral": 0.22578397248887852
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        514.0,
+        238.0,
+        724.0,
+        554.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "4583dd8f01baca93d9ce6bbbf0fa69445f9c52b86a61bfab5c36b6af2ae05695"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.4224574863910675,
+      "scores": {
+        "Angry": 0.4224574863910675,
+        "Disgust": 0.0036562650930136442,
+        "Fear": 0.0713280662894249,
+        "Happy": 0.0033008581958711147,
+        "Sad": 0.3352423310279846,
+        "Surprise": 0.0031586966942995787,
+        "Neutral": 0.16085629165172577
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        98.0,
+        205.0,
+        441.0,
+        678.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "db3d7ea9ea32c47a0a224e7f93fa99cac7ed3b8004a1713ee1db43678c74bfde"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V01-E03.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V01-E03",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.3800479769706726,
+      "scores": {
+        "Angry": 0.29000845551490784,
+        "Disgust": 0.01040081400424242,
+        "Fear": 0.07351481169462204,
+        "Happy": 0.003888416802510619,
+        "Sad": 0.3800479769706726,
+        "Surprise": 0.005206577479839325,
+        "Neutral": 0.23693297803401947
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        573.0,
+        235.0,
+        796.0,
+        560.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "c44cf7380055a8a3634a482ebeb89c7821ccac1648197371913ee31f04611997"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.4224574863910675,
+      "scores": {
+        "Angry": 0.4224574863910675,
+        "Disgust": 0.0036562650930136442,
+        "Fear": 0.0713280662894249,
+        "Happy": 0.0033008581958711147,
+        "Sad": 0.3352423310279846,
+        "Surprise": 0.0031586966942995787,
+        "Neutral": 0.16085629165172577
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        98.0,
+        205.0,
+        441.0,
+        678.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "db3d7ea9ea32c47a0a224e7f93fa99cac7ed3b8004a1713ee1db43678c74bfde"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V01-E04.jpg",
+    "expected_label": "Happy",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V01-E04",
+    "rendered": {
+      "label": "Happy",
+      "confidence": 0.9999988079071045,
+      "scores": {
+        "Angry": 5.412466586030007e-10,
+        "Disgust": 4.00746068274227e-11,
+        "Fear": 1.0321910860755512e-11,
+        "Happy": 0.9999988079071045,
+        "Sad": 1.1651814446622666e-07,
+        "Surprise": 4.0854406663237697e-11,
+        "Neutral": 1.1075384236391983e-06
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        521.0,
+        226.0,
+        739.0,
+        551.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "74d178e225af4f27464576073c147b4c1d91146dd6a2ce7b0b93085e4d1dde62"
+    },
+    "native": {
+      "label": "Happy",
+      "confidence": 1.0,
+      "scores": {
+        "Angry": 4.665039462717216e-15,
+        "Disgust": 9.680643416482896e-26,
+        "Fear": 7.74044709025768e-22,
+        "Happy": 1.0,
+        "Sad": 2.899929103274135e-14,
+        "Surprise": 8.156626585362637e-16,
+        "Neutral": 7.712740168752674e-11
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        124.0,
+        206.0,
+        458.0,
+        666.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "cd0a5442d57c8ee6d933d8e514f6aea11ef8089b81c9052382aabec5978c816d"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V02-E01.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V02-E01",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.7011324167251587,
+      "scores": {
+        "Angry": 0.006073526572436094,
+        "Disgust": 9.426325959793758e-06,
+        "Fear": 0.00023701974714640528,
+        "Happy": 0.0013047977117821574,
+        "Sad": 0.291201114654541,
+        "Surprise": 4.172171975369565e-05,
+        "Neutral": 0.7011324167251587
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        548.0,
+        233.0,
+        775.0,
+        554.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "b68cd16ff7eb03be98d51e9ca8fea19c8420a3def26cd386d7ebe877fc7844d0"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.8342650433936741,
+      "scores": {
+        "Angry": 0.004297390370660447,
+        "Disgust": 8.097219989085178e-06,
+        "Fear": 0.00026901909007432106,
+        "Happy": 0.0009973733116238304,
+        "Sad": 0.16012116730935377,
+        "Surprise": 4.190025969908258e-05,
+        "Neutral": 0.8342650433936741
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        116.0,
+        196.0,
+        453.0,
+        670.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f909dc0f221d200cce9d99fd3c36da953c4c1a463a85f44977da2a2562ed85af"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V02-E02.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V02-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.43010028363469643,
+      "scores": {
+        "Angry": 0.43010028363469643,
+        "Disgust": 0.04432832233051328,
+        "Fear": 0.021448188224218873,
+        "Happy": 0.0008834919897718118,
+        "Sad": 0.4134943382137225,
+        "Surprise": 0.0004694694630728022,
+        "Neutral": 0.08927597424697568
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        519.0,
+        240.0,
+        719.0,
+        539.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "9b64cfa3c834709714f43b6cbe839ff233950e0d7730e90feeec22044d53987d"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.5688996058046583,
+      "scores": {
+        "Angry": 0.5688996058046583,
+        "Disgust": 0.09207168025205613,
+        "Fear": 0.05453662526825817,
+        "Happy": 0.0007433344587435995,
+        "Sad": 0.2313900578850542,
+        "Surprise": 0.0002992644036681595,
+        "Neutral": 0.052059426281417985
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        147.0,
+        202.0,
+        470.0,
+        664.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "ba92a8885eac580ed3fc0b0151f0c6377a618d904d2bd7b135169132433a4591"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V02-E03.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V02-E03",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.8092333078384399,
+      "scores": {
+        "Angry": 0.04287071153521538,
+        "Disgust": 2.3913818949949928e-05,
+        "Fear": 0.0013456424931064248,
+        "Happy": 0.03146951645612717,
+        "Sad": 0.114502914249897,
+        "Surprise": 0.0005539614357985556,
+        "Neutral": 0.8092333078384399
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        570.0,
+        232.0,
+        798.0,
+        558.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "11455393d606d64f2ee0724bf485d9ca5e75b4d992dc0c0d9bfc48196d74ac6c"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.5799692273139954,
+      "scores": {
+        "Angry": 0.10342489182949066,
+        "Disgust": 0.0017499227542430162,
+        "Fear": 0.022065995261073112,
+        "Happy": 0.039863020181655884,
+        "Sad": 0.2511235773563385,
+        "Surprise": 0.0018033306114375591,
+        "Neutral": 0.5799692273139954
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        101.0,
+        203.0,
+        447.0,
+        678.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "c3dc6e59bee38f41a1175e6126c7fa5adea888c49c8680e77e9c4ce40759a77f"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V02-E04.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V02-E04",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.4812661111354828,
+      "scores": {
+        "Angry": 0.3604828715324402,
+        "Disgust": 0.002145957201719284,
+        "Fear": 0.026986001059412956,
+        "Happy": 0.0004298917483538389,
+        "Sad": 0.4812661111354828,
+        "Surprise": 0.0005300741759128869,
+        "Neutral": 0.12815915048122406
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        534.0,
+        240.0,
+        736.0,
+        542.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "12c87b9cb914f9be1dea37c1f4f6aaec59bede6fc8025c229371b42cde9e67cf"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.5688996058046583,
+      "scores": {
+        "Angry": 0.5688996058046583,
+        "Disgust": 0.09207168025205613,
+        "Fear": 0.05453662526825817,
+        "Happy": 0.0007433344587435995,
+        "Sad": 0.2313900578850542,
+        "Surprise": 0.0002992644036681595,
+        "Neutral": 0.052059426281417985
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        147.0,
+        202.0,
+        470.0,
+        664.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "ba92a8885eac580ed3fc0b0151f0c6377a618d904d2bd7b135169132433a4591"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V03-E01.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V03-E01",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.7011324167251587,
+      "scores": {
+        "Angry": 0.006073526572436094,
+        "Disgust": 9.426325959793758e-06,
+        "Fear": 0.00023701974714640528,
+        "Happy": 0.0013047977117821574,
+        "Sad": 0.291201114654541,
+        "Surprise": 4.172171975369565e-05,
+        "Neutral": 0.7011324167251587
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        548.0,
+        233.0,
+        775.0,
+        554.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "b68cd16ff7eb03be98d51e9ca8fea19c8420a3def26cd386d7ebe877fc7844d0"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.8342650433936741,
+      "scores": {
+        "Angry": 0.004297390370660447,
+        "Disgust": 8.097219989085178e-06,
+        "Fear": 0.00026901909007432106,
+        "Happy": 0.0009973733116238304,
+        "Sad": 0.16012116730935377,
+        "Surprise": 4.190025969908258e-05,
+        "Neutral": 0.8342650433936741
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        116.0,
+        196.0,
+        453.0,
+        670.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f909dc0f221d200cce9d99fd3c36da953c4c1a463a85f44977da2a2562ed85af"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V03-E02.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V03-E02",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.7812687158584595,
+      "scores": {
+        "Angry": 0.004514963831752539,
+        "Disgust": 2.7335661343386164e-06,
+        "Fear": 2.142209814337548e-05,
+        "Happy": 0.060144513845443726,
+        "Sad": 0.15393215417861938,
+        "Surprise": 0.00011546676978468895,
+        "Neutral": 0.7812687158584595
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        508.0,
+        231.0,
+        730.0,
+        547.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "ce569d2cb6b93bb6079fdd8e8d585b2469ff46ee20817cb283d5061018665ade"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.8342650433936741,
+      "scores": {
+        "Angry": 0.004297390370660447,
+        "Disgust": 8.097219989085178e-06,
+        "Fear": 0.00026901909007432106,
+        "Happy": 0.0009973733116238304,
+        "Sad": 0.16012116730935377,
+        "Surprise": 4.190025969908258e-05,
+        "Neutral": 0.8342650433936741
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        116.0,
+        196.0,
+        453.0,
+        670.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f909dc0f221d200cce9d99fd3c36da953c4c1a463a85f44977da2a2562ed85af"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V03-E03.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V03-E03",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.3800479769706726,
+      "scores": {
+        "Angry": 0.29000845551490784,
+        "Disgust": 0.01040081400424242,
+        "Fear": 0.07351481169462204,
+        "Happy": 0.003888416802510619,
+        "Sad": 0.3800479769706726,
+        "Surprise": 0.005206577479839325,
+        "Neutral": 0.23693297803401947
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        573.0,
+        235.0,
+        796.0,
+        560.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "c44cf7380055a8a3634a482ebeb89c7821ccac1648197371913ee31f04611997"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.4224574863910675,
+      "scores": {
+        "Angry": 0.4224574863910675,
+        "Disgust": 0.0036562650930136442,
+        "Fear": 0.0713280662894249,
+        "Happy": 0.0033008581958711147,
+        "Sad": 0.3352423310279846,
+        "Surprise": 0.0031586966942995787,
+        "Neutral": 0.16085629165172577
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        98.0,
+        205.0,
+        441.0,
+        678.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "db3d7ea9ea32c47a0a224e7f93fa99cac7ed3b8004a1713ee1db43678c74bfde"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V03-E04.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V03-E04",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.4812661111354828,
+      "scores": {
+        "Angry": 0.3604828715324402,
+        "Disgust": 0.002145957201719284,
+        "Fear": 0.026986001059412956,
+        "Happy": 0.0004298917483538389,
+        "Sad": 0.4812661111354828,
+        "Surprise": 0.0005300741759128869,
+        "Neutral": 0.12815915048122406
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        534.0,
+        240.0,
+        736.0,
+        542.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "12c87b9cb914f9be1dea37c1f4f6aaec59bede6fc8025c229371b42cde9e67cf"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.5688996058046583,
+      "scores": {
+        "Angry": 0.5688996058046583,
+        "Disgust": 0.09207168025205613,
+        "Fear": 0.05453662526825817,
+        "Happy": 0.0007433344587435995,
+        "Sad": 0.2313900578850542,
+        "Surprise": 0.0002992644036681595,
+        "Neutral": 0.052059426281417985
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        147.0,
+        202.0,
+        470.0,
+        664.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "ba92a8885eac580ed3fc0b0151f0c6377a618d904d2bd7b135169132433a4591"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V04-E01.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V04-E01",
+    "rendered": {
+      "label": "Surprise",
+      "confidence": 0.6675782599951912,
+      "scores": {
+        "Angry": 0.0001807013398457584,
+        "Disgust": 6.009317659876812e-09,
+        "Fear": 0.33200334525068453,
+        "Happy": 0.00023272731186440595,
+        "Sad": 4.814554239552987e-06,
+        "Surprise": 0.6675782599951912,
+        "Neutral": 1.0089606879578285e-07
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        554.0,
+        234.0,
+        774.0,
+        579.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f8dc8d8679806b09ad1bc925628746299e34906cb4675812e99acfcd76df5920"
+    },
+    "native": {
+      "label": "Fear",
+      "confidence": 0.6931621432304382,
+      "scores": {
+        "Angry": 0.00010477629984961823,
+        "Disgust": 2.900106543801684e-10,
+        "Fear": 0.6931621432304382,
+        "Happy": 0.00014651224773842841,
+        "Sad": 2.8698179903585697e-06,
+        "Surprise": 0.3065837621688843,
+        "Neutral": 2.690214162548443e-10
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        99.0,
+        215.0,
+        445.0,
+        682.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "4a87d8ae812c0d9a61868bf055736fb8da46d1ea7ea01195fd52b333d0529349"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V04-E02.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V04-E02",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.7812687158584595,
+      "scores": {
+        "Angry": 0.004514963831752539,
+        "Disgust": 2.7335661343386164e-06,
+        "Fear": 2.142209814337548e-05,
+        "Happy": 0.060144513845443726,
+        "Sad": 0.15393215417861938,
+        "Surprise": 0.00011546676978468895,
+        "Neutral": 0.7812687158584595
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        508.0,
+        231.0,
+        730.0,
+        547.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "ce569d2cb6b93bb6079fdd8e8d585b2469ff46ee20817cb283d5061018665ade"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.8342650433936741,
+      "scores": {
+        "Angry": 0.004297390370660447,
+        "Disgust": 8.097219989085178e-06,
+        "Fear": 0.00026901909007432106,
+        "Happy": 0.0009973733116238304,
+        "Sad": 0.16012116730935377,
+        "Surprise": 4.190025969908258e-05,
+        "Neutral": 0.8342650433936741
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        116.0,
+        196.0,
+        453.0,
+        670.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f909dc0f221d200cce9d99fd3c36da953c4c1a463a85f44977da2a2562ed85af"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V04-E03.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V04-E03",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.3800479769706726,
+      "scores": {
+        "Angry": 0.29000845551490784,
+        "Disgust": 0.01040081400424242,
+        "Fear": 0.07351481169462204,
+        "Happy": 0.003888416802510619,
+        "Sad": 0.3800479769706726,
+        "Surprise": 0.005206577479839325,
+        "Neutral": 0.23693297803401947
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        573.0,
+        235.0,
+        796.0,
+        560.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "c44cf7380055a8a3634a482ebeb89c7821ccac1648197371913ee31f04611997"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.4224574863910675,
+      "scores": {
+        "Angry": 0.4224574863910675,
+        "Disgust": 0.0036562650930136442,
+        "Fear": 0.0713280662894249,
+        "Happy": 0.0033008581958711147,
+        "Sad": 0.3352423310279846,
+        "Surprise": 0.0031586966942995787,
+        "Neutral": 0.16085629165172577
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        98.0,
+        205.0,
+        441.0,
+        678.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "db3d7ea9ea32c47a0a224e7f93fa99cac7ed3b8004a1713ee1db43678c74bfde"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V04-E04.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V04-E04",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.42850515246391296,
+      "scores": {
+        "Angry": 0.14037612080574036,
+        "Disgust": 0.0009533608099445701,
+        "Fear": 0.008800644427537918,
+        "Happy": 0.01994173973798752,
+        "Sad": 0.42850515246391296,
+        "Surprise": 0.0008482277626171708,
+        "Neutral": 0.4005747437477112
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        523.0,
+        234.0,
+        744.0,
+        551.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "e83bfc784c312ea192e8dc4dcd7ae552692414d876f09a72ad2e0302eb498ac8"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.5799692273139954,
+      "scores": {
+        "Angry": 0.10342489182949066,
+        "Disgust": 0.0017499227542430162,
+        "Fear": 0.022065995261073112,
+        "Happy": 0.039863020181655884,
+        "Sad": 0.2511235773563385,
+        "Surprise": 0.0018033306114375591,
+        "Neutral": 0.5799692273139954
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        101.0,
+        203.0,
+        447.0,
+        678.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "c3dc6e59bee38f41a1175e6126c7fa5adea888c49c8680e77e9c4ce40759a77f"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V05-E01.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V05-E01",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.5019525588722562,
+      "scores": {
+        "Angry": 0.2031923206563187,
+        "Disgust": 0.00045705018960983686,
+        "Fear": 0.0015575781927304384,
+        "Happy": 0.0011096939640309789,
+        "Sad": 0.2915916020626785,
+        "Surprise": 0.00013919860896068718,
+        "Neutral": 0.5019525588722562
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        553.0,
+        238.0,
+        763.0,
+        547.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "375e6cbd4dc86b326c1ad6a469a6191c8f4275c36900036cb576b31291a4deca"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.5688996058046583,
+      "scores": {
+        "Angry": 0.5688996058046583,
+        "Disgust": 0.09207168025205613,
+        "Fear": 0.05453662526825817,
+        "Happy": 0.0007433344587435995,
+        "Sad": 0.2313900578850542,
+        "Surprise": 0.0002992644036681595,
+        "Neutral": 0.052059426281417985
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        147.0,
+        202.0,
+        470.0,
+        664.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "ba92a8885eac580ed3fc0b0151f0c6377a618d904d2bd7b135169132433a4591"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V05-E02.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V05-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.43010028363469643,
+      "scores": {
+        "Angry": 0.43010028363469643,
+        "Disgust": 0.04432832233051328,
+        "Fear": 0.021448188224218873,
+        "Happy": 0.0008834919897718118,
+        "Sad": 0.4134943382137225,
+        "Surprise": 0.0004694694630728022,
+        "Neutral": 0.08927597424697568
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        519.0,
+        240.0,
+        719.0,
+        539.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "9b64cfa3c834709714f43b6cbe839ff233950e0d7730e90feeec22044d53987d"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.5688996058046583,
+      "scores": {
+        "Angry": 0.5688996058046583,
+        "Disgust": 0.09207168025205613,
+        "Fear": 0.05453662526825817,
+        "Happy": 0.0007433344587435995,
+        "Sad": 0.2313900578850542,
+        "Surprise": 0.0002992644036681595,
+        "Neutral": 0.052059426281417985
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        147.0,
+        202.0,
+        470.0,
+        664.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "ba92a8885eac580ed3fc0b0151f0c6377a618d904d2bd7b135169132433a4591"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V05-E03.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V05-E03",
+    "rendered": {
+      "label": "Surprise",
+      "confidence": 0.5974493738948552,
+      "scores": {
+        "Angry": 0.00016406739223806765,
+        "Disgust": 2.1628697857560552e-08,
+        "Fear": 0.40128110662473515,
+        "Happy": 0.0010856231804562426,
+        "Sad": 1.9347251996699027e-05,
+        "Surprise": 0.5974493738948552,
+        "Neutral": 4.798090461822825e-07
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        572.0,
+        234.0,
+        798.0,
+        579.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "dd50fda4b12a62ccb179b7ab982094f60dea48b11968ce6eda993db9f0ff79fa"
+    },
+    "native": {
+      "label": "Fear",
+      "confidence": 0.6931621432304382,
+      "scores": {
+        "Angry": 0.00010477629984961823,
+        "Disgust": 2.900106543801684e-10,
+        "Fear": 0.6931621432304382,
+        "Happy": 0.00014651224773842841,
+        "Sad": 2.8698179903585697e-06,
+        "Surprise": 0.3065837621688843,
+        "Neutral": 2.690214162548443e-10
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        99.0,
+        215.0,
+        445.0,
+        682.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "4a87d8ae812c0d9a61868bf055736fb8da46d1ea7ea01195fd52b333d0529349"
+    }
+  },
+  {
+    "image_path": "observations/KG039/V05-E04.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG039-V05-E04",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.4812661111354828,
+      "scores": {
+        "Angry": 0.3604828715324402,
+        "Disgust": 0.002145957201719284,
+        "Fear": 0.026986001059412956,
+        "Happy": 0.0004298917483538389,
+        "Sad": 0.4812661111354828,
+        "Surprise": 0.0005300741759128869,
+        "Neutral": 0.12815915048122406
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        534.0,
+        240.0,
+        736.0,
+        542.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "12c87b9cb914f9be1dea37c1f4f6aaec59bede6fc8025c229371b42cde9e67cf"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.5688996058046583,
+      "scores": {
+        "Angry": 0.5688996058046583,
+        "Disgust": 0.09207168025205613,
+        "Fear": 0.05453662526825817,
+        "Happy": 0.0007433344587435995,
+        "Sad": 0.2313900578850542,
+        "Surprise": 0.0002992644036681595,
+        "Neutral": 0.052059426281417985
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        147.0,
+        202.0,
+        470.0,
+        664.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "ba92a8885eac580ed3fc0b0151f0c6377a618d904d2bd7b135169132433a4591"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V01-E01.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V01-E01",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.9994584918022156,
+      "scores": {
+        "Angry": 0.9994584918022156,
+        "Disgust": 1.17975673674664e-07,
+        "Fear": 0.00023573973157908767,
+        "Happy": 2.843532298513196e-09,
+        "Sad": 0.00030561763560399413,
+        "Surprise": 5.130786018270328e-09,
+        "Neutral": 4.1107302450882344e-08
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        534.0,
+        223.0,
+        761.0,
+        545.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "552add4a2f17c7f85b77e34edd2c04d5940bbab2e69ad302c7a52bbb6dac0d4e"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9934917684490543,
+      "scores": {
+        "Angry": 0.9934917684490543,
+        "Disgust": 1.006671314801871e-06,
+        "Fear": 0.003472689979013203,
+        "Happy": 6.853062313095772e-07,
+        "Sad": 0.0030304234884186675,
+        "Surprise": 3.3508012230396246e-07,
+        "Neutral": 3.1218564386963257e-06
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        115.0,
+        191.0,
+        447.0,
+        659.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "b8d1a18ad622cb70499e4a6053b41cc0543b56e123864fd788dab297528da28d"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V01-E02.jpg",
+    "expected_label": "Happy",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V01-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.7268409729003906,
+      "scores": {
+        "Angry": 0.7268409729003906,
+        "Disgust": 0.000402183854021132,
+        "Fear": 0.14297421276569366,
+        "Happy": 0.049991875886917114,
+        "Sad": 0.0792589783668518,
+        "Surprise": 0.0005171935190446675,
+        "Neutral": 1.4549327715940308e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        504.0,
+        222.0,
+        722.0,
+        546.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "33934e9d9994c6edd7c2bf9657a6da3a4fc4f245ff5813c11af7dc47c734ae4d"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.7653823951114651,
+      "scores": {
+        "Angry": 0.7653823951114651,
+        "Disgust": 0.001750524609380937,
+        "Fear": 0.18313982684253613,
+        "Happy": 0.015737640678145925,
+        "Sad": 0.033576639507808655,
+        "Surprise": 0.0003665813638001748,
+        "Neutral": 4.6407421033433586e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        119.0,
+        202.0,
+        443.0,
+        662.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "77f463802b60524da31d574e7b3daf6a02d4cf3badb66ef6a7fb647701b8c6e7"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V01-E03.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V01-E03",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.9999958276748657,
+      "scores": {
+        "Angry": 0.9999958276748657,
+        "Disgust": 6.569088384367205e-08,
+        "Fear": 3.862789071717998e-06,
+        "Happy": 1.0039079810508778e-11,
+        "Sad": 2.654618924680108e-07,
+        "Surprise": 4.015635740595158e-11,
+        "Neutral": 4.589663718523873e-12
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        565.0,
+        238.0,
+        794.0,
+        551.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "78b582783c1bb57161f1cd49112927ec99c93e9ddd0ba38250961f8311892ffd"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9999985694885254,
+      "scores": {
+        "Angry": 0.9999985694885254,
+        "Disgust": 8.667005602092104e-08,
+        "Fear": 1.3351857433008263e-06,
+        "Happy": 3.84733130770476e-12,
+        "Sad": 4.6273861187273724e-08,
+        "Surprise": 9.225115463196154e-12,
+        "Neutral": 3.637593427429503e-13
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        120.0,
+        211.0,
+        452.0,
+        668.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "71076bb0678ec069a90ac03272579512d0009b3022cc89f761020ce29eec22aa"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V01-E04.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V01-E04",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.999995231628418,
+      "scores": {
+        "Angry": 0.999995231628418,
+        "Disgust": 4.4694488110508246e-07,
+        "Fear": 4.062924290337833e-06,
+        "Happy": 1.8938720383609997e-11,
+        "Sad": 2.908128919898445e-07,
+        "Surprise": 5.031055433368792e-12,
+        "Neutral": 5.5888223736422216e-12
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        522.0,
+        235.0,
+        735.0,
+        545.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "6d5416e6c918cbeca1e46d53ed888fabf83537b50e855a7e3d2bf30b3df76489"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9999985694885254,
+      "scores": {
+        "Angry": 0.9999985694885254,
+        "Disgust": 8.667005602092104e-08,
+        "Fear": 1.3351857433008263e-06,
+        "Happy": 3.84733130770476e-12,
+        "Sad": 4.6273861187273724e-08,
+        "Surprise": 9.225115463196154e-12,
+        "Neutral": 3.637593427429503e-13
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        120.0,
+        211.0,
+        452.0,
+        668.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "71076bb0678ec069a90ac03272579512d0009b3022cc89f761020ce29eec22aa"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V02-E01.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V02-E01",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.8255409598350525,
+      "scores": {
+        "Angry": 0.1338507980108261,
+        "Disgust": 1.1101446943939663e-05,
+        "Fear": 0.0009325823630206287,
+        "Happy": 0.00020198911079205573,
+        "Sad": 0.8255409598350525,
+        "Surprise": 2.537791033319081e-06,
+        "Neutral": 0.039460014551877975
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        537.0,
+        225.0,
+        764.0,
+        546.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "3ea35050b53fcf57eab24ed8ae37ffed0b7b8ec1b23867f34b048eab6743cc92"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.6157346963882446,
+      "scores": {
+        "Angry": 0.31856194138526917,
+        "Disgust": 2.9352105457292055e-07,
+        "Fear": 0.0020125273149460554,
+        "Happy": 6.407983892131597e-05,
+        "Sad": 0.6157346963882446,
+        "Surprise": 3.7828257859473524e-08,
+        "Neutral": 0.06362642347812653
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        128.0,
+        205.0,
+        455.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "d4c5a84bc3d635db2dff05fb627ac7a6a4a770b11e5a1ae13d2ba4bfed2e56d4"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V02-E02.jpg",
+    "expected_label": "Happy",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V02-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.7268409729003906,
+      "scores": {
+        "Angry": 0.7268409729003906,
+        "Disgust": 0.000402183854021132,
+        "Fear": 0.14297421276569366,
+        "Happy": 0.049991875886917114,
+        "Sad": 0.0792589783668518,
+        "Surprise": 0.0005171935190446675,
+        "Neutral": 1.4549327715940308e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        504.0,
+        222.0,
+        722.0,
+        546.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "33934e9d9994c6edd7c2bf9657a6da3a4fc4f245ff5813c11af7dc47c734ae4d"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.7653823951114651,
+      "scores": {
+        "Angry": 0.7653823951114651,
+        "Disgust": 0.001750524609380937,
+        "Fear": 0.18313982684253613,
+        "Happy": 0.015737640678145925,
+        "Sad": 0.033576639507808655,
+        "Surprise": 0.0003665813638001748,
+        "Neutral": 4.6407421033433586e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        119.0,
+        202.0,
+        443.0,
+        662.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "77f463802b60524da31d574e7b3daf6a02d4cf3badb66ef6a7fb647701b8c6e7"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V02-E03.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V02-E03",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.9999958276748657,
+      "scores": {
+        "Angry": 0.9999958276748657,
+        "Disgust": 6.569088384367205e-08,
+        "Fear": 3.862789071717998e-06,
+        "Happy": 1.0039079810508778e-11,
+        "Sad": 2.654618924680108e-07,
+        "Surprise": 4.015635740595158e-11,
+        "Neutral": 4.589663718523873e-12
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        565.0,
+        238.0,
+        794.0,
+        551.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "78b582783c1bb57161f1cd49112927ec99c93e9ddd0ba38250961f8311892ffd"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9999985694885254,
+      "scores": {
+        "Angry": 0.9999985694885254,
+        "Disgust": 8.667005602092104e-08,
+        "Fear": 1.3351857433008263e-06,
+        "Happy": 3.84733130770476e-12,
+        "Sad": 4.6273861187273724e-08,
+        "Surprise": 9.225115463196154e-12,
+        "Neutral": 3.637593427429503e-13
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        120.0,
+        211.0,
+        452.0,
+        668.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "71076bb0678ec069a90ac03272579512d0009b3022cc89f761020ce29eec22aa"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V02-E04.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V02-E04",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.999995231628418,
+      "scores": {
+        "Angry": 0.999995231628418,
+        "Disgust": 4.4694488110508246e-07,
+        "Fear": 4.062924290337833e-06,
+        "Happy": 1.8938720383609997e-11,
+        "Sad": 2.908128919898445e-07,
+        "Surprise": 5.031055433368792e-12,
+        "Neutral": 5.5888223736422216e-12
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        522.0,
+        235.0,
+        735.0,
+        545.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "6d5416e6c918cbeca1e46d53ed888fabf83537b50e855a7e3d2bf30b3df76489"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9999985694885254,
+      "scores": {
+        "Angry": 0.9999985694885254,
+        "Disgust": 8.667005602092104e-08,
+        "Fear": 1.3351857433008263e-06,
+        "Happy": 3.84733130770476e-12,
+        "Sad": 4.6273861187273724e-08,
+        "Surprise": 9.225115463196154e-12,
+        "Neutral": 3.637593427429503e-13
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        120.0,
+        211.0,
+        452.0,
+        668.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "71076bb0678ec069a90ac03272579512d0009b3022cc89f761020ce29eec22aa"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V03-E01.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V03-E01",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.8255409598350525,
+      "scores": {
+        "Angry": 0.1338507980108261,
+        "Disgust": 1.1101446943939663e-05,
+        "Fear": 0.0009325823630206287,
+        "Happy": 0.00020198911079205573,
+        "Sad": 0.8255409598350525,
+        "Surprise": 2.537791033319081e-06,
+        "Neutral": 0.039460014551877975
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        537.0,
+        225.0,
+        764.0,
+        546.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "3ea35050b53fcf57eab24ed8ae37ffed0b7b8ec1b23867f34b048eab6743cc92"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.6157346963882446,
+      "scores": {
+        "Angry": 0.31856194138526917,
+        "Disgust": 2.9352105457292055e-07,
+        "Fear": 0.0020125273149460554,
+        "Happy": 6.407983892131597e-05,
+        "Sad": 0.6157346963882446,
+        "Surprise": 3.7828257859473524e-08,
+        "Neutral": 0.06362642347812653
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        128.0,
+        205.0,
+        455.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "d4c5a84bc3d635db2dff05fb627ac7a6a4a770b11e5a1ae13d2ba4bfed2e56d4"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V03-E02.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V03-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.7525208291386569,
+      "scores": {
+        "Angry": 0.7525208291386569,
+        "Disgust": 0.0009127981687540508,
+        "Fear": 0.005756240117551075,
+        "Happy": 6.420374082580318e-05,
+        "Sad": 0.23919355998116018,
+        "Surprise": 0.0001029656436949946,
+        "Neutral": 0.0014493858343722422
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        499.0,
+        220.0,
+        724.0,
+        535.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "34bc1cfe29df87b730a40c4947aa1730c2120cc9fccc3543e2e1d858671fe001"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.8036737442016602,
+      "scores": {
+        "Angry": 0.8036737442016602,
+        "Disgust": 0.0003669378347694874,
+        "Fear": 0.003104648320004344,
+        "Happy": 6.837883847765625e-05,
+        "Sad": 0.19216953217983246,
+        "Surprise": 2.1378760720836e-05,
+        "Neutral": 0.0005954137304797769
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        115.0,
+        194.0,
+        446.0,
+        653.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "a3c800687520d878855393220a8165d96c87a5e8497c9beeabac11c590da7eee"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V03-E03.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V03-E03",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.7321782431389995,
+      "scores": {
+        "Angry": 0.2098656642597122,
+        "Disgust": 0.00010953196910434212,
+        "Fear": 0.028216963995460986,
+        "Happy": 0.000778405310459547,
+        "Sad": 0.7321782431389995,
+        "Surprise": 0.0010794207796772386,
+        "Neutral": 0.027771698725617085
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        567.0,
+        223.0,
+        790.0,
+        535.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "d8fa6fb8fd3dd1af4752dd9db04a83d14b85056c64393b441db1e235fe5b9ecc"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.4940291941165924,
+      "scores": {
+        "Angry": 0.12515611946582794,
+        "Disgust": 0.004814617335796356,
+        "Fear": 0.2747979462146759,
+        "Happy": 0.0023389370180666447,
+        "Sad": 0.4940291941165924,
+        "Surprise": 0.005558403208851814,
+        "Neutral": 0.09330478310585022
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        129.0,
+        207.0,
+        439.0,
+        641.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "ced70637f48ef6994c3a67a2820c76c74f53c1c428c7b65f58c48c153e6b8f62"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V03-E04.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V03-E04",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.5769172058652167,
+      "scores": {
+        "Angry": 0.5769172058652167,
+        "Disgust": 0.0003400388434645589,
+        "Fear": 0.004180067002330244,
+        "Happy": 0.00013579894666665475,
+        "Sad": 0.4126849122455664,
+        "Surprise": 7.027287629662463e-05,
+        "Neutral": 0.0056717506265193595
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        511.0,
+        223.0,
+        736.0,
+        539.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "70d754f142fec0bb15201f69b0e8ea30fc25704ab7ba4eb2df8ea8dca6223a2e"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.8036737442016602,
+      "scores": {
+        "Angry": 0.8036737442016602,
+        "Disgust": 0.0003669378347694874,
+        "Fear": 0.003104648320004344,
+        "Happy": 6.837883847765625e-05,
+        "Sad": 0.19216953217983246,
+        "Surprise": 2.1378760720836e-05,
+        "Neutral": 0.0005954137304797769
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        115.0,
+        194.0,
+        446.0,
+        653.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "a3c800687520d878855393220a8165d96c87a5e8497c9beeabac11c590da7eee"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V04-E01.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V04-E01",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.8255409598350525,
+      "scores": {
+        "Angry": 0.1338507980108261,
+        "Disgust": 1.1101446943939663e-05,
+        "Fear": 0.0009325823630206287,
+        "Happy": 0.00020198911079205573,
+        "Sad": 0.8255409598350525,
+        "Surprise": 2.537791033319081e-06,
+        "Neutral": 0.039460014551877975
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        537.0,
+        225.0,
+        764.0,
+        546.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "3ea35050b53fcf57eab24ed8ae37ffed0b7b8ec1b23867f34b048eab6743cc92"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.6157346963882446,
+      "scores": {
+        "Angry": 0.31856194138526917,
+        "Disgust": 2.9352105457292055e-07,
+        "Fear": 0.0020125273149460554,
+        "Happy": 6.407983892131597e-05,
+        "Sad": 0.6157346963882446,
+        "Surprise": 3.7828257859473524e-08,
+        "Neutral": 0.06362642347812653
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        128.0,
+        205.0,
+        455.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "d4c5a84bc3d635db2dff05fb627ac7a6a4a770b11e5a1ae13d2ba4bfed2e56d4"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V04-E02.jpg",
+    "expected_label": "Happy",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V04-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.7268409729003906,
+      "scores": {
+        "Angry": 0.7268409729003906,
+        "Disgust": 0.000402183854021132,
+        "Fear": 0.14297421276569366,
+        "Happy": 0.049991875886917114,
+        "Sad": 0.0792589783668518,
+        "Surprise": 0.0005171935190446675,
+        "Neutral": 1.4549327715940308e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        504.0,
+        222.0,
+        722.0,
+        546.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "33934e9d9994c6edd7c2bf9657a6da3a4fc4f245ff5813c11af7dc47c734ae4d"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.7653823951114651,
+      "scores": {
+        "Angry": 0.7653823951114651,
+        "Disgust": 0.001750524609380937,
+        "Fear": 0.18313982684253613,
+        "Happy": 0.015737640678145925,
+        "Sad": 0.033576639507808655,
+        "Surprise": 0.0003665813638001748,
+        "Neutral": 4.6407421033433586e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        119.0,
+        202.0,
+        443.0,
+        662.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "77f463802b60524da31d574e7b3daf6a02d4cf3badb66ef6a7fb647701b8c6e7"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V04-E03.jpg",
+    "expected_label": "Happy",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V04-E03",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.8078325872321479,
+      "scores": {
+        "Angry": 0.8078325872321479,
+        "Disgust": 0.0011855393656292179,
+        "Fear": 0.1312782395647907,
+        "Happy": 0.04338206236851587,
+        "Sad": 0.01541244703009409,
+        "Surprise": 0.0008154187139000722,
+        "Neutral": 9.37722490065954e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        561.0,
+        226.0,
+        792.0,
+        553.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "a63a2f4b3bd46ec0d434822aa3c84169ddce7ef1cabd28d05e3bf65cb55e9cbd"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.7653823951114651,
+      "scores": {
+        "Angry": 0.7653823951114651,
+        "Disgust": 0.001750524609380937,
+        "Fear": 0.18313982684253613,
+        "Happy": 0.015737640678145925,
+        "Sad": 0.033576639507808655,
+        "Surprise": 0.0003665813638001748,
+        "Neutral": 4.6407421033433586e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        119.0,
+        202.0,
+        443.0,
+        662.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "77f463802b60524da31d574e7b3daf6a02d4cf3badb66ef6a7fb647701b8c6e7"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V04-E04.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V04-E04",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.5769172058652167,
+      "scores": {
+        "Angry": 0.5769172058652167,
+        "Disgust": 0.0003400388434645589,
+        "Fear": 0.004180067002330244,
+        "Happy": 0.00013579894666665475,
+        "Sad": 0.4126849122455664,
+        "Surprise": 7.027287629662463e-05,
+        "Neutral": 0.0056717506265193595
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        511.0,
+        223.0,
+        736.0,
+        539.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "70d754f142fec0bb15201f69b0e8ea30fc25704ab7ba4eb2df8ea8dca6223a2e"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.8036737442016602,
+      "scores": {
+        "Angry": 0.8036737442016602,
+        "Disgust": 0.0003669378347694874,
+        "Fear": 0.003104648320004344,
+        "Happy": 6.837883847765625e-05,
+        "Sad": 0.19216953217983246,
+        "Surprise": 2.1378760720836e-05,
+        "Neutral": 0.0005954137304797769
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        115.0,
+        194.0,
+        446.0,
+        653.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "a3c800687520d878855393220a8165d96c87a5e8497c9beeabac11c590da7eee"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V05-E01.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V05-E01",
+    "rendered": {
+      "label": "Surprise",
+      "confidence": 0.9999195337295532,
+      "scores": {
+        "Angry": 1.0839788728844724e-06,
+        "Disgust": 7.544864255928929e-13,
+        "Fear": 7.867867680033669e-05,
+        "Happy": 6.844377367087873e-07,
+        "Sad": 3.255934410972827e-10,
+        "Surprise": 0.9999195337295532,
+        "Neutral": 3.0912735479032838e-12
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        543.0,
+        229.0,
+        770.0,
+        585.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f4bcbde15c8c36e615d6f33411ed47641d92eb1b1e4590e023c54444049b0bf1"
+    },
+    "native": {
+      "label": "Surprise",
+      "confidence": 0.9999891519546509,
+      "scores": {
+        "Angry": 4.3640913105491563e-08,
+        "Disgust": 1.1655623298120754e-13,
+        "Fear": 1.072822942660423e-05,
+        "Happy": 5.1010594859235425e-08,
+        "Sad": 1.3384807151517464e-11,
+        "Surprise": 0.9999891519546509,
+        "Neutral": 1.4032540727277817e-14
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        116.0,
+        201.0,
+        460.0,
+        692.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "4bb945152fd889bdf6fdaf81fc732ffdb95a72e5855c93422118cd15ec711966"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V05-E02.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V05-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.999998927116394,
+      "scores": {
+        "Angry": 0.999998927116394,
+        "Disgust": 4.207331869565678e-07,
+        "Fear": 6.409300112864003e-07,
+        "Happy": 4.991699870289523e-13,
+        "Sad": 4.991570179413429e-08,
+        "Surprise": 6.6788974524556455e-12,
+        "Neutral": 7.42999737256278e-13
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        507.0,
+        230.0,
+        719.0,
+        545.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "55882c7fd93b145dfef116db87b9e8a9ba425cbc088f16f7ea6f5126b011ab84"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9999985694885254,
+      "scores": {
+        "Angry": 0.9999985694885254,
+        "Disgust": 8.667005602092104e-08,
+        "Fear": 1.3351857433008263e-06,
+        "Happy": 3.84733130770476e-12,
+        "Sad": 4.6273861187273724e-08,
+        "Surprise": 9.225115463196154e-12,
+        "Neutral": 3.637593427429503e-13
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        120.0,
+        211.0,
+        452.0,
+        668.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "71076bb0678ec069a90ac03272579512d0009b3022cc89f761020ce29eec22aa"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V05-E03.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V05-E03",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.9999958276748657,
+      "scores": {
+        "Angry": 0.9999958276748657,
+        "Disgust": 6.569088384367205e-08,
+        "Fear": 3.862789071717998e-06,
+        "Happy": 1.0039079810508778e-11,
+        "Sad": 2.654618924680108e-07,
+        "Surprise": 4.015635740595158e-11,
+        "Neutral": 4.589663718523873e-12
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        565.0,
+        238.0,
+        794.0,
+        551.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "78b582783c1bb57161f1cd49112927ec99c93e9ddd0ba38250961f8311892ffd"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9999985694885254,
+      "scores": {
+        "Angry": 0.9999985694885254,
+        "Disgust": 8.667005602092104e-08,
+        "Fear": 1.3351857433008263e-06,
+        "Happy": 3.84733130770476e-12,
+        "Sad": 4.6273861187273724e-08,
+        "Surprise": 9.225115463196154e-12,
+        "Neutral": 3.637593427429503e-13
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        120.0,
+        211.0,
+        452.0,
+        668.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "71076bb0678ec069a90ac03272579512d0009b3022cc89f761020ce29eec22aa"
+    }
+  },
+  {
+    "image_path": "observations/KG061/V05-E04.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG061-V05-E04",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.6842876672744751,
+      "scores": {
+        "Angry": 0.21565935015678406,
+        "Disgust": 2.5510489649605006e-06,
+        "Fear": 0.0010410752147436142,
+        "Happy": 0.00042370049050077796,
+        "Sad": 0.6842876672744751,
+        "Surprise": 2.136640432581771e-06,
+        "Neutral": 0.09858354181051254
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        519.0,
+        228.0,
+        738.0,
+        540.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "de812f9c50de74374ec95072935753573c632160e8fd34ba34df1d50794952d5"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.6157346963882446,
+      "scores": {
+        "Angry": 0.31856194138526917,
+        "Disgust": 2.9352105457292055e-07,
+        "Fear": 0.0020125273149460554,
+        "Happy": 6.407983892131597e-05,
+        "Sad": 0.6157346963882446,
+        "Surprise": 3.7828257859473524e-08,
+        "Neutral": 0.06362642347812653
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        128.0,
+        205.0,
+        455.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "d4c5a84bc3d635db2dff05fb627ac7a6a4a770b11e5a1ae13d2ba4bfed2e56d4"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V01-E01.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V01-E01",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.7173216342926025,
+      "scores": {
+        "Angry": 0.04664822667837143,
+        "Disgust": 5.040130872657755e-06,
+        "Fear": 0.006573272868990898,
+        "Happy": 0.00027883079019375145,
+        "Sad": 0.7173216342926025,
+        "Surprise": 8.476871880702674e-05,
+        "Neutral": 0.22908827662467957
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        532.0,
+        237.0,
+        761.0,
+        538.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "b5f831bc7eef2331722eaff4375d1fe2d15afb899852026b79a46ff8b6df979e"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.912754476070404,
+      "scores": {
+        "Angry": 0.0034410562366247177,
+        "Disgust": 1.3699235079656091e-09,
+        "Fear": 0.00037425532354973257,
+        "Happy": 6.102306360844523e-05,
+        "Sad": 0.08332715183496475,
+        "Surprise": 4.207799429423176e-05,
+        "Neutral": 0.912754476070404
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        121.0,
+        210.0,
+        443.0,
+        651.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f491c184f9c2cb5e4c996678ea99633e909162b6e9066eb2410b0963f7220cfb"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V01-E02.jpg",
+    "expected_label": "Happy",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V01-E02",
+    "rendered": {
+      "label": "Happy",
+      "confidence": 0.6523692607879639,
+      "scores": {
+        "Angry": 0.0008359281346201897,
+        "Disgust": 0.0014965349109843373,
+        "Fear": 1.600838550075423e-05,
+        "Happy": 0.6523692607879639,
+        "Sad": 0.22094549238681793,
+        "Surprise": 2.1832154743606225e-05,
+        "Neutral": 0.12431500107049942
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        508.0,
+        226.0,
+        722.0,
+        523.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "c8801e6a07bc016d1fa0b67090e11de5344c3ef3ced06ac70e6771d375936fb9"
+    },
+    "native": {
+      "label": "Happy",
+      "confidence": 0.9134270652023475,
+      "scores": {
+        "Angry": 0.0005241376887172235,
+        "Disgust": 5.170744882216356e-05,
+        "Fear": 1.785054806559216e-06,
+        "Happy": 0.9134270652023475,
+        "Sad": 0.06704510694204485,
+        "Surprise": 6.259146793673709e-06,
+        "Neutral": 0.018943920335898357
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        117.0,
+        197.0,
+        457.0,
+        629.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "b0b4c44d29bb645a570047ef540ab8d18fe8cccc7ff8862894bb3ef44d39f2e8"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V01-E03.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V01-E03",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.7331031242731957,
+      "scores": {
+        "Angry": 0.010915633660928448,
+        "Disgust": 3.1667920348607053e-06,
+        "Fear": 0.0002939426108493043,
+        "Happy": 0.00039551432186349595,
+        "Sad": 0.7331031242731957,
+        "Surprise": 3.24818977400967e-05,
+        "Neutral": 0.2552561766214581
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        559.0,
+        231.0,
+        787.0,
+        539.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "8c602b26e4d04eb7a437e077c195de869446c951b7e1ba2320742e74ce76b856"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.912754476070404,
+      "scores": {
+        "Angry": 0.0034410562366247177,
+        "Disgust": 1.3699235079656091e-09,
+        "Fear": 0.00037425532354973257,
+        "Happy": 6.102306360844523e-05,
+        "Sad": 0.08332715183496475,
+        "Surprise": 4.207799429423176e-05,
+        "Neutral": 0.912754476070404
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        121.0,
+        210.0,
+        443.0,
+        651.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f491c184f9c2cb5e4c996678ea99633e909162b6e9066eb2410b0963f7220cfb"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V01-E04.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V01-E04",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.6995075345039368,
+      "scores": {
+        "Angry": 0.23274962604045868,
+        "Disgust": 0.001188087509945035,
+        "Fear": 0.01071438193321228,
+        "Happy": 0.028565555810928345,
+        "Sad": 0.6995075345039368,
+        "Surprise": 1.3834228411724325e-05,
+        "Neutral": 0.027260998263955116
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        528.0,
+        257.0,
+        733.0,
+        528.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "8a59b4daedd9dd8dff0ea1dd37580b4f86e7c08e14c3310636d5cf025dfc9ffc"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.3822060525417328,
+      "scores": {
+        "Angry": 0.3822060525417328,
+        "Disgust": 0.011259379796683788,
+        "Fear": 0.0068823168985545635,
+        "Happy": 0.14482299983501434,
+        "Sad": 0.25066426396369934,
+        "Surprise": 0.00020680668239947408,
+        "Neutral": 0.2039581686258316
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        126.0,
+        227.0,
+        426.0,
+        631.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "777d132d7d56383f3393cd42c729aa1e00867a5d4e1671054ea4dafe7ab69a12"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V02-E01.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V02-E01",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.5804547071456909,
+      "scores": {
+        "Angry": 0.010874136351048946,
+        "Disgust": 5.382219558924817e-09,
+        "Fear": 0.00018996289873030037,
+        "Happy": 0.0002332627191208303,
+        "Sad": 0.4082435965538025,
+        "Surprise": 4.353272743173875e-06,
+        "Neutral": 0.5804547071456909
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        536.0,
+        243.0,
+        761.0,
+        540.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "51deafd0e2114dbc4b84cb15d4b8a4d8272c6ecc32974ebfd5d59ff499ccb222"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.6915081739425659,
+      "scores": {
+        "Angry": 0.04360206797719002,
+        "Disgust": 3.0228686227928847e-05,
+        "Fear": 0.004131929017603397,
+        "Happy": 0.0014130300842225552,
+        "Sad": 0.25847092270851135,
+        "Surprise": 0.000843668298330158,
+        "Neutral": 0.6915081739425659
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        127.0,
+        220.0,
+        436.0,
+        639.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "b5de9f7ea9c2dbf24113f78e9b82c13e06a4eb8da8396726aa9868309693a01b"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V02-E02.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V02-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.6011107922262425,
+      "scores": {
+        "Angry": 0.6011107922262425,
+        "Disgust": 0.0939881708614928,
+        "Fear": 0.015970240367665315,
+        "Happy": 0.008606552659365694,
+        "Sad": 0.20540533694060667,
+        "Surprise": 0.0022156377246610954,
+        "Neutral": 0.07270330624004044
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        510.0,
+        255.0,
+        716.0,
+        524.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "6045a3b4f6db3a7abc18b5d1c91056e09a80b0876c41faf1a4e04cf19b1cec7c"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.3822060525417328,
+      "scores": {
+        "Angry": 0.3822060525417328,
+        "Disgust": 0.011259379796683788,
+        "Fear": 0.0068823168985545635,
+        "Happy": 0.14482299983501434,
+        "Sad": 0.25066426396369934,
+        "Surprise": 0.00020680668239947408,
+        "Neutral": 0.2039581686258316
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        126.0,
+        227.0,
+        426.0,
+        631.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "777d132d7d56383f3393cd42c729aa1e00867a5d4e1671054ea4dafe7ab69a12"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V02-E03.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V02-E03",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.7331031242731957,
+      "scores": {
+        "Angry": 0.010915633660928448,
+        "Disgust": 3.1667920348607053e-06,
+        "Fear": 0.0002939426108493043,
+        "Happy": 0.00039551432186349595,
+        "Sad": 0.7331031242731957,
+        "Surprise": 3.24818977400967e-05,
+        "Neutral": 0.2552561766214581
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        559.0,
+        231.0,
+        787.0,
+        539.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "8c602b26e4d04eb7a437e077c195de869446c951b7e1ba2320742e74ce76b856"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.912754476070404,
+      "scores": {
+        "Angry": 0.0034410562366247177,
+        "Disgust": 1.3699235079656091e-09,
+        "Fear": 0.00037425532354973257,
+        "Happy": 6.102306360844523e-05,
+        "Sad": 0.08332715183496475,
+        "Surprise": 4.207799429423176e-05,
+        "Neutral": 0.912754476070404
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        121.0,
+        210.0,
+        443.0,
+        651.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f491c184f9c2cb5e4c996678ea99633e909162b6e9066eb2410b0963f7220cfb"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V02-E04.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V02-E04",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.7526116371154785,
+      "scores": {
+        "Angry": 0.0024904098827391863,
+        "Disgust": 2.5431746986104287e-11,
+        "Fear": 0.00011430321319494396,
+        "Happy": 4.338642975199036e-05,
+        "Sad": 0.2447398155927658,
+        "Surprise": 4.164587892319105e-07,
+        "Neutral": 0.7526116371154785
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        512.0,
+        239.0,
+        734.0,
+        535.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "42b328ae62f2c1238eca23ef191ec0b070f2561842829d86bced3183505bf1ad"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.912754476070404,
+      "scores": {
+        "Angry": 0.0034410562366247177,
+        "Disgust": 1.3699235079656091e-09,
+        "Fear": 0.00037425532354973257,
+        "Happy": 6.102306360844523e-05,
+        "Sad": 0.08332715183496475,
+        "Surprise": 4.207799429423176e-05,
+        "Neutral": 0.912754476070404
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        121.0,
+        210.0,
+        443.0,
+        651.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f491c184f9c2cb5e4c996678ea99633e909162b6e9066eb2410b0963f7220cfb"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V03-E01.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V03-E01",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.7146744132041931,
+      "scores": {
+        "Angry": 0.058620162308216095,
+        "Disgust": 0.004181249998509884,
+        "Fear": 0.007175645790994167,
+        "Happy": 0.06647399812936783,
+        "Sad": 0.14517761766910553,
+        "Surprise": 0.0036968952044844627,
+        "Neutral": 0.7146744132041931
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        537.0,
+        233.0,
+        761.0,
+        544.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "590883e1472997cc5c259080222d698e8b1c29d60ffe697acc8eaf45d21cd8c0"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.655840277671814,
+      "scores": {
+        "Angry": 0.10367283225059509,
+        "Disgust": 0.009720961563289165,
+        "Fear": 0.005551439244300127,
+        "Happy": 0.04556118696928024,
+        "Sad": 0.17629243433475494,
+        "Surprise": 0.003360903589054942,
+        "Neutral": 0.655840277671814
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        116.0,
+        203.0,
+        439.0,
+        649.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "22f689dd79f827b700158c43cd5c25453097742498f5d90caf0db5420c068211"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V03-E02.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V03-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.6011107922262425,
+      "scores": {
+        "Angry": 0.6011107922262425,
+        "Disgust": 0.0939881708614928,
+        "Fear": 0.015970240367665315,
+        "Happy": 0.008606552659365694,
+        "Sad": 0.20540533694060667,
+        "Surprise": 0.0022156377246610954,
+        "Neutral": 0.07270330624004044
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        510.0,
+        255.0,
+        716.0,
+        524.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "6045a3b4f6db3a7abc18b5d1c91056e09a80b0876c41faf1a4e04cf19b1cec7c"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.3822060525417328,
+      "scores": {
+        "Angry": 0.3822060525417328,
+        "Disgust": 0.011259379796683788,
+        "Fear": 0.0068823168985545635,
+        "Happy": 0.14482299983501434,
+        "Sad": 0.25066426396369934,
+        "Surprise": 0.00020680668239947408,
+        "Neutral": 0.2039581686258316
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        126.0,
+        227.0,
+        426.0,
+        631.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "777d132d7d56383f3393cd42c729aa1e00867a5d4e1671054ea4dafe7ab69a12"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V03-E03.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V03-E03",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.3220331754723996,
+      "scores": {
+        "Angry": 0.28806841827254515,
+        "Disgust": 0.0628279298934853,
+        "Fear": 0.00896633150772232,
+        "Happy": 0.022676967925067893,
+        "Sad": 0.29307139433281354,
+        "Surprise": 0.002355783294458186,
+        "Neutral": 0.3220331754723996
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        570.0,
+        243.0,
+        784.0,
+        532.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "34679ab974bd762bda847d4a9421710e003d7ea77f72d7e9978f7a9007a8aaeb"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.3822060525417328,
+      "scores": {
+        "Angry": 0.3822060525417328,
+        "Disgust": 0.011259379796683788,
+        "Fear": 0.0068823168985545635,
+        "Happy": 0.14482299983501434,
+        "Sad": 0.25066426396369934,
+        "Surprise": 0.00020680668239947408,
+        "Neutral": 0.2039581686258316
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        126.0,
+        227.0,
+        426.0,
+        631.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "777d132d7d56383f3393cd42c729aa1e00867a5d4e1671054ea4dafe7ab69a12"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V03-E04.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V03-E04",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.7526116371154785,
+      "scores": {
+        "Angry": 0.0024904098827391863,
+        "Disgust": 2.5431746986104287e-11,
+        "Fear": 0.00011430321319494396,
+        "Happy": 4.338642975199036e-05,
+        "Sad": 0.2447398155927658,
+        "Surprise": 4.164587892319105e-07,
+        "Neutral": 0.7526116371154785
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        512.0,
+        239.0,
+        734.0,
+        535.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "42b328ae62f2c1238eca23ef191ec0b070f2561842829d86bced3183505bf1ad"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.912754476070404,
+      "scores": {
+        "Angry": 0.0034410562366247177,
+        "Disgust": 1.3699235079656091e-09,
+        "Fear": 0.00037425532354973257,
+        "Happy": 6.102306360844523e-05,
+        "Sad": 0.08332715183496475,
+        "Surprise": 4.207799429423176e-05,
+        "Neutral": 0.912754476070404
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        121.0,
+        210.0,
+        443.0,
+        651.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f491c184f9c2cb5e4c996678ea99633e909162b6e9066eb2410b0963f7220cfb"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V04-E01.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V04-E01",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.5804547071456909,
+      "scores": {
+        "Angry": 0.010874136351048946,
+        "Disgust": 5.382219558924817e-09,
+        "Fear": 0.00018996289873030037,
+        "Happy": 0.0002332627191208303,
+        "Sad": 0.4082435965538025,
+        "Surprise": 4.353272743173875e-06,
+        "Neutral": 0.5804547071456909
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        536.0,
+        243.0,
+        761.0,
+        540.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "51deafd0e2114dbc4b84cb15d4b8a4d8272c6ecc32974ebfd5d59ff499ccb222"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.6915081739425659,
+      "scores": {
+        "Angry": 0.04360206797719002,
+        "Disgust": 3.0228686227928847e-05,
+        "Fear": 0.004131929017603397,
+        "Happy": 0.0014130300842225552,
+        "Sad": 0.25847092270851135,
+        "Surprise": 0.000843668298330158,
+        "Neutral": 0.6915081739425659
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        127.0,
+        220.0,
+        436.0,
+        639.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "b5de9f7ea9c2dbf24113f78e9b82c13e06a4eb8da8396726aa9868309693a01b"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V04-E02.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V04-E02",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.8528328362504048,
+      "scores": {
+        "Angry": 0.01642396310555495,
+        "Disgust": 0.0004861507911489357,
+        "Fear": 0.00010557102162911627,
+        "Happy": 0.001038155292983984,
+        "Sad": 0.8528328362504048,
+        "Surprise": 1.887606115280786e-06,
+        "Neutral": 0.12911145438092403
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        501.0,
+        245.0,
+        718.0,
+        536.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "ad30a59e173c249e61935531aa3b2b2ca4c10d99846e090e5facce5c5c136e0c"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.8430742025375366,
+      "scores": {
+        "Angry": 0.012595969252288342,
+        "Disgust": 0.00016632610640954226,
+        "Fear": 0.0001862692879512906,
+        "Happy": 0.0008152304217219353,
+        "Sad": 0.8430742025375366,
+        "Surprise": 1.5285722838598303e-06,
+        "Neutral": 0.14316050708293915
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        114.0,
+        216.0,
+        442.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "9e27964eab8408da5b101967a528e53ea2d5fc271d2dcc00c770dc2d68e38a48"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V04-E03.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V04-E03",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.41461076823537163,
+      "scores": {
+        "Angry": 0.26539160402963186,
+        "Disgust": 0.07583031510295361,
+        "Fear": 0.016674370567463074,
+        "Happy": 0.06400962555465851,
+        "Sad": 0.15514377684258085,
+        "Surprise": 0.00833956481305151,
+        "Neutral": 0.41461076823537163
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        565.0,
+        231.0,
+        785.0,
+        542.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "6b14d178e314caa6c409b5a4d7d61ea0f721c9e23cb1a85af6bef42412b8272d"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.655840277671814,
+      "scores": {
+        "Angry": 0.10367283225059509,
+        "Disgust": 0.009720961563289165,
+        "Fear": 0.005551439244300127,
+        "Happy": 0.04556118696928024,
+        "Sad": 0.17629243433475494,
+        "Surprise": 0.003360903589054942,
+        "Neutral": 0.655840277671814
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        116.0,
+        203.0,
+        439.0,
+        649.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "22f689dd79f827b700158c43cd5c25453097742498f5d90caf0db5420c068211"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V04-E04.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V04-E04",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.8721234202384949,
+      "scores": {
+        "Angry": 0.016936281695961952,
+        "Disgust": 0.0002685237559489906,
+        "Fear": 0.00015686532424297184,
+        "Happy": 0.0010972452582791448,
+        "Sad": 0.8721234202384949,
+        "Surprise": 2.5256451863242546e-06,
+        "Neutral": 0.10941517353057861
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        515.0,
+        250.0,
+        734.0,
+        536.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "9273241a3019d29de815a4d2c14c2704c4a76ded0d33d7d8d7a0606ca07b328d"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.8430742025375366,
+      "scores": {
+        "Angry": 0.012595969252288342,
+        "Disgust": 0.00016632610640954226,
+        "Fear": 0.0001862692879512906,
+        "Happy": 0.0008152304217219353,
+        "Sad": 0.8430742025375366,
+        "Surprise": 1.5285722838598303e-06,
+        "Neutral": 0.14316050708293915
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        114.0,
+        216.0,
+        442.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "9e27964eab8408da5b101967a528e53ea2d5fc271d2dcc00c770dc2d68e38a48"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V05-E01.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V05-E01",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.930372416973114,
+      "scores": {
+        "Angry": 0.024907264858484268,
+        "Disgust": 0.002235096413642168,
+        "Fear": 0.00017168036720249802,
+        "Happy": 0.0009478699066676199,
+        "Sad": 0.930372416973114,
+        "Surprise": 6.008298214510432e-07,
+        "Neutral": 0.041365087032318115
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        535.0,
+        246.0,
+        760.0,
+        543.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "2408da404dd6e00af2e780afe3aaa1957bb2d8e82fdcf8b766ad401156bb8fdd"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.8430742025375366,
+      "scores": {
+        "Angry": 0.012595969252288342,
+        "Disgust": 0.00016632610640954226,
+        "Fear": 0.0001862692879512906,
+        "Happy": 0.0008152304217219353,
+        "Sad": 0.8430742025375366,
+        "Surprise": 1.5285722838598303e-06,
+        "Neutral": 0.14316050708293915
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        114.0,
+        216.0,
+        442.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "9e27964eab8408da5b101967a528e53ea2d5fc271d2dcc00c770dc2d68e38a48"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V05-E02.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V05-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.6011107922262425,
+      "scores": {
+        "Angry": 0.6011107922262425,
+        "Disgust": 0.0939881708614928,
+        "Fear": 0.015970240367665315,
+        "Happy": 0.008606552659365694,
+        "Sad": 0.20540533694060667,
+        "Surprise": 0.0022156377246610954,
+        "Neutral": 0.07270330624004044
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        510.0,
+        255.0,
+        716.0,
+        524.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "6045a3b4f6db3a7abc18b5d1c91056e09a80b0876c41faf1a4e04cf19b1cec7c"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.3822060525417328,
+      "scores": {
+        "Angry": 0.3822060525417328,
+        "Disgust": 0.011259379796683788,
+        "Fear": 0.0068823168985545635,
+        "Happy": 0.14482299983501434,
+        "Sad": 0.25066426396369934,
+        "Surprise": 0.00020680668239947408,
+        "Neutral": 0.2039581686258316
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        126.0,
+        227.0,
+        426.0,
+        631.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "777d132d7d56383f3393cd42c729aa1e00867a5d4e1671054ea4dafe7ab69a12"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V05-E03.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V05-E03",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.6874825954437256,
+      "scores": {
+        "Angry": 0.01856682449579239,
+        "Disgust": 1.543590677499651e-08,
+        "Fear": 0.0007165215210989118,
+        "Happy": 0.0004901630454696715,
+        "Sad": 0.29271236062049866,
+        "Surprise": 3.154390651616268e-05,
+        "Neutral": 0.6874825954437256
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        562.0,
+        238.0,
+        787.0,
+        535.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "69e3506511af195ebf883ac6f7ebc41e957b99c6c7717f35710d16bb8c0877e8"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.6915081739425659,
+      "scores": {
+        "Angry": 0.04360206797719002,
+        "Disgust": 3.0228686227928847e-05,
+        "Fear": 0.004131929017603397,
+        "Happy": 0.0014130300842225552,
+        "Sad": 0.25847092270851135,
+        "Surprise": 0.000843668298330158,
+        "Neutral": 0.6915081739425659
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        127.0,
+        220.0,
+        436.0,
+        639.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "b5de9f7ea9c2dbf24113f78e9b82c13e06a4eb8da8396726aa9868309693a01b"
+    }
+  },
+  {
+    "image_path": "observations/KG074/V05-E04.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG074-V05-E04",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.46661844849586487,
+      "scores": {
+        "Angry": 0.06941716372966766,
+        "Disgust": 0.0002087683678837493,
+        "Fear": 0.00030530616641044617,
+        "Happy": 0.011165705509483814,
+        "Sad": 0.45224645733833313,
+        "Surprise": 3.8111567846499383e-05,
+        "Neutral": 0.46661844849586487
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        523.0,
+        242.0,
+        736.0,
+        536.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "20213aa5e4e5ad4882cafff3c95d10b06b8687ef037d98bea1056015e0f2125b"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.6488478183746338,
+      "scores": {
+        "Angry": 0.07324203848838806,
+        "Disgust": 0.0012688797432929277,
+        "Fear": 0.0009129893151111901,
+        "Happy": 0.0012523679761216044,
+        "Sad": 0.6488478183746338,
+        "Surprise": 2.635388773342129e-05,
+        "Neutral": 0.27444955706596375
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        125.0,
+        221.0,
+        440.0,
+        639.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "c2b2393f5fa1e6f42119d1d68d43f0dfdc148ffe6be3eb44833699c82479d506"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V01-E01.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V01-E01",
+    "rendered": {
+      "label": "Surprise",
+      "confidence": 0.9563508085786333,
+      "scores": {
+        "Angry": 3.5957789611475707e-06,
+        "Disgust": 8.781097024109658e-11,
+        "Fear": 0.043525753942042125,
+        "Happy": 0.00011977447166002134,
+        "Sad": 5.543260478187915e-08,
+        "Surprise": 0.9563508085786333,
+        "Neutral": 2.7565110794179633e-10
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        544.0,
+        245.0,
+        763.0,
+        567.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "8481dff5c0a093f98ff9e4252fe75a56ab9e0b1b0192263dadec3f63326bd048"
+    },
+    "native": {
+      "label": "Surprise",
+      "confidence": 0.9898946279224532,
+      "scores": {
+        "Angry": 1.0783200838602944e-05,
+        "Disgust": 2.0083583216733608e-10,
+        "Fear": 0.00998513180673908,
+        "Happy": 0.00010877443776611612,
+        "Sad": 6.608919246102352e-07,
+        "Surprise": 0.9898946279224532,
+        "Neutral": 8.524475855924767e-09
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        130.0,
+        210.0,
+        470.0,
+        676.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "726f12f9ba11ff67c7e015c11dac4530db1a2703af6b79ac1403bcf1b056d880"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V01-E02.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V01-E02",
+    "rendered": {
+      "label": "Surprise",
+      "confidence": 0.9698013663291931,
+      "scores": {
+        "Angry": 4.040904059365857e-06,
+        "Disgust": 4.166174349951035e-12,
+        "Fear": 0.03012203797698021,
+        "Happy": 7.256123353727162e-05,
+        "Sad": 6.173066946502104e-09,
+        "Surprise": 0.9698013663291931,
+        "Neutral": 4.5962597616799883e-10
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        508.0,
+        243.0,
+        724.0,
+        557.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "6df886c8ab3125da7877895abdfd533302695a9d53fab47c515ada64ecd9a1b5"
+    },
+    "native": {
+      "label": "Surprise",
+      "confidence": 0.9898946279224532,
+      "scores": {
+        "Angry": 1.0783200838602944e-05,
+        "Disgust": 2.0083583216733608e-10,
+        "Fear": 0.00998513180673908,
+        "Happy": 0.00010877443776611612,
+        "Sad": 6.608919246102352e-07,
+        "Surprise": 0.9898946279224532,
+        "Neutral": 8.524475855924767e-09
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        130.0,
+        210.0,
+        470.0,
+        676.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "726f12f9ba11ff67c7e015c11dac4530db1a2703af6b79ac1403bcf1b056d880"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V01-E03.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V01-E03",
+    "rendered": {
+      "label": "Happy",
+      "confidence": 0.716334879398346,
+      "scores": {
+        "Angry": 0.008716235868632793,
+        "Disgust": 1.9680278739997448e-07,
+        "Fear": 2.904508619394619e-06,
+        "Happy": 0.716334879398346,
+        "Sad": 0.24618400633335114,
+        "Surprise": 1.7604817912797444e-05,
+        "Neutral": 0.028744224458932877
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        566.0,
+        230.0,
+        793.0,
+        547.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "111342f179a813689cb53190824a1fbf16ada8599d3ce92547297ee5d5487746"
+    },
+    "native": {
+      "label": "Happy",
+      "confidence": 0.711666805247474,
+      "scores": {
+        "Angry": 0.007942964796302604,
+        "Disgust": 7.058109895351927e-08,
+        "Fear": 7.0110417795837145e-06,
+        "Happy": 0.711666805247474,
+        "Sad": 0.2549152228185667,
+        "Surprise": 6.028118054981629e-06,
+        "Neutral": 0.025461898771637605
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        119.0,
+        213.0,
+        444.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "5e5bbd77ad9368d3a759cc988f7c79794d2037c88fe879c71cb80613dcfef746"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V01-E04.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V01-E04",
+    "rendered": {
+      "label": "Happy",
+      "confidence": 0.7855797069573752,
+      "scores": {
+        "Angry": 0.00396434775792387,
+        "Disgust": 1.6314217364004345e-08,
+        "Fear": 2.007240015615968e-06,
+        "Happy": 0.7855797069573752,
+        "Sad": 0.1476883712186371,
+        "Surprise": 1.9172049621448527e-05,
+        "Neutral": 0.06274633106633054
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        520.0,
+        236.0,
+        737.0,
+        539.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "09adc7b11f8fd1233c33f03f642c5ae03876e5ef37dc2b9529517ccf48df9b3e"
+    },
+    "native": {
+      "label": "Happy",
+      "confidence": 0.711666805247474,
+      "scores": {
+        "Angry": 0.007942964796302604,
+        "Disgust": 7.058109895351927e-08,
+        "Fear": 7.0110417795837145e-06,
+        "Happy": 0.711666805247474,
+        "Sad": 0.2549152228185667,
+        "Surprise": 6.028118054981629e-06,
+        "Neutral": 0.025461898771637605
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        119.0,
+        213.0,
+        444.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "5e5bbd77ad9368d3a759cc988f7c79794d2037c88fe879c71cb80613dcfef746"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V02-E01.jpg",
+    "expected_label": "Neutral",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V02-E01",
+    "rendered": {
+      "label": "Sad",
+      "confidence": 0.468058705329895,
+      "scores": {
+        "Angry": 0.3368951082229614,
+        "Disgust": 5.028856321587227e-06,
+        "Fear": 0.05473233014345169,
+        "Happy": 0.00010610558092594147,
+        "Sad": 0.468058705329895,
+        "Surprise": 0.0004781397292390466,
+        "Neutral": 0.13972464203834534
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        544.0,
+        249.0,
+        764.0,
+        537.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f2b0f6177075f6156a9583420fc37e5b45cc7537d837665610dd2cc534810311"
+    },
+    "native": {
+      "label": "Sad",
+      "confidence": 0.5020501316815693,
+      "scores": {
+        "Angry": 0.25251568868849805,
+        "Disgust": 0.00014922297284963566,
+        "Fear": 0.08855465582338905,
+        "Happy": 0.0029595347022732914,
+        "Sad": 0.5020501316815693,
+        "Surprise": 0.0006724079540317031,
+        "Neutral": 0.15309833902706738
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        127.0,
+        216.0,
+        442.0,
+        654.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "f6d97aeb41dab7d9181902175ac8b302de5b0a2ee6d0c06629845ca53e36041d"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V02-E02.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V02-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.9938434362411499,
+      "scores": {
+        "Angry": 0.9938434362411499,
+        "Disgust": 0.00019673614588100463,
+        "Fear": 0.003520403988659382,
+        "Happy": 1.0109386494150385e-05,
+        "Sad": 0.0019725325983017683,
+        "Surprise": 9.500953456154093e-05,
+        "Neutral": 0.0003616523463279009
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        511.0,
+        254.0,
+        716.0,
+        523.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "0ea28184b9e83db42e0874abf5d3c8a3cfa8a3dfdfa50e8e532ab457339b8d25"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.8219755291938782,
+      "scores": {
+        "Angry": 0.8219755291938782,
+        "Disgust": 0.12254610657691956,
+        "Fear": 0.022756312042474747,
+        "Happy": 0.0009720730013214052,
+        "Sad": 0.011995334178209305,
+        "Surprise": 0.002505950164049864,
+        "Neutral": 0.017248664051294327
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        115.0,
+        194.0,
+        454.0,
+        641.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "420022c4cc1cf3eb9aa02cc4677b258f688f7837869b6312f6c2880a08d8c2a9"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V02-E03.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V02-E03",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.8937162160873413,
+      "scores": {
+        "Angry": 0.8937162160873413,
+        "Disgust": 3.817624019575305e-05,
+        "Fear": 0.01908949576318264,
+        "Happy": 0.0022087383549660444,
+        "Sad": 0.0815621167421341,
+        "Surprise": 7.638434180989861e-05,
+        "Neutral": 0.003308888990432024
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        563.0,
+        242.0,
+        792.0,
+        543.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "c1fbbd634cc0acee34f7e32b80311b9c0fad45f4d584179c37f8ac56b1eab0b3"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9404349327087402,
+      "scores": {
+        "Angry": 0.9404349327087402,
+        "Disgust": 3.0609273835580098e-06,
+        "Fear": 0.00875054020434618,
+        "Happy": 0.00019292146316729486,
+        "Sad": 0.049896854907274246,
+        "Surprise": 7.461645054718247e-06,
+        "Neutral": 0.0007142738904803991
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        131.0,
+        207.0,
+        443.0,
+        657.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "379ab9a9fdbafc4bb5c9fc3c4bce5246da30ee0660db525db385bea516914982"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V02-E04.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V02-E04",
+    "rendered": {
+      "label": "Surprise",
+      "confidence": 0.9681643881601825,
+      "scores": {
+        "Angry": 4.9136641391271165e-06,
+        "Disgust": 1.8967830598786924e-10,
+        "Fear": 0.0317292548144752,
+        "Happy": 0.00010091116089222153,
+        "Sad": 4.790329623685389e-07,
+        "Surprise": 0.9681643881601825,
+        "Neutral": 7.533730962485439e-09
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        520.0,
+        241.0,
+        736.0,
+        556.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "a15db3696b8ddc7cf8e31bef70d63cd62faff7bf5cfe6bc6aa8a3ea581640375"
+    },
+    "native": {
+      "label": "Surprise",
+      "confidence": 0.9898946279224532,
+      "scores": {
+        "Angry": 1.0783200838602944e-05,
+        "Disgust": 2.0083583216733608e-10,
+        "Fear": 0.00998513180673908,
+        "Happy": 0.00010877443776611612,
+        "Sad": 6.608919246102352e-07,
+        "Surprise": 0.9898946279224532,
+        "Neutral": 8.524475855924767e-09
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        130.0,
+        210.0,
+        470.0,
+        676.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "726f12f9ba11ff67c7e015c11dac4530db1a2703af6b79ac1403bcf1b056d880"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V03-E01.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V03-E01",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.9368364810943604,
+      "scores": {
+        "Angry": 0.9368364810943604,
+        "Disgust": 1.561428143759258e-05,
+        "Fear": 0.011110343039035797,
+        "Happy": 0.000890309049282223,
+        "Sad": 0.04968620836734772,
+        "Surprise": 0.00011634647671598941,
+        "Neutral": 0.0013447143137454987
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        542.0,
+        242.0,
+        762.0,
+        543.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "bd3167f3af1d05d98dd460a1366e160f12caa43bbb8379be6690e3a879c57e53"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9404349327087402,
+      "scores": {
+        "Angry": 0.9404349327087402,
+        "Disgust": 3.0609273835580098e-06,
+        "Fear": 0.00875054020434618,
+        "Happy": 0.00019292146316729486,
+        "Sad": 0.049896854907274246,
+        "Surprise": 7.461645054718247e-06,
+        "Neutral": 0.0007142738904803991
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        131.0,
+        207.0,
+        443.0,
+        657.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "379ab9a9fdbafc4bb5c9fc3c4bce5246da30ee0660db525db385bea516914982"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V03-E02.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V03-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.7637995481491089,
+      "scores": {
+        "Angry": 0.7637995481491089,
+        "Disgust": 2.8768488846253604e-05,
+        "Fear": 0.02817961759865284,
+        "Happy": 0.003655067877843976,
+        "Sad": 0.19290736317634583,
+        "Surprise": 7.644006109330803e-05,
+        "Neutral": 0.011353191919624805
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        507.0,
+        245.0,
+        723.0,
+        538.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "aed2da15f2a1f1fd912e351390ccd2e1f5dac02bc193079a3376ab00f5beb105"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9404349327087402,
+      "scores": {
+        "Angry": 0.9404349327087402,
+        "Disgust": 3.0609273835580098e-06,
+        "Fear": 0.00875054020434618,
+        "Happy": 0.00019292146316729486,
+        "Sad": 0.049896854907274246,
+        "Surprise": 7.461645054718247e-06,
+        "Neutral": 0.0007142738904803991
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        131.0,
+        207.0,
+        443.0,
+        657.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "379ab9a9fdbafc4bb5c9fc3c4bce5246da30ee0660db525db385bea516914982"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V03-E03.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V03-E03",
+    "rendered": {
+      "label": "Surprise",
+      "confidence": 0.9640955328941345,
+      "scores": {
+        "Angry": 9.359928299090825e-06,
+        "Disgust": 1.4997626404666953e-11,
+        "Fear": 0.035758186131715775,
+        "Happy": 0.00013691690401174128,
+        "Sad": 2.4749073901375596e-08,
+        "Surprise": 0.9640955328941345,
+        "Neutral": 4.061670555444152e-09
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        566.0,
+        238.0,
+        794.0,
+        566.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "fb9eecfb789625f2bdf6ce84a04b5f4d4aab7767b4433948843e999240ec6633"
+    },
+    "native": {
+      "label": "Surprise",
+      "confidence": 0.9898946279224532,
+      "scores": {
+        "Angry": 1.0783200838602944e-05,
+        "Disgust": 2.0083583216733608e-10,
+        "Fear": 0.00998513180673908,
+        "Happy": 0.00010877443776611612,
+        "Sad": 6.608919246102352e-07,
+        "Surprise": 0.9898946279224532,
+        "Neutral": 8.524475855924767e-09
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        130.0,
+        210.0,
+        470.0,
+        676.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "726f12f9ba11ff67c7e015c11dac4530db1a2703af6b79ac1403bcf1b056d880"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V03-E04.jpg",
+    "expected_label": "Angry",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V03-E04",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.8842069048634881,
+      "scores": {
+        "Angry": 0.8842069048634881,
+        "Disgust": 1.847077653928716e-05,
+        "Fear": 0.0219308894060982,
+        "Happy": 0.0013120439434967704,
+        "Sad": 0.08873425111362325,
+        "Surprise": 6.0803860860975285e-05,
+        "Neutral": 0.0037366263770608455
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        521.0,
+        243.0,
+        735.0,
+        541.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "e02bab08153ca34a81be2586846c468a7ccf476066f5e73f9d19205724d54259"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.9404349327087402,
+      "scores": {
+        "Angry": 0.9404349327087402,
+        "Disgust": 3.0609273835580098e-06,
+        "Fear": 0.00875054020434618,
+        "Happy": 0.00019292146316729486,
+        "Sad": 0.049896854907274246,
+        "Surprise": 7.461645054718247e-06,
+        "Neutral": 0.0007142738904803991
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        131.0,
+        207.0,
+        443.0,
+        657.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "379ab9a9fdbafc4bb5c9fc3c4bce5246da30ee0660db525db385bea516914982"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V04-E01.jpg",
+    "expected_label": "Happy",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V04-E01",
+    "rendered": {
+      "label": "Happy",
+      "confidence": 0.9993355871038929,
+      "scores": {
+        "Angry": 6.83109747536436e-05,
+        "Disgust": 1.7050491819789327e-06,
+        "Fear": 2.917607496404662e-07,
+        "Happy": 0.9993355871038929,
+        "Sad": 0.00014212580333268005,
+        "Surprise": 1.460883762337329e-06,
+        "Neutral": 0.00045043859150620204
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        545.0,
+        239.0,
+        766.0,
+        548.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "e1f70573207d7824b8313bd8b6f5156cf959b1502440006007d32dd8ab0a4898"
+    },
+    "native": {
+      "label": "Happy",
+      "confidence": 0.9939566857866423,
+      "scores": {
+        "Angry": 0.0002080441233658718,
+        "Disgust": 8.013226715493463e-06,
+        "Fear": 3.4841128065912615e-06,
+        "Happy": 0.9939566857866423,
+        "Sad": 0.004932142671836296,
+        "Surprise": 8.319439078426951e-08,
+        "Neutral": 0.0008915221652809184
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        125.0,
+        205.0,
+        447.0,
+        651.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "96f8834209f623342ef42a8f2313b90dd80c464efa65ccb7bfe2b5f8e9c0d3d6"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V04-E02.jpg",
+    "expected_label": "Sad",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V04-E02",
+    "rendered": {
+      "label": "Happy",
+      "confidence": 0.5962144136428833,
+      "scores": {
+        "Angry": 0.005260352045297623,
+        "Disgust": 1.574838215390173e-08,
+        "Fear": 4.945093678543344e-06,
+        "Happy": 0.5962144136428833,
+        "Sad": 0.38291195034980774,
+        "Surprise": 2.4678539034539426e-07,
+        "Neutral": 0.015608051791787148
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        508.0,
+        237.0,
+        725.0,
+        538.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "d9b05d2ff2ed0bc5e262638a6e943d3894d7adaaab49dd85de820e3999fea1df"
+    },
+    "native": {
+      "label": "Happy",
+      "confidence": 0.711666805247474,
+      "scores": {
+        "Angry": 0.007942964796302604,
+        "Disgust": 7.058109895351927e-08,
+        "Fear": 7.0110417795837145e-06,
+        "Happy": 0.711666805247474,
+        "Sad": 0.2549152228185667,
+        "Surprise": 6.028118054981629e-06,
+        "Neutral": 0.025461898771637605
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        119.0,
+        213.0,
+        444.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "5e5bbd77ad9368d3a759cc988f7c79794d2037c88fe879c71cb80613dcfef746"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V04-E03.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V04-E03",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.6622369684122187,
+      "scores": {
+        "Angry": 0.6622369684122187,
+        "Disgust": 6.309578942368322e-06,
+        "Fear": 0.034015799106109086,
+        "Happy": 0.00475939019080342,
+        "Sad": 0.19288530605347787,
+        "Surprise": 0.0032011821911443585,
+        "Neutral": 0.1028950797256875
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        562.0,
+        240.0,
+        784.0,
+        545.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "93dfed7483345e6c03b24ae35f2cea9b59f39370aa2ff8197c362ae38119e8a1"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.4950549900531769,
+      "scores": {
+        "Angry": 0.14952021837234497,
+        "Disgust": 6.02543832428637e-06,
+        "Fear": 0.022096732631325722,
+        "Happy": 0.011049991473555565,
+        "Sad": 0.3204509913921356,
+        "Surprise": 0.0018210787093266845,
+        "Neutral": 0.4950549900531769
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        123.0,
+        213.0,
+        436.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "4250166a2f92649a72913c7914bc1039a867194ea19124e0db235a53afcf867d"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V04-E04.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V04-E04",
+    "rendered": {
+      "label": "Surprise",
+      "confidence": 0.9681643881601825,
+      "scores": {
+        "Angry": 4.9136641391271165e-06,
+        "Disgust": 1.8967830598786924e-10,
+        "Fear": 0.0317292548144752,
+        "Happy": 0.00010091116089222153,
+        "Sad": 4.790329623685389e-07,
+        "Surprise": 0.9681643881601825,
+        "Neutral": 7.533730962485439e-09
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        520.0,
+        241.0,
+        736.0,
+        556.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "a15db3696b8ddc7cf8e31bef70d63cd62faff7bf5cfe6bc6aa8a3ea581640375"
+    },
+    "native": {
+      "label": "Surprise",
+      "confidence": 0.9898946279224532,
+      "scores": {
+        "Angry": 1.0783200838602944e-05,
+        "Disgust": 2.0083583216733608e-10,
+        "Fear": 0.00998513180673908,
+        "Happy": 0.00010877443776611612,
+        "Sad": 6.608919246102352e-07,
+        "Surprise": 0.9898946279224532,
+        "Neutral": 8.524475855924767e-09
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        130.0,
+        210.0,
+        470.0,
+        676.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "726f12f9ba11ff67c7e015c11dac4530db1a2703af6b79ac1403bcf1b056d880"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V05-E01.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V05-E01",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.998596727848053,
+      "scores": {
+        "Angry": 0.998596727848053,
+        "Disgust": 0.0005904972786083817,
+        "Fear": 0.00015607864770572633,
+        "Happy": 7.773829793222831e-07,
+        "Sad": 0.0005834611365571618,
+        "Surprise": 2.2665159121970646e-05,
+        "Neutral": 4.9811380449682474e-05
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        543.0,
+        250.0,
+        761.0,
+        530.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "7cadda0095bcbc9f6c871c04a63b15a004c7f579912930306025b2b49cbd5d4e"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.8219755291938782,
+      "scores": {
+        "Angry": 0.8219755291938782,
+        "Disgust": 0.12254610657691956,
+        "Fear": 0.022756312042474747,
+        "Happy": 0.0009720730013214052,
+        "Sad": 0.011995334178209305,
+        "Surprise": 0.002505950164049864,
+        "Neutral": 0.017248664051294327
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        115.0,
+        194.0,
+        454.0,
+        641.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "420022c4cc1cf3eb9aa02cc4677b258f688f7837869b6312f6c2880a08d8c2a9"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V05-E02.jpg",
+    "expected_label": "Disgust",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V05-E02",
+    "rendered": {
+      "label": "Angry",
+      "confidence": 0.9938434362411499,
+      "scores": {
+        "Angry": 0.9938434362411499,
+        "Disgust": 0.00019673614588100463,
+        "Fear": 0.003520403988659382,
+        "Happy": 1.0109386494150385e-05,
+        "Sad": 0.0019725325983017683,
+        "Surprise": 9.500953456154093e-05,
+        "Neutral": 0.0003616523463279009
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        511.0,
+        254.0,
+        716.0,
+        523.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "0ea28184b9e83db42e0874abf5d3c8a3cfa8a3dfdfa50e8e532ab457339b8d25"
+    },
+    "native": {
+      "label": "Angry",
+      "confidence": 0.8219755291938782,
+      "scores": {
+        "Angry": 0.8219755291938782,
+        "Disgust": 0.12254610657691956,
+        "Fear": 0.022756312042474747,
+        "Happy": 0.0009720730013214052,
+        "Sad": 0.011995334178209305,
+        "Surprise": 0.002505950164049864,
+        "Neutral": 0.017248664051294327
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        115.0,
+        194.0,
+        454.0,
+        641.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "420022c4cc1cf3eb9aa02cc4677b258f688f7837869b6312f6c2880a08d8c2a9"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V05-E03.jpg",
+    "expected_label": "Surprise",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V05-E03",
+    "rendered": {
+      "label": "Surprise",
+      "confidence": 0.9640955328941345,
+      "scores": {
+        "Angry": 9.359928299090825e-06,
+        "Disgust": 1.4997626404666953e-11,
+        "Fear": 0.035758186131715775,
+        "Happy": 0.00013691690401174128,
+        "Sad": 2.4749073901375596e-08,
+        "Surprise": 0.9640955328941345,
+        "Neutral": 4.061670555444152e-09
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        566.0,
+        238.0,
+        794.0,
+        566.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "fb9eecfb789625f2bdf6ce84a04b5f4d4aab7767b4433948843e999240ec6633"
+    },
+    "native": {
+      "label": "Surprise",
+      "confidence": 0.9898946279224532,
+      "scores": {
+        "Angry": 1.0783200838602944e-05,
+        "Disgust": 2.0083583216733608e-10,
+        "Fear": 0.00998513180673908,
+        "Happy": 0.00010877443776611612,
+        "Sad": 6.608919246102352e-07,
+        "Surprise": 0.9898946279224532,
+        "Neutral": 8.524475855924767e-09
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        130.0,
+        210.0,
+        470.0,
+        676.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "726f12f9ba11ff67c7e015c11dac4530db1a2703af6b79ac1403bcf1b056d880"
+    }
+  },
+  {
+    "image_path": "observations/KG112/V05-E04.jpg",
+    "expected_label": "Fear",
+    "event_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE-KG112-V05-E04",
+    "rendered": {
+      "label": "Neutral",
+      "confidence": 0.4172463069704954,
+      "scores": {
+        "Angry": 0.18346838256528272,
+        "Disgust": 2.104672046636358e-06,
+        "Fear": 0.028368687085431044,
+        "Happy": 0.0029095003252923683,
+        "Sad": 0.3657182971071182,
+        "Surprise": 0.002286723252712086,
+        "Neutral": 0.4172463069704954
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        521.0,
+        246.0,
+        733.0,
+        541.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "3b21a2d5e3f20c091457cd05a0e298445104c6b5ccbe1ebfdaed5a2f9030bdbd"
+    },
+    "native": {
+      "label": "Neutral",
+      "confidence": 0.4950549900531769,
+      "scores": {
+        "Angry": 0.14952021837234497,
+        "Disgust": 6.02543832428637e-06,
+        "Fear": 0.022096732631325722,
+        "Happy": 0.011049991473555565,
+        "Sad": 0.3204509913921356,
+        "Surprise": 0.0018210787093266845,
+        "Neutral": 0.4950549900531769
+      },
+      "image_status": "VALID",
+      "face_count": 1,
+      "box": [
+        123.0,
+        213.0,
+        436.0,
+        660.0
+      ],
+      "models": {
+        "detector": "retinaface-mobilenet0.25:configured-checksum",
+        "emotion": "deepface-emotion-finetuned:f49a354ea2ad",
+        "embedding": "deepface-arcface:configured-checksum"
+      },
+      "input_sha256": "4250166a2f92649a72913c7914bc1039a867194ea19124e0db235a53afcf867d"
+    }
+  }
+]

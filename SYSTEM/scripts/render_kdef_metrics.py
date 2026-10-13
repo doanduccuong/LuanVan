@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 from pathlib import Path
 
@@ -13,7 +14,8 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = ROOT.parent
-RUN_ID = "KDEF-KAGGLE-20261008-LIVE"
+RUN_ID = os.environ.get("SOURCE_RUN_ID", "KDEF-KAGGLE-20261008-LIVE")
+UPDATE_REPORT = os.environ.get("UPDATE_REPORT", "true").lower() != "false"
 RUN_ROOT = ROOT / "artifacts" / "experiment-runs" / RUN_ID
 CHART_ROOT = RUN_ROOT / "charts"
 REPORT_ROOT = PROJECT_ROOT / "BAO CAO" / "Hinhve" / "Chuong5"
@@ -24,7 +26,8 @@ def save_chart(figure: plt.Figure, artifact_name: str, report_name: str) -> None
     REPORT_ROOT.mkdir(parents=True, exist_ok=True)
     artifact_path = CHART_ROOT / artifact_name
     figure.savefig(artifact_path, dpi=200, bbox_inches="tight", facecolor="white")
-    shutil.copy2(artifact_path, REPORT_ROOT / report_name)
+    if UPDATE_REPORT:
+        shutil.copy2(artifact_path, REPORT_ROOT / report_name)
     plt.close(figure)
 
 
@@ -36,6 +39,8 @@ def render_confusion_matrix(metrics: dict) -> None:
         if expression["per_class"][label]["support"] > 0
     ]
     predicted_labels = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
+    if expression.get("missing_prediction_count", 0):
+        predicted_labels.append("Missing")
     counts = np.array(
         [
             [expression["confusion_matrix"][expected][predicted] for predicted in predicted_labels]
@@ -68,7 +73,7 @@ def render_confusion_matrix(metrics: dict) -> None:
             )
     ax.set_xticks(range(len(predicted_labels)), predicted_labels, rotation=30, ha="right")
     ax.set_yticks(range(len(expected_labels)), expected_labels)
-    ax.set_xlabel("Nhãn do DeepFace dự đoán")
+    ax.set_xlabel("Nhãn biểu cảm được lưu / Missing: không có kết quả được lưu")
     ax.set_ylabel("Nhãn thư mục KDEF dùng làm đối chiếu")
     ax.set_title("Ma trận nhầm lẫn biểu cảm trên 100 khung camera KDEF")
     colorbar = fig.colorbar(image, ax=ax, fraction=0.04, pad=0.03)
@@ -76,8 +81,8 @@ def render_confusion_matrix(metrics: dict) -> None:
     fig.text(
         0.01,
         0.01,
-        f"Run {RUN_ID}; ô hiển thị số mẫu và tỷ lệ theo hàng. Accuracy = {expression['accuracy']:.3f}; "
-        f"Macro-F1 (5 lớp có mẫu) = {expression['macro_f1_present_classes']:.3f}.",
+        f"Run {RUN_ID}; số mẫu và tỷ lệ theo hàng. Đúng trên toàn bộ đầu vào = {expression['accuracy']:.3f}; "
+        f"Macro-F1 ({len(expected_labels)} lớp có mẫu) = {expression['macro_f1_present_classes']:.3f}.",
         fontsize=8.5,
         color="#374151",
     )
@@ -105,7 +110,7 @@ def render_identity_outcomes(metrics: dict) -> None:
     fig.text(
         0.01,
         0.01,
-        f"Run {RUN_ID}; 100/100 ảnh hợp lệ; ngưỡng ArcFace được hiệu chỉnh trên 35 ảnh dành riêng.",
+        f"Run {RUN_ID}; {metrics['valid_image_count']}/{metrics['capture_event_count']} ảnh hợp lệ; ngưỡng hiệu chỉnh trên 35 ảnh riêng.",
         fontsize=8.5,
         color="#374151",
     )
@@ -136,10 +141,13 @@ def render_k_selection(run_payload: dict) -> None:
                 fontsize=9,
             )
     ax.set_xticks(ks)
-    ax.set_ylim(0, 0.6)
+    ax.set_ylim(min(0, min(asws) - 0.05), max(asws) + 0.15)
     ax.set_xlabel("Số cụm K")
     ax.set_ylabel("Average Silhouette Width")
-    ax.set_title("Lựa chọn số cụm trên 22 chuỗi hợp lệ từ camera KDEF")
+    ax.set_title(
+        f"Lựa chọn số cụm trên {result['used_visit_count']} chuỗi hợp lệ "
+        "từ dữ liệu camera mô phỏng"
+    )
     ax.grid(axis="y", alpha=0.22)
     ax.text(
         0.99,
@@ -154,7 +162,9 @@ def render_k_selection(run_payload: dict) -> None:
     fig.text(
         0.01,
         0.01,
-        f"Run {RUN_ID}; 25 lượt nhận vào, 22 lượt đủ 4 trạng thái, 3 lượt bị loại.",
+        f"Run {RUN_ID}; {result['received_visit_count']} lượt nhận vào, "
+        f"{result['used_visit_count']} lượt đủ điều kiện, "
+        f"{result['excluded_visit_count']} lượt bị loại.",
         fontsize=8.5,
         color="#374151",
     )

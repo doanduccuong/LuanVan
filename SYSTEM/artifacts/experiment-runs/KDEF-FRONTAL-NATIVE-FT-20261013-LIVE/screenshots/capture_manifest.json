@@ -1,0 +1,88 @@
+{
+  "capturedAt": "2026-10-13T11:18:01.052Z",
+  "baseUrl": "http://127.0.0.1:8080",
+  "sourceRunId": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE",
+  "sourceType": "CAMERA",
+  "analysisRunId": "b3040599-6d4e-4e32-a0cf-494a96badbe0",
+  "selectedK": 3,
+  "averageSilhouetteWidth": 0.24217988333818627,
+  "usedVisitCount": 23,
+  "trace": {
+    "clusterCount": 3,
+    "assignmentCount": 23,
+    "assignment": {
+      "id": "bdddf7b0-588a-4ddf-9f9c-f00fbb9224da",
+      "run_id": "b3040599-6d4e-4e32-a0cf-494a96badbe0",
+      "visit_id": "b432e09c-05f2-4766-b75c-0ca8792e3ea0",
+      "cluster_id": 1,
+      "sequence": [
+        "Surprise",
+        "Surprise",
+        "Happy",
+        "Happy"
+      ],
+      "sequence_metadata": [
+        {
+          "touchpoint_id": "32384320-92b1-4d2d-912b-8cac8bdfa276",
+          "touchpoint_name": "Cửa vào",
+          "started_at": "2026-10-08T03:20:00+00:00",
+          "ended_at": "2026-10-08T03:20:00+00:00",
+          "observation_ids": [
+            "520e896a-923f-495e-b802-5c4285f7f503"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9898946279224532
+        },
+        {
+          "touchpoint_id": "76c2dc0f-ae5d-4b4d-b1fe-b5d504611a63",
+          "touchpoint_name": "Khu trưng bày sản phẩm",
+          "started_at": "2026-10-08T03:30:00+00:00",
+          "ended_at": "2026-10-08T03:30:00+00:00",
+          "observation_ids": [
+            "72c93e9a-f603-44ef-aaa2-219be7189f08"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.9898946279224532
+        },
+        {
+          "touchpoint_id": "50fd93f6-52cd-4bfa-b745-da18e2e7c60c",
+          "touchpoint_name": "Khu tư vấn",
+          "started_at": "2026-10-08T03:44:00+00:00",
+          "ended_at": "2026-10-08T03:44:00+00:00",
+          "observation_ids": [
+            "515314b6-233d-4ab0-a133-0c86a5ceaeeb"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.711666805247474
+        },
+        {
+          "touchpoint_id": "a8b5f91c-2315-4a97-9f55-58bf1fcd8555",
+          "touchpoint_name": "Quầy thanh toán",
+          "started_at": "2026-10-08T03:58:00+00:00",
+          "ended_at": "2026-10-08T03:58:00+00:00",
+          "observation_ids": [
+            "395f9534-6301-446d-b194-190aee744a23"
+          ],
+          "support_count": 1,
+          "mean_confidence": 0.711666805247474
+        }
+      ],
+      "distance_to_medoid": 0,
+      "silhouette": 0.44680851063829785,
+      "visit_started_at": "2026-10-08T03:20:00+00:00",
+      "customer": {
+        "id": "a5e909d2-bf41-4b0b-b9aa-15387b12c5b1",
+        "customer_code": "CUS-KDEF-005",
+        "full_name": "Khách hàng KDEF KG112"
+      }
+    },
+    "observationCount": 4
+  },
+  "screenshots": [
+    "E07_E08_sequence_run_overview.png",
+    "E09_cluster_medoids.png",
+    "E10_cluster_assignments.png",
+    "E11_assignment_visit_trace.png",
+    "E12_sequence_api_docs.png"
+  ]
+}

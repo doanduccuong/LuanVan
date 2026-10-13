@@ -232,6 +232,25 @@ class DeepFaceRetinaFaceEngine(VisionEngine):
         except ImportError as exc:
             raise RuntimeError("Chưa cài nhóm phụ thuộc models của dịch vụ vision") from exc
         self.DeepFace = DeepFace
+        self.emotion_model_version = "deepface-emotion:configured-checksum"
+        settings = get_settings()
+        if settings.emotion_weights_path is not None:
+            from deepface.models.demography.DemographyUtils import EMOTION_LABELS
+
+            labels = tuple(str(label).title() for label in EMOTION_LABELS)
+            if labels != LABELS:
+                raise RuntimeError(f"Thứ tự nhãn Emotion không khớp: {labels}")
+            weights_path = settings.emotion_weights_path.resolve()
+            if not weights_path.is_file():
+                raise RuntimeError(f"Thiếu trọng số Emotion sau tinh chỉnh: {weights_path}")
+            digest = hashlib.sha256(weights_path.read_bytes()).hexdigest()
+            if settings.emotion_weights_sha256 and digest != settings.emotion_weights_sha256.lower():
+                raise RuntimeError("Hàm băm trọng số Emotion sau tinh chỉnh không khớp")
+            # DeepFace.analyze uses this cached Emotion client. Keep its entire
+            # inference preprocessing unchanged; replace only the model weights.
+            client = DeepFace.build_model(model_name="Emotion", task="facial_attribute")
+            client.model.load_weights(str(weights_path))
+            self.emotion_model_version = f"deepface-emotion-finetuned:{digest[:12]}"
 
     def analyze(self, image_bytes: bytes) -> Analysis:
         try:
@@ -323,11 +342,10 @@ class DeepFaceRetinaFaceEngine(VisionEngine):
             embedding=embedding,
         )
 
-    @staticmethod
-    def _models() -> dict[str, str]:
+    def _models(self) -> dict[str, str]:
         return {
             "detector": "retinaface-mobilenet0.25:configured-checksum",
-            "emotion": "deepface-emotion:configured-checksum",
+            "emotion": self.emotion_model_version,
             "embedding": "deepface-arcface:configured-checksum",
         }
 

@@ -1,0 +1,55 @@
+{
+  "dataset": "Karolinska Directed Emotional Faces (KDEF)",
+  "distribution": "Processed KDEF mirror on Kaggle",
+  "distribution_url": "https://www.kaggle.com/datasets/chenrich/kdef-database",
+  "homepage": "https://kdef.se/home/aboutKDEF",
+  "usage_terms": "https://kdef.se/faq/using-and-publishing-kdef-and-akdef",
+  "source_layout": "kaggle_label_folders",
+  "source_image_count": 2938,
+  "eligible_source_group_count": 140,
+  "seed": 20261008,
+  "camera_seed": 20261013,
+  "sampling_protocol": "uniform-label-then-frontal-source-with-replacement-v1",
+  "camera_pose_policy": "frontal-camera",
+  "touchpoint_time_protocol": {
+    "method": "independent-discrete-uniform-gaps",
+    "minimum_gap_minutes": 5,
+    "maximum_gap_minutes": 15
+  },
+  "source_reuse_allowed": true,
+  "camera_layouts": null,
+  "visits_per_customer": 5,
+  "expected_expression_distribution": {
+    "Sad": 17,
+    "Neutral": 12,
+    "Surprise": 15,
+    "Disgust": 23,
+    "Angry": 12,
+    "Fear": 12,
+    "Happy": 9
+  },
+  "unique_observation_sources": 34,
+  "experiment_run_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE",
+  "selected_subjects": [
+    "KG011",
+    "KG039",
+    "KG061",
+    "KG074",
+    "KG112"
+  ],
+  "customer_count": 5,
+  "ignored_non_kdef_files": [],
+  "raw_images_embedded": false,
+  "baseline_run_id": "KDEF-FRONTAL-CANVAS-20261013",
+  "camera_image_protocol": "byte-identical-source-no-resize-no-canvas-no-brightness-change",
+  "observation_image_dimensions": {
+    "562x762": 100
+  },
+  "unchanged_inputs": [
+    "source selection",
+    "labels",
+    "timestamps",
+    "enrollment",
+    "calibration"
+  ]
+}

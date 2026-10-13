@@ -1,0 +1,158 @@
+{
+  "capture_event_count": 100,
+  "valid_image_count": 100,
+  "identity": {
+    "correct_match_count": 97,
+    "no_match_count": 3,
+    "false_match_count": 0,
+    "correct_match_rate": 0.97
+  },
+  "expression": {
+    "scope": "End-to-end stored predictions; missing identity matches have no stored expression.",
+    "prediction_count": 97,
+    "missing_prediction_count": 3,
+    "accuracy_on_available_predictions": 0.41237113402061853,
+    "accuracy": 0.4,
+    "macro_f1_present_classes": 0.39134130575307047,
+    "expected_distribution": {
+      "Sad": 17,
+      "Neutral": 12,
+      "Surprise": 15,
+      "Happy": 9,
+      "Disgust": 23,
+      "Fear": 12,
+      "Angry": 12
+    },
+    "predicted_distribution": {
+      "Sad": 15,
+      "Neutral": 23,
+      "Surprise": 11,
+      "Happy": 8,
+      "Angry": 38,
+      "null": 3,
+      "Fear": 2
+    },
+    "per_class": {
+      "Angry": {
+        "support": 12,
+        "precision": 0.18421052631578946,
+        "recall": 0.5833333333333334,
+        "f1": 0.27999999999999997
+      },
+      "Disgust": {
+        "support": 23,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Fear": {
+        "support": 12,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Happy": {
+        "support": 9,
+        "precision": 0.625,
+        "recall": 0.5555555555555556,
+        "f1": 0.5882352941176471
+      },
+      "Sad": {
+        "support": 17,
+        "precision": 0.6666666666666666,
+        "recall": 0.5882352941176471,
+        "f1": 0.625
+      },
+      "Surprise": {
+        "support": 15,
+        "precision": 1.0,
+        "recall": 0.7333333333333333,
+        "f1": 0.846153846153846
+      },
+      "Neutral": {
+        "support": 12,
+        "precision": 0.30434782608695654,
+        "recall": 0.5833333333333334,
+        "f1": 0.4
+      }
+    },
+    "confusion_matrix": {
+      "Angry": {
+        "Angry": 7,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 5,
+        "Missing": 0
+      },
+      "Disgust": {
+        "Angry": 20,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 0,
+        "Missing": 3
+      },
+      "Fear": {
+        "Angry": 4,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 3,
+        "Surprise": 0,
+        "Neutral": 5,
+        "Missing": 0
+      },
+      "Happy": {
+        "Angry": 4,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 5,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 0,
+        "Missing": 0
+      },
+      "Sad": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 3,
+        "Sad": 10,
+        "Surprise": 0,
+        "Neutral": 4,
+        "Missing": 0
+      },
+      "Surprise": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 2,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 11,
+        "Neutral": 2,
+        "Missing": 0
+      },
+      "Neutral": {
+        "Angry": 3,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 2,
+        "Surprise": 0,
+        "Neutral": 7,
+        "Missing": 0
+      }
+    }
+  },
+  "journeys": {
+    "planned": 25,
+    "created": 25,
+    "complete": 23,
+    "incomplete": 2
+  }
+}

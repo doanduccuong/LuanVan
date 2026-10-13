@@ -1,0 +1,272 @@
+{
+  "scope": "Direct vision predictions before customer matching; same 100 source selections",
+  "rendered": {
+    "input_count": 100,
+    "available_predictions": 100,
+    "correct_count": 36,
+    "end_to_end_accuracy": 0.36,
+    "accuracy_on_available": 0.36,
+    "macro_f1": 0.343980912523112,
+    "per_class": {
+      "Angry": {
+        "correct": 7,
+        "support": 12,
+        "precision": 0.21875,
+        "recall": 0.5833333333333334,
+        "f1": 0.3181818181818182
+      },
+      "Disgust": {
+        "correct": 0,
+        "support": 23,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Fear": {
+        "correct": 0,
+        "support": 12,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Happy": {
+        "correct": 5,
+        "support": 9,
+        "precision": 0.625,
+        "recall": 0.5555555555555556,
+        "f1": 0.5882352941176471
+      },
+      "Sad": {
+        "correct": 10,
+        "support": 17,
+        "precision": 0.3448275862068966,
+        "recall": 0.5882352941176471,
+        "f1": 0.43478260869565216
+      },
+      "Surprise": {
+        "correct": 10,
+        "support": 15,
+        "precision": 1.0,
+        "recall": 0.6666666666666666,
+        "f1": 0.8
+      },
+      "Neutral": {
+        "correct": 4,
+        "support": 12,
+        "precision": 0.2222222222222222,
+        "recall": 0.3333333333333333,
+        "f1": 0.26666666666666666
+      }
+    },
+    "confusion_matrix": {
+      "Angry": {
+        "Angry": 7,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 3,
+        "Surprise": 0,
+        "Neutral": 2,
+        "Missing": 0
+      },
+      "Disgust": {
+        "Angry": 17,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 4,
+        "Surprise": 0,
+        "Neutral": 2,
+        "Missing": 0
+      },
+      "Fear": {
+        "Angry": 1,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 7,
+        "Surprise": 0,
+        "Neutral": 4,
+        "Missing": 0
+      },
+      "Happy": {
+        "Angry": 4,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 5,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 0,
+        "Missing": 0
+      },
+      "Sad": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 3,
+        "Sad": 10,
+        "Surprise": 0,
+        "Neutral": 4,
+        "Missing": 0
+      },
+      "Surprise": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 3,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 10,
+        "Neutral": 2,
+        "Missing": 0
+      },
+      "Neutral": {
+        "Angry": 3,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 5,
+        "Surprise": 0,
+        "Neutral": 4,
+        "Missing": 0
+      }
+    }
+  },
+  "native": {
+    "input_count": 100,
+    "available_predictions": 100,
+    "correct_count": 40,
+    "end_to_end_accuracy": 0.4,
+    "accuracy_on_available": 0.4,
+    "macro_f1": 0.38907715480967425,
+    "per_class": {
+      "Angry": {
+        "correct": 7,
+        "support": 12,
+        "precision": 0.17073170731707318,
+        "recall": 0.5833333333333334,
+        "f1": 0.2641509433962264
+      },
+      "Disgust": {
+        "correct": 0,
+        "support": 23,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Fear": {
+        "correct": 0,
+        "support": 12,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Happy": {
+        "correct": 5,
+        "support": 9,
+        "precision": 0.625,
+        "recall": 0.5555555555555556,
+        "f1": 0.5882352941176471
+      },
+      "Sad": {
+        "correct": 10,
+        "support": 17,
+        "precision": 0.6666666666666666,
+        "recall": 0.5882352941176471,
+        "f1": 0.625
+      },
+      "Surprise": {
+        "correct": 11,
+        "support": 15,
+        "precision": 1.0,
+        "recall": 0.7333333333333333,
+        "f1": 0.8461538461538461
+      },
+      "Neutral": {
+        "correct": 7,
+        "support": 12,
+        "precision": 0.30434782608695654,
+        "recall": 0.5833333333333334,
+        "f1": 0.4
+      }
+    },
+    "confusion_matrix": {
+      "Angry": {
+        "Angry": 7,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 5,
+        "Missing": 0
+      },
+      "Disgust": {
+        "Angry": 23,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 0,
+        "Missing": 0
+      },
+      "Fear": {
+        "Angry": 4,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 3,
+        "Surprise": 0,
+        "Neutral": 5,
+        "Missing": 0
+      },
+      "Happy": {
+        "Angry": 4,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 5,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 0,
+        "Missing": 0
+      },
+      "Sad": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 3,
+        "Sad": 10,
+        "Surprise": 0,
+        "Neutral": 4,
+        "Missing": 0
+      },
+      "Surprise": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 2,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 11,
+        "Neutral": 2,
+        "Missing": 0
+      },
+      "Neutral": {
+        "Angry": 3,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 2,
+        "Surprise": 0,
+        "Neutral": 7,
+        "Missing": 0
+      }
+    }
+  },
+  "paired_outcomes": {
+    "rendered_correct=True,native_correct=True": 33,
+    "rendered_correct=False,native_correct=True": 7,
+    "rendered_correct=False,native_correct=False": 57,
+    "rendered_correct=True,native_correct=False": 3
+  },
+  "changed_labels": 24
+}

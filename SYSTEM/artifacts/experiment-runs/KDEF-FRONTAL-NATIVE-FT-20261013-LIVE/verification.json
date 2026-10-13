@@ -1,0 +1,635 @@
+{
+  "created_at": "2026-10-13T11:16:10.734137+00:00",
+  "experiment_run_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE",
+  "passed": true,
+  "checks": [
+    {
+      "name": "all KDEF camera frames processed as valid images",
+      "passed": true,
+      "actual": 100,
+      "expected": 100
+    },
+    {
+      "name": "no cross-customer false match",
+      "passed": true,
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "name": "expected KDEF visit count",
+      "passed": true,
+      "actual": 25,
+      "expected": 25
+    },
+    {
+      "name": "visit count CUS-KDEF-001",
+      "passed": true,
+      "actual": 5,
+      "expected": 5
+    },
+    {
+      "name": "visit count CUS-KDEF-002",
+      "passed": true,
+      "actual": 5,
+      "expected": 5
+    },
+    {
+      "name": "visit count CUS-KDEF-003",
+      "passed": true,
+      "actual": 5,
+      "expected": 5
+    },
+    {
+      "name": "visit count CUS-KDEF-004",
+      "passed": true,
+      "actual": 5,
+      "expected": 5
+    },
+    {
+      "name": "visit count CUS-KDEF-005",
+      "passed": true,
+      "actual": 5,
+      "expected": 5
+    },
+    {
+      "name": "observed touchpoints preserve chronology 2a468526-19a6-471a-9109-5f2516c9bde2",
+      "passed": true,
+      "actual": [
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology dcfb9738-ea4b-49f2-bdf0-39db8c90b2e2",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 3afe7008-0c34-49da-8f40-91ef2f512ba7",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 70114efa-44b2-4288-bf99-4074b4da86be",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 2119bc44-d8da-4405-aca1-2f2f93c749e1",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 10504f63-9793-4054-9f06-d8bb5da258a9",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 074fa45f-55e0-4f8f-9d41-5d81da7ab5c3",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology c0ae4643-065d-4ffb-a7b6-2b9e1b1c2412",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 465ce65b-f0df-47f8-bb7d-6d053a6fd9ba",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 8ccff836-4638-4b18-ad05-1b4c1edf2920",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 58f86d2b-3ad9-4ffd-aeac-3c5fb7fe1fe1",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 179a1a02-9f4e-47f2-9e6e-65efeeba796a",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology d332a1bc-c1c2-4131-b759-d0ec6f8faf0a",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 34926f87-20e8-4d10-ad72-e8b65ed85017",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 92e8006b-b822-4c33-974d-549efe9898ac",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 52b8d064-4624-492d-87c8-ff2196cfde84",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 1f6fbc89-01ea-4d5a-8df1-99c9562dd6dc",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 5c483733-8650-4a33-8c6f-453966c6ae33",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology b845c9d7-2aa7-469e-ac8f-0fecc43f0c56",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 0cc734ee-54da-4c1e-a190-018f6fa21b15",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology b432e09c-05f2-4766-b75c-0ca8792e3ea0",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 7a9ae09b-8091-4430-86cd-c48ee136d1d5",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 024abf31-6c14-404a-b8f4-180e40ccf2a4",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 55ea802d-2213-4b74-be1d-d60c4b80079e",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "observed touchpoints preserve chronology 9332f04b-dd98-4bd2-8914-746488ebfd80",
+      "passed": true,
+      "actual": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ],
+      "expected": [
+        "TP-ENTRANCE",
+        "TP-DISPLAY",
+        "TP-CONSULT",
+        "TP-CHECKOUT"
+      ]
+    },
+    {
+      "name": "completed sequence analysis",
+      "passed": true,
+      "actual": "b3040599-6d4e-4e32-a0cf-494a96badbe0",
+      "expected": "one completed analysis"
+    },
+    {
+      "name": "sequence analysis uses every complete four-touchpoint visit",
+      "passed": true,
+      "actual": {
+        "received": 25,
+        "used": 23,
+        "excluded": 2
+      },
+      "expected": {
+        "received": 25,
+        "used": 23,
+        "excluded": 2
+      }
+    }
+  ],
+  "metrics": {
+    "capture_event_count": 100,
+    "valid_image_count": 100,
+    "identity": {
+      "correct_match_count": 97,
+      "no_match_count": 3,
+      "false_match_count": 0,
+      "correct_match_rate": 0.97
+    },
+    "expression": {
+      "scope": "End-to-end stored predictions; missing identity matches have no stored expression.",
+      "prediction_count": 97,
+      "missing_prediction_count": 3,
+      "accuracy_on_available_predictions": 0.41237113402061853,
+      "accuracy": 0.4,
+      "macro_f1_present_classes": 0.39134130575307047,
+      "expected_distribution": {
+        "Sad": 17,
+        "Neutral": 12,
+        "Surprise": 15,
+        "Happy": 9,
+        "Disgust": 23,
+        "Fear": 12,
+        "Angry": 12
+      },
+      "predicted_distribution": {
+        "Sad": 15,
+        "Neutral": 23,
+        "Surprise": 11,
+        "Happy": 8,
+        "Angry": 38,
+        "null": 3,
+        "Fear": 2
+      },
+      "per_class": {
+        "Angry": {
+          "support": 12,
+          "precision": 0.18421052631578946,
+          "recall": 0.5833333333333334,
+          "f1": 0.27999999999999997
+        },
+        "Disgust": {
+          "support": 23,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Fear": {
+          "support": 12,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Happy": {
+          "support": 9,
+          "precision": 0.625,
+          "recall": 0.5555555555555556,
+          "f1": 0.5882352941176471
+        },
+        "Sad": {
+          "support": 17,
+          "precision": 0.6666666666666666,
+          "recall": 0.5882352941176471,
+          "f1": 0.625
+        },
+        "Surprise": {
+          "support": 15,
+          "precision": 1.0,
+          "recall": 0.7333333333333333,
+          "f1": 0.846153846153846
+        },
+        "Neutral": {
+          "support": 12,
+          "precision": 0.30434782608695654,
+          "recall": 0.5833333333333334,
+          "f1": 0.4
+        }
+      },
+      "confusion_matrix": {
+        "Angry": {
+          "Angry": 7,
+          "Disgust": 0,
+          "Fear": 0,
+          "Happy": 0,
+          "Sad": 0,
+          "Surprise": 0,
+          "Neutral": 5,
+          "Missing": 0
+        },
+        "Disgust": {
+          "Angry": 20,
+          "Disgust": 0,
+          "Fear": 0,
+          "Happy": 0,
+          "Sad": 0,
+          "Surprise": 0,
+          "Neutral": 0,
+          "Missing": 3
+        },
+        "Fear": {
+          "Angry": 4,
+          "Disgust": 0,
+          "Fear": 0,
+          "Happy": 0,
+          "Sad": 3,
+          "Surprise": 0,
+          "Neutral": 5,
+          "Missing": 0
+        },
+        "Happy": {
+          "Angry": 4,
+          "Disgust": 0,
+          "Fear": 0,
+          "Happy": 5,
+          "Sad": 0,
+          "Surprise": 0,
+          "Neutral": 0,
+          "Missing": 0
+        },
+        "Sad": {
+          "Angry": 0,
+          "Disgust": 0,
+          "Fear": 0,
+          "Happy": 3,
+          "Sad": 10,
+          "Surprise": 0,
+          "Neutral": 4,
+          "Missing": 0
+        },
+        "Surprise": {
+          "Angry": 0,
+          "Disgust": 0,
+          "Fear": 2,
+          "Happy": 0,
+          "Sad": 0,
+          "Surprise": 11,
+          "Neutral": 2,
+          "Missing": 0
+        },
+        "Neutral": {
+          "Angry": 3,
+          "Disgust": 0,
+          "Fear": 0,
+          "Happy": 0,
+          "Sad": 2,
+          "Surprise": 0,
+          "Neutral": 7,
+          "Missing": 0
+        }
+      }
+    },
+    "journeys": {
+      "planned": 25,
+      "created": 25,
+      "complete": 23,
+      "incomplete": 2
+    }
+  },
+  "quality": [
+    {
+      "image_status": "VALID",
+      "expression_status": "VALID",
+      "identity_status": "MATCHED",
+      "count": 97
+    }
+  ]
+}

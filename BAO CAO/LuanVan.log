@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  11 OCT 2026 21:26
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  13 OCT 2026 18:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1093,18 +1093,18 @@ LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <6.5> not available
 
 [1
 
-]) (./Chuong/0_1_Loi_cam_doan.tex) [1] (./Chuong/0_2_Loi_cam_on.tex) [1] (./LuanVan.toc
+]) (./Chuong/0_1_Loi_cam_doan.tex) [1] (./Chuong/0_2_Loi_cam_on.tex) [1] (./Chuong/0_3_Tom_tat_noi_dung.tex) [1] (./LuanVan.toc
 
 LaTeX Font Warning: Font shape `TU/TimesNewRoman(0)/b/sc' undefined
 (Font)              using `TU/TimesNewRoman(0)/b/n' instead on input line 11.
 
 [1
 
-] [2] [3])
+] [2])
 \tf@toc=\write6
 \openout6 = `LuanVan.toc'.
 
- [4] (./LuanVan.lof [5
+ [3] (./LuanVan.lof [4
 
 
 
@@ -1112,7 +1112,7 @@ LaTeX Font Warning: Font shape `TU/TimesNewRoman(0)/b/sc' undefined
 \tf@lof=\write7
 \openout7 = `LuanVan.lof'.
 
- [6] (./LuanVan.lot)
+ [5] (./LuanVan.lot)
 \tf@lot=\write8
 \openout8 = `LuanVan.lot'.
 
@@ -1121,39 +1121,34 @@ LaTeX Font Warning: Font shape `TU/TimesNewRoman(0)/b/sc' undefined
 Package glossaries Info: Preparing to sort glossary `acronym' (total number of
 (glossaries)             referenced entries: 26)
 
-[7
+[6
 
-] [8
+] [7
 
 
-] [9]
+] [8]
 CHƯƠNG 1.
 (./Chuong/1_Gioi_thieu.tex [1
 
-]
-Overfull \hbox (3.47586pt too wide) in paragraph at lines 48--49
-[]\TU/TimesNewRoman(0)/b/sc/13 Xây dựng quy trình nhận dạng biểu cảm khuôn mặt (FER) bảy lớp: \TU/TimesNewRoman(0)/m/n/13 Nghiên
- []
-
-[2]) [3]
+] [2] [3]) [4]
 CHƯƠNG 2.
-(./Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex [4
+(./Chuong/2_Nen_tang_ly_thuyet_va_cong_nghe.tex [5
 
-] [5]
+] [6]
 File: Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png Graphic file (type bmp)
 <Hinhve/Chuong2/2_01_bay_nhom_bieu_cam.png>
- [6]
+ [7]
 File: Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png Graphic file (type bmp)
 <Hinhve/Chuong2/2_01_quy_trinh_deep_fer.png>
- [7] [8] [9]
+ [8] [9] [10]
 File: Hinhve/Chuong2/mtcnn_pnet.png Graphic file (type bmp)
 <Hinhve/Chuong2/mtcnn_pnet.png>
 File: Hinhve/Chuong2/mtcnn_rnet.png Graphic file (type bmp)
 <Hinhve/Chuong2/mtcnn_rnet.png>
- [10]
+ [11]
 File: Hinhve/Chuong2/mtcnn_onet.png Graphic file (type bmp)
 <Hinhve/Chuong2/mtcnn_onet.png>
- [11] [12] [13]
+ [12] [13] [14]
 Underfull \hbox (badness 10000) in paragraph at lines 200--200
 []|\TU/TimesNewRoman(0)/b/sc/13 Phương
  []
@@ -1193,24 +1188,24 @@ Underfull \hbox (badness 6575) in paragraph at lines 200--200
 \TU/TimesNewRoman(0)/m/n/13 cậy và năm điểm
  []
 
-[14]
-
-LaTeX Warning: Citation `shan2009lbp' on page 15 undefined on input line 215.
-
 [15]
+
+LaTeX Warning: Citation `shan2009lbp' on page 16 undefined on input line 215.
+
+[16]
 File: Hinhve/Chuong2/lbp_spatial_histogram.png Graphic file (type bmp)
 <Hinhve/Chuong2/lbp_spatial_histogram.png>
 
 
-LaTeX Warning: Citation `shan2009lbp' on page 16 undefined on input line 226.
+LaTeX Warning: Citation `shan2009lbp' on page 17 undefined on input line 226.
 
 
-LaTeX Warning: Citation `shan2009lbp' on page 16 undefined on input line 226.
+LaTeX Warning: Citation `shan2009lbp' on page 17 undefined on input line 226.
 
 
-LaTeX Warning: Citation `shan2009lbp' on page 16 undefined on input line 230.
+LaTeX Warning: Citation `shan2009lbp' on page 17 undefined on input line 230.
 
-[16] [17] [18] [19]
+[17] [18] [19] [20]
 LaTeX Font Info:    Calculating math sizes for size <8.66673> on input line 307.
 
 
@@ -1230,356 +1225,304 @@ LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.33336> not available
 (Font)              size <5> substituted on input line 307.
 
 
-LaTeX Warning: Citation `abbott2000sequence' on page 20 undefined on input line 314.
+LaTeX Warning: Citation `abbott2000sequence' on page 21 undefined on input line 314.
 
 
-LaTeX Warning: Citation `gabadinho2011traminer' on page 20 undefined on input line 314.
+LaTeX Warning: Citation `gabadinho2011traminer' on page 21 undefined on input line 314.
 
 
-LaTeX Warning: Citation `studer2016sequence' on page 20 undefined on input line 314.
-
-[20]
-
-LaTeX Warning: Citation `john2023exploration' on page 21 undefined on input line 316.
-
-
-LaTeX Warning: Citation `khalifa2026categorical' on page 21 undefined on input line 316.
-
-
-LaTeX Warning: Citation `kinjo2025analysis' on page 21 undefined on input line 316.
-
-
-LaTeX Warning: Citation `john2023exploration' on page 21 undefined on input line 318.
-
-
-LaTeX Warning: Citation `khalifa2026categorical' on page 21 undefined on input line 318.
+LaTeX Warning: Citation `studer2016sequence' on page 21 undefined on input line 314.
 
 [21]
 
-LaTeX Warning: Citation `john2023exploration' on page 22 undefined on input line 319.
+LaTeX Warning: Citation `john2023exploration' on page 22 undefined on input line 316.
 
 
-LaTeX Warning: Citation `kinjo2025analysis' on page 22 undefined on input line 319.
+LaTeX Warning: Citation `khalifa2026categorical' on page 22 undefined on input line 316.
 
 
-LaTeX Warning: Citation `kaufman1990pam' on page 22 undefined on input line 320.
+LaTeX Warning: Citation `kinjo2025analysis' on page 22 undefined on input line 316.
 
 
-LaTeX Warning: Citation `kinjo2025analysis' on page 22 undefined on input line 320.
+LaTeX Warning: Citation `john2023exploration' on page 22 undefined on input line 318.
 
 
-LaTeX Warning: Citation `kinjo2025analysis' on page 22 undefined on input line 321.
-
-
-LaTeX Warning: Citation `john2023exploration' on page 22 undefined on input line 322.
+LaTeX Warning: Citation `khalifa2026categorical' on page 22 undefined on input line 318.
 
 [22]
 
-LaTeX Warning: Citation `abbott2000sequence' on page 23 undefined on input line 325.
+LaTeX Warning: Citation `john2023exploration' on page 23 undefined on input line 319.
 
 
-LaTeX Warning: Citation `studer2016sequence' on page 23 undefined on input line 325.
+LaTeX Warning: Citation `kinjo2025analysis' on page 23 undefined on input line 319.
 
 
-LaTeX Warning: Citation `gabadinho2011traminer' on page 23 undefined on input line 330.
+LaTeX Warning: Citation `kaufman1990pam' on page 23 undefined on input line 320.
 
 
-LaTeX Warning: Citation `khalifa2026categorical' on page 23 undefined on input line 330.
+LaTeX Warning: Citation `kinjo2025analysis' on page 23 undefined on input line 320.
 
 
-LaTeX Warning: Citation `kaufman1990pam' on page 23 undefined on input line 332.
+LaTeX Warning: Citation `kinjo2025analysis' on page 23 undefined on input line 321.
 
 
-LaTeX Warning: Citation `khalifa2026categorical' on page 23 undefined on input line 332.
+LaTeX Warning: Citation `john2023exploration' on page 23 undefined on input line 322.
+
+[23]
+
+LaTeX Warning: Citation `abbott2000sequence' on page 24 undefined on input line 325.
 
 
-LaTeX Warning: Citation `khalifa2026categorical' on page 23 undefined on input line 332.
+LaTeX Warning: Citation `studer2016sequence' on page 24 undefined on input line 325.
 
 
-LaTeX Warning: Citation `john2023exploration' on page 23 undefined on input line 334.
+LaTeX Warning: Citation `gabadinho2011traminer' on page 24 undefined on input line 330.
 
 
-LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 23 undefined on input line 334.
+LaTeX Warning: Citation `khalifa2026categorical' on page 24 undefined on input line 330.
 
-[23]) [24]
+
+LaTeX Warning: Citation `kaufman1990pam' on page 24 undefined on input line 332.
+
+
+LaTeX Warning: Citation `khalifa2026categorical' on page 24 undefined on input line 332.
+
+
+LaTeX Warning: Citation `khalifa2026categorical' on page 24 undefined on input line 332.
+
+
+LaTeX Warning: Citation `john2023exploration' on page 24 undefined on input line 334.
+
+
+LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 24 undefined on input line 334.
+
+[24]) [25]
 CHƯƠNG 3.
 (./Chuong/3_Phuong_an_de_xuat.tex
-LaTeX Font Info:    Calculating math sizes for size <11.86258> on input line 25.
- [25
+LaTeX Font Info:    Calculating math sizes for size <11.86258> on input line 23.
+ [26
 
-] [26] [27]
+] [27] [28]
 
-LaTeX Warning: Citation `deepfaceEmotionModel' on page 28 undefined on input line 112.
+LaTeX Warning: Citation `deepfaceEmotionModel' on page 29 undefined on input line 105.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <13> not available
-(Font)              size <12> substituted on input line 124.
+(Font)              size <12> substituted on input line 117.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <6.5> not available
-(Font)              size <6> substituted on input line 124.
+(Font)              size <6> substituted on input line 117.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <13> not available
-(Font)              size <12> substituted on input line 124.
+(Font)              size <12> substituted on input line 117.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 124.
+(Font)              size <6> substituted on input line 117.
 
 
 LaTeX Font Warning: Font shape `U/lasy/b/n' in size <13> not available
-(Font)              size <12> substituted on input line 124.
+(Font)              size <12> substituted on input line 117.
 
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <9.09996> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 124.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 117.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6.5> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 124.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 117.
 
 LaTeX Font Warning: Font shape `U/lasy/m/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 124.
+(Font)              size <6> substituted on input line 117.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <13> not available
-(Font)              size <12> substituted on input line 124.
+(Font)              size <12> substituted on input line 117.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <6.5> not available
-(Font)              size <6> substituted on input line 124.
+(Font)              size <6> substituted on input line 117.
 
-[28]
+[29]
 
-LaTeX Warning: Citation `fawcett2006roc' on page 29 undefined on input line 140.
+LaTeX Warning: Citation `fawcett2006roc' on page 30 undefined on input line 133.
 
-[29] [30] [31] [32]
-LaTeX Font Info:    Calculating math sizes for size <10.83347> on input line 241.
+[30] [31] [32]
+LaTeX Font Info:    Calculating math sizes for size <10.83347> on input line 234.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <7.58339> not available
-(Font)              size <8> substituted on input line 241.
+(Font)              size <8> substituted on input line 234.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <5.41673> not available
-(Font)              size <5> substituted on input line 241.
+(Font)              size <5> substituted on input line 234.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <7.58339> not available
-(Font)              size <8> substituted on input line 241.
+(Font)              size <8> substituted on input line 234.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <5.41673> not available
-(Font)              size <5> substituted on input line 241.
+(Font)              size <5> substituted on input line 234.
 
 
 LaTeX Font Warning: Font shape `U/lasy/m/n' in size <7.58339> not available
-(Font)              size <8> substituted on input line 241.
+(Font)              size <8> substituted on input line 234.
 
 
 LaTeX Font Warning: Font shape `U/lasy/m/n' in size <5.41673> not available
-(Font)              size <5> substituted on input line 241.
+(Font)              size <5> substituted on input line 234.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <7.58339> not available
-(Font)              size <8> substituted on input line 241.
+(Font)              size <8> substituted on input line 234.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <5.41673> not available
-(Font)              size <5> substituted on input line 241.
+(Font)              size <5> substituted on input line 234.
 
-[33]
-
-LaTeX Warning: Citation `sequenzo2026' on page 34 undefined on input line 296.
-
-[34]) [35]
+[33] [34]) [35]
 CHƯƠNG 4.
 (./Chuong/4_Xay_dung_va_phat_trien_he_thong.tex [36
 
 ] [37] [38] [39] [40] [41]
-File: Hinhve/Chuong4/4_06_khu_vuc.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_06_khu_vuc.png>
+File: Hinhve/Chuong4/4_00_dang_nhap.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_00_dang_nhap.png>
+File: Hinhve/Chuong4/4_01_tong_quan.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_01_tong_quan.png>
  [42]
-File: Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png>
- [43]
-File: Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png>
- [44]
+File: Hinhve/Chuong4/4_02_danh_sach_khach_hang.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_02_danh_sach_khach_hang.png>
 File: Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_03_ho_so_lich_su_mua_hang.png>
- [45]
+ [43]
+File: Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_14_du_lieu_khuon_mat.png>
 File: Hinhve/Chuong4/4_04_danh_muc_san_pham.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_04_danh_muc_san_pham.png>
- [46]
+ [44]
 File: Hinhve/Chuong4/4_05_lich_su_mua_hang.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_05_lich_su_mua_hang.png>
- [47]
+File: Hinhve/Chuong4/4_06_khu_vuc.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_06_khu_vuc.png>
+ [45]
 File: Hinhve/Chuong4/4_07_theo_doi_mua_sam.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_07_theo_doi_mua_sam.png>
+ [46]
+File: Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_16_chi_tiet_quan_sat.png>
 File: Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_08_phan_bo_bieu_cam.png>
- [48]
-File: Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_13_bien_thien_theo_thoi_gian_khu_vuc.png>
- [49]
+ [47]
 File: Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_09_thay_doi_bieu_cam.png>
-
-Overfull \hbox (14.38864pt too wide) in paragraph at lines 330--331
-[]\TU/TimesNewRoman(0)/m/n/13 Chức năng phân cụm được hiện thực thành mô-đun thuần \TU/lmtt/m/n/13 sequence_analysis.py
- []
-
-[50]
-Overfull \hbox (6.3396pt too wide) in paragraph at lines 332--333
-\TU/TimesNewRoman(0)/m/n/13 Sequenzo tạo ma trận Optimal Matching với \TU/lmtt/m/n/13 sm=CONSTANT\TU/TimesNewRoman(0)/m/n/13 , \TU/lmtt/m/n/13 indel=1 \TU/TimesNewRoman(0)/m/n/13 và \TU/lmtt/m/n/13 norm=none\TU/TimesNewRoman(0)/m/n/13 .
- []
-
-
-Overfull \hbox (6.72768pt too wide) in paragraph at lines 341--342
-[]\TU/lmtt/m/n/13 GET /api/v1/sequence-analyses/{id}/assignments\TU/TimesNewRoman(0)/m/n/13 : lấy danh sách visit
- []
-
-
-Overfull \hbox (11.07988pt too wide) in paragraph at lines 342--343
-[]\TU/lmtt/m/n/13 PATCH /api/v1/sequence-analyses/{id}/clusters/{cluster_id}\TU/TimesNewRoman(0)/m/n/13 : lưu
- []
-
-File: Hinhve/Chuong4/4_20_tong_quan_phan_cum_chuoi.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_20_tong_quan_phan_cum_chuoi.png>
-[51]
-File: Hinhve/Chuong4/4_21_cum_va_medoid.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_21_cum_va_medoid.png>
- [52]
-File: Hinhve/Chuong4/4_22_danh_sach_gan_cum.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_22_danh_sach_gan_cum.png>
-File: Hinhve/Chuong4/4_23_truy_vet_cum_ve_hanh_trinh.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_23_truy_vet_cum_ve_hanh_trinh.png>
- [53]
-File: Hinhve/Chuong4/4_24_tai_lieu_api_phan_cum_chuoi.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_24_tai_lieu_api_phan_cum_chuoi.png>
- [54]
-File: Hinhve/Chuong4/4_25_danh_sach_khach_kdef.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_25_danh_sach_khach_kdef.png>
-File: Hinhve/Chuong4/4_27_hanh_trinh_kdef_bon_diem_cham.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_27_hanh_trinh_kdef_bon_diem_cham.png>
- [55]
-File: Hinhve/Chuong4/4_29_trang_thai_he_thong_docker.png Graphic file (type bmp)
-<Hinhve/Chuong4/4_29_trang_thai_he_thong_docker.png>
- [56]
+ [48]
 File: Hinhve/Chuong4/4_10_chat_luong_du_lieu.png Graphic file (type bmp)
 <Hinhve/Chuong4/4_10_chat_luong_du_lieu.png>
- [57]) [58]
+ [49]
+File: Hinhve/Chuong4/4_20_tong_quan_phan_cum_chuoi.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_20_tong_quan_phan_cum_chuoi.png>
+ [50]
+File: Hinhve/Chuong4/4_21_cum_va_medoid.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_21_cum_va_medoid.png>
+ [51]
+File: Hinhve/Chuong4/4_22_danh_sach_gan_cum.png Graphic file (type bmp)
+<Hinhve/Chuong4/4_22_danh_sach_gan_cum.png>
+) [52]
 CHƯƠNG 5.
-(./Chuong/5_Danh_gia_thuc_nghiem.tex [59
+(./Chuong/5_Danh_gia_thuc_nghiem.tex [53
 
-]
+] [54]
 
-LaTeX Warning: Citation `widerFaceEvaluation' on page 60 undefined on input line 28.
-
-[60]
-
-LaTeX Warning: Citation `vanRijsbergen1979' on page 61 undefined on input line 35.
+LaTeX Warning: Citation `widerFaceEvaluation' on page 55 undefined on input line 30.
 
 
-LaTeX Warning: Citation `widerFaceEvaluation' on page 61 undefined on input line 48.
-
-[61] [62]
-
-LaTeX Warning: Citation `serengil2021hyperextended' on page 63 undefined on input line 116.
+LaTeX Warning: Citation `vanRijsbergen1979' on page 55 undefined on input line 37.
 
 
-LaTeX Warning: Citation `deepfaceEmotionModel' on page 63 undefined on input line 116.
+LaTeX Warning: Citation `widerFaceEvaluation' on page 55 undefined on input line 50.
 
-[63]
+[55] [56]
 
-LaTeX Warning: Citation `shan2009lbp' on page 64 undefined on input line 145.
+LaTeX Warning: Citation `serengil2021hyperextended' on page 57 undefined on input line 118.
 
-[64] [65] [66]
+
+LaTeX Warning: Citation `deepfaceEmotionModel' on page 57 undefined on input line 118.
+
+[57]
+
+LaTeX Warning: Citation `shan2009lbp' on page 58 undefined on input line 147.
+
+[58] [59] [60]
 File: Hinhve/Chuong5/5_09_ma_tran_nham_lan_lbp_svm.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_09_ma_tran_nham_lan_lbp_svm.png>
 File: Hinhve/Chuong5/5_10_ma_tran_nham_lan_deepface.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_10_ma_tran_nham_lan_deepface.png>
 File: Hinhve/Chuong5/5_11_ma_tran_nham_lan_emotion_tinh_chinh.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_11_ma_tran_nham_lan_emotion_tinh_chinh.png>
- [67] [68]
+ [61] [62] [63]
 
-LaTeX Warning: Citation `khalifa2026categorical' on page 69 undefined on input line 274.
+LaTeX Warning: Citation `chenrich2024kdefkaggle' on page 64 undefined on input line 267.
 
-
-LaTeX Warning: Citation `studer2016sequence' on page 69 undefined on input line 274.
-
-
-LaTeX Warning: Citation `kaufman1990pam' on page 69 undefined on input line 274.
-
-
-LaTeX Warning: Citation `rousseeuw1987silhouettes' on page 69 undefined on input line 274.
-
-[69]
-
-LaTeX Warning: Citation `sequenzo2026' on page 70 undefined on input line 310.
-
-[70]
-Overfull \hbox (2.45583pt too wide) in paragraph at lines 345--346
-[]\TU/TimesNewRoman(0)/m/n/13 Optimal Matching–PAM khôi phục đúng năm mẫu; mỗi cụm có 25 chuỗi, medoid
- []
-
-File: Hinhve/Chuong5/5_16_so_sanh_asw.png Graphic file (type bmp)
-<Hinhve/Chuong5/5_16_so_sanh_asw.png>
-[71]
-File: Hinhve/Chuong5/5_17_ma_tran_khoang_cach_om.png Graphic file (type bmp)
-<Hinhve/Chuong5/5_17_ma_tran_khoang_cach_om.png>
- [72]
-File: Hinhve/Chuong5/5_12_tong_quan_phan_cum_chuoi.png Graphic file (type bmp)
-<Hinhve/Chuong5/5_12_tong_quan_phan_cum_chuoi.png>
-File: Hinhve/Chuong5/5_13_cum_va_medoid.png Graphic file (type bmp)
-<Hinhve/Chuong5/5_13_cum_va_medoid.png>
- [73]
-File: Hinhve/Chuong5/5_14_danh_sach_gan_cum.png Graphic file (type bmp)
-<Hinhve/Chuong5/5_14_danh_sach_gan_cum.png>
-File: Hinhve/Chuong5/5_15_truy_vet_cum_ve_hanh_trinh.png Graphic file (type bmp)
-<Hinhve/Chuong5/5_15_truy_vet_cum_ve_hanh_trinh.png>
- [74]
-
-LaTeX Warning: Citation `lundqvist1998kdef' on page 75 undefined on input line 411.
-
-
-LaTeX Warning: Citation `chenrich2024kdefkaggle' on page 75 undefined on input line 411.
-
-
-LaTeX Warning: Citation `kdefTerms' on page 75 undefined on input line 411.
-
-[75]
 File: Hinhve/Chuong5/5_16_du_lieu_khach_kdef.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_16_du_lieu_khach_kdef.png>
- [76]
-File: Hinhve/Chuong5/5_17_ho_so_khach_kdef.png Graphic file (type bmp)
-<Hinhve/Chuong5/5_17_ho_so_khach_kdef.png>
- [77]
-File: Hinhve/Chuong5/5_21_kdef_ket_qua_dinh_danh.png Graphic file (type bmp)
-<Hinhve/Chuong5/5_21_kdef_ket_qua_dinh_danh.png>
- [78]
+[64
+
+] [65] [66]
+File: Hinhve/Chuong5/5_27_trang_thai_he_thong.png Graphic file (type bmp)
+<Hinhve/Chuong5/5_27_trang_thai_he_thong.png>
+ [67]
 File: Hinhve/Chuong5/5_18_hanh_trinh_kdef_bon_diem_cham.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_18_hanh_trinh_kdef_bon_diem_cham.png>
 File: Hinhve/Chuong5/5_19_chuoi_camera_kdef.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_19_chuoi_camera_kdef.png>
- [79]
+ [68]
 File: Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png>
- [80]
-File: Hinhve/Chuong5/5_26_kdef_chon_so_cum.png Graphic file (type bmp)
-<Hinhve/Chuong5/5_26_kdef_chon_so_cum.png>
+ [69] [70]
 File: Hinhve/Chuong5/5_22_kdef_tong_quan_phan_cum.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_22_kdef_tong_quan_phan_cum.png>
- [81]
+ [71]
 File: Hinhve/Chuong5/5_23_kdef_cum_medoid.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_23_kdef_cum_medoid.png>
- [82]
 File: Hinhve/Chuong5/5_24_kdef_gan_cum.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_24_kdef_gan_cum.png>
+ [72]
 File: Hinhve/Chuong5/5_25_kdef_truy_vet.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_25_kdef_truy_vet.png>
- [83]) [84] (./LuanVan.bbl [85
 
-] [86]) [87] (./LuanVan.aux)
+Underfull \hbox (badness 3942) in paragraph at lines 500--500
+[]|\TU/TimesNewRoman(0)/m/n/13 Ảnh tạo được kết
+ []
+
+
+Underfull \hbox (badness 2744) in paragraph at lines 500--500
+\TU/TimesNewRoman(0)/m/n/13 đầu vào của kịch
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 500--500
+[]|\TU/TimesNewRoman(0)/m/n/13 Ba ảnh không
+ []
+
+
+Underfull \hbox (badness 7099) in paragraph at lines 500--500
+\TU/TimesNewRoman(0)/m/n/13 khớp; không ghi
+ []
+
+
+Underfull \hbox (badness 3128) in paragraph at lines 500--500
+[]|\TU/TimesNewRoman(0)/m/n/13 Kết quả biểu cảm
+ []
+
+
+Underfull \hbox (badness 6284) in paragraph at lines 500--500
+[]|\TU/TimesNewRoman(0)/m/n/13 Accuracy trên 97
+ []
+
+[73] [74]) [75] (./LuanVan.bbl [76
+
+] [77]) [78] (./LuanVan.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1595,19 +1538,16 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `LuanVan.out' has not changed.
-(rerunfilecheck)             Checksum: F99E4C426D17469AD666F9BC27D1E860;23324.
+(rerunfilecheck)             Checksum: A0251ABB540EEE6B60A44A4D7DCA86A8;17741.
  ) 
 Here is how much of TeX's memory you used:
- 40221 strings out of 469709
- 841601 string characters out of 5466023
- 1385567 words of memory out of 5000000
- 68098 multiletter control sequences out of 15000+600000
+ 40139 strings out of 469709
+ 836709 string characters out of 5466023
+ 1376471 words of memory out of 5000000
+ 68024 multiletter control sequences out of 15000+600000
  644207 words of font info for 157 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  108i,12n,107p,2543b,1022s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on LuanVan.pdf (99 pages).
+Output written on LuanVan.pdf (90 pages).

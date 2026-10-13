@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     detector_confidence_threshold: float = 0.8
     retinaface_vendor_path: Path = Path("/models/Pytorch_Retinaface")
     retinaface_weights_path: Path = Path("/models/mobilenet0.25_Final.pth")
+    emotion_weights_path: Path | None = None
+    emotion_weights_sha256: str | None = None
     device: str = "cpu"
 
 

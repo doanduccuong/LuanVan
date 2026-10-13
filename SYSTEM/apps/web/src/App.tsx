@@ -356,18 +356,32 @@ function Visits() {
   const flagMap = Object.fromEntries((analysis.data?.observation_flags ?? []).map((row: any) => [row.observation_id, row.flags]))
   const labelColors: Record<string, string> = { Happy: '#16a34a', Neutral: '#64748b', Surprise: '#0ea5e9', Sad: '#6366f1', Angry: '#dc2626', Fear: '#9333ea', Disgust: '#a16207' }
   const journeyChart = useMemo(() => ({
-    tooltip: { trigger: 'item' },
+    tooltip: {
+      trigger: 'item',
+      formatter: (params: any) => params.dataType === 'edge'
+        ? ''
+        : String(params.data?.tooltipText ?? params.name ?? '').replace(/\n/g, '<br/>')
+    },
     animationDuration: 500,
     xAxis: { type: 'value', show: false, min: -0.5, max: Math.max(1, observations.length - 0.5) },
     yAxis: { type: 'value', show: false, min: -0.5, max: 0.5 },
     series: [{
       type: 'graph', coordinateSystem: 'cartesian2d', roam: false, symbolSize: 58,
-      data: observations.map((item: any, index: number) => ({
-        name: `${item.touchpoint?.name}\n${item.expression_label ?? 'Không có nhãn'}`,
-        value: [index, 0], x: index, y: 0,
-        itemStyle: { color: labelColors[item.expression_label] ?? '#94a3b8' },
-        label: { show: true, position: 'bottom', distance: 14, formatter: `${item.touchpoint?.name}\n${item.expression_label ?? 'Không có nhãn'}` }
-      })),
+      data: observations.map((item: any, index: number) => {
+        const touchpointName = item.touchpoint?.name ?? 'Không xác định điểm chạm'
+        const expressionLabel = item.expression_label ?? 'Không có nhãn'
+        const confidence = item.expression_confidence != null
+          ? `${(Number(item.expression_confidence) * 100).toFixed(1)}%`
+          : '—'
+        const observedAt = new Date(item.observed_at).toLocaleString('vi-VN')
+        return {
+          name: `${touchpointName}\n${expressionLabel}`,
+          value: [index, 0], x: index, y: 0,
+          tooltipText: `${touchpointName}\nBiểu cảm: ${expressionLabel}\nĐộ tin cậy: ${confidence}\nThời gian: ${observedAt}`,
+          itemStyle: { color: labelColors[item.expression_label] ?? '#94a3b8' },
+          label: { show: true, position: 'bottom', distance: 14, formatter: `${touchpointName}\n${expressionLabel}` }
+        }
+      }),
       links: observations.slice(1).map((_: any, index: number) => ({ source: index, target: index + 1 })),
       lineStyle: { color: '#94a3b8', width: 3 }, edgeSymbol: ['none', 'arrow'], edgeSymbolSize: 10
     }]
@@ -377,7 +391,6 @@ function Visits() {
   const uniqueCustomers = new Set((query.data ?? []).map(row => row.customer_id)).size
   return <>
     <PageTitle title="Theo dõi quá trình mua sắm" description="Xem thứ tự khu vực, biểu cảm và đơn hàng trong từng lần mua sắm" action={<Button type="primary" loading={simulate.isPending} onClick={() => simulate.mutate()}>Tạo dữ liệu mô phỏng</Button>} />
-    <Alert showIcon type="info" className="result-alert" message="Nguồn dữ liệu được đánh dấu riêng" description="Quan sát Camera đi qua dịch vụ thị giác; quan sát Simulator chỉ dùng để trình diễn luồng và không được xem là kết quả đánh giá mô hình." />
     {simulationResult && <Alert closable onClose={() => setSimulationResult(undefined)} type="success" className="result-alert" message={`Lần chạy ${simulationResult.run_id}`} description={`100 khách hàng, ${simulationResult.visit_count} lần mua sắm, ${simulationResult.observation_count} quan sát và ${simulationResult.order_count} đơn hàng.`} />}
     <Row gutter={[16, 16]} className="stat-row">
       <Col span={8}><Card><Statistic title="Khách hàng có dữ liệu" value={uniqueCustomers} /></Card></Col>
@@ -437,9 +450,15 @@ function SequenceAnalysisPanel() {
     queryKey: ['sequence-analyses'],
     queryFn: () => api<SequenceAnalysisRun[]>('/sequence-analyses')
   })
+  const cameraRuns = useMemo(
+    () => (runs.data ?? []).filter(item => item.source_type === 'CAMERA'),
+    [runs.data]
+  )
   useEffect(() => {
-    if (!selectedRunId && runs.data?.length) setSelectedRunId(runs.data[0].id)
-  }, [runs.data, selectedRunId])
+    if (cameraRuns.length && !cameraRuns.some(item => item.id === selectedRunId)) {
+      setSelectedRunId(cameraRuns[0].id)
+    }
+  }, [cameraRuns, selectedRunId])
   const run = useQuery({
     queryKey: ['sequence-analysis', selectedRunId],
     enabled: Boolean(selectedRunId),
@@ -497,9 +516,9 @@ function SequenceAnalysisPanel() {
     }]
   }), [run.data])
   const statusColor: Record<string, string> = { COMPLETED: 'green', RUNNING: 'blue', FAILED: 'red' }
-  const runOptions = (runs.data ?? []).map(item => ({
+  const runOptions = cameraRuns.map(item => ({
     value: item.id,
-    label: `${new Date(item.created_at).toLocaleString('vi-VN')} · ${item.source_type}/${item.source_run_id} · ${item.status}`
+    label: `${new Date(item.created_at).toLocaleString('vi-VN')} · Camera/KDEF · ${item.source_run_id} · ${item.status}`
   }))
   const clusterOptions = (clusters.data ?? []).map(item => ({
     value: item.cluster_id,
@@ -514,9 +533,9 @@ function SequenceAnalysisPanel() {
     />
     <Card title="Tạo lần phân tích">
       <Form form={form} layout="vertical" initialValues={{ source_type: 'CAMERA', min_states: 3, min_cluster_size_abs: 2, min_cluster_ratio: 0.05, k_min: 2, asw_tolerance: 0.02, random_state: 42 }} onFinish={create.mutate}>
+        <Form.Item name="source_type" hidden><Input /></Form.Item>
         <Row gutter={16}>
-          <Col xs={24} md={6}><Form.Item name="source_type" label="Nguồn dữ liệu" rules={[{ required: true }]}><Select options={[{ value: 'CAMERA', label: 'Camera/KDEF' }, { value: 'SIMULATOR', label: 'Mô phỏng có kiểm soát' }]} /></Form.Item></Col>
-          <Col xs={24} md={10}><Form.Item name="source_run_id" label="Mã lần phát dữ liệu" rules={[{ required: true, message: 'Nhập mã lần phát dữ liệu' }]}><Input placeholder="Ví dụ: kdef-20261008-..." /></Form.Item></Col>
+          <Col xs={24} md={16}><Form.Item name="source_run_id" label="Mã lần phát dữ liệu Camera/KDEF" rules={[{ required: true, message: 'Nhập mã lần phát dữ liệu' }]}><Input placeholder="Ví dụ: KDEF-KAGGLE-20261012-LIVE" /></Form.Item></Col>
           <Col xs={12} md={4}><Form.Item name="k_max" label="K tối đa (tùy chọn)"><InputNumber min={2} className="full-width" /></Form.Item></Col>
           <Col xs={12} md={4}><Form.Item label=" "><Button block type="primary" htmlType="submit" loading={create.isPending}>Chạy phân tích</Button></Form.Item></Col>
         </Row>
@@ -532,7 +551,7 @@ function SequenceAnalysisPanel() {
         onChange={value => { setSelectedRunId(value); setClusterFilter(undefined) }}
       />
       {runs.isError && <Alert className="result-alert" type="error" showIcon message="Không tải được lịch sử phân tích" description={(runs.error as Error).message} />}
-      {!runs.isLoading && !runs.data?.length && <Empty description="Chưa có lần phân tích nào" />}
+      {!runs.isLoading && !cameraRuns.length && <Empty description="Chưa có lần phân tích Camera/KDEF nào" />}
     </Card>
     {run.isError && <Alert type="error" showIcon message="Không tải được kết quả" description={(run.error as Error).message} />}
     {run.data && <>

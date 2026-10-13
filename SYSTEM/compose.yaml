@@ -24,6 +24,7 @@ services:
     volumes:
       - ../COMPARE_FACE_DETECTION/vendor/Pytorch_Retinaface:/models/Pytorch_Retinaface:ro
       - ../COMPARE_FACE_DETECTION/weights/mobilenet0.25_Final.pth:/models/mobilenet0.25_Final.pth:ro
+      - ../TRAIN_DEEPFACE_EMOTION/artifacts/fer2013-emotion-finetune-001/models/deepface_emotion_finetuned.weights.h5:/models/deepface_emotion_finetuned.weights.h5:ro
       - ${HOME}/.deepface:/root/.deepface:ro
     ports:
       - "8001:8001"

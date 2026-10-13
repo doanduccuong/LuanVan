@@ -1,5 +1,17 @@
 # Trạng thái triển khai hệ thống
 
+## Kết quả mới nhất — 13/10/2026
+
+Đã dựng lại Docker, chạy toàn bộ luồng ảnh thật và chụp mới giao diện Chương 4–5.
+Run `KDEF-RANDOM-TIME-20261013-LIVE`: 100 ảnh hợp lệ, 97 ghép đúng, 3 không khớp,
+0 ghép chéo; 25 hành trình, 23 đủ điều kiện; K=3, ASW=0,345181.
+Giữ nguyên quy tắc ROC Chương 3; ngưỡng 0,664441. Dữ liệu camera lấy ngẫu nhiên
+nhãn rồi ảnh; khoảng cách giữa hai điểm chạm được lấy ngẫu nhiên từ 5 đến 15 phút.
+Kiểm thử: API 15/15; Vision và bộ lấy mẫu 12/12; build Docker/Web thành công.
+Xem [báo cáo lần chạy mới](artifacts/experiment-runs/KDEF-RANDOM-TIME-20261013-LIVE/README.md).
+
+## Hồ sơ lịch sử ngày 08/10/2026 (không phải trạng thái hiện tại)
+
 Cập nhật ngày 08/10/2026. Thành phần State Sequence Clustering đã được nối vào luồng hệ thống hiện có sau bước hình thành chuỗi của mỗi lần mua sắm; đây không phải phương pháp thay thế nhận diện khuôn mặt hay phân loại biểu cảm.
 
 ## 1. Thành phần đã triển khai

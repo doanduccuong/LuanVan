@@ -4,10 +4,12 @@ import { chromium } from '/Users/sotatek/.cache/codex-runtimes/codex-primary-run
 
 const projectRoot = '/Users/sotatek/Desktop/Do An'
 const runId = process.env.SOURCE_RUN_ID ?? 'KDEF-KAGGLE-20261008-LIVE'
+const updateReport = process.env.UPDATE_REPORT !== 'false'
 const outputDir = `${projectRoot}/SYSTEM/artifacts/experiment-runs/${runId}/screenshots`
 const screenshotPath = `${outputDir}/K05_system_runtime_status.png`
 const manifestPath = `${outputDir}/system_runtime_status.json`
 const reportPath = `${projectRoot}/BAO CAO/Hinhve/Chuong4/4_29_trang_thai_he_thong_docker.png`
+const chapter5ReportPath = `${projectRoot}/BAO CAO/Hinhve/Chuong5/5_27_trang_thai_he_thong.png`
 await mkdir(outputDir, { recursive: true })
 
 const rawCompose = execFileSync(
@@ -19,6 +21,7 @@ const containers = rawCompose
   .split('\n')
   .filter(Boolean)
   .map(line => JSON.parse(line))
+  .filter(item => item.Service !== 'simulator')
   .map(item => ({
     service: item.Service,
     name: item.Name,
@@ -28,12 +31,11 @@ const containers = rawCompose
     ports: item.Ports || '—',
     exitCode: item.ExitCode
   }))
-  .sort((a, b) => ['postgres', 'vision', 'migrate', 'api', 'simulator', 'web'].indexOf(a.service) - ['postgres', 'vision', 'migrate', 'api', 'simulator', 'web'].indexOf(b.service))
+  .sort((a, b) => ['postgres', 'vision', 'migrate', 'api', 'web'].indexOf(a.service) - ['postgres', 'vision', 'migrate', 'api', 'web'].indexOf(b.service))
 
 const endpointSpecs = [
   ['API', 'http://127.0.0.1:8000/health/ready'],
   ['Vision', 'http://127.0.0.1:8001/health/ready'],
-  ['Simulator', 'http://127.0.0.1:8002/health/ready'],
   ['Web', 'http://127.0.0.1:8080/']
 ]
 const endpoints = []
@@ -102,8 +104,9 @@ const page = await browser.newPage({ viewport: { width: 1700, height: 1050 }, de
 await page.setContent(html, { waitUntil: 'load' })
 await page.screenshot({ path: screenshotPath, fullPage: true })
 await browser.close()
-await copyFile(screenshotPath, reportPath)
-await writeFile(manifestPath, JSON.stringify({ capturedAt, runId, allRuntimeChecksPass, containers, endpoints, screenshotPath, reportPath }, null, 2), 'utf8')
+if (updateReport) await copyFile(screenshotPath, reportPath)
+if (updateReport) await copyFile(screenshotPath, chapter5ReportPath)
+await writeFile(manifestPath, JSON.stringify({ capturedAt, runId, allRuntimeChecksPass, containers, endpoints, screenshotPath, reportPath, chapter5ReportPath }, null, 2), 'utf8')
 
 if (!allRuntimeChecksPass) throw new Error('Có dịch vụ hoặc endpoint không hoạt động; xem system_runtime_status.json')
 console.log(`Đã lưu bằng chứng trạng thái hệ thống tại ${screenshotPath}`)

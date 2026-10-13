@@ -87,6 +87,13 @@ def main() -> None:
         ),
     }
     save_json(ARTIFACT_ROOT / "face-threshold.json", artifact)
+    run_root = ARTIFACT_ROOT / "experiment-runs" / manifest["experiment_run_id"]
+    save_json(run_root / "face-threshold.json", artifact)
+    save_json(run_root / "calibration-distances.json", {
+        "positive_distances": positives,
+        "negative_distances": negatives,
+        "scope": "Pairs share images and are not independent trials.",
+    })
     print(f"Đã tạo ngưỡng đối sánh cho thực nghiệm vận hành: {artifact['threshold']:.6f}")
 
 

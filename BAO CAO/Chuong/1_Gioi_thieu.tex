@@ -6,9 +6,6 @@
 
 Trong quá trình chuyển đổi số và phát triển bán lẻ đa nền tảng, khả năng thấu hiểu hành vi cũng như trải nghiệm khách hàng (Customer Experience -- CX) ngày càng có vai trò quan trọng đối với sự phát triển của doanh nghiệp. Để có thêm cơ sở đánh giá chất lượng phục vụ cũng như hiểu rõ hơn về khách hàng, doanh nghiệp cần thu thập các dấu hiệu quan sát và phản hồi của khách hàng tại những khu vực như cửa đón tiếp, khu vực chờ, quầy tư vấn, khu trưng bày sản phẩm và quầy thanh toán.
 
-\section{Các giải pháp hiện tại và hạn chế}
-\label{section:1.2}
-
 Tuy nhiên, các phương pháp khảo sát truyền thống đang bộc lộ nhiều hạn chế lớn:
 
 \begin{itemize}
@@ -24,7 +21,7 @@ Sự phát triển của trí tuệ nhân tạo (AI) và thị giác máy tính 
 Hạn chế của việc phân tích từng quan sát riêng lẻ đặt ra yêu cầu liên kết các kết quả phân loại biểu cảm theo khách hàng, lần mua sắm, khu vực và thứ tự thời gian để hình thành chuỗi trạng thái biểu cảm. Việc phân tích các chuỗi này cần bảo toàn cả thành phần và thứ tự xuất hiện của các nhãn, đồng thời cho phép truy vết kết quả về hồ sơ khách hàng và lịch sử mua hàng trong hệ thống CRM. Tuy nhiên, các kiểu diễn biến thu được chỉ mô tả những nhãn biểu cảm đã ghi nhận, không trực tiếp phản ánh hành vi hoặc mức độ hài lòng của khách hàng. Đây là khoảng trống mà định hướng giải pháp của luận văn tập trung giải quyết.
 
 \section{Mục tiêu và định hướng giải pháp}
-\label{section:1.3}
+\label{section:1.2}
 
 Mục tiêu tổng quát của luận văn là nghiên cứu, đề xuất và kiểm nghiệm một quy trình thu nhận, tổ chức và phân tích các nhãn biểu cảm khuôn mặt của khách hàng tại nhiều điểm chạm trong một lần mua sắm. Quy trình cần liên kết được kết quả xử lý ảnh với danh tính khách hàng, thời gian và khu vực quan sát; từ đó hình thành chuỗi trạng thái có thể thống kê, phân cụm và truy vết về dữ liệu nghiệp vụ trong hệ thống CRM. Kết quả hướng tới hỗ trợ người quản lý quan sát các kiểu diễn biến biểu cảm trong hành trình mua sắm, không thay thế khảo sát trực tiếp và không tự suy diễn mức độ hài lòng của khách hàng.
 
@@ -41,19 +38,19 @@ Mục tiêu tổng quát của luận văn là nghiên cứu, đề xuất và k
 \end{itemize}
 
 \section{Đóng góp của luận văn}
-\label{section:1.4}
+\label{section:1.3}
 
 Đóng góp về mặt phương pháp của luận văn thể hiện qua việc đề xuất một quy trình tổ chức và phân tích dữ liệu biểu cảm gắn với hành trình khách hàng tại nhiều điểm chạm. Luận văn xây dựng cơ chế chuyển kết quả xử lý ảnh thành các bản ghi quan sát có danh tính, thời gian và điểm chạm, sau đó liên kết các bản ghi theo từng lần mua sắm để hình thành chuỗi trạng thái biểu cảm. Quy trình xác định rõ điều kiện sử dụng nhãn, cách lựa chọn nhãn đại diện tại mỗi đoạn điểm chạm và nguyên tắc xử lý dữ liệu thiếu, quan sát trùng hoặc xung đột thời gian trước khi tạo chuỗi. Trên cơ sở dữ liệu đã được tổ chức, luận văn kết hợp thống kê tại điểm chạm với Optimal Matching, PAM và Average Silhouette Width để nhận diện các kiểu diễn biến có bảo toàn thứ tự. Kết quả phân tích không chỉ cung cấp mã cụm mà còn bao gồm chuỗi medoid, quy mô, tỷ lệ, silhouette và liên kết truy vết về lần mua sắm cùng các quan sát ban đầu. Đóng góp phương pháp cốt lõi nằm ở cách kết hợp các thành phần thành một quy trình nhất quán, có thể kiểm tra và truy vết, không phải ở việc đề xuất thuật toán mới thay thế các phương pháp đã sử dụng.
 
 Về mặt thực tiễn và kỹ thuật, luận văn đã thiết kế và xây dựng một hệ thống thử nghiệm tích hợp giao diện web, máy chủ nghiệp vụ, dịch vụ xử lý ảnh và cơ sở dữ liệu. Hệ thống cho phép quản lý khách hàng, mẫu khuôn mặt, điểm chạm, sản phẩm và đơn hàng; tiếp nhận dữ liệu ảnh; nhận dạng khách hàng; ghi nhận biểu cảm và hình thành các lần mua sắm. Đóng góp kỹ thuật chính nằm ở việc liên kết dữ liệu CRM với kết quả xử lý ảnh và mô-đun phân tích chuỗi, qua đó cung cấp các báo cáo về phân bố biểu cảm, sự thay đổi giữa các điểm chạm và kết quả phân cụm, đồng thời cho phép truy vết từ cụm về chuỗi, lần mua sắm và từng bản ghi quan sát. Hệ thống và quy trình đề xuất được kiểm nghiệm thông qua các thực nghiệm so sánh phương pháp phát hiện khuôn mặt, phân loại biểu cảm, dữ liệu chuỗi có cấu trúc biết trước và kịch bản xử lý đầu cuối từ ảnh đến kết quả phân cụm. Các kết quả này cung cấp bằng chứng về khả năng vận hành của giải pháp trong phạm vi dữ liệu và điều kiện thực nghiệm đã xác định.
 
 \section{Kết cấu của luận văn}
-\label{section:1.5}
+\label{section:1.4}
 
 Luận văn được tổ chức thành năm chương với các nội dung chính như sau:
 
 \begin{itemize}
-    \item \textbf{Chương 1 -- Giới thiệu luận văn:} Trình bày bối cảnh, các giải pháp hiện tại và hạn chế, mục tiêu, định hướng giải pháp, đóng góp và kết cấu của luận văn.
+    \item \textbf{Chương 1 -- Giới thiệu luận văn:} Trình bày bối cảnh, vấn đề nghiên cứu, hạn chế của các cách tiếp cận hiện tại, mục tiêu, định hướng giải pháp, đóng góp và kết cấu của luận văn.
 
     \item \textbf{Chương 2 -- Nền tảng lý thuyết và công nghệ:} Trình bày cơ sở lý thuyết về phát hiện khuôn mặt, nhận dạng biểu cảm, nhận dạng khách hàng và phân tích hành trình tại nhiều điểm chạm; đồng thời giới thiệu các công nghệ được sử dụng trong hệ thống.
 

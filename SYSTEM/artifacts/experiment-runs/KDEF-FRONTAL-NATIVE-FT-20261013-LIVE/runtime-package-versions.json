@@ -1,0 +1,11 @@
+{
+  "deepface": "0.0.102",
+  "tensorflow": "2.21.0",
+  "tf-keras": "2.21.0",
+  "numpy": "1.26.4",
+  "opencv-python-headless": "4.11.0.86",
+  "torch": "2.2.2",
+  "torchvision": "0.17.2",
+  "Pillow": "11.3.0",
+  "h5py": "3.14.0"
+}

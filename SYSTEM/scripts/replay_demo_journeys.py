@@ -34,6 +34,7 @@ def main(scenario: str, speed: float, minimum_pass_rate: float) -> None:
                     time.sleep(max(0, (observed_at - previous_time).total_seconds() / speed))
                 previous_time = observed_at
                 image_path = DATASET_ROOT / row["image_path"]
+                started = time.perf_counter()
                 with image_path.open("rb") as handle:
                     response = client.post(
                         "/observations",
@@ -45,6 +46,7 @@ def main(scenario: str, speed: float, minimum_pass_rate: float) -> None:
                             "demo_data": "true",
                         },
                         files={"image": (image_path.name, handle, "image/jpeg")},
+                        timeout=120,
                     )
                 payload = response.json()
                 observations = payload.get("observations", [])
@@ -72,7 +74,9 @@ def main(scenario: str, speed: float, minimum_pass_rate: float) -> None:
                 record = {
                     "scenario_id": row["scenario_id"],
                     "experiment_run_id": experiment_run_id,
-                    "archetype_id": row.get("archetype_id"),
+                    "sampling_protocol": row.get("sampling_protocol"),
+                    "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
+                    "response": payload,
                     "event_id": row["event_id"],
                     "source_subject_id": row["source_subject_id"],
                     "expected_image_status": expected_image,

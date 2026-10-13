@@ -1,6 +1,8 @@
 \documentclass[../LuanVan.tex]{subfiles}
 \begin{document}
 
+Chương này trình bày quá trình đánh giá giải pháp ở cấp thành phần và cấp hệ thống. Hai thực nghiệm đầu so sánh các phương pháp phát hiện khuôn mặt và phân loại biểu cảm trên các bộ dữ liệu có nhãn chuẩn. Sau đó, toàn bộ hệ thống được triển khai, chạy lại với dữ liệu camera thử nghiệm xây dựng từ KDEF và đánh giá theo luồng từ ảnh đầu vào đến kết quả phân cụm có khả năng truy vết. Cách tổ chức này tách kết quả của từng mô hình khỏi kết quả vận hành của hệ thống, tránh sử dụng một chỉ số đơn lẻ để đại diện cho toàn bộ giải pháp.
+
 \section{Thực nghiệm so sánh các phương pháp phát hiện khuôn mặt}
 \label{section:5.1}
 
@@ -255,336 +257,253 @@ FER-2013 gồm các ảnh khuôn mặt đã được cắt sẵn, có độ phâ
 
 Mỗi cấu hình chỉ được đo bằng một lần chạy đầy đủ; vì vậy, kết quả chưa phản ánh độ biến thiên qua nhiều lần khởi tạo và huấn luyện. Mô hình sau tinh chỉnh mới được huấn luyện với một bộ siêu tham số và một giá trị khởi tạo ngẫu nhiên cố định. Ngoài ra, quyết định chọn cấu hình dựa trên nhiều tiêu chí phụ thuộc vào mục tiêu triển khai; Accuracy cao hơn không tự động đồng nghĩa chất lượng tốt hơn ở mọi lớp, còn Macro-F1 cao hơn cũng không tự động đồng nghĩa mô hình dự đoán đúng nhiều ảnh hơn. Các kết quả tại mục này được dùng để mô tả sự đánh đổi giữa ba cấu hình trong phạm vi FER-2013; trước khi thay đổi mô hình của hệ thống, cần kiểm tra tiếp trên dữ liệu camera phù hợp với môi trường mục tiêu.
 
-\section{Thực nghiệm phân cụm chuỗi trạng thái}
+\clearpage
+\section{Thiết kế thực nghiệm đánh giá hệ thống đầu cuối}
 \label{section:5.3}
 
-\subsection{Mục tiêu và câu hỏi thực nghiệm}
+\subsection{Dữ liệu và khởi tạo hồ sơ khách hàng}
 \label{subsection:5.3.1}
 
-Thực nghiệm này đánh giá thành phần phân tích chuỗi được thêm vào luồng hiện có sau bước nhận dạng và phân loại biểu cảm. Thành phần này nhận chuỗi nhãn của một lần mua sắm, được sắp theo thời gian và điểm chạm; các phương pháp nhận diện ảnh ở phía trước không bị thay thế. Đầu ra cần kiểm tra gồm: ma trận khoảng cách giữa các chuỗi, số cụm được chọn, chuỗi đại diện (medoid) của từng cụm, cụm được gán cho từng lần mua sắm và khả năng truy vết kết quả về các quan sát ban đầu. Phân cụm chuỗi trạng thái là một bài toán không giám sát; vì vậy, đầu ra không phải nhãn ``hài lòng/không hài lòng'' nếu chưa có dữ liệu khảo sát hoặc nhãn nghiệp vụ dùng để kiểm chứng.
+Dữ liệu ảnh để xây dựng hồ sơ khách hàng được lấy từ bản KDEF trên Kaggle \cite{chenrich2024kdefkaggle}, gồm 2.938 ảnh thuộc bảy nhãn biểu cảm: \textit{Angry}, \textit{Disgust}, \textit{Fear}, \textit{Happy}, \textit{Neutral}, \textit{Sad} và \textit{Surprise}. Từ các nhóm ảnh có đủ bảy nhãn, luận văn lựa chọn ngẫu nhiên năm nhóm để xây dựng năm khách hàng thực nghiệm; mỗi nhóm được gắn với một hồ sơ riêng.
 
-Thực nghiệm trả lời ba câu hỏi:
+Mỗi hồ sơ gồm mã khách hàng duy nhất, tên, số điện thoại, địa chỉ thư điện tử và ảnh đại diện. Các thông tin dạng văn bản được tạo giả lập. Trong mỗi nhóm, ba ảnh của từng nhãn được xếp hạng theo mức độ gần chính diện bằng bộ phát hiện Haar. Ảnh \textit{Neutral} xếp thứ hai được dùng để tạo mẫu khuôn mặt và đồng thời làm ảnh đại diện của hồ sơ; cách lựa chọn này dành ảnh gần chính diện nhất cho dữ liệu camera. Ảnh tạo mẫu được tách riêng khỏi ảnh hiệu chỉnh và ảnh quan sát.
 
-\begin{enumerate}
-    \item Quy trình Optimal Matching--PAM có tách được các mẫu diễn biến đã biết trước trong dữ liệu kiểm soát hay không?
-    \item Thứ tự trạng thái có cung cấp thông tin mà cách chỉ đếm tỷ lệ trạng thái làm mất hay không?
-    \item Kết quả lưu trong cơ sở dữ liệu và hiển thị trên giao diện có truy vết được về đúng lần mua sắm cùng bốn quan sát gốc hay không?
-\end{enumerate}
-
-Cách đánh giá này phù hợp với khuyến nghị xem phân tích chuỗi phân loại như một quy trình gồm biểu diễn chuỗi, xác định độ khác biệt và phân nhóm \cite{khalifa2026categorical}. Optimal Matching được dùng vì mục tiêu là so sánh thứ tự toàn bộ chuỗi; PAM nhận ma trận khoảng cách làm đầu vào và chọn một quan sát thật làm đại diện cho mỗi cụm \cite{studer2016sequence,kaufman1990pam}. Average Silhouette Width (ASW) được dùng để so sánh các phương án $K$ hợp lệ, theo định nghĩa của Rousseeuw \cite{rousseeuw1987silhouettes}.
-
-\subsection{Thiết kế dữ liệu kiểm soát}
-\label{subsection:5.3.2}
-
-Dữ liệu được tạo qua chính giao diện lập trình mô phỏng của hệ thống, với mã lần chạy \path{SIM-CONTROLLED-20261008-LIVE} và hạt giống ngẫu nhiên 20261008. Hai mươi lăm hồ sơ khách hàng được sử dụng; mỗi khách hàng có năm lần mua sắm và mỗi lần mua sắm có bốn điểm chạm cách nhau năm phút. Tổng cộng có 125 lần mua sắm và 500 quan sát. Nhãn biểu cảm trong lớp thực nghiệm này được gán trước để tạo dữ liệu đối chứng, không phải dự đoán từ ảnh và không được dùng để đánh giá độ chính xác của mô hình biểu cảm.
-
-Năm mẫu chuỗi được trình bày tại Bảng~\ref{tab:controlled_sequences_ch5}. Mỗi mẫu xuất hiện 25 lần. Hai mẫu số 3 và số 5 có cùng tỷ lệ trạng thái gồm một \textit{Neutral}, một \textit{Surprise} và hai \textit{Happy}, nhưng khác thứ tự. Cặp này được thiết kế có chủ đích để kiểm tra xem phương pháp có giữ thông tin trình tự hay chỉ sử dụng tần suất.
-
-\begin{table}[H]
-    \centering
-    \caption{Năm mẫu chuỗi trong dữ liệu kiểm soát}
-    \label{tab:controlled_sequences_ch5}
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|c|l|r|}
-        \hline
-        \textbf{Mẫu} & \textbf{Chuỗi tại bốn điểm chạm} & \textbf{Số lần mua sắm} \\
-        \hline
-        1 & Neutral $\rightarrow$ Neutral $\rightarrow$ Neutral $\rightarrow$ Neutral & 25 \\
-        \hline
-        2 & Happy $\rightarrow$ Happy $\rightarrow$ Happy $\rightarrow$ Happy & 25 \\
-        \hline
-        3 & Neutral $\rightarrow$ Surprise $\rightarrow$ Happy $\rightarrow$ Happy & 25 \\
-        \hline
-        4 & Neutral $\rightarrow$ Sad $\rightarrow$ Angry $\rightarrow$ Angry & 25 \\
-        \hline
-        5 & Happy $\rightarrow$ Neutral $\rightarrow$ Surprise $\rightarrow$ Happy & 25 \\
-        \hline
-    \end{tabular}}
-\end{table}
-
-Mỗi quan sát được gửi với mã sự kiện, mã lần chạy, khách hàng, điểm chạm, thời gian, nhãn và độ tin cậy. Máy chủ tự hình thành lần mua sắm theo khoảng cách thời gian giữa các quan sát; khi quan sát của hành trình tiếp theo vượt quá ngưỡng thời gian chờ, lần mua sắm trước được kết thúc và một lần mới được tạo. Trước phân tích, các quan sát được sắp theo thời gian; nhiều khung liên tiếp tại cùng một điểm chạm được gộp bằng nhãn xuất hiện nhiều nhất, còn cùng một nhãn xuất hiện ở hai điểm chạm khác nhau vẫn được giữ thành hai phần tử. Run chỉ nhận chuỗi đủ bốn trạng thái.
-
-\subsection{Phương pháp và dữ liệu đối sánh}
-\label{subsection:5.3.3}
-
-Phương pháp chính sử dụng Sequenzo 0.1.42 \cite{sequenzo2026}. Optimal Matching được cấu hình với chi phí thay thế bằng 0 cho hai nhãn giống nhau, bằng 2 cho hai nhãn khác nhau và chi phí chèn hoặc xóa bằng 1. Thư viện trả về ma trận vuông $125\times125$, trong đó phần tử $(i,j)$ là chi phí nhỏ nhất để căn chỉnh chuỗi $i$ và chuỗi $j$. Chuỗi không bị sửa hoặc thay bằng một chuỗi mới; PAM sử dụng trực tiếp ma trận khoảng cách này.
-
-PAM được chạy với $K$ từ 2 đến giới hạn do ba điều kiện quyết định: $K<N$, mỗi cụm có ít nhất
-
-\begin{equation}
-    n_{\min}=\max\left(5,\left\lceil0{,}05N\right\rceil\right)
-    \label{eq:experiment_nmin_ch5}
-\end{equation}
-
-phần tử, và $K$ không vượt số chuỗi phân biệt. Với $N=125$, $n_{\min}=7$ và dữ liệu có năm chuỗi phân biệt nên các giá trị được xét là $K=2,3,4,5$. Phương án không đạt kích thước cụm tối thiểu bị loại; trong các phương án còn lại, hệ thống chọn $K$ nhỏ nhất nằm trong 0,02 điểm so với ASW lớn nhất. Quy tắc dung sai tránh tăng số cụm chỉ vì một chênh lệch ASW rất nhỏ và được lưu như tham số thực nghiệm, không được trình bày như một hằng số lý thuyết.
-
-Để kiểm tra giá trị của thông tin thứ tự, phương pháp đối sánh biểu diễn mỗi chuỗi bằng véc-tơ tỷ lệ của bảy trạng thái, tính khoảng cách Euclid và áp dụng cùng PAM, cùng ngưỡng kích thước cụm và cùng quy tắc chọn $K$. Vì hai mẫu số 3 và số 5 có cùng véc-tơ tỷ lệ, phương pháp này không thể phân biệt chúng. Nhãn mẫu đã biết trước chỉ được dùng sau phân cụm để tính Adjusted Rand Index (ARI) và Normalized Mutual Information (NMI); thuật toán không nhận các nhãn này khi học cụm.
-
-Toàn bộ ma trận Optimal Matching được lưu ở dạng NumPy và tính SHA-256 trên dãy số thực 64 bit little-endian. Máy chủ lưu cùng giá trị băm trong bản ghi run; chương trình thực nghiệm tính lại độc lập và chỉ chấp nhận kết quả khi hai giá trị trùng nhau. Các tệp \path{manifest.json}, \path{assignments.csv}, \path{om_k_candidates.csv}, \path{method_comparison.csv} và ma trận khoảng cách được lưu dưới thư mục artefact của mã lần chạy.
-
-\subsection{Kết quả thực nghiệm}
-\label{subsection:5.3.4}
-
-Run phân tích có mã \path{4d64362a-1119-423c-b343-f73e7e5785de}. Hệ thống nhận 125 lần mua sắm, sử dụng đủ 125 chuỗi và không loại chuỗi nào. Kết quả so sánh được trình bày tại Bảng~\ref{tab:sequence_method_comparison_ch5}.
-
-\begin{table}[H]
-    \centering
-    \caption{Kết quả phân cụm trên dữ liệu chuỗi kiểm soát}
-    \label{tab:sequence_method_comparison_ch5}
-    \begin{tabular}{|l|c|c|c|c|}
-        \hline
-        \textbf{Phương pháp} & \textbf{$K$} & \textbf{ASW} & \textbf{ARI} & \textbf{NMI} \\
-        \hline
-        Optimal Matching + PAM & 5 & 1,000 & 1,000 & 1,000 \\
-        \hline
-        Tỷ lệ trạng thái + Euclid + PAM & 4 & 1,000 & 0,777 & 0,906 \\
-        \hline
-    \end{tabular}
-\end{table}
-
-Optimal Matching--PAM khôi phục đúng năm mẫu; mỗi cụm có 25 chuỗi, medoid trùng với một trong năm chuỗi đã tạo và mọi quan sát có silhouette bằng 1. Phương pháp tỷ lệ trạng thái chỉ tạo bốn cụm vì gộp mẫu số 3 và số 5. ASW của phương pháp đối sánh vẫn bằng 1 trong không gian véc-tơ của chính nó: sau khi hai mẫu cùng tỷ lệ trở thành các điểm trùng nhau, bốn nhóm còn lại vẫn tách rời hoàn toàn. Vì vậy, ASW chỉ đánh giá độ tách cụm theo biểu diễn đã chọn, không chứng minh rằng biểu diễn đó giữ đủ thông tin nghiệp vụ. ARI và NMI thấp hơn cho thấy kết quả không còn khớp hoàn toàn với năm mẫu đối chứng.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.78\textwidth]{Hinhve/Chuong5/5_16_so_sanh_asw.png}
-    \caption{ASW theo số cụm của hai cách biểu diễn chuỗi}
-    \label{fig:sequence_asw_comparison_ch5}
-\end{figure}
-
-Hình~\ref{fig:sequence_asw_comparison_ch5} cho thấy quá trình chọn $K$, còn Hình~\ref{fig:sequence_distance_matrix_ch5} biểu diễn ma trận khoảng cách Optimal Matching sau khi sắp các chuỗi theo cụm. Năm khối trên đường chéo là năm nhóm có khoảng cách nội cụm bằng 0; màu giữa các khối thể hiện khoảng cách khác 0 giữa các mẫu chuỗi.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.72\textwidth]{Hinhve/Chuong5/5_17_ma_tran_khoang_cach_om.png}
-    \caption{Ma trận khoảng cách Optimal Matching sắp theo cụm}
-    \label{fig:sequence_distance_matrix_ch5}
-\end{figure}
-
-\subsection{Bằng chứng vận hành và khả năng truy vết}
-\label{subsection:5.3.5}
-
-Ngoài tệp kết quả, giao diện của hệ thống đang chạy được chụp tự động bằng trình duyệt sau khi kịch bản kiểm tra xác nhận đúng mã nguồn dữ liệu, trạng thái \texttt{COMPLETED}, 125 chuỗi và $K=5$. Hình~\ref{fig:sequence_overview_ch5} thể hiện run đã lưu cùng đường ASW và bảng các phương án $K$. Hình~\ref{fig:sequence_medoids_ch5} hiển thị năm cụm, kích thước và chuỗi medoid; đây là các bản ghi thực được đọc từ giao diện lập trình, không phải hình dựng lại từ số liệu nhập tay.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_12_tong_quan_phan_cum_chuoi.png}
-    \caption{Run phân cụm chuỗi và kết quả chọn số cụm trên giao diện}
-    \label{fig:sequence_overview_ch5}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_13_cum_va_medoid.png}
-    \caption{Các cụm và chuỗi medoid trên giao diện hệ thống}
-    \label{fig:sequence_medoids_ch5}
-\end{figure}
-
-Hình~\ref{fig:sequence_assignments_ch5} trình bày danh sách gán cụm ở cấp lần mua sắm. Mỗi hàng gồm mã khách hàng, chuỗi, silhouette, khoảng cách tới medoid và nút truy vết. Khi chọn một hàng, hệ thống mở đúng lần mua sắm và hiển thị bốn quan sát theo thời gian như Hình~\ref{fig:sequence_trace_ch5}. Tệp \path{capture_manifest.json} lưu mã run phân tích, mã lần mua sắm được mở, số quan sát và tên từng ảnh chụp để đối chiếu ảnh với dữ liệu nguồn.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_14_danh_sach_gan_cum.png}
-    \caption{Danh sách lần mua sắm được gán vào từng cụm}
-    \label{fig:sequence_assignments_ch5}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_15_truy_vet_cum_ve_hanh_trinh.png}
-    \caption{Truy vết một kết quả phân cụm về bốn quan sát của lần mua sắm}
-    \label{fig:sequence_trace_ch5}
-\end{figure}
-
-\subsection{Ý nghĩa và giới hạn}
-\label{subsection:5.3.6}
-
-Đầu ra cuối cùng của phương pháp là một tập kiểu diễn biến quan sát được trong dữ liệu: mỗi kiểu có medoid để đọc, số lượng và tỷ lệ, còn mỗi lần mua sắm có một mã cụm cùng độ phù hợp. Kết quả có thể dùng để mô tả các hành trình thường gặp, tìm các hành trình hiếm, so sánh phân bố kiểu hành trình theo thời gian hoặc liên kết với đơn hàng và khảo sát trong một nghiên cứu tiếp theo. Việc mẫu số 3 và số 5 chỉ được tách bởi Optimal Matching chứng minh trong dữ liệu kiểm soát rằng thứ tự là thông tin có giá trị mà thống kê tỷ lệ làm mất.
-
-Tuy nhiên, năm mẫu được tạo hoàn toàn tách biệt và lặp lại nguyên vẹn nên ASW, ARI và NMI của phương pháp chính đạt 1 là kết quả mong đợi của một kiểm tra có đối chứng, không phải bằng chứng rằng dữ liệu cửa hàng thật sẽ phân thành năm cụm rõ ràng. Tên cụm do người phân tích đặt sau khi xem medoid chỉ là mô tả mẫu chuỗi, không phải nhãn tâm lý. Không có nhãn khảo sát CSAT, hành vi mua hoặc kết quả nghiệp vụ trong thực nghiệm này; do đó không được đổi tên cụm thành ``hài lòng'', ``không hài lòng'' hoặc suy ra quan hệ nhân quả.
-
-\section{Kịch bản kiểm nghiệm đầu cuối bằng KDEF}
-\label{section:5.4}
-
-\subsection{Mục tiêu và cách xây dựng dữ liệu}
-\label{subsection:5.4.1}
-
-Kịch bản đầu cuối được thiết kế để kiểm tra đúng luồng: ảnh đăng ký $\rightarrow$ dữ liệu camera tại nhiều điểm chạm $\rightarrow$ RetinaFace $\rightarrow$ ArcFace $\rightarrow$ DeepFace $\rightarrow$ quan sát $\rightarrow$ lần mua sắm $\rightarrow$ phân cụm chuỗi. Do phạm vi đề tài chưa có đủ camera và hạ tầng thu nhận đồng bộ tại nhiều điểm chạm, thực nghiệm không sử dụng luồng hình ảnh được ghi trực tiếp từ hệ thống camera vật lý. Thay vào đó, các ảnh được phát lại theo lịch định trước, gắn với điểm chạm và thời gian tương ứng để mô phỏng dữ liệu camera gửi vào hệ thống. Cách tổ chức này cho phép kiểm tra luồng xử lý phần mềm từ giao diện tiếp nhận ảnh trở đi, nhưng không đánh giá chất lượng thiết bị camera, đường truyền hoặc khả năng vận hành liên tục trong cửa hàng thực tế.
-
-KDEF gốc gồm 70 người và 4.900 ảnh được chụp ở bảy biểu cảm, năm góc nhìn và hai phiên \cite{lundqvist1998kdef}. Tuy nhiên, nguồn tệp thực tế của demo là bản phân phối đã xử lý trên Kaggle \cite{chenrich2024kdefkaggle}, gồm 2.938 ảnh trong bảy thư mục nhãn và 140 mã nhóm nguồn dạng số. Bản này không giữ tên tệp, mã phiên và mã góc chụp của KDEF gốc; do đó báo cáo không diễn giải 140 mã nhóm là 140 người KDEF độc lập và không tuyên bố đã sử dụng đủ 4.900 ảnh. Việc sử dụng ảnh vẫn được giới hạn trong demo nghiên cứu cục bộ và tuân thủ điều khoản công bố của KDEF \cite{kdefTerms}.
-
-Lần chạy đầu cuối mang mã \path{KDEF-KAGGLE-20261008-LIVE}. Từ 140 mã nhóm có đủ bảy thư mục nhãn, chương trình chọn cố định năm mã \path{KG011}, \path{KG039}, \path{KG061}, \path{KG074} và \path{KG112} bằng seed 20261008. Số lượng năm nhóm được chọn để tái hiện rõ luồng hệ thống, không nhằm ước lượng hiệu năng trên quần thể KDEF. Với mỗi nhóm, một ảnh \textit{Neutral} được dùng làm ảnh đăng ký; 35 ảnh khác, tương ứng bảy nhãn cho mỗi nhóm, được dành riêng để hiệu chỉnh ngưỡng định danh và không xuất hiện trong phần phát lại. Các ảnh còn lại tạo năm lượt mua sắm cho mỗi hồ sơ, mỗi lượt gồm bốn điểm chạm cách nhau năm phút. Tổng đầu vào là năm hồ sơ, 25 lượt và 100 khung dữ liệu camera mô phỏng.
-
-Nhãn thư mục Kaggle chỉ được dùng để chọn ảnh và đánh giá sau khi xử lý. Khi gửi ảnh, chương trình không truyền nhãn mong đợi cho dịch vụ thị giác; nhãn của chuỗi được đọc từ trường \texttt{expression\_label} do DeepFace trả về. Mỗi ảnh được phát lại qua giao diện \texttt{POST /api/v1/observations} với loại nguồn \texttt{CAMERA}, giống dữ liệu mà nguồn camera cung cấp cho máy chủ nghiệp vụ. Giá trị \texttt{CAMERA} mô tả kênh tiếp nhận của hệ thống, không có nghĩa ảnh được thu trực tiếp từ camera vật lý trong thực nghiệm này. Tệp kê khai lưu tên tệp nguồn, hàm băm SHA-256, ảnh đăng ký, ảnh hiệu chỉnh, ảnh quan sát và thời gian phát.
+Sau khi tạo hồ sơ, ảnh được đưa qua luồng tạo mẫu khuôn mặt của hệ thống. RetinaFace phát hiện khuôn mặt, ArcFace trích xuất véc-tơ đặc trưng và hệ thống lưu mẫu khuôn mặt gắn với mã khách hàng tương ứng. Kết quả khởi tạo gồm năm hồ sơ, mỗi hồ sơ có một mẫu khuôn mặt để đối sánh với ảnh camera ở các bước tiếp theo. Hình~\ref{fig:kdef_customer_list_ch5} thể hiện danh sách hồ sơ đã tạo trên giao diện, gồm ảnh đại diện, mã khách hàng, tên và số điện thoại.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_16_du_lieu_khach_kdef.png}
-    \caption{Năm hồ sơ khách hàng và ảnh KDEF đăng ký trên hệ thống đang chạy}
+    \caption{Danh sách năm hồ sơ khách hàng sau khi khởi tạo từ ảnh KDEF}
     \label{fig:kdef_customer_list_ch5}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_17_ho_so_khach_kdef.png}
-    \caption{Hồ sơ khách hàng sử dụng ảnh đăng ký KDEF}
-    \label{fig:kdef_customer_profile_ch5}
-\end{figure}
+\subsection{Nguyên tắc xây dựng dữ liệu camera thử nghiệm}
+\label{subsection:5.3.2}
 
-\subsection{Kết quả xử lý ảnh và liên kết hành trình}
-\label{subsection:5.4.2}
+\textbf{Tách dữ liệu theo mục đích.} Với mỗi khách hàng và mỗi nhãn biểu cảm, luận văn dành ảnh có mức độ gần chính diện cao nhất cho dữ liệu camera. Một ảnh \textit{Neutral} khác được dùng để tạo mẫu khuôn mặt của hồ sơ. Trong phần ảnh còn lại, mỗi nhãn được lấy một ảnh để hiệu chỉnh ngưỡng ArcFace, tạo thành bảy ảnh hiệu chỉnh cho mỗi khách hàng. Ba nhóm ảnh dùng để tạo mẫu, hiệu chỉnh và làm đầu vào camera được tách riêng, không dùng chung ảnh.
 
-Ngưỡng khoảng cách ArcFace được xác định trên 35 ảnh hiệu chỉnh dành riêng bằng phương pháp lựa chọn điểm vận hành trên đường cong ROC. Tập hiệu chỉnh tạo 105 cặp ảnh của cùng một người và 490 cặp ảnh của hai người khác nhau. Mỗi khoảng cách quan sát được được dùng làm một ngưỡng ứng viên để tính tỷ lệ nhận đúng và tỷ lệ nhận nhầm. Với tỷ lệ nhận nhầm mục tiêu bằng 0, điểm có tỷ lệ nhận đúng cao nhất cho ngưỡng 0,6393; tỷ lệ nhận đúng trên tập hiệu chỉnh là 0,9048 và tỷ lệ nhận nhầm là 0.
+\textbf{Tạo hành trình mua sắm.} Mỗi khách hàng được xây dựng năm hành trình. Một hành trình gồm bốn điểm chạm theo thứ tự Cửa vào--Khu trưng bày--Khu tư vấn--Quầy thanh toán. Với năm khách hàng, bộ dữ liệu dự kiến gồm 25 hành trình và 100 khung ảnh camera.
 
-Toàn bộ 100 khung được RetinaFace phát hiện là ảnh hợp lệ và DeepFace trả một nhãn biểu cảm. ArcFace ghép đúng 96 khung với hồ sơ dự kiến, bốn khung trả \texttt{NO\_MATCH} và không có khung nào bị ghép sang khách hàng khác. Bảng~\ref{tab:kdef_identity_result_ch5} và Hình~\ref{fig:kdef_identity_result_ch5} trình bày trực tiếp các số đếm này.
+\textbf{Lựa chọn ảnh ngẫu nhiên.} Tại mỗi điểm chạm, luận văn lựa chọn ngẫu nhiên một trong bảy nhãn biểu cảm, sau đó lấy ảnh camera gần chính diện đã dành cho nhãn đó của khách hàng tương ứng. Ảnh đã chọn vẫn có thể được dùng lại ở điểm chạm khác. Bộ sinh số ngẫu nhiên sử dụng một giá trị khởi tạo cố định để có thể tái lập bộ dữ liệu. Vì vậy, chuỗi biểu cảm của hành trình, số cụm và chuỗi đại diện không được sắp xếp trước.
+
+\textbf{Giữ nguyên ảnh nguồn.} Ảnh camera được gửi ở độ phân giải nguồn $562\times762$ pixel, không đặt vào khung nền, không thay đổi kích thước và không điều chỉnh độ sáng. Lựa chọn này loại bỏ ảnh hưởng của phép biến đổi hình học khi đánh giá khả năng xử lý ảnh của hệ thống.
+
+\textbf{Gán thời gian quan sát.} Mỗi hành trình được gán một thời điểm bắt đầu. Khoảng thời gian từ một điểm chạm đến điểm chạm kế tiếp được lựa chọn ngẫu nhiên trong khoảng từ 5 đến 15 phút để biểu diễn thời gian di chuyển của khách hàng. Chẳng hạn, nếu camera tại Cửa vào ghi nhận khách hàng lúc 09:30 thì camera tại Khu trưng bày có thể ghi nhận trong khoảng từ 09:35 đến 09:45; thời điểm của các camera sau tiếp tục được xác định từ thời điểm quan sát liền trước. Năm hành trình của cùng một khách hàng được đặt ở năm ngày liên tiếp. Khoảng 5--15 phút nhỏ hơn ngưỡng gián đoạn tối đa 30 phút đã xác định ở Chương~3, do đó bốn quan sát liên tiếp vẫn được hệ thống liên kết vào cùng một hành trình. Các mốc này là thời gian quan sát được gán cho dữ liệu, không phải thời gian chương trình phải chờ giữa hai lần gửi ảnh.
+
+\textbf{Đưa ảnh vào hệ thống.} Các ảnh được gửi theo thứ tự điểm chạm qua giao diện tiếp nhận mà nguồn camera sử dụng. Nhãn gốc của KDEF không được gửi vào hệ thống. Từ ảnh đầu vào, hệ thống thực hiện phát hiện khuôn mặt, ghép định danh, dự đoán biểu cảm, lưu quan sát và hình thành hành trình cùng chuỗi trạng thái. Nhãn KDEF chỉ được giữ bên ngoài hệ thống để đối chiếu với kết quả sau khi quá trình xử lý kết thúc.
+
+\section{Triển khai và kết quả thực nghiệm đầu cuối}
+\label{section:5.4}
+
+\subsection{Môi trường và trình tự thực hiện}
+\label{subsection:5.4.1}
+
+Hệ thống được dựng lại bằng Docker Compose trên máy MacBook Pro sử dụng bộ xử lý Apple M4 Pro với 12 lõi CPU và 24 GB bộ nhớ. Các thành phần thuộc phạm vi đánh giá gồm PostgreSQL/pgvector, dịch vụ xử lý ảnh, tiến trình cập nhật cấu trúc cơ sở dữ liệu (migration), máy chủ nghiệp vụ và giao diện web. Dịch vụ xử lý ảnh sử dụng trọng số CNN Emotion sau tinh chỉnh đã đánh giá tại Mục~\ref{subsection:5.2.5}. Nguồn ảnh camera được biểu diễn bởi chương trình phát dữ liệu bên ngoài hệ thống; thành phần này chỉ gọi giao diện tiếp nhận ảnh và không thay thế logic xử lý của các dịch vụ. Do ảnh được phát lại từ bộ dữ liệu thay vì thu đồng thời từ bốn camera vật lý, thực nghiệm kiểm tra luồng phần mềm, không đánh giá thiết bị camera, đường truyền thời gian thực hoặc khả năng vận hành liên tục tại cửa hàng.
 
 \begin{table}[H]
     \centering
-    \caption{Kết quả xử lý 100 khung dữ liệu camera mô phỏng từ KDEF}
+    \caption{Môi trường triển khai tại thời điểm thực nghiệm đầu cuối}
+    \label{tab:deployment_environment_ch5}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Thành phần} & \textbf{Nền tảng} & \textbf{Cổng} & \textbf{Trạng thái} \\
+        \hline
+        Cơ sở dữ liệu & PostgreSQL 16, pgvector & 5432 & Hoạt động, health check đạt \\
+        \hline
+        Dịch vụ xử lý ảnh & FastAPI, RetinaFace, ArcFace, DeepFace & 8001 & Hoạt động, health check đạt \\
+        \hline
+        Máy chủ nghiệp vụ & FastAPI, SQLAlchemy, Sequenzo & 8000 & Hoạt động, HTTP 200 \\
+        \hline
+        Giao diện web & React, Nginx & 8080 & Hoạt động, HTTP 200 \\
+        \hline
+    \end{tabular}}
+\end{table}
+
+Trước khi phát dữ liệu, cơ sở dữ liệu cũ được sao lưu, các bản ghi mang cờ dữ liệu thử nghiệm được xóa và dữ liệu CRM được nạp lại. Ngoài năm hồ sơ khách hàng, hệ thống được khởi tạo với sáu nhóm sản phẩm, 24 sản phẩm và bốn điểm chạm gồm Cửa vào, Khu trưng bày sản phẩm, Khu tư vấn và Quầy thanh toán. Kịch bản không tạo đơn hàng. Năm ảnh được xử lý để tạo mẫu khuôn mặt. Tiếp theo, 35 ảnh tách riêng được dùng để hiệu chỉnh ngưỡng ArcFace; 100 ảnh quan sát được gửi theo lịch đã tạo; hệ thống liên kết quan sát thành lần mua sắm và tạo chuỗi dự đoán; cuối cùng, Optimal Matching--PAM được chạy trên các chuỗi đủ điều kiện. Trước khi chụp lại màn hình, kết quả được kiểm tra về số lượng bản ghi, thứ tự điểm chạm, liên kết khách hàng và sự thống nhất giữa hành trình với chuỗi phân tích. Các phản hồi API, khoảng cách hiệu chỉnh, kết quả phân tích và ảnh chụp được lưu cùng mã lần chạy để đối chiếu.
+
+Hình~\ref{fig:system_runtime_status_ch5} ghi lại trạng thái các thành phần được đánh giá và các điểm kiểm tra HTTP. Ngoài kiểm tra khi chạy, 15 kiểm thử máy chủ nghiệp vụ và 14 kiểm thử dịch vụ xử lý ảnh, trong đó có các kiểm thử bộ lấy mẫu và tách dữ liệu camera, đều đạt; giao diện web biên dịch thành công bằng TypeScript và Vite. Toàn bộ 100 ảnh sau đó được phát qua các dịch vụ Docker để lấy kết quả thực nghiệm đầu cuối.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_27_trang_thai_he_thong.png}
+    \caption{Trạng thái các thành phần của hệ thống tại thời điểm thực nghiệm}
+    \label{fig:system_runtime_status_ch5}
+\end{figure}
+
+\subsection{Kết quả tiếp nhận ảnh và liên kết hành trình}
+\label{subsection:5.4.2}
+
+Ngưỡng khoảng cách ArcFace được xác định từ 35 ảnh hiệu chỉnh, tạo 105 cặp cùng nhóm và 490 cặp khác nhóm. Giữ nguyên quy tắc ROC ở Chương 3, hệ thống chọn ngưỡng có TPR lớn nhất trong các ứng viên thỏa FPR thực nghiệm bằng 0; nếu đồng hạng thì chọn ngưỡng lớn nhất. Ngưỡng thu được là 0,6303, chấp nhận 93/105 cặp cùng nhóm và không chấp nhận cặp nào trong 490 cặp khác nhóm.
+
+Hệ thống tiếp nhận toàn bộ 100 ảnh, mỗi ảnh phát hiện được một khuôn mặt hợp lệ. ArcFace ghép đúng 97 ảnh với hồ sơ dự kiến; ba ảnh không đạt điều kiện ghép hồ sơ và không có ảnh bị ghép sang hồ sơ khác. Máy chủ vẫn lưu sự kiện tiếp nhận của ba ảnh không khớp nhưng không tạo quan sát gắn khách hàng cho chúng. Vì vậy, số khung xử lý hợp lệ là 100 nhưng số quan sát được lưu để tạo hành trình chỉ là 97.
+
+\begin{table}[H]
+    \centering
+    \caption{Kết quả tiếp nhận và ghép định danh ảnh KDEF}
     \label{tab:kdef_identity_result_ch5}
     \begin{tabular}{|l|r|r|}
         \hline
-        \textbf{Chỉ tiêu} & \textbf{Số khung} & \textbf{Tỷ lệ} \\
+        \textbf{Chỉ tiêu} & \textbf{Số ảnh} & \textbf{Tỷ lệ} \\
         \hline
-        Ảnh hợp lệ & 100 & 100,0\% \\
+        Ảnh được xử lý hợp lệ & 100 & 100,0\% \\
         \hline
-        Ghép đúng hồ sơ dự kiến & 96 & 96,0\% \\
+        Ghép đúng hồ sơ dự kiến & 97 & 97,0\% \\
         \hline
-        Không tìm thấy hồ sơ phù hợp & 4 & 4,0\% \\
+        Không tìm thấy hồ sơ phù hợp & 3 & 3,0\% \\
         \hline
-        Ghép nhầm sang hồ sơ khác & 0 & 0,0\% \\
+        Ghép sang hồ sơ khác & 0 & 0,0\% \\
         \hline
     \end{tabular}
 \end{table}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.86\textwidth]{Hinhve/Chuong5/5_21_kdef_ket_qua_dinh_danh.png}
-    \caption{Kết quả ghép định danh trên 100 khung dữ liệu camera mô phỏng từ KDEF}
-    \label{fig:kdef_identity_result_ch5}
-\end{figure}
-
-Các khung ghép thành công tạo dữ liệu cho đủ 25 lần mua sắm, nhưng ba lần thiếu ít nhất một điểm chạm vì bốn khung \texttt{NO\_MATCH} không thể gắn vào chuỗi cá nhân. Hình~\ref{fig:kdef_journey_ch5} chụp một lần mua sắm đủ bốn điểm chạm; Hình~\ref{fig:kdef_timeline_ch5} cho thấy bốn bản ghi đều có nguồn \textit{Camera}, thời gian tăng dần và nhãn được đọc từ kết quả mô hình.
+Từ 97 quan sát đã ghép định danh, hệ thống tạo 25 lần mua sắm: 23 lần đủ bốn điểm chạm, một lần chỉ có ba và một lần chỉ có hai quan sát. Các quan sát được lưu vẫn giữ đúng thứ tự điểm chạm. Hình~\ref{fig:kdef_journey_ch5} và Hình~\ref{fig:kdef_timeline_ch5} minh họa một hành trình đầy đủ; hai hành trình thiếu được giữ trong dữ liệu và bị loại ở bước phân cụm theo điều kiện tối thiểu bốn trạng thái.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_18_hanh_trinh_kdef_bon_diem_cham.png}
-    \caption{Một hành trình KDEF đủ bốn điểm chạm trên hệ thống đang chạy}
+    \caption{Một lần mua sắm có đủ bốn điểm chạm sau khi xử lý ảnh}
     \label{fig:kdef_journey_ch5}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_19_chuoi_camera_kdef.png}
-    \caption{Bốn quan sát nguồn Camera được sắp theo thời gian trong cùng lần mua sắm}
+    \caption{Các quan sát nguồn Camera được sắp theo thời gian trong một lần mua sắm}
     \label{fig:kdef_timeline_ch5}
 \end{figure}
 
-\subsection{Kết quả nhận dạng biểu cảm trên các khung phát lại}
+\subsection{Đánh giá hiệu quả phân loại biểu cảm trong luồng đầu cuối}
 \label{subsection:5.4.3}
 
-So sánh nhãn DeepFace với nhãn thư mục của 100 ảnh cho Accuracy bằng 0,540. Macro-F1 tính trên năm lớp có mẫu đối chiếu bằng 0,405. Hai lớp \textit{Disgust} và \textit{Fear} không có mẫu đối chiếu trong lịch phát 100 khung nên không được đưa vào trung bình Macro-F1; tuy nhiên, mô hình vẫn dự đoán \textit{Fear} ở sáu khung và các dự đoán này được giữ trong ma trận nhầm lẫn. Kết quả theo lớp được trình bày tại Bảng~\ref{tab:kdef_expression_result_ch5}.
+Nhãn do CNN Emotion dự đoán được đối chiếu với nhãn thư mục sau khi quá trình phát dữ liệu kết thúc. Trong 100 ảnh đầu vào, 97 ảnh có nhãn biểu cảm được lưu cùng quan sát và 40 ảnh có nhãn đúng. Tỷ lệ đầu vào tạo được nhãn đúng là $40/100=0{,}400$; Accuracy riêng trên các dự đoán được lưu là $40/97=0{,}412$. Ba ảnh không tạo được quan sát được tính vào cột \textit{Missing}. Macro-F1 đầu cuối bằng 0,391 trên cả bảy lớp; khi tính Recall, các ảnh thiếu kết quả vẫn nằm trong tổng số đầu vào của lớp tương ứng.
 
 \begin{table}[H]
     \centering
-    \caption{Kết quả biểu cảm theo năm lớp có mẫu đối chiếu}
+    \caption{Kết quả biểu cảm của dữ liệu trong luồng đầu cuối}
     \label{tab:kdef_expression_result_ch5}
     \begin{tabular}{|l|r|r|r|r|}
         \hline
         \textbf{Lớp} & \textbf{Số mẫu} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
         \hline
-        Angry & 10 & 0,167 & 0,200 & 0,182 \\
+        Angry & 12 & 0,184 & 0,583 & 0,280 \\
         \hline
-        Happy & 40 & 0,971 & 0,850 & 0,907 \\
+        Disgust & 23 & 0,000 & 0,000 & 0,000 \\
         \hline
-        Sad & 5 & 0,048 & 0,200 & 0,077 \\
+        Fear & 12 & 0,000 & 0,000 & 0,000 \\
         \hline
-        Surprise & 10 & 0,375 & 0,300 & 0,333 \\
+        Happy & 9 & 0,625 & 0,556 & 0,588 \\
         \hline
-        Neutral & 35 & 0,778 & 0,400 & 0,528 \\
+        Sad & 17 & 0,667 & 0,588 & 0,625 \\
+        \hline
+        Surprise & 15 & 1,000 & 0,733 & 0,846 \\
+        \hline
+        Neutral & 12 & 0,304 & 0,583 & 0,400 \\
         \hline
     \end{tabular}
 \end{table}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png}
-    \caption{Ma trận nhầm lẫn biểu cảm của 100 khung dữ liệu camera mô phỏng từ KDEF}
+    \includegraphics[width=0.90\textwidth]{Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png}
+    \caption{Ma trận nhầm lẫn biểu cảm trên 100 ảnh của lần chạy đầu cuối}
     \label{fig:kdef_expression_confusion_ch5}
 \end{figure}
 
-Mô hình nhận diện tốt nhất lớp \textit{Happy} với F1 bằng 0,907, nhưng nhầm 14 trong 35 ảnh \textit{Neutral} thành \textit{Sad} và sáu trong mười ảnh \textit{Angry} thành \textit{Sad}. Do nguồn Kaggle đã qua xử lý và không có vòng gán nhãn lại độc lập, các con số chỉ mô tả mức phù hợp với nhãn thư mục của tập phát lại. Kết quả 0,540 không được thay bằng nhãn nguồn khi tạo chuỗi; chính các dự đoán thực này được chuyển sang bước phân cụm.
+Xét trên toàn bộ 100 ảnh đầu vào, hệ thống tạo được nhãn đúng cho 40 ảnh. Hiệu quả giữa các lớp không đồng đều: \textit{Surprise} có F1 cao nhất, bằng 0,846; \textit{Sad} và \textit{Happy} lần lượt đạt F1 bằng 0,625 và 0,588. Ngược lại, \textit{Disgust} không có dự đoán đúng trong 23 ảnh và 20 ảnh của lớp này bị dự đoán thành \textit{Angry}; \textit{Fear} cũng không có dự đoán đúng trong 12 ảnh. Vì vậy, mặc dù chức năng phân loại biểu cảm đã hoạt động trong luồng đầu cuối, mức đúng 40\% và sự chênh lệch lớn giữa các lớp cho thấy kết quả biểu cảm vẫn chưa đạt độ tin cậy cao.
 
-\subsection{Kết quả phân cụm chuỗi từ dữ liệu camera mô phỏng}
+Để xem xét ảnh hưởng của tư thế khuôn mặt, luận văn đối chiếu thêm với lần chạy sử dụng cùng 100 vị trí sự kiện, nhãn đối chiếu, thời điểm, kích thước ảnh nguồn và trọng số mô hình, nhưng ảnh gần chính diện đã được dành cho tạo mẫu hồ sơ và hiệu chỉnh nên dữ liệu camera chủ yếu còn lại các góc nghiêng. Ở phép đo trực tiếp trước bước ghép định danh, lần chạy đó dự đoán đúng 28/100 ảnh và có Macro-F1 bằng 0,237. Khi dành ảnh gần chính diện cho camera, số dự đoán đúng tăng lên 40/100 và Macro-F1 tăng lên 0,389; 19 ảnh chuyển từ sai thành đúng, trong khi bảy ảnh chuyển từ đúng thành sai. Hai lớp \textit{Disgust} và \textit{Fear} vẫn không có dự đoán đúng sau thay đổi này.
+
+\subsection{Kết quả tạo và phân cụm chuỗi trạng thái}
 \label{subsection:5.4.4}
 
-Run phân tích chuỗi có mã \path{a845f266-7dab-4dff-ba42-a61a46930d7a}. Hệ thống nhận 25 lần mua sắm; điều kiện của kịch bản yêu cầu đủ bốn trạng thái nên sử dụng 22 chuỗi và loại ba chuỗi lần lượt chỉ có 3, 3 và 2 trạng thái. Với $N=22$, ngưỡng kích thước cụm tối thiểu bằng hai. Các phương án $K=2$ đến $K=6$ thỏa ngưỡng; $K=7$ đến $K=11$ bị loại vì xuất hiện cụm chỉ có một chuỗi.
+Từ 25 lần mua sắm đã hình thành, hệ thống sắp xếp các nhãn biểu cảm dự đoán theo thứ tự bốn điểm chạm để tạo chuỗi trạng thái. Có 23 lần mua sắm tạo được chuỗi đủ bốn trạng thái; một lần chỉ có ba trạng thái và một lần chỉ có hai trạng thái do một số ảnh không ghép được định danh. Vì vậy, đầu vào của bước phân cụm gồm 23 chuỗi có cùng độ dài bốn. Các trạng thái trong chuỗi là kết quả dự đoán của hệ thống, không phải nhãn gốc của KDEF.
 
-Trong các phương án hợp lệ, $K=6$ có ASW lớn nhất bằng 0,4566, còn $K=5$ đạt 0,4452. Chênh lệch 0,0114 nhỏ hơn dung sai cấu hình 0,02 nên hệ thống chọn phương án nhỏ hơn là $K=5$. Quyết định này làm rõ rằng $K=5$ không được ấn định trước theo năm mẫu của lịch phát. Hình~\ref{fig:kdef_k_selection_ch5} và Hình~\ref{fig:kdef_cluster_overview_ch5} thể hiện cả điểm ASW và điều kiện loại phương án.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.92\textwidth]{Hinhve/Chuong5/5_26_kdef_chon_so_cum.png}
-    \caption{ASW và điều kiện kích thước cụm của lần chạy trên dữ liệu camera mô phỏng}
-    \label{fig:kdef_k_selection_ch5}
-\end{figure}
+Quy trình phân cụm tại Chương~3 được áp dụng trực tiếp cho 23 chuỗi này. Các phương án từ $K=2$ đến $K=5$ đáp ứng điều kiện mỗi cụm có ít nhất hai chuỗi. Các phương án từ $K=6$ đến $K=11$ tạo ra cụm chỉ có một chuỗi nên bị loại. Trong các phương án hợp lệ, $K=3$ có ASW lớn nhất, bằng 0,2422, và được chọn làm kết quả cuối cùng.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_22_kdef_tong_quan_phan_cum.png}
-    \caption{Lần phân cụm dữ liệu camera mô phỏng hoàn tất trên giao diện hệ thống}
+    \caption{Kết quả lựa chọn số cụm từ 23 chuỗi trạng thái trên giao diện}
     \label{fig:kdef_cluster_overview_ch5}
 \end{figure}
 
-Năm medoid và quy mô cụm được trình bày tại Bảng~\ref{tab:kdef_cluster_result_ch5}. Cụm 3 và cụm 4 gồm các chuỗi không đổi, có silhouette trung bình bằng 1. Ngược lại, cụm 1 có silhouette trung bình 0,075 và run có một số chuỗi silhouette âm; vì vậy các chuỗi của cụm này gần ranh giới với cụm khác và cần được diễn giải thận trọng.
-
 \begin{table}[H]
     \centering
-    \caption{Năm cụm của lần chạy trên dữ liệu camera mô phỏng từ KDEF}
+    \caption{Kết quả phân cụm 23 chuỗi trạng thái dự đoán đủ điều kiện}
     \label{tab:kdef_cluster_result_ch5}
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{|c|l|r|r|r|}
         \hline
         \textbf{Cụm} & \textbf{Chuỗi medoid} & \textbf{Số chuỗi} & \textbf{Tỷ lệ} & \textbf{Silhouette TB} \\
         \hline
-        1 & Neutral $\rightarrow$ Fear $\rightarrow$ Happy $\rightarrow$ Happy & 8 & 36,4\% & 0,075 \\
+        1 & Surprise $\rightarrow$ Surprise $\rightarrow$ Happy $\rightarrow$ Happy & 3 & 13,0\% & 0,196 \\
         \hline
-        2 & Angry $\rightarrow$ Sad $\rightarrow$ Angry $\rightarrow$ Sad & 4 & 18,2\% & 0,200 \\
+        2 & Neutral $\rightarrow$ Angry $\rightarrow$ Neutral $\rightarrow$ Angry & 13 & 56,5\% & 0,164 \\
         \hline
-        3 & Happy $\rightarrow$ Happy $\rightarrow$ Happy $\rightarrow$ Happy & 4 & 18,2\% & 1,000 \\
-        \hline
-        4 & Sad $\rightarrow$ Sad $\rightarrow$ Sad $\rightarrow$ Sad & 2 & 9,1\% & 1,000 \\
-        \hline
-        5 & Neutral $\rightarrow$ Neutral $\rightarrow$ Sad $\rightarrow$ Neutral & 4 & 18,2\% & 0,598 \\
+        3 & Sad $\rightarrow$ Angry $\rightarrow$ Angry $\rightarrow$ Angry & 7 & 30,4\% & 0,408 \\
         \hline
     \end{tabular}}
 \end{table}
 
+Cụm 2 có số lượng lớn nhất với 13 chuỗi, tiếp theo là cụm 3 với bảy chuỗi và cụm 1 với ba chuỗi. Xét mức độ tách cụm, cụm 3 có silhouette trung bình cao nhất, bằng 0,408; cụm 1 đạt 0,196 và cụm 2 đạt 0,164. Có ba chuỗi mang silhouette âm, cho thấy các chuỗi này gần với cụm khác hơn cụm được gán. Các medoid trong Bảng~\ref{tab:kdef_cluster_result_ch5} là ba chuỗi biểu cảm đại diện thu được từ dữ liệu thử nghiệm. Hình~\ref{fig:kdef_medoids_ch5} và Hình~\ref{fig:kdef_assignments_ch5} trình bày chuỗi medoid và danh sách các lần mua sắm thuộc từng cụm.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_23_kdef_cum_medoid.png}
-    \caption{Các medoid và thống kê cụm của dữ liệu camera mô phỏng từ KDEF}
+    \caption{Medoid và thống kê của ba cụm trên giao diện hệ thống}
     \label{fig:kdef_medoids_ch5}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_24_kdef_gan_cum.png}
-    \caption{Các lần mua sắm KDEF được gán cụm trên giao diện}
+    \caption{Danh sách các lần mua sắm được gán cụm}
     \label{fig:kdef_assignments_ch5}
 \end{figure}
+
+Mỗi kết quả gán cụm được liên kết với lần mua sắm đã tạo ra chuỗi tương ứng. Từ danh sách gán cụm, có thể mở lại lần mua sắm và kiểm tra các quan sát theo từng điểm chạm, thời gian ghi nhận và biểu cảm dự đoán như Hình~\ref{fig:kdef_trace_ch5}. Kết quả này xác nhận đầu ra phân cụm có thể được truy vết về các quan sát ban đầu của hành trình.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_25_kdef_truy_vet.png}
-    \caption{Truy vết một assignment KDEF về bốn quan sát Camera}
+    \caption{Truy vết một kết quả gán cụm về các quan sát ban đầu}
     \label{fig:kdef_trace_ch5}
 \end{figure}
 
-\subsection{Ý nghĩa và giới hạn của lần chạy đầu cuối}
-\label{subsection:5.4.5}
+\section{Đánh giá hiệu quả hệ thống}
+\label{section:5.5}
 
-Kịch bản chứng minh dữ liệu ảnh mô phỏng từ nguồn camera có thể đi hết luồng phần mềm: tạo hồ sơ bằng ảnh đăng ký, tiếp nhận ảnh tại nhiều điểm chạm, phát hiện khuôn mặt, ghép định danh, dự đoán biểu cảm, hình thành chuỗi, tính khoảng cách Optimal Matching, phân cụm PAM và truy vết medoid về quan sát ban đầu. Bộ kiểm tra tự động xác nhận 35 điều kiện về số lượt, thứ tự điểm chạm, nguồn dữ liệu và trạng thái run; toàn bộ điều kiện đều đạt. Các tệp \path{replay\_results.jsonl}, \path{kdef\_metrics.json}, \path{verification.json}, kết quả phân cụm và kê khai ảnh chụp được lưu dưới thư mục artifact của \path{KDEF-KAGGLE-20261008-LIVE}.
+Bảng~\ref{tab:end_to_end_effectiveness_ch5} tổng hợp kết quả theo từng công đoạn. Trong 100 ảnh đầu vào, 97 ảnh tạo được quan sát gắn đúng hồ sơ; hệ thống hình thành 25 lần mua sắm và 23 lần đủ bốn điểm chạm để phân cụm. Kết quả kiểm tra sau thực nghiệm đạt 35/35 điều kiện về số lượng, thứ tự điểm chạm, kết quả ghép định danh và tính nhất quán giữa số hành trình đầy đủ với số chuỗi được phân tích.
 
-Kết quả không cho phép kết luận khách hàng ``hài lòng'' hay ``không hài lòng''. Medoid chỉ mô tả kiểu chuỗi nhãn do mô hình quan sát; muốn gắn cụm với mức hài lòng cần thêm biến đối chứng độc lập. Thực nghiệm cũng chỉ dùng năm mã nhóm từ một bản KDEF đã qua xử lý, ảnh được phát lại để mô phỏng dữ liệu camera và ngưỡng định danh được hiệu chỉnh cho chính phạm vi demo. Do chưa đánh giá bằng hệ thống camera vật lý tại cửa hàng, tỷ lệ 96\%, Accuracy 0,540 và ASW 0,445 chỉ là kết quả của kịch bản kiểm nghiệm phần mềm này, không phải tuyên bố hiệu năng trong môi trường vận hành thực tế hoặc trên toàn bộ KDEF.
+\begin{table}[H]
+    \centering
+    \caption{Đánh giá hiệu quả của luồng hệ thống đầu cuối}
+    \label{tab:end_to_end_effectiveness_ch5}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|p{0.25\textwidth}|p{0.25\textwidth}|p{0.18\textwidth}|p{0.24\textwidth}|}
+        \hline
+        \textbf{Công đoạn} & \textbf{Tiêu chí} & \textbf{Kết quả} & \textbf{Đánh giá} \\
+        \hline
+        Tiếp nhận và xử lý ảnh & Ảnh tạo được kết quả hợp lệ & 100/100 & Hoàn thành toàn bộ đầu vào của kịch bản. \\
+        \hline
+        Ghép định danh & Đúng hồ sơ dự kiến & 97/100 & Ba ảnh không khớp; số trường hợp ghép sai là 0. \\
+        \hline
+        Tạo lần mua sắm & Đủ bốn điểm chạm, đúng thứ tự & 23/25 & Hai hành trình thiếu quan sát do không khớp định danh. \\
+        \hline
+        Kết quả biểu cảm đầu cuối & Tỷ lệ nhãn đúng trên đầu vào; Macro-F1 & 0,400; 0,391 & Accuracy trên 97 kết quả được lưu là 0,412. \\
+        \hline
+        Phân cụm chuỗi & Chuỗi được sử dụng; ASW & 23/25; 0,2422 & Ba cụm; hai chuỗi bị loại vì thiếu trạng thái. \\
+        \hline
+        Kiểm tra và truy vết & Điều kiện kiểm tra đạt & 35/35 & Kết quả phân tích liên kết được về dữ liệu nguồn. \\
+        \hline
+    \end{tabular}}
+\end{table}
+
+Đối với phân loại biểu cảm, 40 trong 100 ảnh đầu vào tạo được nhãn đúng; Accuracy trên 97 ảnh có kết quả là 0,412 và Macro-F1 đầu cuối là 0,391. Kết quả tăng so với lần chạy ảnh nghiêng nhưng số dự đoán sai vẫn chiếm 57/100 ảnh và ba ảnh không tạo được quan sát. Hai lớp \textit{Disgust} và \textit{Fear} không có dự đoán đúng, trong khi \textit{Happy}, \textit{Sad}, \textit{Surprise} và \textit{Neutral} đạt kết quả cao hơn. Ba ảnh không ghép được định danh làm hai hành trình bị thiếu trạng thái. Ở bước phân cụm, ASW bằng 0,2422 và ba chuỗi có silhouette âm, cho thấy mức độ tách cụm còn thấp. Hệ thống đã tạo được các chuỗi biểu cảm đại diện và duy trì liên kết truy vết, nhưng phân loại biểu cảm vẫn là công đoạn có hiệu quả thấp nhất trong luồng đầu cuối.
+
+Bộ dữ liệu camera thử nghiệm được tạo một lần cho lần chạy này. Vì vậy, thực nghiệm chưa xác định kết quả phân cụm có ổn định hay không khi tạo lại dữ liệu với những lựa chọn ảnh và biểu cảm ngẫu nhiên khác. Biểu cảm tại bốn điểm chạm được lựa chọn độc lập để chuỗi không bị sắp đặt trước; cách tạo này không phản ánh tần suất xuất hiện hoặc mối liên hệ giữa các biểu cảm trong hành vi khách hàng thực tế. Do đó, kết quả phân cụm chỉ được sử dụng để kiểm tra hoạt động của luồng tạo chuỗi và phân cụm trong hệ thống.
+
+Kết quả phân cụm xác định được ba chuỗi biểu cảm đại diện như trình bày trong Bảng~\ref{tab:kdef_cluster_result_ch5}. Mỗi chuỗi đại diện là medoid của một cụm, tức chuỗi có tổng khoảng cách nhỏ nhất đến các chuỗi còn lại trong cùng cụm. Ba medoid tóm tắt ba dạng diễn biến biểu cảm xuất hiện trong dữ liệu thử nghiệm. Do kịch bản KDEF không tạo đơn hàng, thực nghiệm chưa đánh giá mối liên hệ giữa các chuỗi đại diện này với dữ liệu mua hàng.
 
 \end{document}

@@ -1,0 +1,279 @@
+{
+  "scope": "Direct vision predictions before identity matching; identical event positions, expected labels, timestamps and fine-tuned Emotion weights; source pose changed",
+  "baseline_run_id": "KDEF-NATIVE-FT-20261013-LIVE",
+  "candidate_run_id": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE",
+  "baseline": {
+    "input_count": 100,
+    "available_predictions": 100,
+    "correct_count": 28,
+    "end_to_end_accuracy": 0.28,
+    "accuracy_on_available": 0.28,
+    "macro_f1": 0.23701298701298704,
+    "per_class": {
+      "Angry": {
+        "correct": 10,
+        "support": 12,
+        "precision": 0.23255813953488372,
+        "recall": 0.8333333333333334,
+        "f1": 0.36363636363636365
+      },
+      "Disgust": {
+        "correct": 0,
+        "support": 23,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Fear": {
+        "correct": 0,
+        "support": 12,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Happy": {
+        "correct": 2,
+        "support": 9,
+        "precision": 1.0,
+        "recall": 0.2222222222222222,
+        "f1": 0.36363636363636365
+      },
+      "Sad": {
+        "correct": 4,
+        "support": 17,
+        "precision": 0.14814814814814814,
+        "recall": 0.23529411764705882,
+        "f1": 0.18181818181818182
+      },
+      "Surprise": {
+        "correct": 12,
+        "support": 15,
+        "precision": 0.7058823529411765,
+        "recall": 0.8,
+        "f1": 0.75
+      },
+      "Neutral": {
+        "correct": 0,
+        "support": 12,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "confusion_matrix": {
+      "Angry": {
+        "Angry": 10,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 2,
+        "Surprise": 0,
+        "Neutral": 0,
+        "Missing": 0
+      },
+      "Disgust": {
+        "Angry": 12,
+        "Disgust": 0,
+        "Fear": 2,
+        "Happy": 0,
+        "Sad": 9,
+        "Surprise": 0,
+        "Neutral": 0,
+        "Missing": 0
+      },
+      "Fear": {
+        "Angry": 3,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 4,
+        "Surprise": 0,
+        "Neutral": 5,
+        "Missing": 0
+      },
+      "Happy": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 2,
+        "Happy": 2,
+        "Sad": 3,
+        "Surprise": 2,
+        "Neutral": 0,
+        "Missing": 0
+      },
+      "Sad": {
+        "Angry": 8,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 4,
+        "Surprise": 3,
+        "Neutral": 2,
+        "Missing": 0
+      },
+      "Surprise": {
+        "Angry": 3,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 12,
+        "Neutral": 0,
+        "Missing": 0
+      },
+      "Neutral": {
+        "Angry": 7,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 5,
+        "Surprise": 0,
+        "Neutral": 0,
+        "Missing": 0
+      }
+    }
+  },
+  "candidate": {
+    "input_count": 100,
+    "available_predictions": 100,
+    "correct_count": 40,
+    "end_to_end_accuracy": 0.4,
+    "accuracy_on_available": 0.4,
+    "macro_f1": 0.38907715480967425,
+    "per_class": {
+      "Angry": {
+        "correct": 7,
+        "support": 12,
+        "precision": 0.17073170731707318,
+        "recall": 0.5833333333333334,
+        "f1": 0.2641509433962264
+      },
+      "Disgust": {
+        "correct": 0,
+        "support": 23,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Fear": {
+        "correct": 0,
+        "support": 12,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Happy": {
+        "correct": 5,
+        "support": 9,
+        "precision": 0.625,
+        "recall": 0.5555555555555556,
+        "f1": 0.5882352941176471
+      },
+      "Sad": {
+        "correct": 10,
+        "support": 17,
+        "precision": 0.6666666666666666,
+        "recall": 0.5882352941176471,
+        "f1": 0.625
+      },
+      "Surprise": {
+        "correct": 11,
+        "support": 15,
+        "precision": 1.0,
+        "recall": 0.7333333333333333,
+        "f1": 0.8461538461538461
+      },
+      "Neutral": {
+        "correct": 7,
+        "support": 12,
+        "precision": 0.30434782608695654,
+        "recall": 0.5833333333333334,
+        "f1": 0.4
+      }
+    },
+    "confusion_matrix": {
+      "Angry": {
+        "Angry": 7,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 5,
+        "Missing": 0
+      },
+      "Disgust": {
+        "Angry": 23,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 0,
+        "Missing": 0
+      },
+      "Fear": {
+        "Angry": 4,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 3,
+        "Surprise": 0,
+        "Neutral": 5,
+        "Missing": 0
+      },
+      "Happy": {
+        "Angry": 4,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 5,
+        "Sad": 0,
+        "Surprise": 0,
+        "Neutral": 0,
+        "Missing": 0
+      },
+      "Sad": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 3,
+        "Sad": 10,
+        "Surprise": 0,
+        "Neutral": 4,
+        "Missing": 0
+      },
+      "Surprise": {
+        "Angry": 0,
+        "Disgust": 0,
+        "Fear": 2,
+        "Happy": 0,
+        "Sad": 0,
+        "Surprise": 11,
+        "Neutral": 2,
+        "Missing": 0
+      },
+      "Neutral": {
+        "Angry": 3,
+        "Disgust": 0,
+        "Fear": 0,
+        "Happy": 0,
+        "Sad": 2,
+        "Surprise": 0,
+        "Neutral": 7,
+        "Missing": 0
+      }
+    }
+  },
+  "delta": {
+    "correct_count": 12,
+    "accuracy": 0.12,
+    "macro_f1": 0.15206416779668722
+  },
+  "paired_outcomes": {
+    "baseline_correct=False,candidate_correct=True": 19,
+    "baseline_correct=True,candidate_correct=True": 21,
+    "baseline_correct=False,candidate_correct=False": 53,
+    "baseline_correct=True,candidate_correct=False": 7
+  },
+  "changed_predicted_labels": 64
+}

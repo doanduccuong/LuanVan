@@ -1,0 +1,24 @@
+{
+  "capturedAt": "2026-10-13T11:17:53.545Z",
+  "sourceRunId": "KDEF-FRONTAL-NATIVE-FT-20261013-LIVE",
+  "sourceType": "CAMERA",
+  "verified": {
+    "customerCount": 5,
+    "observationCount": 97,
+    "receivedVisitCount": 25,
+    "usedVisitCount": 23,
+    "excludedVisitCount": 2,
+    "selectedK": 3,
+    "analysisRunId": "b3040599-6d4e-4e32-a0cf-494a96badbe0",
+    "targetVisit": {
+      "id": "dcfb9738-ea4b-49f2-bdf0-39db8c90b2e2",
+      "customerCode": "CUS-KDEF-004"
+    }
+  },
+  "screenshots": [
+    "K01_kdef_customer_list.png",
+    "K02_kdef_customer_profile.png",
+    "K03_kdef_four_touchpoint_journey.png",
+    "K04_kdef_camera_timeline.png"
+  ]
+}

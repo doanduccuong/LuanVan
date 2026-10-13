@@ -78,33 +78,23 @@ Lớp này dùng nhãn được tạo theo năm mẫu biết trước để ki�
 
 Nguồn tệp dùng cho demo là bản KDEF đã xử lý trên Kaggle: [chenrich/kdef-database](https://www.kaggle.com/datasets/chenrich/kdef-database). Bản phân phối gồm 2.938 ảnh trong bảy thư mục nhãn và 140 mã nhóm nguồn dạng số; nó không giữ mã phiên/góc và tên tệp của KDEF gốc. Ảnh không được lưu trong kho mã. Người chạy tải dữ liệu, giải nén và truyền thư mục chứa bảy thư mục nhãn qua `KDEF_ROOT`. Kịch bản chọn cùng mã nhóm ở nhiều biểu cảm, ưu tiên một ảnh Neutral nhìn thẳng làm ảnh đăng ký và phát các ảnh khác tại bốn điểm chạm. Biểu cảm và ảnh nguồn có thể lặp.
 
-Lần demo cuối đã dùng năm mã nhóm nguồn, năm lượt cho mỗi hồ sơ và bốn điểm chạm cho mỗi lượt, tương ứng 5 hồ sơ, 25 lần mua sắm và 100 khung Camera. Đây là cấu hình trình diễn luồng, không phải giới hạn của hệ thống.
+Lần mới nhất `KDEF-RANDOM-TIME-20261013-LIVE` dùng năm nhóm nguồn, năm lượt mỗi hồ sơ và bốn điểm chạm mỗi lượt: 5 hồ sơ, 25 lần mua sắm dự kiến và 100 khung Camera. Nhãn rồi ảnh được lấy ngẫu nhiên có hoàn lại; khoảng cách giữa hai điểm chạm được lấy ngẫu nhiên từ 5 đến 15 phút. Không gán trước chuỗi hoặc số cụm.
 
-Để chạy lại từ đầu, chuẩn bị dữ liệu trước, khởi động stack, sau đó chạy đúng thứ tự:
+Để tái lập từ đầu, xem [quy trình, số liệu và bằng chứng mới](artifacts/experiment-runs/KDEF-RANDOM-TIME-20261013-LIVE/README.md). Luôn sao lưu trước khi reset demo và chọn thư mục dữ liệu mới để không ghi đè bằng chứng. Chụp lại giao diện của lần chạy hiện tại:
 
 ```bash
-make demo-prepare \
-  KDEF_ROOT=/Users/sotatek/Downloads/archive \
-  CUSTOMER_COUNT=5 \
-  EXPERIMENT_RUN_ID=KDEF-KAGGLE-20261008-LIVE
-docker compose up --build -d
-make demo-reset
-make demo-seed
-make demo-enroll
-make demo-calibrate
-make demo-replay SPEED=0 MINIMUM_PASS_RATE=0.90
-make demo-analyze EXPERIMENT_RUN_ID=KDEF-KAGGLE-20261008-LIVE
-make demo-verify
-SOURCE_RUN_ID=KDEF-KAGGLE-20261008-LIVE \
+SOURCE_RUN_ID=KDEF-RANDOM-TIME-20261013-LIVE \
+  EXPECTED_USED_VISITS=23 EXPECTED_K=3 EXPECTED_OBSERVATIONS=97 \
   node scripts/capture_kdef_live_demo.mjs
-SOURCE_RUN_ID=KDEF-KAGGLE-20261008-LIVE \
-  SOURCE_TYPE=CAMERA EXPECTED_USED_VISITS=22 EXPECTED_K=5 \
+SOURCE_RUN_ID=KDEF-RANDOM-TIME-20261013-LIVE \
+  SOURCE_TYPE=CAMERA EXPECTED_USED_VISITS=23 EXPECTED_K=3 \
   node scripts/capture_sequence_analysis.mjs
-SOURCE_RUN_ID=KDEF-KAGGLE-20261008-LIVE \
+SOURCE_RUN_ID=KDEF-RANDOM-TIME-20261013-LIVE \
   node scripts/capture_system_status.mjs
+SOURCE_RUN_ID=KDEF-RANDOM-TIME-20261013-LIVE node scripts/capture_chapter4.mjs
 ```
 
-`MINIMUM_PASS_RATE` chỉ quyết định mã thoát của lệnh replay; mọi khung không đạt vẫn được giữ nguyên trong `replay_results.jsonl` và thống kê. Lần chạy đã khóa đạt 96/100 khung nên dùng ngưỡng 0,90 để quy trình tiếp tục sang bước phân tích mà không che bốn ca `NO_MATCH`.
+`MINIMUM_PASS_RATE` chỉ quyết định mã thoát của replay; mọi khung không đạt vẫn giữ trong `replay_results.jsonl`. Lần mới dùng 0 để thu thập kết quả không áp tỷ lệ thành công kỳ vọng: 97/100 khung ghép đúng, 3 không khớp, 0 ghép chéo; 23/25 chuỗi đủ điều kiện, K=3, ASW=0,345181. Tham số này không thay ngưỡng ArcFace hoặc quy tắc ROC Chương 3.
 
 Chuỗi đưa vào phân cụm luôn lấy từ `Observation.expression_label` do dịch vụ ảnh trả về. Nhãn thư mục Kaggle chỉ dùng để chọn ảnh và đối chiếu sau chạy, không được thay cho dự đoán của hệ thống. Không được mô tả bản Kaggle 2.938 ảnh là bộ KDEF gốc đầy đủ 4.900 ảnh.
 

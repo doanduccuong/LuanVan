@@ -1,0 +1,156 @@
+[
+  {
+    "touchpoint_id": "32384320-92b1-4d2d-912b-8cac8bdfa276",
+    "touchpoint_name": "Cửa vào",
+    "label": "Angry",
+    "count": 4,
+    "percentage": 0.16666666666666666
+  },
+  {
+    "touchpoint_id": "32384320-92b1-4d2d-912b-8cac8bdfa276",
+    "touchpoint_name": "Cửa vào",
+    "label": "Fear",
+    "count": 1,
+    "percentage": 0.041666666666666664
+  },
+  {
+    "touchpoint_id": "32384320-92b1-4d2d-912b-8cac8bdfa276",
+    "touchpoint_name": "Cửa vào",
+    "label": "Happy",
+    "count": 3,
+    "percentage": 0.125
+  },
+  {
+    "touchpoint_id": "32384320-92b1-4d2d-912b-8cac8bdfa276",
+    "touchpoint_name": "Cửa vào",
+    "label": "Neutral",
+    "count": 7,
+    "percentage": 0.2916666666666667
+  },
+  {
+    "touchpoint_id": "32384320-92b1-4d2d-912b-8cac8bdfa276",
+    "touchpoint_name": "Cửa vào",
+    "label": "Sad",
+    "count": 6,
+    "percentage": 0.25
+  },
+  {
+    "touchpoint_id": "32384320-92b1-4d2d-912b-8cac8bdfa276",
+    "touchpoint_name": "Cửa vào",
+    "label": "Surprise",
+    "count": 3,
+    "percentage": 0.125
+  },
+  {
+    "touchpoint_id": "76c2dc0f-ae5d-4b4d-b1fe-b5d504611a63",
+    "touchpoint_name": "Khu trưng bày sản phẩm",
+    "label": "Angry",
+    "count": 12,
+    "percentage": 0.5217391304347826
+  },
+  {
+    "touchpoint_id": "76c2dc0f-ae5d-4b4d-b1fe-b5d504611a63",
+    "touchpoint_name": "Khu trưng bày sản phẩm",
+    "label": "Happy",
+    "count": 2,
+    "percentage": 0.08695652173913043
+  },
+  {
+    "touchpoint_id": "76c2dc0f-ae5d-4b4d-b1fe-b5d504611a63",
+    "touchpoint_name": "Khu trưng bày sản phẩm",
+    "label": "Neutral",
+    "count": 3,
+    "percentage": 0.13043478260869565
+  },
+  {
+    "touchpoint_id": "76c2dc0f-ae5d-4b4d-b1fe-b5d504611a63",
+    "touchpoint_name": "Khu trưng bày sản phẩm",
+    "label": "Sad",
+    "count": 4,
+    "percentage": 0.17391304347826086
+  },
+  {
+    "touchpoint_id": "76c2dc0f-ae5d-4b4d-b1fe-b5d504611a63",
+    "touchpoint_name": "Khu trưng bày sản phẩm",
+    "label": "Surprise",
+    "count": 2,
+    "percentage": 0.08695652173913043
+  },
+  {
+    "touchpoint_id": "50fd93f6-52cd-4bfa-b745-da18e2e7c60c",
+    "touchpoint_name": "Khu tư vấn",
+    "label": "Angry",
+    "count": 12,
+    "percentage": 0.48
+  },
+  {
+    "touchpoint_id": "50fd93f6-52cd-4bfa-b745-da18e2e7c60c",
+    "touchpoint_name": "Khu tư vấn",
+    "label": "Fear",
+    "count": 1,
+    "percentage": 0.04
+  },
+  {
+    "touchpoint_id": "50fd93f6-52cd-4bfa-b745-da18e2e7c60c",
+    "touchpoint_name": "Khu tư vấn",
+    "label": "Happy",
+    "count": 1,
+    "percentage": 0.04
+  },
+  {
+    "touchpoint_id": "50fd93f6-52cd-4bfa-b745-da18e2e7c60c",
+    "touchpoint_name": "Khu tư vấn",
+    "label": "Neutral",
+    "count": 7,
+    "percentage": 0.28
+  },
+  {
+    "touchpoint_id": "50fd93f6-52cd-4bfa-b745-da18e2e7c60c",
+    "touchpoint_name": "Khu tư vấn",
+    "label": "Sad",
+    "count": 1,
+    "percentage": 0.04
+  },
+  {
+    "touchpoint_id": "50fd93f6-52cd-4bfa-b745-da18e2e7c60c",
+    "touchpoint_name": "Khu tư vấn",
+    "label": "Surprise",
+    "count": 3,
+    "percentage": 0.12
+  },
+  {
+    "touchpoint_id": "a8b5f91c-2315-4a97-9f55-58bf1fcd8555",
+    "touchpoint_name": "Quầy thanh toán",
+    "label": "Angry",
+    "count": 10,
+    "percentage": 0.4
+  },
+  {
+    "touchpoint_id": "a8b5f91c-2315-4a97-9f55-58bf1fcd8555",
+    "touchpoint_name": "Quầy thanh toán",
+    "label": "Happy",
+    "count": 2,
+    "percentage": 0.08
+  },
+  {
+    "touchpoint_id": "a8b5f91c-2315-4a97-9f55-58bf1fcd8555",
+    "touchpoint_name": "Quầy thanh toán",
+    "label": "Neutral",
+    "count": 6,
+    "percentage": 0.24
+  },
+  {
+    "touchpoint_id": "a8b5f91c-2315-4a97-9f55-58bf1fcd8555",
+    "touchpoint_name": "Quầy thanh toán",
+    "label": "Sad",
+    "count": 4,
+    "percentage": 0.16
+  },
+  {
+    "touchpoint_id": "a8b5f91c-2315-4a97-9f55-58bf1fcd8555",
+    "touchpoint_name": "Quầy thanh toán",
+    "label": "Surprise",
+    "count": 3,
+    "percentage": 0.12
+  }
+]

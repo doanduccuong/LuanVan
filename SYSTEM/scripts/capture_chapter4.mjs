@@ -1,7 +1,11 @@
 import { chromium } from '/Users/sotatek/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs'
-import { mkdir } from 'node:fs/promises'
+import { mkdir, readdir, copyFile, writeFile } from 'node:fs/promises'
 
-const output = '/Users/sotatek/Desktop/Do An/BAO CAO/Hinhve/Chuong4'
+const reportOutput = '/Users/sotatek/Desktop/Do An/BAO CAO/Hinhve/Chuong4'
+const sourceRunId = process.env.SOURCE_RUN_ID
+const output = sourceRunId
+  ? `/Users/sotatek/Desktop/Do An/SYSTEM/artifacts/experiment-runs/${sourceRunId}/screenshots/chapter4`
+  : reportOutput
 await mkdir(output, { recursive: true })
 
 const browser = await chromium.launch({
@@ -23,6 +27,13 @@ await page.getByLabel('Email').fill('manager@example.com')
 await page.getByLabel('Mật khẩu').fill('demo1234')
 await page.getByRole('button', { name: 'Đăng nhập' }).click()
 await page.waitForURL('**/dashboard')
+if (sourceRunId) {
+  const present = await page.evaluate(async runId => {
+    const response = await fetch('/api/v1/sequence-analyses?source_type=CAMERA')
+    return (await response.json()).some(run => run.source_run_id === runId && run.status === 'COMPLETED')
+  }, sourceRunId)
+  if (!present) throw new Error('Không có kết quả của lần chạy yêu cầu')
+}
 
 await capture('4_01_tong_quan', '/dashboard')
 await page.getByText('Biến thiên theo thời gian và khu vực', { exact: true }).click()
@@ -108,10 +119,21 @@ await page.waitForTimeout(500)
 await page.evaluate(() => window.scrollTo(0, 0))
 await page.screenshot({ path: `${output}/4_12_dich_vu_mo_phong.png`, fullPage: false })
 
+if (!sourceRunId) {
 await page.goto('file:///Users/sotatek/Desktop/Do%20An/SYSTEM/evidence/chapter4_evidence.html', { waitUntil: 'load' })
 await page.screenshot({ path: `${output}/4_17_trang_thai_trien_khai.png`, fullPage: false })
 await page.locator('.tests').screenshot({ path: `${output}/4_18_ket_qua_kiem_thu.png` })
 await page.locator('.limits').screenshot({ path: `${output}/4_19_gioi_han_phien_ban.png` })
+}
+
+if (sourceRunId) {
+  const files = (await readdir(output)).filter(name => name.endsWith('.png'))
+  for (const name of files) await copyFile(`${output}/${name}`, `${reportOutput}/${name}`)
+  await writeFile(`${output}/capture_manifest.json`, JSON.stringify({
+    sourceRunId, capturedAt: new Date().toISOString(), screenshots: files,
+    note: 'Fresh live UI; no static historical evidence HTML used.'
+  }, null, 2))
+}
 
 await browser.close()
 console.log(`Đã lưu ảnh Chương 4 tại ${output}`)

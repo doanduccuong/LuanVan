@@ -1,5 +1,19 @@
 # Bảng bàn giao và bằng chứng
 
+## Bàn giao mới nhất — 13/10/2026
+
+Luận văn hiện sử dụng `KDEF-RANDOM-TIME-20261013-LIVE`, không dùng số liệu ngày 08/10 dưới đây.
+Kết quả: 100 khung hợp lệ → 97 quan sát đúng hồ sơ → 25 hành trình, 23 đầy đủ
+→ 23 chuỗi → 3 cụm, ASW 0,345181. Ba khung không khớp được giữ nguyên trong báo cáo.
+Có 33/100 khung tạo nhãn biểu cảm đúng; Accuracy trên 97 nhãn được lưu là 0,340206;
+Macro-F1 đầu cuối bảy lớp 0,306940. Các ảnh Chương 4 và phần đầu cuối Chương 5
+đã chụp lại từ giao diện đang chạy; biểu đồ sinh từ artifact mới.
+
+Bằng chứng và hướng dẫn tái lập: [README của lần chạy](artifacts/experiment-runs/KDEF-RANDOM-TIME-20261013-LIVE/README.md).
+Cơ sở dữ liệu trước khi làm sạch được giữ trong `backup/before-rerun.dump` của lần chạy.
+
+## Hồ sơ lịch sử ngày 08/10/2026
+
 Cập nhật ngày 08/10/2026. Thành phần phân cụm chuỗi được thêm vào sau luồng tạo chuỗi hiện có; nó không thay thế nhận diện khuôn mặt, phân loại biểu cảm hoặc các báo cáo thống kê đang có.
 
 ## 1. Trạng thái bàn giao

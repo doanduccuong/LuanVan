@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "capture_events": 100,
+  "stored_observations": 97,
+  "verified_assignments": 23,
+  "verified_medoids": 3,
+  "excluded_visits": 2,
+  "failed_events": 3,
+  "checks": [
+    "raw API labels equal stored observations and clustering sequences",
+    "all sequence metadata observation IDs resolve to raw API responses",
+    "cluster sizes and medoids agree with assignments",
+    "missing-state visits equal excluded visits",
+    "confusion counts include missing results"
+  ]
+}

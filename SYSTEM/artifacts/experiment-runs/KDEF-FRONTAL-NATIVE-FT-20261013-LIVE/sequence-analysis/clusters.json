@@ -1,0 +1,53 @@
+[
+  {
+    "id": "c4207038-9bac-48cf-8fc1-4e412e2a5dba",
+    "run_id": "b3040599-6d4e-4e32-a0cf-494a96badbe0",
+    "cluster_id": 1,
+    "medoid_visit_id": "b432e09c-05f2-4766-b75c-0ca8792e3ea0",
+    "medoid_sequence": [
+      "Surprise",
+      "Surprise",
+      "Happy",
+      "Happy"
+    ],
+    "size": 3,
+    "proportion": 0.13043478260869565,
+    "mean_silhouette": 0.19604945997311454,
+    "median_distance": 4.0,
+    "display_name": null
+  },
+  {
+    "id": "d381383b-641e-4aa5-85bb-9b3c11d78a10",
+    "run_id": "b3040599-6d4e-4e32-a0cf-494a96badbe0",
+    "cluster_id": 2,
+    "medoid_visit_id": "b845c9d7-2aa7-469e-ac8f-0fecc43f0c56",
+    "medoid_sequence": [
+      "Neutral",
+      "Angry",
+      "Neutral",
+      "Angry"
+    ],
+    "size": 13,
+    "proportion": 0.5652173913043478,
+    "mean_silhouette": 0.1636262454853159,
+    "median_distance": 4.0,
+    "display_name": null
+  },
+  {
+    "id": "7015aa57-aa74-4985-aa3b-e45691357043",
+    "run_id": "b3040599-6d4e-4e32-a0cf-494a96badbe0",
+    "cluster_id": 3,
+    "medoid_visit_id": "c0ae4643-065d-4ffb-a7b6-2b9e1b1c2412",
+    "medoid_sequence": [
+      "Sad",
+      "Angry",
+      "Angry",
+      "Angry"
+    ],
+    "size": 7,
+    "proportion": 0.30434782608695654,
+    "mean_silhouette": 0.4078353922214047,
+    "median_distance": 2.0,
+    "display_name": null
+  }
+]
