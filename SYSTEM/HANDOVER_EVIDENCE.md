@@ -32,20 +32,20 @@ Nguồn tệp là bản KDEF đã xử lý trên Kaggle: <https://www.kaggle.com
 
 | Mã | Nội dung đã kiểm chứng | Kết quả | Artifact/ảnh trực tiếp |
 |---|---|---|---|
-| K01 | Chọn dữ liệu và truy vết tệp nguồn | 5 nhóm `KG011`, `KG039`, `KG061`, `KG074`, `KG112`; seed `20261008` | `data/generated/kdef_demo/kdef_demo_manifest.json`, `image_manifest.csv` |
+| K01 | Chọn dữ liệu và truy vết tệp nguồn | 35 người hiệu chỉnh, 35 người giữ lại; 5 người đầu-cuối mang mã `KG011`, `KG039`, `KG061`, `KG074`, `KG112` | `data/generated/kdef_identity_split_35_35_20261014.json`, `data/generated/kdef_e2e_split35_native_fpr10_20261014/image_manifest.csv` |
 | K02 | Ảnh đăng ký và hồ sơ khách hàng | 5 hồ sơ, mỗi hồ sơ có ảnh KDEF và face template | `screenshots/K01_kdef_customer_list.png`, `K02_kdef_customer_profile.png` |
-| K03 | Hiệu chỉnh ngưỡng vận hành | 35 ảnh riêng; 105 cặp cùng nhóm, 490 cặp khác nhóm; ngưỡng `0,639295`; TPR `0,904762`, TNR `1,000000` trên tập hiệu chỉnh | `artifacts/face-threshold.json` |
-| K04 | Phát lại ảnh qua Vision/API | 100/100 ảnh hợp lệ; 96 ghép đúng hồ sơ dự kiến; 4 `NO_MATCH`; 0 ghép nhầm sang hồ sơ khác | `replay_results.jsonl`, `replay_summary.json`, `kdef_metrics.json` |
+| K03 | Hiệu chỉnh ngưỡng vận hành | 245 ảnh của 35 người; 735 cặp cùng người, 29.155 cặp khác người; ngưỡng `0,733638`; TPR `0,998639`, FPR `0,099983`, AUC `0,999240` | `artifacts/experiment-runs/KDEF-35-GROUP-CALIBRATION-20261014/face-threshold.json` |
+| K04 | Phát lại ảnh qua Vision/API | 100/100 ảnh hợp lệ; 100 ghép đúng hồ sơ dự kiến; 0 `NO_MATCH`; 0 ghép nhầm sang hồ sơ khác | `artifacts/experiment-runs/KDEF-E2E-SPLIT35-FPR10-20261014-LIVE/replay_results.jsonl`, `replay_summary.json`, `kdef_metrics.json` |
 | K05 | Tạo hành trình nhiều điểm chạm | 5 hồ sơ, 25 lần mua sắm, 100 khung; thời gian và thứ tự điểm chạm được giữ | `verification.json`, `screenshots/K03_kdef_four_touchpoint_journey.png`, `K04_kdef_camera_timeline.png` |
-| K06 | Đối chiếu biểu cảm | Accuracy `0,540`; Macro-F1 `0,405409` trên năm lớp có mẫu đối chiếu | `kdef_metrics.json`, `charts/expression_confusion_matrix.png` |
-| K07 | Phân cụm chuỗi Camera | Nhận 25 visit, dùng 22, loại 3 visit thiếu bốn trạng thái; chọn K=5, ASW `0,445193` | `sequence-analysis/run.json`, `clusters.json`, `assignments.json` |
+| K06 | Đối chiếu biểu cảm | Accuracy `0,650`; Macro-F1 `0,627141` trên bảy lớp | `kdef_metrics.json`, `charts/expression_confusion_matrix.png` |
+| K07 | Phân cụm chuỗi Camera | Nhận và dùng đủ 25 visit; chọn K=2, ASW `0,194182` | `sequence-analysis/run.json`, `clusters.json`, `assignments.json` |
 | K08 | Truy vết cụm về chuỗi gốc | Có medoid, assignment, distance, silhouette và liên kết về visit/observation | `screenshots/E09_cluster_medoids.png`, `E10_cluster_assignments.png`, `E11_assignment_visit_trace.png` |
 | K09 | Trạng thái hệ thống tích hợp | Các service cần thiết hoạt động, migration mã 0, bốn endpoint trả HTTP 200 | `screenshots/K05_system_runtime_status.png`, `system_runtime_status.json` |
 
 Toàn bộ artifact của lần chạy nằm tại:
 
 ```text
-artifacts/experiment-runs/KDEF-KAGGLE-20261008-LIVE/
+artifacts/experiment-runs/KDEF-E2E-SPLIT35-FPR10-20261014-LIVE/
 ```
 
 `verification.json` có 35/35 kiểm tra luồng và tính toàn vẹn dữ liệu đạt. Con số này không phải độ chính xác mô hình; chất lượng nhận dạng được báo cáo riêng bằng 96/100 khung ghép đúng và Accuracy biểu cảm 0,540.

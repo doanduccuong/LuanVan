@@ -5,6 +5,7 @@ const sourceRunId = process.env.SOURCE_RUN_ID ?? 'KDEF-KAGGLE-20261008-LIVE'
 const expectedVisits = Number(process.env.EXPECTED_USED_VISITS ?? 25)
 const expectedK = Number(process.env.EXPECTED_K ?? 7)
 const expectedObservations = Number(process.env.EXPECTED_OBSERVATIONS ?? 100)
+const expectedCustomers = Number(process.env.EXPECTED_CUSTOMERS ?? 5)
 const updateReport = process.env.UPDATE_REPORT !== 'false'
 const baseUrl = process.env.WEB_URL ?? 'http://127.0.0.1:8080'
 const projectRoot = '/Users/sotatek/Desktop/Do An'
@@ -37,7 +38,7 @@ await page.getByLabel('Mật khẩu').fill(process.env.DEMO_USER_PASSWORD ?? 'de
 await page.getByRole('button', { name: 'Đăng nhập' }).click()
 await page.waitForURL('**/dashboard')
 
-const verified = await page.evaluate(async ({ requestedRun, requiredVisits, requiredK, requiredObservations }) => {
+const verified = await page.evaluate(async ({ requestedRun, requiredVisits, requiredK, requiredObservations, requiredCustomers }) => {
   const [customersResponse, visitsResponse, observationsResponse, analysesResponse] = await Promise.all([
     fetch('/api/v1/customers?page_size=100&search=CUS-KDEF'),
     fetch('/api/v1/visits'),
@@ -52,7 +53,7 @@ const verified = await page.evaluate(async ({ requestedRun, requiredVisits, requ
   const observations = await observationsResponse.json()
   const analyses = await analysesResponse.json()
   const run = analyses.find(item => item.source_run_id === requestedRun && item.status === 'COMPLETED')
-  if (customers.total !== 5) throw new Error(`Yêu cầu 5 khách KDEF, API trả ${customers.total}`)
+  if (customers.total !== requiredCustomers) throw new Error(`Yêu cầu ${requiredCustomers} khách KDEF, API trả ${customers.total}`)
   if (observations.total !== requiredObservations) throw new Error(`Yêu cầu ${requiredObservations} quan sát CAMERA, API trả ${observations.total}`)
   if (!run || run.used_visit_count !== requiredVisits || run.selected_k !== requiredK) {
     throw new Error('Kết quả phân tích chuỗi không khớp run KDEF đã kiểm chứng')
@@ -84,7 +85,13 @@ const verified = await page.evaluate(async ({ requestedRun, requiredVisits, requ
     analysisRunId: run.id,
     targetVisit
   }
-}, { requestedRun: sourceRunId, requiredVisits: expectedVisits, requiredK: expectedK, requiredObservations: expectedObservations })
+}, {
+  requestedRun: sourceRunId,
+  requiredVisits: expectedVisits,
+  requiredK: expectedK,
+  requiredObservations: expectedObservations,
+  requiredCustomers: expectedCustomers
+})
 
 await page.goto(`${baseUrl}/customers`, { waitUntil: 'networkidle' })
 const search = page.getByPlaceholder('Tìm theo mã, tên hoặc số điện thoại')
@@ -92,7 +99,7 @@ await search.fill('CUS-KDEF')
 await search.press('Enter')
 await page.waitForFunction(() => {
   const images = [...document.querySelectorAll('.ant-table img')]
-  return images.length === 5 && images.every(image => image.complete && image.naturalWidth > 0)
+  return images.length > 0 && images.every(image => image.complete && image.naturalWidth > 0)
 })
 await capture('K01_kdef_customer_list.png', '4_25_danh_sach_khach_kdef.png', '5_16_du_lieu_khach_kdef.png')
 

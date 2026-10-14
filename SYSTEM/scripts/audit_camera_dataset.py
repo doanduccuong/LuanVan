@@ -10,6 +10,9 @@ from demo_common import ARTIFACT_ROOT, DATASET_ROOT, read_csv, save_json
 
 def main():
     manifest = json.loads((DATASET_ROOT / "kdef_demo_manifest.json").read_text())
+    expected = json.loads(
+        (DATASET_ROOT / "expected" / "expected_visits.json").read_text(encoding="utf-8")
+    )
     with (DATASET_ROOT / "image_manifest.csv").open() as handle:
         images = list(csv.DictReader(handle))
     roles = defaultdict(set)
@@ -19,7 +22,9 @@ def main():
     assert not roles["enrollment"] & roles["calibration"]
     assert not roles["observation"] & (roles["enrollment"] | roles["calibration"])
     events = read_csv("events.csv")
-    assert len(events) == len({event["event_id"] for event in events}) == 100
+    expected_event_count = expected["expected_event_count"]
+    expected_visit_count = expected["expected_visit_count"]
+    assert len(events) == len({event["event_id"] for event in events}) == expected_event_count
     visits = defaultdict(list)
     for event in events:
         assert event["experiment_run_id"] == manifest["experiment_run_id"]
@@ -32,7 +37,7 @@ def main():
         times = [datetime.fromisoformat(row["observed_at"]) for row in visit]
         gaps = [(later - earlier).total_seconds() / 60 for earlier, later in zip(times, times[1:])]
         assert all(5 <= gap <= 15 for gap in gaps)
-    assert len(visits) == 25
+    assert len(visits) == expected_visit_count
     all_gaps = []
     for visit in visits.values():
         times = [datetime.fromisoformat(row["observed_at"]) for row in visit]
@@ -47,7 +52,10 @@ def main():
         "touchpoint_gap_minutes": dict(Counter(str(int(gap)) for gap in all_gaps)),
         "camera_seed": manifest["camera_seed"],
     })
-    print("Input audit passed: 100 frames, 25 planned visits; reserved source hashes excluded.")
+    print(
+        f"Input audit passed: {expected_event_count} frames, "
+        f"{expected_visit_count} planned visits; reserved source hashes excluded."
+    )
 
 
 if __name__ == "__main__":

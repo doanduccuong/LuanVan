@@ -58,12 +58,29 @@ SYSTEM/apps/web/vite.config.d.ts
 SYSTEM/data/raw/
 SYSTEM/data/source/kdef/
 SYSTEM/data/generated/kdef_demo/
+SYSTEM/data/extracted/
+SYSTEM/data/generated/kdef_*/
 SYSTEM/fixtures/demo_dataset/enrollment/
 SYSTEM/fixtures/demo_dataset/observations/
 SYSTEM/fixtures/demo_dataset/calibration/
 SYSTEM/artifacts/demo-runs/
+SYSTEM/artifacts/diagnostics/
+SYSTEM/artifacts/experiment-runs/
 SYSTEM/artifacts/face-threshold.json
 *.db
+
+# ===== LaTeX temporary files =====
+*.aux
+*.lof
+*.log
+*.lot
+*.out
+*.synctex.gz
+*.synctex(busy)
+*.toc
+
+# ===== Local training datasets =====
+TRAIN_DEEPFACE_EMOTION/data/
 
 # ===== Env files =====
 .env

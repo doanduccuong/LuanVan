@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
@@ -7,7 +8,7 @@ from datetime import datetime, timezone
 from demo_common import ARTIFACT_ROOT, DATASET_ROOT, login_client, read_csv, save_json
 
 
-def main() -> None:
+def main(*, evaluation_mode: bool = False) -> None:
     expected = json.loads((DATASET_ROOT / "expected" / "expected_visits.json").read_text(encoding="utf-8"))
     experiment_run_id = expected["experiment_run_id"]
     event_rows = read_csv("events.csv")
@@ -75,6 +76,7 @@ def main() -> None:
 
     metrics = {
         "capture_event_count": len(replay_rows),
+        "evaluation_subject_count": expected["customer_count"],
         "valid_image_count": sum(row.get("actual_image_status") == "VALID" for row in replay_rows),
         "identity": {
             "correct_match_count": identity_correct,
@@ -112,6 +114,7 @@ def main() -> None:
                 "passed": identity_false_match == 0,
                 "actual": identity_false_match,
                 "expected": 0,
+                "required": not evaluation_mode,
             },
         ]
     )
@@ -147,6 +150,7 @@ def main() -> None:
                 "passed": len(run_visits) == expected["expected_visit_count"],
                 "actual": len(run_visits),
                 "expected": expected["expected_visit_count"],
+                "required": not evaluation_mode,
             }
         )
         for customer_code, rule in expected["customers"].items():
@@ -158,6 +162,7 @@ def main() -> None:
                     "passed": actual == rule["expected_visits"],
                     "actual": actual,
                     "expected": rule["expected_visits"],
+                    "required": not evaluation_mode,
                 }
             )
 
@@ -173,7 +178,7 @@ def main() -> None:
             scenario_ids = {item["scenario_id"] for item in event_metadata}
             expected_full_order = ["TP-ENTRANCE", "TP-DISPLAY", "TP-CONSULT", "TP-CHECKOUT"]
             expected_positions = [expected_full_order.index(item) for item in actual_touchpoints]
-            if len(observations) == expected["events_per_visit"]:
+            if set(expected_full_order).issubset(actual_touchpoints):
                 complete_visit_count += 1
             checks.append(
                 {
@@ -185,6 +190,7 @@ def main() -> None:
                     ),
                     "actual": actual_touchpoints,
                     "expected": expected_touchpoints,
+                    "required": not evaluation_mode,
                 }
             )
 
@@ -237,7 +243,12 @@ def main() -> None:
     payload = {
         "created_at": datetime.now(timezone.utc).isoformat(),
         "experiment_run_id": experiment_run_id,
-        "passed": all(check["passed"] for check in checks),
+        "evaluation_mode": evaluation_mode,
+        "passed": all(
+            check["passed"]
+            for check in checks
+            if check.get("required", True)
+        ),
         "checks": checks,
         "metrics": metrics,
         "quality": quality,
@@ -254,4 +265,11 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--evaluation-mode",
+        action="store_true",
+        help="Ghi nhận sai số định danh như kết quả đo, không coi là lỗi hạ tầng.",
+    )
+    arguments = parser.parse_args()
+    main(evaluation_mode=arguments.evaluation_mode)

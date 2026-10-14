@@ -1,4 +1,4 @@
-.PHONY: install test build-web run-api run-vision run-simulator demo-prepare demo-prepare-fairface demo-calibrate demo-reset demo-seed demo-simulate demo-sequence-experiment demo-enroll demo-replay demo-analyze demo-verify demo-evidence demo-sequence-evidence
+.PHONY: install test build-web run-api run-vision run-simulator demo-prepare demo-prepare-fairface demo-calibrate demo-reset demo-seed demo-simulate demo-sequence-experiment demo-enroll demo-replay demo-analyze demo-verify demo-evidence demo-sequence-evidence demo-kdef-e2e
 
 install:
 	cd apps/api && uv sync --dev
@@ -63,3 +63,9 @@ demo-evidence:
 demo-sequence-evidence:
 	@test -n "$(SOURCE_RUN_ID)" || (echo "Thiếu SOURCE_RUN_ID" && exit 1)
 	SOURCE_RUN_ID="$(SOURCE_RUN_ID)" SOURCE_TYPE="$(or $(SOURCE_TYPE),SIMULATOR)" EXPECTED_USED_VISITS="$(or $(EXPECTED_USED_VISITS),125)" EXPECTED_K="$(EXPECTED_K)" node scripts/capture_sequence_analysis.mjs
+
+demo-kdef-e2e:
+	@test -n "$(DEMO_DATASET_ROOT)" || (echo "Thiếu DEMO_DATASET_ROOT" && exit 1)
+	@test -n "$(EXPERIMENT_RUN_ID)" || (echo "Thiếu EXPERIMENT_RUN_ID" && exit 1)
+	@test -n "$(EMOTION_WEIGHTS_HOST_PATH)" || (echo "Thiếu EMOTION_WEIGHTS_HOST_PATH" && exit 1)
+	python3 scripts/run_kdef_end_to_end.py --dataset-root "$(DEMO_DATASET_ROOT)" --run-id "$(EXPERIMENT_RUN_ID)" --emotion-weights "$(EMOTION_WEIGHTS_HOST_PATH)" --capture-all

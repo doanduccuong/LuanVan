@@ -1,0 +1,831 @@
+{
+  "method": "mutual-nearest ArcFace centroid pairing",
+  "source_group_count": 140,
+  "pair_count": 70,
+  "images_per_group": 7,
+  "pairs": [
+    {
+      "group_a": "KG000",
+      "group_b": "KG024",
+      "centroid_cosine_distance": 0.06985487950611047
+    },
+    {
+      "group_a": "KG001",
+      "group_b": "KG032",
+      "centroid_cosine_distance": 0.0297262573867616
+    },
+    {
+      "group_a": "KG002",
+      "group_b": "KG120",
+      "centroid_cosine_distance": 0.024076911411283652
+    },
+    {
+      "group_a": "KG003",
+      "group_b": "KG055",
+      "centroid_cosine_distance": 0.028661033294124505
+    },
+    {
+      "group_a": "KG004",
+      "group_b": "KG124",
+      "centroid_cosine_distance": 0.03353414139499766
+    },
+    {
+      "group_a": "KG005",
+      "group_b": "KG086",
+      "centroid_cosine_distance": 0.01519342208049479
+    },
+    {
+      "group_a": "KG006",
+      "group_b": "KG096",
+      "centroid_cosine_distance": 0.06189084983850435
+    },
+    {
+      "group_a": "KG007",
+      "group_b": "KG137",
+      "centroid_cosine_distance": 0.03748253420598857
+    },
+    {
+      "group_a": "KG008",
+      "group_b": "KG115",
+      "centroid_cosine_distance": 0.02924294187421861
+    },
+    {
+      "group_a": "KG009",
+      "group_b": "KG034",
+      "centroid_cosine_distance": 0.041570898384826416
+    },
+    {
+      "group_a": "KG010",
+      "group_b": "KG043",
+      "centroid_cosine_distance": 0.04377200248800195
+    },
+    {
+      "group_a": "KG011",
+      "group_b": "KG108",
+      "centroid_cosine_distance": 0.03366230940376247
+    },
+    {
+      "group_a": "KG012",
+      "group_b": "KG070",
+      "centroid_cosine_distance": 0.040089229677686244
+    },
+    {
+      "group_a": "KG013",
+      "group_b": "KG091",
+      "centroid_cosine_distance": 0.0418396794040693
+    },
+    {
+      "group_a": "KG014",
+      "group_b": "KG042",
+      "centroid_cosine_distance": 0.036565882280871875
+    },
+    {
+      "group_a": "KG015",
+      "group_b": "KG060",
+      "centroid_cosine_distance": 0.0632034755140981
+    },
+    {
+      "group_a": "KG016",
+      "group_b": "KG044",
+      "centroid_cosine_distance": 0.04443670681888834
+    },
+    {
+      "group_a": "KG017",
+      "group_b": "KG118",
+      "centroid_cosine_distance": 0.03932456866188516
+    },
+    {
+      "group_a": "KG018",
+      "group_b": "KG077",
+      "centroid_cosine_distance": 0.023894260050520977
+    },
+    {
+      "group_a": "KG019",
+      "group_b": "KG023",
+      "centroid_cosine_distance": 0.048592787611795085
+    },
+    {
+      "group_a": "KG020",
+      "group_b": "KG123",
+      "centroid_cosine_distance": 0.038769080952012036
+    },
+    {
+      "group_a": "KG021",
+      "group_b": "KG122",
+      "centroid_cosine_distance": 0.034667785184490985
+    },
+    {
+      "group_a": "KG022",
+      "group_b": "KG026",
+      "centroid_cosine_distance": 0.024110287644413808
+    },
+    {
+      "group_a": "KG025",
+      "group_b": "KG083",
+      "centroid_cosine_distance": 0.044175132571160236
+    },
+    {
+      "group_a": "KG027",
+      "group_b": "KG119",
+      "centroid_cosine_distance": 0.01824930517633616
+    },
+    {
+      "group_a": "KG028",
+      "group_b": "KG087",
+      "centroid_cosine_distance": 0.029866186561252395
+    },
+    {
+      "group_a": "KG029",
+      "group_b": "KG063",
+      "centroid_cosine_distance": 0.035813915313711364
+    },
+    {
+      "group_a": "KG030",
+      "group_b": "KG110",
+      "centroid_cosine_distance": 0.05783130850766316
+    },
+    {
+      "group_a": "KG031",
+      "group_b": "KG109",
+      "centroid_cosine_distance": 0.025717246313797126
+    },
+    {
+      "group_a": "KG033",
+      "group_b": "KG041",
+      "centroid_cosine_distance": 0.020457040800226478
+    },
+    {
+      "group_a": "KG035",
+      "group_b": "KG139",
+      "centroid_cosine_distance": 0.07194352870399245
+    },
+    {
+      "group_a": "KG036",
+      "group_b": "KG040",
+      "centroid_cosine_distance": 0.02096426315908939
+    },
+    {
+      "group_a": "KG037",
+      "group_b": "KG130",
+      "centroid_cosine_distance": 0.04750330000893932
+    },
+    {
+      "group_a": "KG038",
+      "group_b": "KG084",
+      "centroid_cosine_distance": 0.04905945562490044
+    },
+    {
+      "group_a": "KG039",
+      "group_b": "KG090",
+      "centroid_cosine_distance": 0.027137238549418963
+    },
+    {
+      "group_a": "KG045",
+      "group_b": "KG129",
+      "centroid_cosine_distance": 0.057440693939357246
+    },
+    {
+      "group_a": "KG046",
+      "group_b": "KG078",
+      "centroid_cosine_distance": 0.05512051083281255
+    },
+    {
+      "group_a": "KG047",
+      "group_b": "KG064",
+      "centroid_cosine_distance": 0.03395863537111521
+    },
+    {
+      "group_a": "KG048",
+      "group_b": "KG068",
+      "centroid_cosine_distance": 0.031726743065299656
+    },
+    {
+      "group_a": "KG049",
+      "group_b": "KG106",
+      "centroid_cosine_distance": 0.013955350390994603
+    },
+    {
+      "group_a": "KG050",
+      "group_b": "KG116",
+      "centroid_cosine_distance": 0.026079005152643275
+    },
+    {
+      "group_a": "KG051",
+      "group_b": "KG114",
+      "centroid_cosine_distance": 0.031947391784287515
+    },
+    {
+      "group_a": "KG052",
+      "group_b": "KG056",
+      "centroid_cosine_distance": 0.03773285615751165
+    },
+    {
+      "group_a": "KG053",
+      "group_b": "KG101",
+      "centroid_cosine_distance": 0.020506041676813247
+    },
+    {
+      "group_a": "KG054",
+      "group_b": "KG097",
+      "centroid_cosine_distance": 0.01757198283543493
+    },
+    {
+      "group_a": "KG057",
+      "group_b": "KG061",
+      "centroid_cosine_distance": 0.029313040497575882
+    },
+    {
+      "group_a": "KG058",
+      "group_b": "KG071",
+      "centroid_cosine_distance": 0.031097032108149403
+    },
+    {
+      "group_a": "KG059",
+      "group_b": "KG067",
+      "centroid_cosine_distance": 0.042734890684023585
+    },
+    {
+      "group_a": "KG062",
+      "group_b": "KG075",
+      "centroid_cosine_distance": 0.03635277683325322
+    },
+    {
+      "group_a": "KG065",
+      "group_b": "KG073",
+      "centroid_cosine_distance": 0.026608844818190924
+    },
+    {
+      "group_a": "KG066",
+      "group_b": "KG133",
+      "centroid_cosine_distance": 0.03955942668380974
+    },
+    {
+      "group_a": "KG069",
+      "group_b": "KG103",
+      "centroid_cosine_distance": 0.05229340490305079
+    },
+    {
+      "group_a": "KG072",
+      "group_b": "KG131",
+      "centroid_cosine_distance": 0.018380135360490435
+    },
+    {
+      "group_a": "KG074",
+      "group_b": "KG095",
+      "centroid_cosine_distance": 0.028089569463719988
+    },
+    {
+      "group_a": "KG076",
+      "group_b": "KG127",
+      "centroid_cosine_distance": 0.03152917529799937
+    },
+    {
+      "group_a": "KG079",
+      "group_b": "KG080",
+      "centroid_cosine_distance": 0.026611227653276393
+    },
+    {
+      "group_a": "KG081",
+      "group_b": "KG136",
+      "centroid_cosine_distance": 0.040340259047696
+    },
+    {
+      "group_a": "KG082",
+      "group_b": "KG112",
+      "centroid_cosine_distance": 0.05805159681545047
+    },
+    {
+      "group_a": "KG085",
+      "group_b": "KG117",
+      "centroid_cosine_distance": 0.040682552879702794
+    },
+    {
+      "group_a": "KG088",
+      "group_b": "KG107",
+      "centroid_cosine_distance": 0.027327612363135745
+    },
+    {
+      "group_a": "KG089",
+      "group_b": "KG113",
+      "centroid_cosine_distance": 0.052988031412802616
+    },
+    {
+      "group_a": "KG092",
+      "group_b": "KG126",
+      "centroid_cosine_distance": 0.03364949351025426
+    },
+    {
+      "group_a": "KG093",
+      "group_b": "KG111",
+      "centroid_cosine_distance": 0.055900847841718115
+    },
+    {
+      "group_a": "KG094",
+      "group_b": "KG104",
+      "centroid_cosine_distance": 0.04322926164686458
+    },
+    {
+      "group_a": "KG098",
+      "group_b": "KG121",
+      "centroid_cosine_distance": 0.04083962773443961
+    },
+    {
+      "group_a": "KG099",
+      "group_b": "KG100",
+      "centroid_cosine_distance": 0.024692513073493627
+    },
+    {
+      "group_a": "KG102",
+      "group_b": "KG125",
+      "centroid_cosine_distance": 0.020375804874275483
+    },
+    {
+      "group_a": "KG105",
+      "group_b": "KG138",
+      "centroid_cosine_distance": 0.0355326332535858
+    },
+    {
+      "group_a": "KG128",
+      "group_b": "KG134",
+      "centroid_cosine_distance": 0.017707072156816328
+    },
+    {
+      "group_a": "KG132",
+      "group_b": "KG135",
+      "centroid_cosine_distance": 0.031509086205116055
+    }
+  ],
+  "calibration_identity_count": 35,
+  "remaining_identity_count": 35,
+  "selection_seed": 20261008,
+  "selected_identity_pairs": [
+    {
+      "group_a": "KG049",
+      "group_b": "KG106",
+      "centroid_cosine_distance": 0.013955350390994603
+    },
+    {
+      "group_a": "KG005",
+      "group_b": "KG086",
+      "centroid_cosine_distance": 0.01519342208049479
+    },
+    {
+      "group_a": "KG033",
+      "group_b": "KG041",
+      "centroid_cosine_distance": 0.020457040800226478
+    },
+    {
+      "group_a": "KG016",
+      "group_b": "KG044",
+      "centroid_cosine_distance": 0.04443670681888834
+    },
+    {
+      "group_a": "KG009",
+      "group_b": "KG034",
+      "centroid_cosine_distance": 0.041570898384826416
+    },
+    {
+      "group_a": "KG018",
+      "group_b": "KG077",
+      "centroid_cosine_distance": 0.023894260050520977
+    },
+    {
+      "group_a": "KG128",
+      "group_b": "KG134",
+      "centroid_cosine_distance": 0.017707072156816328
+    },
+    {
+      "group_a": "KG062",
+      "group_b": "KG075",
+      "centroid_cosine_distance": 0.03635277683325322
+    },
+    {
+      "group_a": "KG014",
+      "group_b": "KG042",
+      "centroid_cosine_distance": 0.036565882280871875
+    },
+    {
+      "group_a": "KG020",
+      "group_b": "KG123",
+      "centroid_cosine_distance": 0.038769080952012036
+    },
+    {
+      "group_a": "KG076",
+      "group_b": "KG127",
+      "centroid_cosine_distance": 0.03152917529799937
+    },
+    {
+      "group_a": "KG058",
+      "group_b": "KG071",
+      "centroid_cosine_distance": 0.031097032108149403
+    },
+    {
+      "group_a": "KG093",
+      "group_b": "KG111",
+      "centroid_cosine_distance": 0.055900847841718115
+    },
+    {
+      "group_a": "KG092",
+      "group_b": "KG126",
+      "centroid_cosine_distance": 0.03364949351025426
+    },
+    {
+      "group_a": "KG030",
+      "group_b": "KG110",
+      "centroid_cosine_distance": 0.05783130850766316
+    },
+    {
+      "group_a": "KG007",
+      "group_b": "KG137",
+      "centroid_cosine_distance": 0.03748253420598857
+    },
+    {
+      "group_a": "KG048",
+      "group_b": "KG068",
+      "centroid_cosine_distance": 0.031726743065299656
+    },
+    {
+      "group_a": "KG066",
+      "group_b": "KG133",
+      "centroid_cosine_distance": 0.03955942668380974
+    },
+    {
+      "group_a": "KG035",
+      "group_b": "KG139",
+      "centroid_cosine_distance": 0.07194352870399245
+    },
+    {
+      "group_a": "KG001",
+      "group_b": "KG032",
+      "centroid_cosine_distance": 0.0297262573867616
+    },
+    {
+      "group_a": "KG029",
+      "group_b": "KG063",
+      "centroid_cosine_distance": 0.035813915313711364
+    },
+    {
+      "group_a": "KG027",
+      "group_b": "KG119",
+      "centroid_cosine_distance": 0.01824930517633616
+    },
+    {
+      "group_a": "KG015",
+      "group_b": "KG060",
+      "centroid_cosine_distance": 0.0632034755140981
+    },
+    {
+      "group_a": "KG102",
+      "group_b": "KG125",
+      "centroid_cosine_distance": 0.020375804874275483
+    },
+    {
+      "group_a": "KG019",
+      "group_b": "KG023",
+      "centroid_cosine_distance": 0.048592787611795085
+    },
+    {
+      "group_a": "KG105",
+      "group_b": "KG138",
+      "centroid_cosine_distance": 0.0355326332535858
+    },
+    {
+      "group_a": "KG003",
+      "group_b": "KG055",
+      "centroid_cosine_distance": 0.028661033294124505
+    },
+    {
+      "group_a": "KG013",
+      "group_b": "KG091",
+      "centroid_cosine_distance": 0.0418396794040693
+    },
+    {
+      "group_a": "KG094",
+      "group_b": "KG104",
+      "centroid_cosine_distance": 0.04322926164686458
+    },
+    {
+      "group_a": "KG047",
+      "group_b": "KG064",
+      "centroid_cosine_distance": 0.03395863537111521
+    },
+    {
+      "group_a": "KG052",
+      "group_b": "KG056",
+      "centroid_cosine_distance": 0.03773285615751165
+    },
+    {
+      "group_a": "KG059",
+      "group_b": "KG067",
+      "centroid_cosine_distance": 0.042734890684023585
+    },
+    {
+      "group_a": "KG037",
+      "group_b": "KG130",
+      "centroid_cosine_distance": 0.04750330000893932
+    },
+    {
+      "group_a": "KG065",
+      "group_b": "KG073",
+      "centroid_cosine_distance": 0.026608844818190924
+    },
+    {
+      "group_a": "KG054",
+      "group_b": "KG097",
+      "centroid_cosine_distance": 0.01757198283543493
+    }
+  ],
+  "selected_groups": [
+    "KG003",
+    "KG005",
+    "KG007",
+    "KG013",
+    "KG015",
+    "KG016",
+    "KG018",
+    "KG020",
+    "KG023",
+    "KG027",
+    "KG029",
+    "KG032",
+    "KG034",
+    "KG035",
+    "KG037",
+    "KG041",
+    "KG042",
+    "KG047",
+    "KG049",
+    "KG052",
+    "KG058",
+    "KG062",
+    "KG065",
+    "KG066",
+    "KG067",
+    "KG068",
+    "KG092",
+    "KG093",
+    "KG097",
+    "KG102",
+    "KG104",
+    "KG105",
+    "KG110",
+    "KG127",
+    "KG134"
+  ],
+  "holdout_groups": [
+    "KG011",
+    "KG039",
+    "KG061",
+    "KG074",
+    "KG112"
+  ],
+  "holdout_identity_pairs": [
+    {
+      "group_a": "KG011",
+      "group_b": "KG108",
+      "centroid_cosine_distance": 0.03366230940376247
+    },
+    {
+      "group_a": "KG039",
+      "group_b": "KG090",
+      "centroid_cosine_distance": 0.027137238549418963
+    },
+    {
+      "group_a": "KG057",
+      "group_b": "KG061",
+      "centroid_cosine_distance": 0.029313040497575882
+    },
+    {
+      "group_a": "KG074",
+      "group_b": "KG095",
+      "centroid_cosine_distance": 0.028089569463719988
+    },
+    {
+      "group_a": "KG082",
+      "group_b": "KG112",
+      "centroid_cosine_distance": 0.05805159681545047
+    }
+  ],
+  "reserved_identity_pairs": [
+    {
+      "group_a": "KG000",
+      "group_b": "KG024",
+      "centroid_cosine_distance": 0.06985487950611047
+    },
+    {
+      "group_a": "KG002",
+      "group_b": "KG120",
+      "centroid_cosine_distance": 0.024076911411283652
+    },
+    {
+      "group_a": "KG004",
+      "group_b": "KG124",
+      "centroid_cosine_distance": 0.03353414139499766
+    },
+    {
+      "group_a": "KG006",
+      "group_b": "KG096",
+      "centroid_cosine_distance": 0.06189084983850435
+    },
+    {
+      "group_a": "KG008",
+      "group_b": "KG115",
+      "centroid_cosine_distance": 0.02924294187421861
+    },
+    {
+      "group_a": "KG010",
+      "group_b": "KG043",
+      "centroid_cosine_distance": 0.04377200248800195
+    },
+    {
+      "group_a": "KG011",
+      "group_b": "KG108",
+      "centroid_cosine_distance": 0.03366230940376247
+    },
+    {
+      "group_a": "KG012",
+      "group_b": "KG070",
+      "centroid_cosine_distance": 0.040089229677686244
+    },
+    {
+      "group_a": "KG017",
+      "group_b": "KG118",
+      "centroid_cosine_distance": 0.03932456866188516
+    },
+    {
+      "group_a": "KG021",
+      "group_b": "KG122",
+      "centroid_cosine_distance": 0.034667785184490985
+    },
+    {
+      "group_a": "KG022",
+      "group_b": "KG026",
+      "centroid_cosine_distance": 0.024110287644413808
+    },
+    {
+      "group_a": "KG025",
+      "group_b": "KG083",
+      "centroid_cosine_distance": 0.044175132571160236
+    },
+    {
+      "group_a": "KG028",
+      "group_b": "KG087",
+      "centroid_cosine_distance": 0.029866186561252395
+    },
+    {
+      "group_a": "KG031",
+      "group_b": "KG109",
+      "centroid_cosine_distance": 0.025717246313797126
+    },
+    {
+      "group_a": "KG036",
+      "group_b": "KG040",
+      "centroid_cosine_distance": 0.02096426315908939
+    },
+    {
+      "group_a": "KG038",
+      "group_b": "KG084",
+      "centroid_cosine_distance": 0.04905945562490044
+    },
+    {
+      "group_a": "KG039",
+      "group_b": "KG090",
+      "centroid_cosine_distance": 0.027137238549418963
+    },
+    {
+      "group_a": "KG045",
+      "group_b": "KG129",
+      "centroid_cosine_distance": 0.057440693939357246
+    },
+    {
+      "group_a": "KG046",
+      "group_b": "KG078",
+      "centroid_cosine_distance": 0.05512051083281255
+    },
+    {
+      "group_a": "KG050",
+      "group_b": "KG116",
+      "centroid_cosine_distance": 0.026079005152643275
+    },
+    {
+      "group_a": "KG051",
+      "group_b": "KG114",
+      "centroid_cosine_distance": 0.031947391784287515
+    },
+    {
+      "group_a": "KG053",
+      "group_b": "KG101",
+      "centroid_cosine_distance": 0.020506041676813247
+    },
+    {
+      "group_a": "KG057",
+      "group_b": "KG061",
+      "centroid_cosine_distance": 0.029313040497575882
+    },
+    {
+      "group_a": "KG069",
+      "group_b": "KG103",
+      "centroid_cosine_distance": 0.05229340490305079
+    },
+    {
+      "group_a": "KG072",
+      "group_b": "KG131",
+      "centroid_cosine_distance": 0.018380135360490435
+    },
+    {
+      "group_a": "KG074",
+      "group_b": "KG095",
+      "centroid_cosine_distance": 0.028089569463719988
+    },
+    {
+      "group_a": "KG079",
+      "group_b": "KG080",
+      "centroid_cosine_distance": 0.026611227653276393
+    },
+    {
+      "group_a": "KG081",
+      "group_b": "KG136",
+      "centroid_cosine_distance": 0.040340259047696
+    },
+    {
+      "group_a": "KG082",
+      "group_b": "KG112",
+      "centroid_cosine_distance": 0.05805159681545047
+    },
+    {
+      "group_a": "KG085",
+      "group_b": "KG117",
+      "centroid_cosine_distance": 0.040682552879702794
+    },
+    {
+      "group_a": "KG088",
+      "group_b": "KG107",
+      "centroid_cosine_distance": 0.027327612363135745
+    },
+    {
+      "group_a": "KG089",
+      "group_b": "KG113",
+      "centroid_cosine_distance": 0.052988031412802616
+    },
+    {
+      "group_a": "KG098",
+      "group_b": "KG121",
+      "centroid_cosine_distance": 0.04083962773443961
+    },
+    {
+      "group_a": "KG099",
+      "group_b": "KG100",
+      "centroid_cosine_distance": 0.024692513073493627
+    },
+    {
+      "group_a": "KG132",
+      "group_b": "KG135",
+      "centroid_cosine_distance": 0.031509086205116055
+    }
+  ],
+  "reserved_groups": [
+    "KG000",
+    "KG002",
+    "KG004",
+    "KG006",
+    "KG008",
+    "KG010",
+    "KG011",
+    "KG012",
+    "KG017",
+    "KG021",
+    "KG022",
+    "KG025",
+    "KG028",
+    "KG031",
+    "KG036",
+    "KG038",
+    "KG039",
+    "KG045",
+    "KG046",
+    "KG050",
+    "KG051",
+    "KG053",
+    "KG061",
+    "KG069",
+    "KG072",
+    "KG074",
+    "KG079",
+    "KG081",
+    "KG085",
+    "KG088",
+    "KG089",
+    "KG098",
+    "KG099",
+    "KG112",
+    "KG132"
+  ],
+  "validation": {
+    "maximum_paired_centroid_distance": 0.07194352870399245,
+    "minimum_non_paired_centroid_distance": 0.40987734130532116,
+    "all_pairs_are_mutual_nearest": true,
+    "all_groups_are_covered_once": true,
+    "holdout_identities_excluded_from_calibration": true
+  },
+  "limitation": "Pair labels are reconstructed from ArcFace embeddings because the processed mirror does not preserve original KDEF subject and session identifiers."
+}

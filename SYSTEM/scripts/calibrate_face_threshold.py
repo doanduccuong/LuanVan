@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import argparse
+import hashlib
 import itertools
 import json
 import statistics
 from dataclasses import asdict
 from datetime import datetime, timezone
+from pathlib import Path
 
 import httpx
 
@@ -28,17 +31,70 @@ def analyze(path):
     return faces[0]["embedding"], data["models"]["embedding"]
 
 
+def file_sha256(path):
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Hiệu chỉnh ngưỡng đối sánh ArcFace từ thư mục calibration."
+    )
+    parser.add_argument("--dataset-root", type=Path, default=DATASET_ROOT)
+    parser.add_argument("--artifact-root", type=Path, default=ARTIFACT_ROOT)
+    parser.add_argument("--target-fpr", type=float, default=0.10)
+    return parser.parse_args()
+
+
 def main() -> None:
-    root = DATASET_ROOT / "calibration"
-    manifest_path = DATASET_ROOT / "kdef_demo_manifest.json"
+    args = parse_args()
+    dataset_root = args.dataset_root.expanduser().resolve()
+    artifact_root = args.artifact_root.expanduser().resolve()
+    root = dataset_root / "calibration"
+    manifest_path = dataset_root / "kdef_demo_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else {}
+    cache_path = dataset_root / "arcface_embeddings.json"
+    cache = (
+        json.loads(cache_path.read_text(encoding="utf-8"))
+        if cache_path.exists()
+        else {"images": {}}
+    )
+    cached_images = cache.setdefault("images", {})
     embeddings: dict[str, list[list[float]]] = {}
     model_version = None
+    image_paths = [
+        image
+        for subject_dir in sorted(path for path in root.iterdir() if path.is_dir())
+        for image in sorted(subject_dir.glob("*.jpg"))
+    ]
+    processed = 0
     for subject_dir in sorted(path for path in root.iterdir() if path.is_dir()):
         embeddings[subject_dir.name] = []
         for image in sorted(subject_dir.glob("*.jpg")):
-            embedding, model_version = analyze(image)
+            relative_path = str(image.relative_to(dataset_root))
+            digest = file_sha256(image)
+            cached = cached_images.get(relative_path)
+            if cached and cached.get("sha256") == digest:
+                embedding = cached["embedding"]
+                model_version = cached["model_version"]
+            else:
+                embedding, model_version = analyze(image)
+                cached_images[relative_path] = {
+                    "sha256": digest,
+                    "embedding": embedding,
+                    "model_version": model_version,
+                }
             embeddings[subject_dir.name].append(embedding)
+            processed += 1
+            if processed % 10 == 0 or processed == len(image_paths):
+                save_json(cache_path, cache)
+                print(
+                    f"Đã tạo embedding {processed}/{len(image_paths)} ảnh",
+                    flush=True,
+                )
     positives, negatives = [], []
     for subject, vectors in embeddings.items():
         positives.extend(cosine_distance(a, b) for a, b in itertools.combinations(vectors, 2))
@@ -46,7 +102,7 @@ def main() -> None:
             if other <= subject:
                 continue
             negatives.extend(cosine_distance(a, b) for a in vectors for b in other_vectors)
-    target_false_positive_rate = 0.0
+    target_false_positive_rate = args.target_fpr
     roc_points = build_roc_curve(positives, negatives)
     selected_point = select_roc_threshold(roc_points, target_false_positive_rate)
     artifact = {
@@ -82,12 +138,12 @@ def main() -> None:
             "max": max(negatives),
         },
         "scope": (
-            "operational threshold calibrated on reserved KDEF-Kaggle images; "
+            "operational threshold calibrated on reserved KDEF images; "
             "calibration files are excluded from replay and this is not a population-level accuracy claim"
         ),
     }
-    save_json(ARTIFACT_ROOT / "face-threshold.json", artifact)
-    run_root = ARTIFACT_ROOT / "experiment-runs" / manifest["experiment_run_id"]
+    save_json(artifact_root / "face-threshold.json", artifact)
+    run_root = artifact_root / "experiment-runs" / manifest["experiment_run_id"]
     save_json(run_root / "face-threshold.json", artifact)
     save_json(run_root / "calibration-distances.json", {
         "positive_distances": positives,

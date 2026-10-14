@@ -130,7 +130,7 @@ Khoảng cách càng nhỏ thì hai véc-tơ càng giống nhau. Mẫu tham chi�
 \end{equation}
 Khách hàng gắn với mẫu $\boldsymbol{z}_{j^{*}}$ được xác định là người xuất hiện trong ảnh khi $d_{\min}\leq\tau_{\mathrm{id}}$, trong đó $\tau_{\mathrm{id}}$ là ngưỡng đối sánh danh tính. Nếu $d_{\min}>\tau_{\mathrm{id}}$, khuôn mặt được xem là không khớp với khách hàng nào trong tập tham chiếu. Khi một khách hàng có nhiều ảnh mẫu, phép so sánh được thực hiện với từng mẫu và sử dụng khoảng cách nhỏ nhất làm căn cứ quyết định.
 
-Luận văn kế thừa phương pháp phân tích đường cong ROC \cite{fawcett2006roc} để xác định ngưỡng đối sánh $\tau_{\mathrm{id}}$. Từ tập ảnh hiệu chỉnh, các cặp ảnh cùng người và các cặp ảnh của hai người khác nhau được tạo ra, sau đó khoảng cách cô-sin được tính cho từng cặp. Các giá trị khoảng cách quan sát được lần lượt được xem là ngưỡng ứng viên. Tại mỗi ngưỡng, tỷ lệ nhận đúng được tính trên các cặp cùng người và tỷ lệ nhận nhầm được tính trên các cặp khác người; hai tỷ lệ này tạo thành một điểm trên đường cong ROC. Phương án đề xuất đặt tỷ lệ nhận nhầm mục tiêu bằng 0 và chọn ngưỡng có tỷ lệ nhận đúng cao nhất trong số các ngưỡng đáp ứng điều kiện này. Nếu nhiều ngưỡng cho cùng tỷ lệ nhận đúng, ngưỡng lớn nhất được chọn.
+Luận văn kế thừa phương pháp phân tích đường cong ROC \cite{fawcett2006roc} để xác định ngưỡng đối sánh $\tau_{\mathrm{id}}$. Từ tập ảnh hiệu chỉnh, các cặp ảnh cùng người và các cặp ảnh của hai người khác nhau được tạo ra, sau đó khoảng cách cô-sin được tính cho từng cặp. Các giá trị khoảng cách quan sát được lần lượt được xem là ngưỡng ứng viên. Tại mỗi ngưỡng, tỷ lệ nhận đúng được tính trên các cặp cùng người và tỷ lệ nhận nhầm được tính trên các cặp khác người; hai tỷ lệ này tạo thành một điểm trên đường cong ROC. Phương án đề xuất đặt tỷ lệ nhận nhầm mục tiêu bằng 10\% và chọn ngưỡng có tỷ lệ nhận đúng cao nhất trong số các ngưỡng đáp ứng $\mathrm{FPR}\leq10\%$. Nếu nhiều ngưỡng cho cùng tỷ lệ nhận đúng, ngưỡng lớn nhất được chọn.
 
 \subsection{Kết hợp kết quả thành bản ghi tại điểm chạm}
 \label{subsection:3.2.5}
@@ -283,10 +283,15 @@ Khi áp dụng OM, chi phí chèn và xóa được đặt bằng 1. Chi phí th
 
 Các khoảng cách OM giữa từng cặp chuỗi được tổng hợp thành ma trận khoảng cách $D$ có kích thước $N\times N$, với $N$ là số chuỗi được đưa vào phân tích. Mã điểm chạm, thời điểm và thời lượng được giữ làm thông tin mô tả chuỗi, nhưng không tham gia trực tiếp vào phép tính khoảng cách OM.
 
-Tiếp theo, ma trận khoảng cách $D$ được đưa vào PAM để phân cụm các chuỗi trạng thái. Với mỗi giá trị $K$, kết quả gồm nhãn cụm của từng chuỗi và chuỗi medoid đại diện cho mỗi cụm.
+Tiếp theo, ma trận khoảng cách $D$ được đưa vào PAM để phân cụm các chuỗi trạng thái. Với mỗi giá trị $K$, kết quả gồm nhãn cụm của từng chuỗi và chuỗi medoid đại diện cho mỗi cụm. Trong phần cài đặt, luận văn sử dụng thư viện Sequenzo phiên bản 0.1.42: hàm \texttt{k\_medoids\_range} chạy PAM trên ma trận khoảng cách với từng giá trị $K$, còn hàm \texttt{observation\_silhouette} tính hệ số silhouette của từng chuỗi từ nhãn cụm và ma trận khoảng cách OM.
 
 Phương pháp khảo sát lần lượt các giá trị $K$ bắt đầu từ 2. Giới hạn trên của $K$ được xác định từ tổng số chuỗi, số chuỗi trạng thái phân biệt, kích thước cụm tối thiểu và giới hạn khảo sát đặt trước. Kích thước cụm tối thiểu được lấy theo giá trị lớn hơn giữa số lượng tối thiểu tuyệt đối và tỷ lệ tối thiểu trên tổng số chuỗi. Các phương án tạo ra cụm nhỏ hơn giới hạn này bị loại khỏi tập ứng viên.
 
-ASW được tính cho từng phương án còn lại. Gọi $A^*$ là giá trị ASW lớn nhất, luận văn chọn giá trị $K$ nhỏ nhất có ASW không thấp hơn $A^*-\varepsilon$, với $\varepsilon=0{,}02$. Kết quả cuối cùng gồm số cụm được chọn, chuỗi medoid của từng cụm, số chuỗi trong cụm, nhãn cụm của từng lần mua sắm, khoảng cách đến medoid và hệ số silhouette.
+Với mỗi phương án còn lại, hệ thống lấy trung bình cộng các hệ số silhouette do Sequenzo trả về để tính ASW:
+\begin{equation}
+    \operatorname{ASW}(K)=\frac{1}{N}\sum_{i=1}^{N}s_K(i),
+    \label{eq:ch3_asw_implementation}
+\end{equation}
+trong đó $s_K(i)$ là hệ số silhouette của chuỗi $i$ khi dữ liệu được chia thành $K$ cụm. Gọi $A^*$ là giá trị ASW lớn nhất, luận văn chọn giá trị $K$ nhỏ nhất có ASW không thấp hơn $A^*-\varepsilon$, với $\varepsilon=0{,}02$. Kết quả cuối cùng gồm số cụm được chọn, chuỗi medoid của từng cụm, số chuỗi trong cụm, nhãn cụm của từng lần mua sắm, khoảng cách đến medoid và hệ số silhouette.
 
 \end{document}

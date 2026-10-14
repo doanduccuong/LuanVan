@@ -75,13 +75,15 @@ def render_confusion_matrix(metrics: dict) -> None:
     ax.set_yticks(range(len(expected_labels)), expected_labels)
     ax.set_xlabel("Nhãn biểu cảm được lưu / Missing: không có kết quả được lưu")
     ax.set_ylabel("Nhãn thư mục KDEF dùng làm đối chiếu")
-    ax.set_title("Ma trận nhầm lẫn biểu cảm trên 100 khung camera KDEF")
+    ax.set_title(
+        f"Ma trận nhầm lẫn biểu cảm trên {metrics['capture_event_count']} khung camera KDEF"
+    )
     colorbar = fig.colorbar(image, ax=ax, fraction=0.04, pad=0.03)
     colorbar.set_label("Tỷ lệ theo từng nhãn đối chiếu")
     fig.text(
         0.01,
         0.01,
-        f"Run {RUN_ID}; số mẫu và tỷ lệ theo hàng. Đúng trên toàn bộ đầu vào = {expression['accuracy']:.3f}; "
+        f"Số mẫu và tỷ lệ theo hàng. Đúng trên toàn bộ đầu vào = {expression['accuracy']:.3f}; "
         f"Macro-F1 ({len(expected_labels)} lớp có mẫu) = {expression['macro_f1_present_classes']:.3f}.",
         fontsize=8.5,
         color="#374151",
@@ -90,7 +92,7 @@ def render_confusion_matrix(metrics: dict) -> None:
     save_chart(fig, "expression_confusion_matrix.png", "5_20_kdef_ma_tran_nham_lan.png")
 
 
-def render_identity_outcomes(metrics: dict) -> None:
+def render_identity_outcomes(metrics: dict, threshold: dict) -> None:
     identity = metrics["identity"]
     labels = ["Ghép đúng khách", "Không khớp", "Ghép nhầm khách"]
     values = [
@@ -101,16 +103,28 @@ def render_identity_outcomes(metrics: dict) -> None:
     colors = ["#0f766e", "#f59e0b", "#dc2626"]
     fig, ax = plt.subplots(figsize=(8.5, 5.2))
     bars = ax.bar(labels, values, color=colors, width=0.62)
-    ax.set_ylim(0, 105)
+    upper_limit = max(values + [1]) * 1.12
+    ax.set_ylim(0, upper_limit)
     ax.set_ylabel("Số khung camera")
-    ax.set_title("Kết quả ghép định danh trên 100 khung camera KDEF")
+    ax.set_title(
+        f"Kết quả ghép định danh trên {metrics['capture_event_count']} khung camera KDEF"
+    )
     ax.grid(axis="y", alpha=0.22)
     for bar, value in zip(bars, values):
-        ax.text(bar.get_x() + bar.get_width() / 2, value + 2, str(value), ha="center", fontweight="bold")
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            value + upper_limit * 0.02,
+            str(value),
+            ha="center",
+            fontweight="bold",
+        )
     fig.text(
         0.01,
         0.01,
-        f"Run {RUN_ID}; {metrics['valid_image_count']}/{metrics['capture_event_count']} ảnh hợp lệ; ngưỡng hiệu chỉnh trên 35 ảnh riêng.",
+        f"{metrics['valid_image_count']}/{metrics['capture_event_count']} ảnh hợp lệ; "
+        f"ngưỡng hiệu chỉnh trên {threshold['calibration_images']} ảnh thuộc "
+        f"{len(threshold['subjects'])} người, tách biệt với "
+        f"{metrics.get('evaluation_subject_count', 'tập')} người đầu-cuối.",
         fontsize=8.5,
         color="#374151",
     )
@@ -162,7 +176,7 @@ def render_k_selection(run_payload: dict) -> None:
     fig.text(
         0.01,
         0.01,
-        f"Run {RUN_ID}; {result['received_visit_count']} lượt nhận vào, "
+        f"{result['received_visit_count']} lượt nhận vào, "
         f"{result['used_visit_count']} lượt đủ điều kiện, "
         f"{result['excluded_visit_count']} lượt bị loại.",
         fontsize=8.5,
@@ -175,12 +189,13 @@ def render_k_selection(run_payload: dict) -> None:
 def main() -> None:
     metrics = json.loads((RUN_ROOT / "kdef_metrics.json").read_text(encoding="utf-8"))
     run_payload = json.loads((RUN_ROOT / "sequence-analysis" / "run.json").read_text(encoding="utf-8"))
-    if metrics["capture_event_count"] != 100:
-        raise RuntimeError("Artifact KDEF không có đúng 100 khung camera")
+    threshold = json.loads((RUN_ROOT / "face-threshold.json").read_text(encoding="utf-8"))
+    if metrics["capture_event_count"] <= 0:
+        raise RuntimeError("Artifact KDEF không có khung camera nào")
     if run_payload["result"]["source_run_id"] != RUN_ID:
         raise RuntimeError("Run phân cụm không thuộc artifact KDEF đang vẽ")
     render_confusion_matrix(metrics)
-    render_identity_outcomes(metrics)
+    render_identity_outcomes(metrics, threshold)
     render_k_selection(run_payload)
     print(f"Đã tạo biểu đồ từ artifact thật tại {CHART_ROOT}")
 

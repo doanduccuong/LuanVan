@@ -7,6 +7,9 @@ from demo_common import ARTIFACT_ROOT, DATASET_ROOT, save_json
 
 def main():
     manifest = json.loads((DATASET_ROOT / "kdef_demo_manifest.json").read_text())
+    expected = json.loads(
+        (DATASET_ROOT / "expected" / "expected_visits.json").read_text(encoding="utf-8")
+    )
     root = ARTIFACT_ROOT / "experiment-runs" / manifest["experiment_run_id"]
     rows = [json.loads(line) for line in (root / "replay_results.jsonl").read_text().splitlines()]
     visits = json.loads((root / "visits.json").read_text())
@@ -15,7 +18,11 @@ def main():
     run = json.loads((root / "sequence-analysis/run.json").read_text())["result"]
     by_visit = {item["visit"]["id"]: item["observations"] for item in visits}
     raw = {obs["id"]: obs for row in rows for obs in row["response"]["observations"]}
-    assert len(rows) == len({row["event_id"] for row in rows}) == 100
+    assert (
+        len(rows)
+        == len({row["event_id"] for row in rows})
+        == expected["expected_event_count"]
+    )
     assert all(row["http_status"] == 201 and row["face_count"] == 1 for row in rows)
     assert len(raw) == sum(len(obs) for obs in by_visit.values())
     assert assignments["total"] == len(assignments["items"]) == run["used_visit_count"]

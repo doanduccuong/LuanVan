@@ -33,6 +33,9 @@ def main(baseline: Path, source: Path, output: Path, run_id: str) -> None:
     if output.exists():
         raise ValueError(f"Output already exists: {output}")
     manifest = json.loads((baseline / "kdef_demo_manifest.json").read_text())
+    expected = json.loads(
+        (baseline / "expected" / "expected_visits.json").read_text(encoding="utf-8")
+    )
     old_run = manifest["experiment_run_id"]
     fields, images = load_rows(baseline / "image_manifest.csv")
     replacements = []
@@ -44,8 +47,10 @@ def main(baseline: Path, source: Path, output: Path, run_id: str) -> None:
         if len(matches) != 1:
             raise ValueError(f"Cannot uniquely resolve source: {row['source_filename']}")
         replacements.append((row, matches[0]))
-    if len(replacements) != 100:
-        raise ValueError("Expected exactly 100 observation images")
+    if len(replacements) != expected["expected_event_count"]:
+        raise ValueError(
+            f"Expected exactly {expected['expected_event_count']} observation images"
+        )
     shutil.copytree(baseline, output)
     sizes: Counter[str] = Counter()
     for row, source_image in replacements:

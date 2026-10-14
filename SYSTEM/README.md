@@ -78,23 +78,23 @@ Lớp này dùng nhãn được tạo theo năm mẫu biết trước để ki�
 
 Nguồn tệp dùng cho demo là bản KDEF đã xử lý trên Kaggle: [chenrich/kdef-database](https://www.kaggle.com/datasets/chenrich/kdef-database). Bản phân phối gồm 2.938 ảnh trong bảy thư mục nhãn và 140 mã nhóm nguồn dạng số; nó không giữ mã phiên/góc và tên tệp của KDEF gốc. Ảnh không được lưu trong kho mã. Người chạy tải dữ liệu, giải nén và truyền thư mục chứa bảy thư mục nhãn qua `KDEF_ROOT`. Kịch bản chọn cùng mã nhóm ở nhiều biểu cảm, ưu tiên một ảnh Neutral nhìn thẳng làm ảnh đăng ký và phát các ảnh khác tại bốn điểm chạm. Biểu cảm và ảnh nguồn có thể lặp.
 
-Lần mới nhất `KDEF-RANDOM-TIME-20261013-LIVE` dùng năm nhóm nguồn, năm lượt mỗi hồ sơ và bốn điểm chạm mỗi lượt: 5 hồ sơ, 25 lần mua sắm dự kiến và 100 khung Camera. Nhãn rồi ảnh được lấy ngẫu nhiên có hoàn lại; khoảng cách giữa hai điểm chạm được lấy ngẫu nhiên từ 5 đến 15 phút. Không gán trước chuỗi hoặc số cụm.
+Lần mới nhất `KDEF-E2E-SPLIT35-FPR10-20261014-LIVE` ghép 140 mã nhóm thành 70 cặp phiên, dùng 35 người để hiệu chỉnh ngưỡng và giữ lại 35 người. Năm người đầu-cuối được lấy từ phần giữ lại, mỗi hồ sơ có năm lượt và bốn điểm chạm mỗi lượt: 5 hồ sơ, 25 lần mua sắm và 100 khung Camera. Nhãn rồi ảnh được lấy ngẫu nhiên có hoàn lại; khoảng cách giữa hai điểm chạm được lấy ngẫu nhiên từ 5 đến 15 phút. Không gán trước chuỗi hoặc số cụm.
 
-Để tái lập từ đầu, xem [quy trình, số liệu và bằng chứng mới](artifacts/experiment-runs/KDEF-RANDOM-TIME-20261013-LIVE/README.md). Luôn sao lưu trước khi reset demo và chọn thư mục dữ liệu mới để không ghi đè bằng chứng. Chụp lại giao diện của lần chạy hiện tại:
+Artifact của lần chạy mới nằm tại `artifacts/experiment-runs/KDEF-E2E-SPLIT35-FPR10-20261014-LIVE/`. Luôn sao lưu trước khi reset demo và chọn thư mục dữ liệu mới để không ghi đè bằng chứng. Chụp lại giao diện của lần chạy hiện tại:
 
 ```bash
-SOURCE_RUN_ID=KDEF-RANDOM-TIME-20261013-LIVE \
-  EXPECTED_USED_VISITS=23 EXPECTED_K=3 EXPECTED_OBSERVATIONS=97 \
+SOURCE_RUN_ID=KDEF-E2E-SPLIT35-FPR10-20261014-LIVE \
+  EXPECTED_USED_VISITS=25 EXPECTED_K=2 EXPECTED_OBSERVATIONS=100 \
   node scripts/capture_kdef_live_demo.mjs
-SOURCE_RUN_ID=KDEF-RANDOM-TIME-20261013-LIVE \
-  SOURCE_TYPE=CAMERA EXPECTED_USED_VISITS=23 EXPECTED_K=3 \
+SOURCE_RUN_ID=KDEF-E2E-SPLIT35-FPR10-20261014-LIVE \
+  SOURCE_TYPE=CAMERA EXPECTED_USED_VISITS=25 EXPECTED_K=2 \
   node scripts/capture_sequence_analysis.mjs
-SOURCE_RUN_ID=KDEF-RANDOM-TIME-20261013-LIVE \
+SOURCE_RUN_ID=KDEF-E2E-SPLIT35-FPR10-20261014-LIVE \
   node scripts/capture_system_status.mjs
-SOURCE_RUN_ID=KDEF-RANDOM-TIME-20261013-LIVE node scripts/capture_chapter4.mjs
+SOURCE_RUN_ID=KDEF-E2E-SPLIT35-FPR10-20261014-LIVE node scripts/capture_chapter4.mjs
 ```
 
-`MINIMUM_PASS_RATE` chỉ quyết định mã thoát của replay; mọi khung không đạt vẫn giữ trong `replay_results.jsonl`. Lần mới dùng 0 để thu thập kết quả không áp tỷ lệ thành công kỳ vọng: 97/100 khung ghép đúng, 3 không khớp, 0 ghép chéo; 23/25 chuỗi đủ điều kiện, K=3, ASW=0,345181. Tham số này không thay ngưỡng ArcFace hoặc quy tắc ROC Chương 3.
+`MINIMUM_PASS_RATE` chỉ quyết định mã thoát của replay; mọi khung không đạt vẫn giữ trong `replay_results.jsonl`. Lần mới dùng 0 để thu thập kết quả không áp tỷ lệ thành công kỳ vọng: 100/100 khung ghép đúng, 0 không khớp, 0 ghép chéo; 25/25 chuỗi đủ điều kiện, K=2, ASW=0,194182. Tham số này không thay ngưỡng ArcFace hoặc quy tắc ROC Chương 3.
 
 Chuỗi đưa vào phân cụm luôn lấy từ `Observation.expression_label` do dịch vụ ảnh trả về. Nhãn thư mục Kaggle chỉ dùng để chọn ảnh và đối chiếu sau chạy, không được thay cho dự đoán của hệ thống. Không được mô tả bản Kaggle 2.938 ảnh là bộ KDEF gốc đầy đủ 4.900 ảnh.
 

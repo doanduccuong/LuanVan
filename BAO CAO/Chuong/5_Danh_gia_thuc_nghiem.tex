@@ -3,38 +3,44 @@
 
 Chương này trình bày quá trình đánh giá giải pháp ở cấp thành phần và cấp hệ thống. Hai thực nghiệm đầu so sánh các phương pháp phát hiện khuôn mặt và phân loại biểu cảm trên các bộ dữ liệu có nhãn chuẩn. Sau đó, toàn bộ hệ thống được triển khai, chạy lại với dữ liệu camera thử nghiệm xây dựng từ KDEF và đánh giá theo luồng từ ảnh đầu vào đến kết quả phân cụm có khả năng truy vết. Cách tổ chức này tách kết quả của từng mô hình khỏi kết quả vận hành của hệ thống, tránh sử dụng một chỉ số đơn lẻ để đại diện cho toàn bộ giải pháp.
 
-\section{Thực nghiệm so sánh các phương pháp phát hiện khuôn mặt}
+\section{Thực nghiệm so sánh các bộ phát hiện khuôn mặt}
 \label{section:5.1}
 
 \subsection{Tập dữ liệu và giao thức đánh giá}
 \label{subsection:5.1.1}
 
-Thực nghiệm sử dụng toàn bộ tập xác thực của WIDER FACE gồm 3.226 ảnh. WIDER FACE được xây dựng cho bài toán phát hiện khuôn mặt; toàn bộ tập dữ liệu chứa 32.203 ảnh với 393.703 khung bao khuôn mặt và có biến thiên lớn về kích thước khuôn mặt, tư thế, mức độ che khuất, biểu cảm và điều kiện chiếu sáng \cite{yang2016wider}. Tập xác thực được sử dụng vì nhãn chuẩn đã được công bố: vị trí của từng khuôn mặt được đánh dấu bằng khung bao và bộ dữ liệu cung cấp các tệp nhãn đánh giá tương ứng với ba mức khó Easy, Medium và Hard. Ba mức này không do hệ thống tự phân chia trong quá trình thực nghiệm mà được lấy trực tiếp từ nhãn đánh giá của WIDER FACE.
+Thực nghiệm sử dụng toàn bộ tập xác thực của WIDER FACE gồm 3.226 ảnh. Bộ dữ liệu này do Yang và cộng sự xây dựng cho bài toán phát hiện khuôn mặt và công bố tại CVPR 2016; toàn bộ bộ dữ liệu chứa 32.203 ảnh với 393.703 khung bao khuôn mặt, có biến thiên lớn về kích thước khuôn mặt, tư thế, mức độ che khuất, biểu cảm và điều kiện chiếu sáng \cite{yang2016wider}. Nhóm tác giả phát hành khung bao chuẩn cùng danh sách các khuôn mặt được tính ở ba tập con Easy, Medium và Hard trong bộ tệp đánh giá của tập xác thực \cite{widerFaceEvaluation}. Thực nghiệm sử dụng trực tiếp các tệp này, không tự chia lại mức khó.
 
 WIDER FACE được lựa chọn trước hết vì phù hợp với đối tượng cần đánh giá. Bước đầu tiên của hệ thống là xác định tất cả khuôn mặt xuất hiện trong một khung hình; kết quả của bước này quyết định vùng ảnh được chuyển sang phân loại biểu cảm và tạo véc-tơ đặc trưng nhận dạng. Do đó, thực nghiệm cần một bộ dữ liệu có nhãn vị trí khuôn mặt, có thể chứa nhiều khuôn mặt trong cùng ảnh và phản ánh các trường hợp khuôn mặt nhỏ, bị che khuất hoặc xuất hiện trong cảnh đông người. Đây cũng là những điều kiện có thể gặp khi thu nhận hình ảnh tại cửa hàng. Sự đa dạng của WIDER FACE cho phép kiểm tra trực tiếp mức suy giảm của mô hình khi điều kiện quan sát trở nên phức tạp, thay vì chỉ đánh giá trên các ảnh chân dung có một khuôn mặt rõ và gần camera.
 
-Lý do thứ hai là khả năng so sánh và tái lập. WIDER FACE cung cấp cùng một tập ảnh, khung bao chuẩn, danh sách khuôn mặt được tính ở từng mức khó và quy tắc đánh giá cho mọi mô hình. Haar Cascade, MTCNN và RetinaFace vì vậy được đối chiếu trên cùng đầu vào và cùng tiêu chuẩn, hạn chế trường hợp kết quả khác nhau do sử dụng các bộ ảnh hoặc cách ghép dự đoán khác nhau. Việc báo cáo riêng kết quả Easy, Medium và Hard còn giúp phát hiện trường hợp một mô hình đạt kết quả tốt trên khuôn mặt lớn, rõ nhưng bỏ sót nhiều khuôn mặt nhỏ hoặc bị che. Đặc điểm này phù hợp hơn với mục tiêu lựa chọn thành phần phát hiện cho hệ thống so với một giá trị chính xác tổng hợp duy nhất.
+Lý do thứ hai là khả năng so sánh và tái lập. Ba bộ phát hiện Haar Cascade, MTCNN và RetinaFace được chạy trên cùng 3.226 ảnh và được chấm bằng cùng khung bao chuẩn, danh sách khuôn mặt của từng mức khó và quy tắc ghép dự đoán. Vì vậy, chênh lệch kết quả không bắt nguồn từ việc dùng các bộ ảnh hoặc cách chấm khác nhau. Việc báo cáo riêng kết quả Easy, Medium và Hard còn cho thấy mức suy giảm của từng bộ phát hiện khi độ khó tăng, phù hợp hơn với mục tiêu lựa chọn thành phần phát hiện cho hệ thống so với một giá trị tổng hợp duy nhất.
 
-Các giao thức đánh giá nhận dạng hoặc xác minh khuôn mặt không được sử dụng cho thực nghiệm này vì chúng đo khả năng xác định hai ảnh có thuộc cùng một người hay không, trong khi chưa kiểm tra mô hình có tìm được đầy đủ các khuôn mặt trong ảnh gốc hay không. Tương tự, tập dữ liệu biểu cảm gồm các vùng khuôn mặt đã được cắt sẵn chỉ đánh giá bước phân loại sau phát hiện. Giao thức phát hiện vật thể tổng quát có thể đánh giá độ chính xác định vị ở nhiều ngưỡng IoU, nhưng không cung cấp các nhóm độ khó chuyên biệt cho khuôn mặt theo quy ước của WIDER FACE. Vì vậy, các giao thức này có thể được dùng cho những mục tiêu đánh giá khác, nhưng không thay thế trực tiếp giao thức WIDER FACE trong thực nghiệm so sánh thành phần phát hiện khuôn mặt.
+Các giao thức đánh giá nhận dạng hoặc xác minh khuôn mặt không được sử dụng cho thực nghiệm này vì chúng đo khả năng xác định hai ảnh có thuộc cùng một người hay không, trong khi chưa kiểm tra mô hình có tìm được đầy đủ các khuôn mặt trong ảnh gốc hay không. Tương tự, tập dữ liệu biểu cảm gồm các vùng khuôn mặt đã được cắt sẵn chỉ đánh giá bước phân loại sau phát hiện. Giao thức phát hiện vật thể tổng quát có thể đánh giá độ chính xác định vị ở nhiều ngưỡng IoU, nhưng không cung cấp các nhóm độ khó chuyên biệt cho khuôn mặt theo quy ước của benchmark WIDER FACE. Vì vậy, các giao thức này có thể được dùng cho những mục tiêu đánh giá khác, nhưng không thay thế trực tiếp quy trình đánh giá được chọn cho thực nghiệm này.
 
 Việc lựa chọn WIDER FACE cũng xác định phạm vi của kết luận. Kết quả tại mục này chỉ chứng minh chất lượng và hiệu năng của bước phát hiện khuôn mặt trên tập xác thực WIDER FACE; kết quả không trực tiếp chứng minh độ chính xác nhận dạng khách hàng, độ chính xác phân loại biểu cảm hoặc khả năng vận hành đầu cuối của hệ thống. Các nội dung đó được kiểm tra bằng các thực nghiệm riêng ở những mục tiếp theo.
 
-Cấu hình của ba mô hình phát hiện được cố định trước khi đo. Haar Cascade sử dụng tệp \path{haarcascade_frontalface_default.xml} của OpenCV \cite{opencvHaar}. MTCNN sử dụng mô hình tiền huấn luyện của \texttt{facenet-pytorch} phiên bản 2.6.0 \cite{facenetPytorch}, với \texttt{min\_face\_size=20}, các ngưỡng $[0{,}6;0{,}7;0{,}7]$ và hệ số tỷ lệ $0{,}709$. RetinaFace sử dụng mạng nền MobileNet0.25 cùng trọng số tiền huấn luyện trên tập huấn luyện WIDER FACE từ kho mã \path{Pytorch_Retinaface} \cite{pytorchRetinaface}. Việc cố định một cấu hình cho mỗi phương pháp giúp kết quả giữa các lượt chạy có thể tái lập và tránh trộn lẫn ảnh hưởng của nhiều mạng nền hoặc thư viện triển khai.
+Cấu hình của ba bộ phát hiện được cố định trước khi đo. Haar Cascade sử dụng tệp \path{haarcascade_frontalface_default.xml} của OpenCV \cite{opencvHaar}. Ảnh được chuyển sang mức xám trước khi gọi \texttt{detectMultiScale3} với \texttt{scaleFactor=1.1}, \texttt{minNeighbors=5} và kích thước khuôn mặt tối thiểu $20\times20$ pixel; kích thước tối đa không bị giới hạn. Giá trị \texttt{levelWeights} do OpenCV trả về được dùng làm điểm tin cậy của khung phát hiện.
 
-Ba mô hình nhận cùng ảnh gốc và tự thay đổi kích thước ảnh theo quy trình riêng. Trước khi đo chính thức, mỗi mô hình xử lý thử 20 ảnh; bước chạy thử giúp hoàn tất việc khởi tạo bộ nhớ và các thành phần tính toán, qua đó giảm ảnh hưởng bất thường của những lượt suy luận đầu tiên đến kết quả đo thời gian.
+MTCNN sử dụng mô hình tiền huấn luyện của \texttt{facenet-pytorch} phiên bản 2.6.0 \cite{facenetPytorch}. Tham số \texttt{min\_face\_size=20} đặt kích thước khuôn mặt nhỏ nhất được xét là khoảng $20\times20$ pixel. Ba ngưỡng $[0{,}6;0{,}7;0{,}7]$ lần lượt lọc các ứng viên tại P-Net, R-Net và O-Net; ứng viên có điểm tin cậy thấp hơn ngưỡng của tầng tương ứng bị loại. Hệ số $0{,}709$ quy định tỷ lệ giữa hai mức liên tiếp của tháp ảnh đa tỷ lệ.
 
-Sau đó, mỗi mô hình được chạy ba lượt trên cùng danh sách ảnh và thứ tự mô hình được xoay vòng giữa các lượt. Thời gian đo bao gồm các bước tiền xử lý, suy luận và hậu xử lý của mô hình phát hiện khuôn mặt, nhưng không bao gồm thời gian đọc ảnh, ghi tệp hoặc tính các chỉ số đánh giá.
+RetinaFace sử dụng mạng nền MobileNet0.25 cùng trọng số tiền huấn luyện trên tập huấn luyện WIDER FACE từ kho mã \path{Pytorch_Retinaface} \cite{pytorchRetinaface}. Các ứng viên có điểm tin cậy lớn hơn $0{,}02$ được giữ để tạo đường độ chính xác--độ bao phủ; tối đa 5.000 ứng viên được đưa vào bước loại bỏ khung chồng lặp với ngưỡng NMS bằng $0{,}4$, sau đó giữ tối đa 750 khung. Khi tính $P$, $R$ và F1 tại điểm vận hành, ngưỡng tin cậy của RetinaFace được đặt bằng $0{,}6$. Do trọng số RetinaFace đã được huấn luyện trên WIDER FACE, kết quả tại mục này so sánh ba cấu hình triển khai hoàn chỉnh chứ không tách riêng ảnh hưởng của kiến trúc và dữ liệu huấn luyện.
+
+Ba bộ phát hiện nhận cùng ảnh gốc và tự thay đổi kích thước ảnh theo quy trình riêng. Trước khi đo chính thức, mỗi bộ phát hiện xử lý thử 20 ảnh; bước chạy thử giúp hoàn tất việc khởi tạo bộ nhớ và các thành phần tính toán, qua đó giảm ảnh hưởng bất thường của những lượt suy luận đầu tiên đến kết quả đo thời gian.
+
+Sau đó, mỗi bộ phát hiện được chạy ba lượt trên cùng danh sách ảnh và thứ tự thực thi được xoay vòng giữa các lượt. Thời gian đo bao gồm các bước tiền xử lý, suy luận và hậu xử lý phát hiện khuôn mặt, nhưng không bao gồm thời gian đọc ảnh, ghi tệp hoặc tính các chỉ số đánh giá.
 
 Thực nghiệm sử dụng CPU với một luồng PyTorch và một luồng OpenCV trên Apple M4 Pro, RAM 24 GiB và macOS 26.5. Môi trường phần mềm gồm Python 3.11.7, OpenCV 4.10.0 và PyTorch 2.2.2.
 
-Chất lượng phát hiện khuôn mặt được đánh giá theo giao thức của bộ dữ liệu WIDER FACE. Chỉ số chính là độ chính xác trung bình (AP) được báo cáo riêng trên ba mức khó Easy, Medium và Hard. Khung dự đoán được đối chiếu với khung chuẩn bằng tỷ lệ phần giao trên phần hợp (IoU), với ngưỡng chấp nhận bằng 0,5 theo giao thức đánh giá phát hiện đối tượng \cite{everingham2010pascal,widerFaceEvaluation}. Với khung bao dự đoán $B_p$ và khung bao chuẩn $B_g$, IoU được xác định bởi
+Thực nghiệm sử dụng ảnh, khung bao khuôn mặt chuẩn và danh sách các khuôn mặt thuộc ba tập con Easy, Medium và Hard của WIDER FACE \cite{yang2016wider,widerFaceEvaluation}. Kết quả phát hiện được đánh giá bằng IoU và AP theo phương pháp đánh giá phát hiện vật thể của PASCAL VOC \cite{everingham2010pascal,yang2016wider}.
+
+Đối với mỗi ảnh, khung bao dự đoán $B_p$ do Haar Cascade, MTCNN hoặc RetinaFace tạo ra; khung bao chuẩn $B_g$ được đọc từ tệp nhãn \path{wider_face_val.mat} do WIDER FACE cung cấp. Ba tệp \path{wider_easy_val.mat}, \path{wider_medium_val.mat} và \path{wider_hard_val.mat} xác định những khung $B_g$ được tính ở từng mức khó. Mỗi $B_p$ được ghép với $B_g$ theo tỷ lệ phần giao trên phần hợp (Intersection over Union -- IoU), với ngưỡng chấp nhận bằng 0,5. Với một cặp khung $B_p$ và $B_g$, IoU được xác định bởi
 
 \begin{equation}
     \operatorname{IoU}(B_p,B_g)=\frac{|B_p\cap B_g|}{|B_p\cup B_g|}.
     \label{eq:iou}
 \end{equation}
 
-Mỗi khung bao dự đoán chỉ được ghép với một khung bao chuẩn. Gọi $P$ là độ chính xác và $R$ là độ bao phủ tại ngưỡng đang xét; các chỉ số $P$, $R$ và F1 được tính theo \cite{everingham2010pascal,vanRijsbergen1979}
+Các dự đoán được xét theo thứ tự giảm dần của điểm tin cậy; một khuôn mặt chuẩn chỉ được tính là phát hiện thành công một lần. Gọi $P$ là độ chính xác và $R$ là độ bao phủ tại ngưỡng đang xét; các chỉ số $P$, $R$ và F1 được tính theo \cite{everingham2010pascal,vanRijsbergen1979}
 
 \begin{equation}
     P=\frac{TP}{TP+FP},\quad
@@ -47,9 +53,9 @@ Ngưỡng IoU bảo đảm một dự đoán chỉ được tính là đúng khi
 
 Độ chính xác $P$ cho biết trong các vùng được mô hình dự đoán là khuôn mặt, tỷ lệ dự đoán đúng là bao nhiêu; chỉ số này phản ánh mức độ phát hiện nhầm nền hoặc vật thể khác thành khuôn mặt. Độ bao phủ $R$ cho biết trong toàn bộ khuôn mặt có trong dữ liệu, mô hình phát hiện được bao nhiêu; chỉ số này phản ánh mức độ bỏ sót. Độ bao phủ có ý nghĩa trực tiếp với hệ thống đề xuất vì một khuôn mặt bị bỏ sót sẽ không tạo được vùng đầu vào cho các bước phân loại biểu cảm và tạo đặc trưng nhận dạng. Tuy nhiên, chỉ sử dụng riêng một trong hai chỉ số có thể dẫn đến đánh giá lệch: giảm ngưỡng tin cậy thường làm tăng độ bao phủ nhưng cũng có thể tăng số phát hiện nhầm, trong khi tăng ngưỡng có thể cải thiện độ chính xác nhưng làm bỏ sót nhiều khuôn mặt hơn. F1 là trung bình điều hòa của $P$ và $R$, được sử dụng để mô tả mức cân bằng giữa hai loại sai sót tại một ngưỡng vận hành xác định.
 
-Chương trình đánh giá do luận văn xây dựng tính AP theo giao thức WIDER FACE. Các dự đoán được sắp theo mức tin cậy; chương trình quét qua 1.000 ngưỡng để tạo đường độ chính xác--độ bao phủ, nội suy đường này và tính diện tích phía dưới đường cong \cite{yang2016wider,widerFaceEvaluation}. Quy trình tính toán đã được đối chiếu với bộ đánh giá WIDER FACE độc lập để kiểm tra tính đúng đắn. Khác với $P$, $R$ và F1 được tính tại một ngưỡng cố định, AP tổng hợp kết quả trên toàn bộ dải ngưỡng. AP được chọn làm chỉ số chất lượng chính vì mức tin cậy của ba mô hình không được hiệu chỉnh trên cùng một thang xác suất; việc chỉ so sánh tại một giá trị ngưỡng có thể tạo lợi thế cho một cấu hình cụ thể. Các chỉ số $P$, $R$ và F1 vẫn được báo cáo để mô tả hành vi của từng mô hình tại ngưỡng vận hành đã cố định: Haar Cascade không lọc thêm, MTCNN dùng đầu ra sau ngưỡng O-Net 0,7 và RetinaFace dùng ngưỡng tin cậy 0,6.
+Phần mềm thực nghiệm đọc bốn tệp nhãn \path{wider_face_val.mat}, \path{wider_easy_val.mat}, \path{wider_medium_val.mat} và \path{wider_hard_val.mat}, sau đó thực hiện các bước của mã đánh giá WIDER FACE: chuẩn hóa điểm tin cậy trong từng bộ phát hiện, quét 1.000 ngưỡng, xử lý các khuôn mặt không được tính ở từng tập con, tạo đường độ chính xác--độ bao phủ và tính AP bằng nội suy PASCAL VOC \cite{everingham2010pascal,widerFaceEvaluation}. Khác với $P$, $R$ và F1 được tính tại một ngưỡng cố định, AP tổng hợp kết quả trên toàn bộ dải ngưỡng. AP được chọn làm chỉ số chất lượng chính vì điểm tin cậy của ba bộ phát hiện không được hiệu chỉnh trên cùng một thang xác suất; việc chỉ so sánh tại một giá trị ngưỡng có thể tạo lợi thế cho một cấu hình cụ thể. Các chỉ số $P$, $R$ và F1 vẫn được báo cáo để mô tả hành vi tại ngưỡng vận hành đã cố định: Haar Cascade không lọc thêm, MTCNN dùng đầu ra sau ngưỡng O-Net 0,7 và RetinaFace dùng ngưỡng tin cậy 0,6.
 
-AP được trình bày riêng cho ba nhóm dễ, trung bình và khó nhằm tránh trường hợp kết quả tốt trên các khuôn mặt lớn, rõ che khuất việc mô hình bỏ sót khuôn mặt nhỏ, bị che hoặc xuất hiện trong cảnh đông người. Cách phân tách này cho phép quan sát mức suy giảm của từng phương pháp khi độ khó tăng và xác định phương pháp duy trì chất lượng ổn định hơn trong điều kiện phức tạp. Như vậy, AP trên ba mức khó cung cấp đánh giá chất lượng tổng thể, còn $P$, $R$ và F1 giải thích cụ thể hai loại sai sót tại ngưỡng vận hành.
+AP được trình bày riêng trên ba tập con Easy, Medium và Hard do Yang và cộng sự xác định. Cách phân tách này cho phép quan sát mức suy giảm của từng bộ phát hiện khi độ khó tăng. Như vậy, AP trên ba mức khó cung cấp đánh giá chất lượng trên toàn dải điểm tin cậy, còn $P$, $R$ và F1 mô tả hai loại sai sót tại ngưỡng vận hành.
 
 Hiệu năng tính toán được đánh giá từ $n$ bản ghi thời gian xử lý $t_1,t_2,\ldots,t_n$, tính bằng mili giây. Độ trễ trung vị $T_{50}$ là phân vị thứ 50, còn $T_{95}$ là giá trị mà 95\% số lượt xử lý không vượt quá. Tốc độ xử lý và tỷ lệ ảnh không phát hiện được tính theo
 
@@ -64,7 +70,7 @@ Trong đó, $N_{\mathrm{no\ detection}}$ là số ảnh có khuôn mặt chuẩn
 \subsection{Kết quả thực nghiệm so sánh}
 \label{subsection:5.1.2}
 
-Bảng \ref{tab:detector_quality} và Bảng \ref{tab:detector_performance} được tạo từ cùng lần chạy \path{wider-val-cpu-20260921}. Mỗi mô hình có 9.678 bản ghi thời gian, tương ứng với 3.226 ảnh qua ba lượt chạy. Kết quả AP đã được đối chiếu bằng bộ đánh giá WIDER FACE độc lập và trùng khớp đến sai số làm tròn.
+Bảng \ref{tab:detector_quality} và Bảng \ref{tab:detector_performance} được tạo từ cùng lần chạy \path{wider-val-cpu-20260921}. Mỗi bộ phát hiện có 9.678 bản ghi thời gian, tương ứng với 3.226 ảnh qua ba lượt chạy. Các tệp dự đoán của lần chạy này được chấm lại bằng mã \path{WiderFace-Evaluation}; các giá trị AP thu được trùng với kết quả trong bảng đến bốn chữ số thập phân.
 
 \begin{table}[H]
     \centering
@@ -73,9 +79,9 @@ Bảng \ref{tab:detector_quality} và Bảng \ref{tab:detector_performance} đư
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{|l|r|r|r|r|r|r|}
         \hline
-        \textbf{Mô hình} & \textbf{AP dễ} & \textbf{AP trung bình} & \textbf{AP khó} & \textbf{Độ chính xác} & \textbf{Độ bao phủ} & \textbf{F1} \\
+        \textbf{Bộ phát hiện} & \textbf{AP dễ} & \textbf{AP trung bình} & \textbf{AP khó} & \textbf{Độ chính xác} & \textbf{Độ bao phủ} & \textbf{F1} \\
         \hline
-        Haar Cascade -- OpenCV, cấu hình mặt chính diện mặc định & 0,4252 & 0,3668 & 0,1754 & 0,6906 & 0,1514 & 0,2484 \\
+        Haar Cascade -- OpenCV & 0,4252 & 0,3668 & 0,1754 & 0,6906 & 0,1514 & 0,2484 \\
         \hline
         MTCNN -- facenet-pytorch & 0,8132 & 0,7706 & 0,4990 & 0,9081 & 0,4063 & 0,5614 \\
         \hline
@@ -91,7 +97,7 @@ Bảng \ref{tab:detector_quality} và Bảng \ref{tab:detector_performance} đư
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{|l|r|r|r|r|}
         \hline
-        \textbf{Mô hình} & \textbf{Trung vị (ms)} & \textbf{Phân vị 95 (ms)} & \textbf{Số ảnh/giây} & \textbf{Tỷ lệ ảnh không phát hiện} \\
+        \textbf{Bộ phát hiện} & \textbf{Trung vị (ms)} & \textbf{Phân vị 95 (ms)} & \textbf{Số ảnh/giây} & \textbf{Tỷ lệ ảnh không phát hiện} \\
         \hline
         Haar Cascade & 131,52 & 257,71 & 7,03 & 0,2228 \\
         \hline
@@ -105,7 +111,7 @@ Bảng \ref{tab:detector_quality} và Bảng \ref{tab:detector_performance} đư
 \subsection{Nhận xét từ kết quả thực nghiệm}
 \label{subsection:5.1.3}
 
-Kết quả thực nghiệm cho thấy ba phương pháp khác nhau cả về chất lượng phát hiện và chi phí suy luận. Haar Cascade có kết quả thấp nhất trên cả ba nhóm dễ, trung bình và khó. Mức giảm mạnh ở nhóm khó cho thấy cấu hình phát hiện mặt chính diện mặc định gặp khó khăn khi dữ liệu có nhiều khuôn mặt nhỏ, bị che khuất hoặc không ở tư thế chính diện. MTCNN cải thiện rõ rệt AP và giảm tỷ lệ ảnh không phát hiện so với Haar Cascade. Đổi lại, MTCNN có độ trễ trung vị và độ trễ tại phân vị thứ 95 cao nhất, phản ánh chi phí của quá trình xử lý nối tiếp qua ba tầng trên tháp ảnh đa tỷ lệ trong cấu hình thực nghiệm.
+Kết quả thực nghiệm cho thấy ba bộ phát hiện khác nhau cả về chất lượng phát hiện và chi phí suy luận. Haar Cascade có kết quả thấp nhất trên cả ba tập con Easy, Medium và Hard. Mức giảm mạnh ở tập Hard cho thấy cấu hình Haar phát hiện mặt chính diện gặp khó khăn khi độ khó của dữ liệu tăng. MTCNN cải thiện rõ rệt AP và giảm tỷ lệ ảnh không phát hiện so với Haar Cascade. Đổi lại, MTCNN có độ trễ trung vị và độ trễ tại phân vị thứ 95 cao nhất, phản ánh chi phí của quá trình xử lý nối tiếp qua ba tầng trên tháp ảnh đa tỷ lệ trong cấu hình thực nghiệm.
 
 RetinaFace sử dụng mạng nền MobileNet0.25 duy trì AP cao nhất ở cả ba mức khó, đồng thời đạt độ trễ thấp nhất và số ảnh xử lý trong một giây cao nhất. Khoảng cách 0,2398 AP so với MTCNN trên nhóm khó cho thấy lợi thế của RetinaFace rõ hơn khi điều kiện phát hiện trở nên phức tạp. Tỷ lệ ảnh không phát hiện 0,0320 cũng cho thấy số ảnh không tạo được đầu vào cho bước phân loại biểu cảm thấp hơn so với hai phương pháp còn lại. Trong phạm vi tập dữ liệu WIDER FACE, trên thiết bị CPU và với bộ tham số đã cố định, RetinaFace sử dụng mạng nền MobileNet0.25 thể hiện sự cân bằng tốt nhất giữa chất lượng phát hiện và tốc độ xử lý. Kết quả này chỉ phản ánh cấu hình thực nghiệm đã mô tả, không phải kết luận khái quát cho mọi dữ liệu hoặc nền tảng phần cứng.
 
@@ -264,33 +270,33 @@ Mỗi cấu hình chỉ được đo bằng một lần chạy đầy đủ; vì
 \subsection{Dữ liệu và khởi tạo hồ sơ khách hàng}
 \label{subsection:5.3.1}
 
-Dữ liệu ảnh để xây dựng hồ sơ khách hàng được lấy từ bản KDEF trên Kaggle \cite{chenrich2024kdefkaggle}, gồm 2.938 ảnh thuộc bảy nhãn biểu cảm: \textit{Angry}, \textit{Disgust}, \textit{Fear}, \textit{Happy}, \textit{Neutral}, \textit{Sad} và \textit{Surprise}. Từ các nhóm ảnh có đủ bảy nhãn, luận văn lựa chọn ngẫu nhiên năm nhóm để xây dựng năm khách hàng thực nghiệm; mỗi nhóm được gắn với một hồ sơ riêng.
+Dữ liệu ảnh để xây dựng hồ sơ khách hàng được lấy từ bản KDEF trên Kaggle \cite{chenrich2024kdefkaggle}, gồm 2.938 ảnh thuộc bảy nhãn biểu cảm: \textit{Angry}, \textit{Disgust}, \textit{Fear}, \textit{Happy}, \textit{Neutral}, \textit{Sad} và \textit{Surprise}. KDEF gồm 70 người được chụp trong hai phiên \cite{lundqvist1998kdef}; bản đã xử lý thay tên gốc bằng 140 mã nhóm từ \texttt{KG000} đến \texttt{KG139}. Hai phiên của cùng một người được ghép bằng láng giềng gần nhất tương hỗ giữa các véc-tơ trung tâm ArcFace, tạo thành 70 cặp không giao nhau. Từ mỗi cặp chỉ lấy một mã nhóm đại diện. Ba mươi lăm người được dùng để hiệu chỉnh ngưỡng và 35 người còn lại được dùng để xây dựng hồ sơ cho thực nghiệm đầu-cuối.
 
 Mỗi hồ sơ gồm mã khách hàng duy nhất, tên, số điện thoại, địa chỉ thư điện tử và ảnh đại diện. Các thông tin dạng văn bản được tạo giả lập. Trong mỗi nhóm, ba ảnh của từng nhãn được xếp hạng theo mức độ gần chính diện bằng bộ phát hiện Haar. Ảnh \textit{Neutral} xếp thứ hai được dùng để tạo mẫu khuôn mặt và đồng thời làm ảnh đại diện của hồ sơ; cách lựa chọn này dành ảnh gần chính diện nhất cho dữ liệu camera. Ảnh tạo mẫu được tách riêng khỏi ảnh hiệu chỉnh và ảnh quan sát.
 
-Sau khi tạo hồ sơ, ảnh được đưa qua luồng tạo mẫu khuôn mặt của hệ thống. RetinaFace phát hiện khuôn mặt, ArcFace trích xuất véc-tơ đặc trưng và hệ thống lưu mẫu khuôn mặt gắn với mã khách hàng tương ứng. Kết quả khởi tạo gồm năm hồ sơ, mỗi hồ sơ có một mẫu khuôn mặt để đối sánh với ảnh camera ở các bước tiếp theo. Hình~\ref{fig:kdef_customer_list_ch5} thể hiện danh sách hồ sơ đã tạo trên giao diện, gồm ảnh đại diện, mã khách hàng, tên và số điện thoại.
+Sau khi tạo hồ sơ, ảnh được đưa qua luồng tạo mẫu khuôn mặt của hệ thống. RetinaFace phát hiện khuôn mặt, ArcFace trích xuất véc-tơ đặc trưng và hệ thống lưu mẫu khuôn mặt gắn với mã khách hàng tương ứng. Kết quả khởi tạo gồm 35 hồ sơ, mỗi hồ sơ có một mẫu khuôn mặt để đối sánh với ảnh camera ở các bước tiếp theo. Hình~\ref{fig:kdef_customer_list_ch5} thể hiện danh sách hồ sơ đã tạo trên giao diện, gồm ảnh đại diện, mã khách hàng, tên và số điện thoại.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_16_du_lieu_khach_kdef.png}
-    \caption{Danh sách năm hồ sơ khách hàng sau khi khởi tạo từ ảnh KDEF}
+    \caption{Danh sách hồ sơ khách hàng sau khi khởi tạo từ ảnh KDEF}
     \label{fig:kdef_customer_list_ch5}
 \end{figure}
 
 \subsection{Nguyên tắc xây dựng dữ liệu camera thử nghiệm}
 \label{subsection:5.3.2}
 
-\textbf{Tách dữ liệu theo mục đích.} Với mỗi khách hàng và mỗi nhãn biểu cảm, luận văn dành ảnh có mức độ gần chính diện cao nhất cho dữ liệu camera. Một ảnh \textit{Neutral} khác được dùng để tạo mẫu khuôn mặt của hồ sơ. Trong phần ảnh còn lại, mỗi nhãn được lấy một ảnh để hiệu chỉnh ngưỡng ArcFace, tạo thành bảy ảnh hiệu chỉnh cho mỗi khách hàng. Ba nhóm ảnh dùng để tạo mẫu, hiệu chỉnh và làm đầu vào camera được tách riêng, không dùng chung ảnh.
+\textbf{Tách dữ liệu theo mục đích.} Với mỗi khách hàng và mỗi nhãn biểu cảm, luận văn dành ảnh có mức độ gần chính diện cao nhất cho dữ liệu camera. Một ảnh \textit{Neutral} khác được dùng để tạo mẫu khuôn mặt của hồ sơ. Tập hiệu chỉnh ngưỡng ArcFace và tập thực nghiệm đầu-cuối cùng gồm 35 người nhưng không có người trùng nhau. Với mỗi người đầu-cuối, ảnh tạo mẫu và ảnh quan sát cũng không dùng chung tệp ảnh.
 
-\textbf{Tạo hành trình mua sắm.} Mỗi khách hàng được xây dựng năm hành trình. Một hành trình gồm bốn điểm chạm theo thứ tự Cửa vào--Khu trưng bày--Khu tư vấn--Quầy thanh toán. Với năm khách hàng, bộ dữ liệu dự kiến gồm 25 hành trình và 100 khung ảnh camera.
+\textbf{Tạo hành trình mua sắm.} Mỗi khách hàng được xây dựng năm hành trình. Một hành trình gồm bốn điểm chạm theo thứ tự Cửa vào--Khu trưng bày--Khu tư vấn--Quầy thanh toán. Với 35 khách hàng, bộ dữ liệu dự kiến gồm 175 hành trình và 700 khung ảnh camera.
 
-\textbf{Lựa chọn ảnh ngẫu nhiên.} Tại mỗi điểm chạm, luận văn lựa chọn ngẫu nhiên một trong bảy nhãn biểu cảm, sau đó lấy ảnh camera gần chính diện đã dành cho nhãn đó của khách hàng tương ứng. Ảnh đã chọn vẫn có thể được dùng lại ở điểm chạm khác. Bộ sinh số ngẫu nhiên sử dụng một giá trị khởi tạo cố định để có thể tái lập bộ dữ liệu. Vì vậy, chuỗi biểu cảm của hành trình, số cụm và chuỗi đại diện không được sắp xếp trước.
+\textbf{Lựa chọn ảnh ngẫu nhiên.} Tại mỗi điểm chạm, luận văn lựa chọn ngẫu nhiên một trong bảy nhãn biểu cảm, sau đó lấy ảnh camera gần chính diện đã dành cho nhãn đó của khách hàng tương ứng. Ảnh đã chọn vẫn có thể được dùng lại ở điểm chạm khác. Do đó, 700 lượt gửi ảnh được tạo từ 236 tệp ảnh nguồn khác nhau. Bộ sinh số ngẫu nhiên sử dụng giá trị khởi tạo 20261013 để có thể tái lập đúng danh sách ảnh, chuỗi biểu cảm và thời gian quan sát. Số cụm và chuỗi đại diện không được sắp xếp trước.
 
 \textbf{Giữ nguyên ảnh nguồn.} Ảnh camera được gửi ở độ phân giải nguồn $562\times762$ pixel, không đặt vào khung nền, không thay đổi kích thước và không điều chỉnh độ sáng. Lựa chọn này loại bỏ ảnh hưởng của phép biến đổi hình học khi đánh giá khả năng xử lý ảnh của hệ thống.
 
 \textbf{Gán thời gian quan sát.} Mỗi hành trình được gán một thời điểm bắt đầu. Khoảng thời gian từ một điểm chạm đến điểm chạm kế tiếp được lựa chọn ngẫu nhiên trong khoảng từ 5 đến 15 phút để biểu diễn thời gian di chuyển của khách hàng. Chẳng hạn, nếu camera tại Cửa vào ghi nhận khách hàng lúc 09:30 thì camera tại Khu trưng bày có thể ghi nhận trong khoảng từ 09:35 đến 09:45; thời điểm của các camera sau tiếp tục được xác định từ thời điểm quan sát liền trước. Năm hành trình của cùng một khách hàng được đặt ở năm ngày liên tiếp. Khoảng 5--15 phút nhỏ hơn ngưỡng gián đoạn tối đa 30 phút đã xác định ở Chương~3, do đó bốn quan sát liên tiếp vẫn được hệ thống liên kết vào cùng một hành trình. Các mốc này là thời gian quan sát được gán cho dữ liệu, không phải thời gian chương trình phải chờ giữa hai lần gửi ảnh.
 
-\textbf{Đưa ảnh vào hệ thống.} Các ảnh được gửi theo thứ tự điểm chạm qua giao diện tiếp nhận mà nguồn camera sử dụng. Nhãn gốc của KDEF không được gửi vào hệ thống. Từ ảnh đầu vào, hệ thống thực hiện phát hiện khuôn mặt, ghép định danh, dự đoán biểu cảm, lưu quan sát và hình thành hành trình cùng chuỗi trạng thái. Nhãn KDEF chỉ được giữ bên ngoài hệ thống để đối chiếu với kết quả sau khi quá trình xử lý kết thúc.
+\textbf{Đưa ảnh vào hệ thống.} Các ảnh được gửi theo thứ tự điểm chạm qua giao diện tiếp nhận mà nguồn camera sử dụng. Từ ảnh đầu vào, hệ thống thực hiện phát hiện khuôn mặt, ghép định danh, dự đoán biểu cảm, lưu quan sát và hình thành hành trình cùng chuỗi trạng thái. Nhãn KDEF chỉ được giữ bên ngoài hệ thống để đối chiếu với kết quả sau khi quá trình xử lý kết thúc.
 
 \section{Triển khai và kết quả thực nghiệm đầu cuối}
 \label{section:5.4}
@@ -311,7 +317,7 @@ Hệ thống được dựng lại bằng Docker Compose trên máy MacBook Pro 
         \hline
         Cơ sở dữ liệu & PostgreSQL 16, pgvector & 5432 & Hoạt động, health check đạt \\
         \hline
-        Dịch vụ xử lý ảnh & FastAPI, RetinaFace, ArcFace, DeepFace & 8001 & Hoạt động, health check đạt \\
+        Dịch vụ xử lý ảnh & FastAPI, RetinaFace, ArcFace, DeepFace, scikit-learn & 8001 & Hoạt động, health check đạt \\
         \hline
         Máy chủ nghiệp vụ & FastAPI, SQLAlchemy, Sequenzo & 8000 & Hoạt động, HTTP 200 \\
         \hline
@@ -320,9 +326,9 @@ Hệ thống được dựng lại bằng Docker Compose trên máy MacBook Pro 
     \end{tabular}}
 \end{table}
 
-Trước khi phát dữ liệu, cơ sở dữ liệu cũ được sao lưu, các bản ghi mang cờ dữ liệu thử nghiệm được xóa và dữ liệu CRM được nạp lại. Ngoài năm hồ sơ khách hàng, hệ thống được khởi tạo với sáu nhóm sản phẩm, 24 sản phẩm và bốn điểm chạm gồm Cửa vào, Khu trưng bày sản phẩm, Khu tư vấn và Quầy thanh toán. Kịch bản không tạo đơn hàng. Năm ảnh được xử lý để tạo mẫu khuôn mặt. Tiếp theo, 35 ảnh tách riêng được dùng để hiệu chỉnh ngưỡng ArcFace; 100 ảnh quan sát được gửi theo lịch đã tạo; hệ thống liên kết quan sát thành lần mua sắm và tạo chuỗi dự đoán; cuối cùng, Optimal Matching--PAM được chạy trên các chuỗi đủ điều kiện. Trước khi chụp lại màn hình, kết quả được kiểm tra về số lượng bản ghi, thứ tự điểm chạm, liên kết khách hàng và sự thống nhất giữa hành trình với chuỗi phân tích. Các phản hồi API, khoảng cách hiệu chỉnh, kết quả phân tích và ảnh chụp được lưu cùng mã lần chạy để đối chiếu.
+Trước khi phát dữ liệu, cơ sở dữ liệu cũ được sao lưu, các bản ghi mang cờ dữ liệu thử nghiệm được xóa và dữ liệu CRM được nạp lại. Ngoài 35 hồ sơ khách hàng, hệ thống được khởi tạo với sáu nhóm sản phẩm, 24 sản phẩm và bốn điểm chạm gồm Cửa vào, Khu trưng bày sản phẩm, Khu tư vấn và Quầy thanh toán. Kịch bản không tạo đơn hàng. Ba mươi lăm ảnh được xử lý để tạo mẫu khuôn mặt. Tiếp theo, 245 ảnh thuộc 35 người riêng biệt được dùng để hiệu chỉnh ngưỡng ArcFace; 700 ảnh quan sát của 35 người thuộc phần dữ liệu giữ lại được gửi theo lịch đã tạo; hệ thống liên kết quan sát thành lần mua sắm và tạo chuỗi dự đoán; cuối cùng, Optimal Matching--PAM được chạy trên các chuỗi đủ điều kiện. Kết quả được kiểm tra về số lượng bản ghi, thứ tự điểm chạm, liên kết khách hàng và sự thống nhất giữa hành trình với chuỗi phân tích.
 
-Hình~\ref{fig:system_runtime_status_ch5} ghi lại trạng thái các thành phần được đánh giá và các điểm kiểm tra HTTP. Ngoài kiểm tra khi chạy, 15 kiểm thử máy chủ nghiệp vụ và 14 kiểm thử dịch vụ xử lý ảnh, trong đó có các kiểm thử bộ lấy mẫu và tách dữ liệu camera, đều đạt; giao diện web biên dịch thành công bằng TypeScript và Vite. Toàn bộ 100 ảnh sau đó được phát qua các dịch vụ Docker để lấy kết quả thực nghiệm đầu cuối.
+Hình~\ref{fig:system_runtime_status_ch5} ghi lại trạng thái các thành phần được đánh giá và các điểm kiểm tra HTTP. Ngoài kiểm tra khi chạy, 15 kiểm thử máy chủ nghiệp vụ và 14 kiểm thử dịch vụ xử lý ảnh, trong đó có các kiểm thử bộ lấy mẫu và tách dữ liệu camera, đều đạt; giao diện web biên dịch thành công bằng TypeScript và Vite. Sau khi kiểm tra trạng thái hệ thống và hoàn tất hiệu chỉnh ngưỡng ArcFace, toàn bộ 700 ảnh được phát qua các dịch vụ Docker để lấy kết quả thực nghiệm đầu cuối.
 
 \begin{figure}[H]
     \centering
@@ -331,12 +337,26 @@ Hình~\ref{fig:system_runtime_status_ch5} ghi lại trạng thái các thành ph
     \label{fig:system_runtime_status_ch5}
 \end{figure}
 
-\subsection{Kết quả tiếp nhận ảnh và liên kết hành trình}
+\subsection{Hiệu chỉnh ngưỡng đối sánh ArcFace}
 \label{subsection:5.4.2}
 
-Ngưỡng khoảng cách ArcFace được xác định từ 35 ảnh hiệu chỉnh, tạo 105 cặp cùng nhóm và 490 cặp khác nhóm. Giữ nguyên quy tắc ROC ở Chương 3, hệ thống chọn ngưỡng có TPR lớn nhất trong các ứng viên thỏa FPR thực nghiệm bằng 0; nếu đồng hạng thì chọn ngưỡng lớn nhất. Ngưỡng thu được là 0,6303, chấp nhận 93/105 cặp cùng nhóm và không chấp nhận cặp nào trong 490 cặp khác nhóm.
+Trước khi tiến hành thực nghiệm đầu cuối, cần xác định ngưỡng khoảng cách ArcFace dùng để quyết định hai ảnh khuôn mặt có thuộc cùng một người hay không. Từ 140 mã nhóm của bản dữ liệu đã xử lý, hệ thống tính véc-tơ trung tâm ArcFace cho bảy ảnh biểu cảm của từng nhóm và ghép các cặp láng giềng gần nhất tương hỗ. Kết quả tạo 70 cặp không giao nhau, tương ứng với 70 người và hai phiên chụp của mỗi người. Với giá trị khởi tạo cố định, hệ thống chọn 35 cặp cho tập hiệu chỉnh và lấy một mã nhóm đại diện từ mỗi cặp. Ba mươi lăm cặp còn lại tạo thành tập thực nghiệm đầu-cuối và cũng chỉ lấy một mã nhóm đại diện từ mỗi cặp. Với mỗi người hiệu chỉnh, tập dữ liệu lấy một ảnh thuộc từng nhãn \textit{Angry}, \textit{Disgust}, \textit{Fear}, \textit{Happy}, \textit{Neutral}, \textit{Sad} và \textit{Surprise}; tổng cộng có $35\times7=245$ ảnh.
 
-Hệ thống tiếp nhận toàn bộ 100 ảnh, mỗi ảnh phát hiện được một khuôn mặt hợp lệ. ArcFace ghép đúng 97 ảnh với hồ sơ dự kiến; ba ảnh không đạt điều kiện ghép hồ sơ và không có ảnh bị ghép sang hồ sơ khác. Máy chủ vẫn lưu sự kiện tiếp nhận của ba ảnh không khớp nhưng không tạo quan sát gắn khách hàng cho chúng. Vì vậy, số khung xử lý hợp lệ là 100 nhưng số quan sát được lưu để tạo hành trình chỉ là 97.
+Từ tập trên, số cặp cùng người là $35\times\binom{7}{2}=35\times21=735$, còn số cặp khác người là $\binom{35}{2}\times7\times7=595\times49=29.155$. Các điểm ROC và diện tích dưới đường cong được tính bằng các hàm \texttt{roc\_curve} và \texttt{auc} của scikit-learn. Hệ thống chọn ngưỡng có TPR lớn nhất trong các ứng viên thỏa $\mathrm{FPR}\leq10\%$; nếu nhiều ứng viên có cùng TPR thì chọn ngưỡng lớn nhất. Ngưỡng thu được là 0,7336, chấp nhận 734/735 cặp cùng người và chấp nhận nhầm 2.915/29.155 cặp khác người. Tương ứng, TPR đạt 99,86\%, FPR thực nghiệm đạt 9,9983\% và AUC đạt 0,9992.
+
+Hình~\ref{fig:kdef_arcface_roc_ch5} trình bày toàn bộ đường cong ROC và vùng phóng đại quanh điểm vận hành được chọn. Ngưỡng 0,7336 được cố định trước khi phát 700 ảnh của 35 người thuộc phần dữ liệu giữ lại để thu các kết quả ở những mục tiếp theo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_28_duong_cong_roc_arcface.png}
+    \caption{Đường cong ROC và vùng phóng đại quanh điểm vận hành của ngưỡng ArcFace}
+    \label{fig:kdef_arcface_roc_ch5}
+\end{figure}
+
+\subsection{Kết quả tiếp nhận ảnh và liên kết hành trình}
+\label{subsection:5.4.3}
+
+Hệ thống tiếp nhận toàn bộ 700 ảnh và phát hiện được một khuôn mặt hợp lệ trong mỗi ảnh. ArcFace ghép đúng 692 ảnh với hồ sơ dự kiến, không có ảnh nào không tìm được hồ sơ và tám ảnh bị ghép sang hồ sơ khác. Tỷ lệ ghép đúng theo lượt gửi ảnh đạt 98,86\%. Do ảnh nguồn có thể được dùng lại giữa các hành trình, phép kiểm tra bổ sung trên 236 tệp ảnh nguồn cho thấy 233 tệp luôn được ghép đúng và ba tệp tạo ra ít nhất một lỗi, tương ứng 98,73\%.
 
 \begin{table}[H]
     \centering
@@ -346,18 +366,18 @@ Hệ thống tiếp nhận toàn bộ 100 ảnh, mỗi ảnh phát hiện đư�
         \hline
         \textbf{Chỉ tiêu} & \textbf{Số ảnh} & \textbf{Tỷ lệ} \\
         \hline
-        Ảnh được xử lý hợp lệ & 100 & 100,0\% \\
+        Ảnh được xử lý hợp lệ & 700 & 100,0\% \\
         \hline
-        Ghép đúng hồ sơ dự kiến & 97 & 97,0\% \\
+        Ghép đúng hồ sơ dự kiến & 692 & 98,9\% \\
         \hline
-        Không tìm thấy hồ sơ phù hợp & 3 & 3,0\% \\
+        Không tìm thấy hồ sơ phù hợp & 0 & 0,0\% \\
         \hline
-        Ghép sang hồ sơ khác & 0 & 0,0\% \\
+        Ghép sang hồ sơ khác & 8 & 1,1\% \\
         \hline
     \end{tabular}
 \end{table}
 
-Từ 97 quan sát đã ghép định danh, hệ thống tạo 25 lần mua sắm: 23 lần đủ bốn điểm chạm, một lần chỉ có ba và một lần chỉ có hai quan sát. Các quan sát được lưu vẫn giữ đúng thứ tự điểm chạm. Hình~\ref{fig:kdef_journey_ch5} và Hình~\ref{fig:kdef_timeline_ch5} minh họa một hành trình đầy đủ; hai hành trình thiếu được giữ trong dữ liệu và bị loại ở bước phân cụm theo điều kiện tối thiểu bốn trạng thái.
+Do cả tám ảnh ghép sai vẫn vượt ngưỡng đối sánh, toàn bộ 700 ảnh đều được lưu thành quan sát nhưng một số quan sát gắn với khách hàng không đúng. Kết quả này làm hệ thống hình thành 182 lần mua sắm thay vì 175 lần theo thiết kế. Trong số đó, 167 lần có ít nhất bốn trạng thái và được đưa vào phân cụm; 15 lần chỉ có một hoặc ba trạng thái nên bị loại. Hình~\ref{fig:kdef_journey_ch5} và Hình~\ref{fig:kdef_timeline_ch5} minh họa một hành trình đủ bốn điểm chạm cùng chuỗi quan sát Camera tương ứng.
 
 \begin{figure}[H]
     \centering
@@ -374,9 +394,9 @@ Từ 97 quan sát đã ghép định danh, hệ thống tạo 25 lần mua sắm
 \end{figure}
 
 \subsection{Đánh giá hiệu quả phân loại biểu cảm trong luồng đầu cuối}
-\label{subsection:5.4.3}
+\label{subsection:5.4.4}
 
-Nhãn do CNN Emotion dự đoán được đối chiếu với nhãn thư mục sau khi quá trình phát dữ liệu kết thúc. Trong 100 ảnh đầu vào, 97 ảnh có nhãn biểu cảm được lưu cùng quan sát và 62 ảnh có nhãn đúng. Tỷ lệ đầu vào tạo được nhãn đúng là $62/100=0{,}620$; Accuracy riêng trên các dự đoán được lưu là $62/97=0{,}639$. Ba ảnh không tạo được quan sát được tính vào cột \textit{Missing}. Macro-F1 đầu cuối bằng 0,614 trên cả bảy lớp; khi tính Recall, các ảnh thiếu kết quả vẫn nằm trong tổng số đầu vào của lớp tương ứng.
+Nhãn do CNN Emotion dự đoán được đối chiếu với nhãn thư mục sau khi quá trình phát dữ liệu kết thúc. Cả 700 ảnh đầu vào đều có nhãn biểu cảm được lưu cùng quan sát và 470 ảnh có nhãn đúng, do đó Accuracy đầu cuối bằng $470/700=0{,}6714$. Macro-F1 trên cả bảy lớp bằng 0,6572. Không có ảnh thuộc cột \textit{Missing} vì toàn bộ đầu vào đều tạo được quan sát.
 
 \begin{table}[H]
     \centering
@@ -386,19 +406,19 @@ Nhãn do CNN Emotion dự đoán được đối chiếu với nhãn thư mục 
         \hline
         \textbf{Lớp} & \textbf{Số mẫu} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
         \hline
-        Angry & 12 & 0,500 & 0,583 & 0,538 \\
+        Angry & 91 & 0,590 & 0,505 & 0,544 \\
         \hline
-        Disgust & 23 & 1,000 & 0,652 & 0,789 \\
+        Disgust & 104 & 0,752 & 0,760 & 0,756 \\
         \hline
-        Fear & 12 & 0,500 & 0,333 & 0,400 \\
+        Fear & 110 & 0,480 & 0,218 & 0,300 \\
         \hline
-        Happy & 9 & 0,625 & 0,556 & 0,588 \\
+        Happy & 99 & 0,877 & 0,939 & 0,907 \\
         \hline
-        Sad & 17 & 0,500 & 0,588 & 0,541 \\
+        Sad & 101 & 0,495 & 0,535 & 0,514 \\
         \hline
-        Surprise & 15 & 1,000 & 0,867 & 0,929 \\
+        Surprise & 95 & 0,851 & 0,905 & 0,878 \\
         \hline
-        Neutral & 12 & 0,421 & 0,667 & 0,516 \\
+        Neutral & 100 & 0,583 & 0,880 & 0,701 \\
         \hline
     \end{tabular}
 \end{table}
@@ -406,43 +426,43 @@ Nhãn do CNN Emotion dự đoán được đối chiếu với nhãn thư mục 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.90\textwidth]{Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png}
-    \caption{Ma trận nhầm lẫn biểu cảm trên 100 ảnh của lần chạy đầu cuối}
+    \caption{Ma trận nhầm lẫn biểu cảm trên 700 ảnh của lần chạy đầu cuối}
     \label{fig:kdef_expression_confusion_ch5}
 \end{figure}
 
-Xét trên toàn bộ 100 ảnh đầu vào, hệ thống tạo được nhãn đúng cho 62 ảnh. \textit{Surprise} có F1 cao nhất, bằng 0,929, tiếp theo là \textit{Disgust} với 0,789. Các lớp \textit{Happy}, \textit{Sad}, \textit{Angry} và \textit{Neutral} đạt F1 trong khoảng từ 0,516 đến 0,588. \textit{Fear} có kết quả thấp nhất với F1 bằng 0,400: bốn ảnh được dự đoán đúng, sáu ảnh bị gán thành \textit{Sad} và hai ảnh bị gán thành \textit{Angry}. Ma trận nhầm lẫn cũng cho thấy năm ảnh \textit{Angry} bị gán thành \textit{Neutral}, bốn ảnh \textit{Happy} bị gán thành \textit{Fear} và bốn ảnh \textit{Neutral} bị gán thành \textit{Sad}. Kết quả này cho thấy mô hình đã nhận diện đúng phần lớn đầu vào nhưng hiệu quả vẫn khác nhau giữa các lớp biểu cảm.
+Xét trên toàn bộ 700 ảnh đầu vào, hệ thống tạo được nhãn đúng cho 470 ảnh. \textit{Happy} có F1 cao nhất, bằng 0,907, tiếp theo là \textit{Surprise} với 0,878 và \textit{Disgust} với 0,756. \textit{Fear} có kết quả thấp nhất với F1 bằng 0,300: 24/110 ảnh được dự đoán đúng, trong khi 26 ảnh bị gán thành \textit{Neutral}, 16 ảnh thành \textit{Sad} và 14 ảnh thành \textit{Angry}. Ma trận nhầm lẫn cũng cho thấy 20 ảnh \textit{Angry} bị gán thành \textit{Sad} và 19 ảnh \textit{Sad} bị gán thành \textit{Neutral}. Kết quả cho thấy hiệu quả của mô hình khác nhau rõ rệt giữa các lớp biểu cảm.
 
 \subsection{Kết quả tạo và phân cụm chuỗi trạng thái}
-\label{subsection:5.4.4}
+\label{subsection:5.4.5}
 
-Từ 25 lần mua sắm đã hình thành, hệ thống sắp xếp các nhãn biểu cảm dự đoán theo thứ tự bốn điểm chạm để tạo chuỗi trạng thái. Có 23 lần mua sắm tạo được chuỗi đủ bốn trạng thái; một lần chỉ có ba trạng thái và một lần chỉ có hai trạng thái do một số ảnh không ghép được định danh. Vì vậy, đầu vào của bước phân cụm gồm 23 chuỗi có cùng độ dài bốn. Các trạng thái trong chuỗi là kết quả dự đoán của hệ thống, không phải nhãn gốc của KDEF.
+Từ 182 lần mua sắm đã hình thành, hệ thống sắp xếp các nhãn biểu cảm dự đoán theo thời gian để tạo chuỗi trạng thái. Có 167 chuỗi chứa ít nhất bốn trạng thái và 15 chuỗi bị loại do chỉ có một hoặc ba trạng thái. Chênh lệch này là hệ quả trực tiếp của tám lượt ghép sai danh tính: quan sát bị chuyển khỏi hành trình dự kiến và có thể tạo hành trình ngắn cho khách hàng bị ghép nhầm. Các trạng thái trong chuỗi là kết quả dự đoán của hệ thống, không phải nhãn gốc của KDEF.
 
-Quy trình phân cụm tại Chương~3 được áp dụng trực tiếp cho 23 chuỗi này. Các phương án từ $K=2$ đến $K=6$ đáp ứng điều kiện mỗi cụm có ít nhất hai chuỗi. Các phương án từ $K=7$ đến $K=11$ tạo ra cụm chỉ có một chuỗi nên bị loại. Trong các phương án hợp lệ, $K=2$ có ASW lớn nhất, bằng 0,2171, và được chọn làm kết quả cuối cùng.
+Quy trình phân cụm đã trình bày tại Chương~3 được áp dụng trực tiếp cho 167 chuỗi đủ điều kiện bằng thư viện Sequenzo phiên bản 0.1.42. Với tỷ lệ kích thước cụm tối thiểu bằng 5\%, mỗi cụm phải có ít nhất $\lceil0{,}05\times167\rceil=9$ chuỗi. Các phương án từ $K=2$ đến $K=8$ đáp ứng điều kiện này; các phương án từ $K=9$ đến $K=18$ bị loại vì cụm nhỏ nhất có ít hơn chín chuỗi. Trong các phương án hợp lệ, $K=2$ có ASW lớn nhất, bằng 0,1224, và được chọn làm kết quả cuối cùng.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_22_kdef_tong_quan_phan_cum.png}
-    \caption{Kết quả lựa chọn số cụm từ 23 chuỗi trạng thái trên giao diện}
+    \caption{Kết quả lựa chọn số cụm từ 167 chuỗi trạng thái trên giao diện}
     \label{fig:kdef_cluster_overview_ch5}
 \end{figure}
 
 \begin{table}[H]
     \centering
-    \caption{Kết quả phân cụm 23 chuỗi trạng thái dự đoán đủ điều kiện}
+    \caption{Kết quả phân cụm 167 chuỗi trạng thái dự đoán đủ điều kiện}
     \label{tab:kdef_cluster_result_ch5}
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{|c|l|r|r|r|}
         \hline
         \textbf{Cụm} & \textbf{Chuỗi medoid} & \textbf{Số chuỗi} & \textbf{Tỷ lệ} & \textbf{Silhouette TB} \\
         \hline
-        1 & Happy $\rightarrow$ Happy $\rightarrow$ Angry $\rightarrow$ Surprise & 6 & 26,1\% & 0,257 \\
+        1 & Sad $\rightarrow$ Angry $\rightarrow$ Sad $\rightarrow$ Neutral & 51 & 30,5\% & 0,166 \\
         \hline
-        2 & Sad $\rightarrow$ Neutral $\rightarrow$ Surprise $\rightarrow$ Disgust & 17 & 73,9\% & 0,203 \\
+        2 & Surprise $\rightarrow$ Neutral $\rightarrow$ Disgust $\rightarrow$ Happy & 116 & 69,5\% & 0,103 \\
         \hline
     \end{tabular}}
 \end{table}
 
-Cụm 2 có số lượng lớn nhất với 17 chuỗi, chiếm 73,9\%; cụm 1 gồm sáu chuỗi, chiếm 26,1\%. Silhouette trung bình của hai cụm lần lượt bằng 0,203 và 0,257; không có chuỗi nào mang silhouette âm. Các medoid trong Bảng~\ref{tab:kdef_cluster_result_ch5} là hai chuỗi biểu cảm đại diện thu được từ dữ liệu thử nghiệm. Hình~\ref{fig:kdef_medoids_ch5} và Hình~\ref{fig:kdef_assignments_ch5} trình bày hai chuỗi medoid và danh sách các lần mua sắm thuộc từng cụm.
+Cụm 1 gồm 51 chuỗi, chiếm 30,5\%; cụm 2 có số lượng lớn hơn với 116 chuỗi, chiếm 69,5\%. Silhouette trung bình của hai cụm lần lượt bằng 0,166 và 0,103. Các medoid trong Bảng~\ref{tab:kdef_cluster_result_ch5} là hai chuỗi biểu cảm đại diện thu được từ dữ liệu thử nghiệm. Hình~\ref{fig:kdef_medoids_ch5} và Hình~\ref{fig:kdef_assignments_ch5} trình bày hai chuỗi medoid và danh sách các lần mua sắm thuộc từng cụm.
 
 \begin{figure}[H]
     \centering
@@ -470,7 +490,7 @@ Mỗi kết quả gán cụm được liên kết với lần mua sắm đã t�
 \section{Đánh giá hiệu quả hệ thống}
 \label{section:5.5}
 
-Bảng~\ref{tab:end_to_end_effectiveness_ch5} tổng hợp kết quả theo từng công đoạn. Trong 100 ảnh đầu vào, 97 ảnh tạo được quan sát gắn đúng hồ sơ; hệ thống hình thành 25 lần mua sắm và 23 lần đủ bốn điểm chạm để phân cụm. Kết quả kiểm tra sau thực nghiệm đạt 35/35 điều kiện về số lượng, thứ tự điểm chạm, kết quả ghép định danh và tính nhất quán giữa số hành trình đầy đủ với số chuỗi được phân tích.
+Bảng~\ref{tab:end_to_end_effectiveness_ch5} tổng hợp kết quả theo từng công đoạn. Cả 700 ảnh đầu vào đều được xử lý và lưu thành quan sát; 692 ảnh gắn đúng hồ sơ và tám ảnh gắn sai hồ sơ. Từ 182 lần mua sắm được hình thành, 167 chuỗi đủ điều kiện để phân cụm và 15 chuỗi bị loại. Kết quả kiểm tra sau thực nghiệm đạt 217/222 điều kiện; năm điều kiện không đạt phản ánh các sai lệch định danh và hành trình phát sinh từ tám ảnh ghép nhầm.
 
 \begin{table}[H]
     \centering
@@ -481,23 +501,23 @@ Bảng~\ref{tab:end_to_end_effectiveness_ch5} tổng hợp kết quả theo từ
         \hline
         \textbf{Công đoạn} & \textbf{Tiêu chí} & \textbf{Kết quả} & \textbf{Đánh giá} \\
         \hline
-        Tiếp nhận và xử lý ảnh & Ảnh tạo được kết quả hợp lệ & 100/100 & Hoàn thành toàn bộ đầu vào của kịch bản. \\
+        Tiếp nhận và xử lý ảnh & Ảnh tạo được kết quả hợp lệ & 700/700 & Hoàn thành toàn bộ đầu vào của kịch bản. \\
         \hline
-        Ghép định danh & Đúng hồ sơ dự kiến & 97/100 & Ba ảnh không khớp; số trường hợp ghép sai là 0. \\
+        Ghép định danh & Đúng hồ sơ dự kiến & 692/700 & Tám ảnh ghép sai; không có ảnh không khớp. \\
         \hline
-        Tạo lần mua sắm & Đủ bốn điểm chạm, đúng thứ tự & 23/25 & Hai hành trình thiếu quan sát do không khớp định danh. \\
+        Tạo lần mua sắm & Chuỗi có ít nhất bốn trạng thái & 167/182 & Mười lăm chuỗi bị loại do thiếu trạng thái. \\
         \hline
-        Kết quả biểu cảm đầu cuối & Tỷ lệ nhãn đúng trên đầu vào; Macro-F1 & 0,620; 0,614 & Accuracy trên 97 kết quả được lưu là 0,639. \\
+        Kết quả biểu cảm đầu cuối & Accuracy; Macro-F1 & 0,6714; 0,6572 & Cả 700 ảnh đều có kết quả được lưu. \\
         \hline
-        Phân cụm chuỗi & Chuỗi được sử dụng; ASW & 23/25; 0,2171 & Hai cụm; hai chuỗi bị loại vì thiếu trạng thái. \\
+        Phân cụm chuỗi & Chuỗi được sử dụng; ASW & 167/182; 0,1224 & Hai cụm; 15 chuỗi bị loại. \\
         \hline
-        Kiểm tra và truy vết & Điều kiện kiểm tra đạt & 35/35 & Kết quả phân tích liên kết được về dữ liệu nguồn. \\
+        Kiểm tra và truy vết & Điều kiện kiểm tra đạt & 217/222 & Năm sai lệch liên quan đến ghép nhầm và hành trình. \\
         \hline
     \end{tabular}}
 \end{table}
 
-Đối với phân loại biểu cảm, 62 trong 100 ảnh đầu vào tạo được nhãn đúng; Accuracy trên 97 ảnh có kết quả là 0,639 và Macro-F1 đầu cuối là 0,614. Trong 38 ảnh còn lại, 35 ảnh có nhãn dự đoán khác nhãn đối chiếu và ba ảnh không tạo được quan sát do không ghép được định danh. Ba ảnh này làm hai hành trình bị thiếu trạng thái. Ở bước phân cụm, 23 chuỗi đủ điều kiện được chia thành hai cụm với ASW bằng 0,2171; không có chuỗi mang silhouette âm. Kết quả kiểm tra 35/35 điều kiện và liên kết truy vết từ cụm về từng quan sát cho thấy toàn bộ các công đoạn trong phạm vi kịch bản đã trao đổi và lưu trữ dữ liệu đúng cấu trúc.
+Đối với phân loại biểu cảm, 470 trong 700 ảnh đầu vào có nhãn đúng; Accuracy bằng 0,6714 và Macro-F1 đầu cuối bằng 0,6572. Trong 230 ảnh còn lại, nhãn dự đoán khác nhãn đối chiếu nhưng kết quả vẫn được lưu. Ở bước phân cụm, 167 chuỗi đủ điều kiện được chia thành hai cụm với ASW bằng 0,1224. Mọi kết quả gán cụm đều liên kết được về lần mua sắm và các quan sát nguồn. Tuy nhiên, tám lượt ghép sai danh tính cho thấy ngưỡng có FPR mục tiêu 10\% trên tập hiệu chỉnh vẫn tạo lỗi khi số hồ sơ đối sánh tăng lên 35; các lỗi này tiếp tục ảnh hưởng đến việc hình thành hành trình và số chuỗi đủ điều kiện.
 
-Biểu cảm tại bốn điểm chạm được lựa chọn độc lập nên các chuỗi không được sắp đặt trước. Kết quả phân cụm xác định được hai chuỗi biểu cảm đại diện như trình bày trong Bảng~\ref{tab:kdef_cluster_result_ch5}. Mỗi chuỗi là medoid của một cụm, tức chuỗi có tổng khoảng cách nhỏ nhất đến các chuỗi còn lại trong cùng cụm. Hai medoid thu được là \textit{Happy--Happy--Angry--Surprise} và \textit{Sad--Neutral--Surprise--Disgust}.
+Biểu cảm tại bốn điểm chạm được lựa chọn độc lập nên các chuỗi không được sắp đặt trước. Kết quả phân cụm xác định được hai chuỗi biểu cảm đại diện như trình bày trong Bảng~\ref{tab:kdef_cluster_result_ch5}. Mỗi chuỗi là medoid của một cụm, tức chuỗi có tổng khoảng cách nhỏ nhất đến các chuỗi còn lại trong cùng cụm. Hai medoid thu được là \textit{Sad--Angry--Sad--Neutral} và \textit{Surprise--Neutral--Disgust--Happy}.
 
 \end{document}

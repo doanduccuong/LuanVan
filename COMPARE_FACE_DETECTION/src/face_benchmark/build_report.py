@@ -14,7 +14,7 @@ from .metrics import operating_point_metrics, wider_face_ap
 
 
 LABELS = {
-    "haar": "Haar Cascade – OpenCV frontal default",
+    "haar": "Haar Cascade – OpenCV frontal face",
     "mtcnn": "MTCNN – facenet-pytorch",
     "retinaface_mobilenet025": "RetinaFace – MobileNet0.25",
 }

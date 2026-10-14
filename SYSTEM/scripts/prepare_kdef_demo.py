@@ -314,7 +314,8 @@ def sample_touchpoint_time_offsets(
 
 def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_id: str,
             camera_seed: int = 20261013,
-            camera_pose_policy: str = "remaining-after-reservation") -> None:
+            camera_pose_policy: str = "remaining-after-reservation",
+            selected_subjects: list[str] | None = None) -> None:
     if not kdef_root.exists() or not kdef_root.is_dir():
         raise SystemExit(f"Không tìm thấy thư mục KDEF: {kdef_root}")
     images, ignored = discover_images(kdef_root)
@@ -332,7 +333,19 @@ def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_i
         raise SystemExit(
             f"Nguồn KDEF chỉ có {len(eligible)} nhóm đủ bảy nhãn, cần {customer_count}"
         )
-    selected = sorted(random.Random(seed).sample(eligible, customer_count))
+    if selected_subjects:
+        selected = sorted(selected_subjects)
+        if len(selected) != customer_count or len(set(selected)) != customer_count:
+            raise SystemExit(
+                "Danh sách --subject phải có đúng customer-count mã khác nhau"
+            )
+        missing_subjects = sorted(set(selected) - set(eligible))
+        if missing_subjects:
+            raise SystemExit(f"Mã --subject không hợp lệ: {missing_subjects}")
+        subject_selection_method = "explicit identity holdout"
+    else:
+        selected = sorted(random.Random(seed).sample(eligible, customer_count))
+        subject_selection_method = "fixed-seed random sample"
 
     if DATASET_ROOT.exists():
         raise SystemExit(f"Không ghi đè dữ liệu cũ: {DATASET_ROOT}; đặt DEMO_DATASET_ROOT mới")
@@ -590,6 +603,7 @@ def prepare(kdef_root: Path, *, customer_count: int, seed: int, experiment_run_i
             "unique_observation_sources": len({row["source_sha256"] for row in image_manifest if row["role"] == "observation"}),
             "experiment_run_id": experiment_run_id,
             "selected_subjects": selected,
+            "subject_selection_method": subject_selection_method,
             "customer_count": customer_count,
             "ignored_non_kdef_files": ignored,
             "raw_images_embedded": False,
@@ -608,6 +622,12 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=20261008)
     parser.add_argument("--camera-seed", type=int, default=20261013)
     parser.add_argument(
+        "--subject",
+        action="append",
+        default=[],
+        help="Mã nhóm đại diện của người dùng cho đầu-cuối; lặp tùy chọn này.",
+    )
+    parser.add_argument(
         "--camera-pose-policy",
         choices=("remaining-after-reservation", "frontal-camera"),
         default="remaining-after-reservation",
@@ -625,4 +645,5 @@ if __name__ == "__main__":
         experiment_run_id=args.experiment_run_id,
         camera_seed=args.camera_seed,
         camera_pose_policy=args.camera_pose_policy,
+        selected_subjects=args.subject or None,
     )
