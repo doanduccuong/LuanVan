@@ -140,3 +140,35 @@ export type SequenceAssignment = {
   visit_started_at?: string | null
   customer?: Pick<Customer, 'id' | 'customer_code' | 'full_name'> | null
 }
+
+export type JourneyScoringConfig = {
+  version: string
+  revision: number
+  complete: boolean
+  expression_values: Record<string, number>
+  value_basis: string
+  touchpoints: Array<{ id: string; code: string; name: string; sequence_order: number; weight: number | null }>
+}
+
+export type JourneyScoringRun = {
+  id: string
+  source_type: 'CAMERA' | 'SIMULATOR'
+  source_run_id: string
+  status: string
+  created_at: string
+  scoring_config: JourneyScoringConfig
+  scoring_summary: { journey_count: number; unscored_count: number; mean: number | null; minimum: number | null; maximum: number | null }
+}
+
+export type JourneyScore = {
+  id: string
+  visit_id: string
+  visit_started_at?: string | null
+  sequence: string[]
+  score: number | null
+  customer?: Pick<Customer, 'id' | 'customer_code' | 'full_name'> | null
+  breakdown: Array<{
+    touchpoint_id: string; touchpoint_name: string; states: string[]; state_values: number[]
+    point_score: number | null; weight: number; normalized_weight: number; contribution: number
+  }>
+}

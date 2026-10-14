@@ -386,7 +386,7 @@ def test_only_registered_faces_create_observations(monkeypatch):
         app.dependency_overrides.pop(get_vision_client, None)
 
 
-def test_sequence_analysis_persists_clusters_medoids_and_assignments():
+def test_sequence_analysis_persists_clusters_medoids_and_assignments(monkeypatch):
     client = make_client()
     suffix = datetime.now(timezone.utc).strftime("%H%M%S%f")
     base_order = int(suffix[-7:]) * 10
@@ -460,3 +460,75 @@ def test_sequence_analysis_persists_clusters_medoids_and_assignments():
     assert assignments["total"] == 8
     assert all(item["customer"] for item in assignments["items"])
     assert all(len(item["sequence"]) == 4 for item in assignments["items"])
+    def clustering_must_not_run(*_args, **_kwargs):
+        raise AssertionError("Tính điểm phải chạy độc lập với phân cụm")
+    monkeypatch.setattr(main_module, "cluster_visit_sequences", clustering_must_not_run)
+    scored_run_response = client.post("/api/v1/journey-scoring-runs", json={"source_type": "SIMULATOR", "source_run_id": run_id})
+    assert scored_run_response.status_code == 201, scored_run_response.text
+    scored_run = scored_run_response.json()
+    scores = client.get(f"/api/v1/journey-scoring-runs/{scored_run['id']}/scores").json()
+    assert scores["total"] == 8
+    assert all(0 <= item["score"] <= 1 for item in scores["items"])
+    assert all("coverage" not in item and "status" not in item for item in scores["items"])
+    assert "complete_count" not in scored_run["scoring_summary"]
+    assert "partial_count" not in scored_run["scoring_summary"]
+    assert scored_run["scoring_summary"]["mean"] == pytest.approx(sum(item["score"] for item in scores["items"]) / 8)
+    assert all(sum(part["contribution"] for part in item["breakdown"]) == pytest.approx(item["score"]) for item in scores["items"])
+    old_config = scored_run["scoring_config"]
+    settings = client.get("/api/v1/journey-scoring-settings").json()
+    changed = client.put("/api/v1/journey-scoring-settings", json={
+        "revision": settings["revision"],
+        "expression_values": {**settings["expression_values"], "Happy": 0.8},
+        "touchpoint_weights": {p["id"]: p["weight"] for p in settings["touchpoints"]},
+    })
+    assert changed.status_code == 200, changed.text
+    assert client.get(f"/api/v1/journey-scoring-runs/{scored_run['id']}").json()["scoring_config"] == old_config
+    assert client.get(f"/api/v1/journey-scoring-runs/{scored_run['id']}/scores").json() == scores
+
+
+def test_journey_scoring_settings_validate_permissions_ranges_and_stale_revision():
+    client = make_client()
+    settings = client.get("/api/v1/journey-scoring-settings").json()
+    body = {"revision": settings["revision"], "expression_values": settings["expression_values"],
+            "touchpoint_weights": {point["id"]: 1.0 for point in settings["touchpoints"]}}
+    assert client.put("/api/v1/journey-scoring-settings", json={**body, "touchpoint_weights": {}}).status_code == 422
+    assert client.put("/api/v1/journey-scoring-settings", json={**body, "expression_values": {**body["expression_values"], "Happy": 1.1}}).status_code == 422
+    saved = client.put("/api/v1/journey-scoring-settings", json=body)
+    assert saved.status_code == 200, saved.text
+    assert saved.json()["revision"] == body["revision"] + 1
+    assert client.put("/api/v1/journey-scoring-settings", json=body).status_code == 409
+    stranger = TestClient(app)
+    assert stranger.put("/api/v1/journey-scoring-settings", json=body).status_code == 401
+
+
+def test_one_state_journey_can_be_scored_without_clustering(monkeypatch):
+    client = make_client()
+    suffix = datetime.now(timezone.utc).strftime("%H%M%S%f")
+    settings = client.get("/api/v1/journey-scoring-settings").json()
+    point = settings["touchpoints"][0]
+    customer = client.post("/api/v1/customers", json={
+        "customer_code": f"SCORE-ONE-{suffix}", "full_name": "Khách một điểm chạm",
+    }).json()
+    source = f"SCORE-ONE-{suffix}"
+    response = client.post("/api/v1/simulation/observations/batch", json={"observations": [{
+        "event_id": source, "simulation_run_id": source,
+        "customer_id": customer["id"], "touchpoint_id": point["id"],
+        "observed_at": datetime.now(timezone.utc).isoformat(),
+        "expression_label": "Happy", "expression_confidence": 0.9,
+    }]})
+    assert response.status_code == 201, response.text
+
+    def clustering_must_not_run(*_args, **_kwargs):
+        raise AssertionError("Một chuỗi vẫn phải tính điểm mà không phân cụm")
+
+    monkeypatch.setattr(main_module, "cluster_visit_sequences", clustering_must_not_run)
+    run = client.post("/api/v1/journey-scoring-runs", json={
+        "source_type": "SIMULATOR", "source_run_id": source,
+    })
+    assert run.status_code == 201, run.text
+    scores = client.get(f"/api/v1/journey-scoring-runs/{run.json()['id']}/scores").json()
+    assert scores["total"] == 1
+    score = scores["items"][0]
+    assert score["sequence"] == ["Happy"]
+    assert score["score"] == pytest.approx(settings["expression_values"]["Happy"])
+    assert "coverage" not in score and "status" not in score

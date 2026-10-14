@@ -4,24 +4,30 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {3.1}{\ignorespaces Phạm vi của từng giai đoạn trong phương pháp}}{27}{table.caption.19}%
 \contentsline {table}{\numberline {3.2}{\ignorespaces Thông tin được giữ trong một bản ghi quan sát}}{31}{table.caption.21}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Bảng điểm quy đổi biểu cảm trong cấu hình thực nghiệm}}{35}{table.caption.23}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Các thành phần của hệ thống}}{37}{table.caption.24}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Đặc tả UC01 -- Đăng nhập}}{39}{table.caption.27}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Đặc tả UC02 -- Quản lý khách hàng và dữ liệu khuôn mặt}}{39}{table.caption.28}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Đặc tả UC03 -- Quản lý sản phẩm, đơn hàng và điểm chạm}}{40}{table.caption.29}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces Đặc tả UC04 -- Tiếp nhận ảnh và tạo bản ghi quan sát}}{40}{table.caption.30}%
-\contentsline {table}{\numberline {4.6}{\ignorespaces Đặc tả UC05 -- Theo dõi lần mua sắm}}{41}{table.caption.31}%
-\contentsline {table}{\numberline {4.7}{\ignorespaces Đặc tả UC06 -- Phân tích biểu cảm và phân cụm chuỗi}}{41}{table.caption.32}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Các thành phần của hệ thống}}{39}{table.caption.25}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Đặc tả UC01 -- Đăng nhập}}{41}{table.caption.28}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Đặc tả UC02 -- Quản lý khách hàng và dữ liệu khuôn mặt}}{41}{table.caption.29}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Đặc tả UC03 -- Quản lý sản phẩm, đơn hàng và điểm chạm}}{42}{table.caption.30}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Đặc tả UC04 -- Tiếp nhận ảnh và tạo bản ghi quan sát}}{42}{table.caption.31}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Đặc tả UC05 -- Theo dõi lần mua sắm}}{43}{table.caption.32}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces Đặc tả UC06 -- Phân tích biểu cảm và phân cụm chuỗi}}{43}{table.caption.33}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces Đặc tả UC07 -- Cấu hình điểm biểu cảm và trọng số điểm chạm}}{44}{table.caption.34}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces Đặc tả UC08 -- Tính điểm từng chuỗi biểu cảm}}{44}{table.caption.35}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Kết quả chất lượng phát hiện trên tập xác thực WIDER FACE}}{57}{table.caption.49}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Kết quả hiệu năng phát hiện trên CPU}}{57}{table.caption.50}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Phân bố ảnh theo lớp trong FER-2013}}{58}{table.caption.51}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Kết quả tổng thể của ba cấu hình phân loại biểu cảm trên PrivateTest}}{60}{table.caption.52}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces F1 theo từng lớp của ba cấu hình trên PrivateTest}}{61}{table.caption.53}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Môi trường triển khai tại thời điểm thực nghiệm đầu cuối}}{66}{table.caption.56}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Kết quả tiếp nhận và ghép định danh ảnh KDEF}}{68}{table.caption.58}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Kết quả biểu cảm của dữ liệu trong luồng đầu cuối}}{69}{table.caption.61}%
-\contentsline {table}{\numberline {5.9}{\ignorespaces Kết quả phân cụm 23 chuỗi trạng thái dự đoán đủ điều kiện}}{71}{table.caption.64}%
-\contentsline {table}{\numberline {5.10}{\ignorespaces Đánh giá hiệu quả của luồng hệ thống đầu cuối}}{74}{table.caption.68}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Kết quả chất lượng phát hiện trên tập xác thực WIDER FACE}}{61}{table.caption.54}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Kết quả hiệu năng phát hiện trên CPU}}{61}{table.caption.55}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Phân bố ảnh theo lớp trong FER-2013}}{63}{table.caption.56}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Kết quả tổng thể của ba cấu hình phân loại biểu cảm trên PrivateTest}}{65}{table.caption.57}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces F1 theo từng lớp của ba cấu hình trên PrivateTest}}{65}{table.caption.58}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Môi trường triển khai tại thời điểm thực nghiệm đầu cuối}}{71}{table.caption.61}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Kết quả tiếp nhận và ghép định danh ảnh KDEF}}{73}{table.caption.64}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Kết quả biểu cảm của dữ liệu trong luồng đầu cuối}}{75}{table.caption.67}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces Trọng số điểm chạm trong thực nghiệm tính điểm hành trình}}{76}{table.caption.69}%
+\contentsline {table}{\numberline {5.10}{\ignorespaces Một số kết quả tính điểm chuỗi biểu cảm đủ bốn điểm chạm}}{77}{table.caption.72}%
+\contentsline {table}{\numberline {5.11}{\ignorespaces Kết quả phân cụm 167 chuỗi trạng thái dự đoán đủ điều kiện}}{79}{table.caption.76}%
+\contentsline {table}{\numberline {5.12}{\ignorespaces Đánh giá hiệu quả của luồng hệ thống đầu cuối}}{82}{table.caption.80}%
+\addvspace {10\p@ }
 \contentsfinish 
 \contentsfinish 

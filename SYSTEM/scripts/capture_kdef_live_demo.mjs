@@ -7,6 +7,7 @@ const expectedK = Number(process.env.EXPECTED_K ?? 7)
 const expectedObservations = Number(process.env.EXPECTED_OBSERVATIONS ?? 100)
 const expectedCustomers = Number(process.env.EXPECTED_CUSTOMERS ?? 5)
 const updateReport = process.env.UPDATE_REPORT !== 'false'
+const updateChapter4 = process.env.UPDATE_CHAPTER4 === 'true'
 const baseUrl = process.env.WEB_URL ?? 'http://127.0.0.1:8080'
 const projectRoot = '/Users/sotatek/Desktop/Do An'
 const artifactOutput = `${projectRoot}/SYSTEM/artifacts/experiment-runs/${sourceRunId}/screenshots`
@@ -28,7 +29,7 @@ const page = await context.newPage()
 async function capture(artifactName, chapter4Name, chapter5Name) {
   const artifactPath = `${artifactOutput}/${artifactName}`
   await page.screenshot({ path: artifactPath, fullPage: false })
-  if (updateReport && chapter4Name) await copyFile(artifactPath, `${chapter4Output}/${chapter4Name}`)
+  if (updateReport && updateChapter4 && chapter4Name) await copyFile(artifactPath, `${chapter4Output}/${chapter4Name}`)
   if (updateReport && chapter5Name) await copyFile(artifactPath, `${chapter5Output}/${chapter5Name}`)
 }
 

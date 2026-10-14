@@ -9,39 +9,47 @@
 \contentsline {figure}{\numberline {2.7}{\ignorespaces Quy trình tạo véc-tơ đặc trưng LBP theo vùng}}{17}{figure.caption.16}%
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Nhiều quan sát trong từng điểm chạm của một lần mua sắm}}{21}{figure.caption.17}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Ba giai đoạn của phương pháp đề xuất}}{26}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Ba giai đoạn của phương pháp đề xuất}}{27}{figure.caption.18}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Quy trình phát hiện, cắt và căn chỉnh vùng khuôn mặt}}{29}{figure.caption.20}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Thứ tự ưu tiên khi lựa chọn nhãn biểu cảm đại diện}}{33}{figure.caption.22}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Kiến trúc tổng quan của hệ thống}}{36}{figure.caption.23}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Usecase tổng quan của hệ thống}}{38}{figure.caption.25}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Phân rã chức năng của hệ thống}}{38}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Giao diện đăng nhập}}{42}{figure.caption.33}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Giao diện tổng quan hệ thống}}{43}{figure.caption.34}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Giao diện danh sách khách hàng}}{43}{figure.caption.35}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Giao diện hồ sơ và lịch sử mua hàng của khách hàng}}{44}{figure.caption.36}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Giao diện đăng ký và tìm kiếm khách hàng bằng khuôn mặt}}{44}{figure.caption.37}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Giao diện quản lý sản phẩm}}{45}{figure.caption.38}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Giao diện lịch sử mua hàng}}{45}{figure.caption.39}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Giao diện quản lý điểm chạm}}{46}{figure.caption.40}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Giao diện theo dõi lần mua sắm}}{46}{figure.caption.41}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Giao diện chi tiết bản ghi quan sát}}{47}{figure.caption.42}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Giao diện thống kê phân bố biểu cảm tại điểm chạm}}{48}{figure.caption.43}%
-\contentsline {figure}{\numberline {4.15}{\ignorespaces Giao diện phân tích thay đổi biểu cảm giữa các điểm chạm}}{49}{figure.caption.44}%
-\contentsline {figure}{\numberline {4.16}{\ignorespaces Giao diện báo cáo chất lượng dữ liệu}}{50}{figure.caption.45}%
-\contentsline {figure}{\numberline {4.17}{\ignorespaces Giao diện tổng quan kết quả phân cụm chuỗi}}{51}{figure.caption.46}%
-\contentsline {figure}{\numberline {4.18}{\ignorespaces Giao diện danh sách cụm và chuỗi medoid}}{51}{figure.caption.47}%
-\contentsline {figure}{\numberline {4.19}{\ignorespaces Giao diện danh sách lần mua sắm được gán cụm}}{52}{figure.caption.48}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Kiến trúc tổng quan của hệ thống}}{38}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Usecase tổng quan của hệ thống}}{40}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Phân rã chức năng của hệ thống}}{40}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Giao diện đăng nhập}}{45}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Giao diện tổng quan hệ thống}}{45}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Giao diện danh sách khách hàng}}{46}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Giao diện hồ sơ và lịch sử mua hàng của khách hàng}}{46}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Giao diện đăng ký và tìm kiếm khách hàng bằng khuôn mặt}}{47}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Giao diện quản lý sản phẩm}}{47}{figure.caption.41}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Giao diện lịch sử mua hàng}}{48}{figure.caption.42}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Giao diện quản lý điểm chạm}}{49}{figure.caption.43}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Giao diện theo dõi lần mua sắm}}{49}{figure.caption.44}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Giao diện chi tiết bản ghi quan sát}}{50}{figure.caption.45}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Giao diện thống kê phân bố biểu cảm tại điểm chạm}}{51}{figure.caption.46}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Giao diện phân tích thay đổi biểu cảm giữa các điểm chạm}}{52}{figure.caption.47}%
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Giao diện báo cáo chất lượng dữ liệu}}{53}{figure.caption.48}%
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Giao diện cấu hình điểm biểu cảm và trọng số điểm chạm}}{53}{figure.caption.49}%
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Giao diện kết quả tính điểm từng hành trình}}{54}{figure.caption.50}%
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Giao diện tổng quan kết quả phân cụm chuỗi}}{55}{figure.caption.51}%
+\contentsline {figure}{\numberline {4.20}{\ignorespaces Giao diện danh sách cụm và chuỗi medoid}}{55}{figure.caption.52}%
+\contentsline {figure}{\numberline {4.21}{\ignorespaces Giao diện danh sách lần mua sắm được gán cụm}}{56}{figure.caption.53}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Normalized Confusion Matrix của ba cấu hình trên PrivateTest}}{62}{figure.caption.54}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Danh sách năm hồ sơ khách hàng sau khi khởi tạo từ ảnh KDEF}}{64}{figure.caption.55}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Trạng thái các thành phần của hệ thống tại thời điểm thực nghiệm}}{67}{figure.caption.57}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Một lần mua sắm có đủ bốn điểm chạm sau khi xử lý ảnh}}{68}{figure.caption.59}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Các quan sát nguồn Camera được sắp theo thời gian trong một lần mua sắm}}{69}{figure.caption.60}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Ma trận nhầm lẫn biểu cảm trên 100 ảnh của lần chạy đầu cuối}}{70}{figure.caption.62}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Kết quả lựa chọn số cụm từ 23 chuỗi trạng thái trên giao diện}}{71}{figure.caption.63}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Medoid và thống kê của ba cụm trên giao diện hệ thống}}{72}{figure.caption.65}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Danh sách các lần mua sắm được gán cụm}}{72}{figure.caption.66}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Truy vết một kết quả gán cụm về các quan sát ban đầu}}{73}{figure.caption.67}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Normalized Confusion Matrix của ba cấu hình trên PrivateTest}}{66}{figure.caption.59}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Danh sách hồ sơ khách hàng sau khi khởi tạo từ ảnh KDEF}}{69}{figure.caption.60}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Trạng thái các thành phần của hệ thống tại thời điểm thực nghiệm}}{72}{figure.caption.62}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Đường cong ROC và vùng phóng đại quanh điểm vận hành của ngưỡng ArcFace}}{73}{figure.caption.63}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Một lần mua sắm có đủ bốn điểm chạm sau khi xử lý ảnh}}{74}{figure.caption.65}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Các quan sát nguồn Camera được sắp theo thời gian trong một lần mua sắm}}{74}{figure.caption.66}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Ma trận nhầm lẫn biểu cảm trên 700 ảnh của lần chạy đầu cuối}}{75}{figure.caption.68}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Cấu hình điểm biểu cảm và trọng số từng điểm chạm}}{76}{figure.caption.70}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Điểm tổng hợp và độ bao phủ của từng chuỗi biểu cảm}}{77}{figure.caption.71}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Phân bố điểm tổng hợp của 167 hành trình đủ bốn điểm chạm}}{78}{figure.caption.73}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Chi tiết đóng góp của từng điểm chạm vào điểm hành trình}}{78}{figure.caption.74}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Kết quả lựa chọn số cụm từ 167 chuỗi trạng thái trên giao diện}}{79}{figure.caption.75}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Medoid và thống kê của hai cụm trên giao diện hệ thống}}{79}{figure.caption.77}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Danh sách các lần mua sắm được gán cụm}}{80}{figure.caption.78}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Truy vết một kết quả gán cụm về các quan sát ban đầu}}{81}{figure.caption.79}%
+\addvspace {10\p@ }
 \contentsfinish 
 \contentsfinish 

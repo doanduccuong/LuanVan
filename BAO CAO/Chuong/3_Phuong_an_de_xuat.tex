@@ -11,7 +11,7 @@ Phương pháp chỉ nhận dạng các khách hàng đã có mẫu khuôn mặt
 
 Phương pháp sử dụng ba cấp biểu diễn dữ liệu. \textit{Bản ghi quan sát} chứa kết quả xử lý một khuôn mặt tại một điểm chạm và thời điểm cụ thể. \textit{Chuỗi quan sát} là tập bản ghi của cùng khách hàng trong cùng một lần mua sắm, được sắp xếp theo thời gian. \textit{Chuỗi trạng thái} là biểu diễn rút gọn của chuỗi quan sát, trong đó mỗi đoạn quan sát liên tiếp tại cùng điểm chạm được thay bằng một nhãn biểu cảm đại diện. Việc giữ cả chuỗi gốc và chuỗi rút gọn giúp kết quả phân tích có thể truy vết về dữ liệu đã tạo ra nó.
 
-Quy trình tổng thể được trình bày tại Hình~\ref{fig:solution_flow}. Trước hết, ảnh được xử lý để phát hiện khuôn mặt, phân loại biểu cảm và đối sánh khách hàng. Tiếp theo, các bản ghi được phân tách theo khách hàng và lần mua sắm, kiểm tra thứ tự rồi tổ chức thành chuỗi. Cuối cùng, dữ liệu được sử dụng để mô tả phân bố biểu cảm, sự thay đổi nhãn giữa các điểm chạm và những nhóm chuỗi có diễn biến tương tự.
+Quy trình tổng thể được trình bày tại Hình~\ref{fig:solution_flow}. Trước hết, ảnh được xử lý để phát hiện khuôn mặt, phân loại biểu cảm và đối sánh khách hàng. Tiếp theo, các bản ghi được phân tách theo khách hàng và lần mua sắm, kiểm tra thứ tự rồi tổ chức thành chuỗi. Cuối cùng, dữ liệu được sử dụng để mô tả phân bố biểu cảm, sự thay đổi nhãn giữa các điểm chạm, tính điểm cho từng chuỗi và xác định những nhóm chuỗi có diễn biến tương tự.
 
 \begin{figure}[H]
     \centering
@@ -22,7 +22,7 @@ Quy trình tổng thể được trình bày tại Hình~\ref{fig:solution_flow}
     ]
         \node[block] (record) {\textbf{Hình thành bản ghi}\\Ảnh, điểm chạm, thời gian\\$\downarrow$\\Khách hàng và biểu cảm};
         \node[block, right=of record] (sequence) {\textbf{Liên kết chuỗi}\\Bản ghi theo khách hàng\\$\downarrow$\\Chuỗi của lần mua sắm};
-        \node[block, right=of sequence] (analysis) {\textbf{Phân tích}\\Phân bố tại điểm chạm\\Thay đổi nhãn trước--sau\\Phân cụm chuỗi trạng thái};
+        \node[block, right=of sequence] (analysis) {\textbf{Phân tích}\\Phân bố tại điểm chạm\\Thay đổi nhãn trước--sau\\Tính điểm từng chuỗi\\Phân cụm chuỗi trạng thái};
         \draw[flow] (record) -- (sequence);
         \draw[flow] (sequence) -- (analysis);
     \end{tikzpicture}
@@ -45,7 +45,7 @@ Bảng~\ref{tab:solution_stage_io} xác định đầu vào, quy tắc chính v�
         \hline
         Liên kết chuỗi & Các bản ghi đã xác định khách hàng & Phân tách lần mua sắm, sắp xếp thời gian, gom đoạn điểm chạm & Chuỗi quan sát và chuỗi trạng thái \\
         \hline
-        Phân tích & Bản ghi hoặc chuỗi đáp ứng điều kiện của phép phân tích & Thống kê nhãn, đếm cặp thay đổi, tính khoảng cách và phân cụm & Phân bố, các cặp nhãn và nhóm chuỗi tương tự \\
+        Phân tích & Bản ghi hoặc chuỗi đáp ứng điều kiện của phép phân tích & Thống kê nhãn, đếm cặp thay đổi, tính điểm từng chuỗi, tính khoảng cách và phân cụm & Phân bố, các cặp nhãn, điểm từng chuỗi và nhóm chuỗi tương tự \\
         \hline
     \end{tabular}
 \end{table}
@@ -272,6 +272,47 @@ Với mỗi hướng di chuyển giữa hai điểm chạm, gọi $n_{k,l}$ là 
 \end{equation}
 Mỗi lần xuất hiện của một cặp điểm chạm được tính là một cặp quan sát. Trường hợp $k=l$ biểu thị nhãn được giữ nguyên, còn $k\ne l$ biểu thị nhãn đã thay đổi. Kết quả gồm số lượng và tỷ lệ của từng tổ hợp biểu cảm giữa hai điểm chạm.
 
+\subsection{Tính điểm tổng hợp cho hành trình}
+\label{subsection:3.4.journey_scoring}
+
+Sau khi hình thành chuỗi trạng thái, mỗi lần mua sắm được gán một điểm tổng hợp từ các biểu cảm đã ghi nhận tại từng điểm chạm. Gọi $q(e)\in[0,1]$ là điểm quy đổi của biểu cảm $e$ và $w_k\geq0$ là trọng số của điểm chạm $k$. Người quản lý thiết lập bảng điểm và trọng số trên giao diện. Bảng điểm quy đổi được sử dụng trong cấu hình thực nghiệm được trình bày tại Bảng~\ref{tab:journey_expression_values_ch3}.
+
+\begin{table}[H]
+    \centering
+    \caption{Bảng điểm quy đổi biểu cảm trong cấu hình thực nghiệm}
+    \label{tab:journey_expression_values_ch3}
+    \begin{tabular}{|l|r|l|r|}
+        \hline
+        \textbf{Biểu cảm} & \textbf{Điểm $q(e)$} & \textbf{Biểu cảm} & \textbf{Điểm $q(e)$} \\
+        \hline
+        Angry & 0,10 & Sad & 0,25 \\
+        \hline
+        Disgust & 0,10 & Surprise & 0,50 \\
+        \hline
+        Fear & 0,20 & Neutral & 0,50 \\
+        \hline
+        Happy & 1,00 & & \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Trong cấu hình này, Happy được gán điểm cao nhất; Neutral và Surprise nhận mức 0,50; các nhãn Angry, Disgust, Fear và Sad nhận mức thấp hơn. Khi một hành trình quay lại cùng điểm chạm $k$ nhiều lần, gọi $r_{v,k}$ là số đoạn quan sát tại điểm chạm đó. Điểm của điểm chạm được tính bằng trung bình các điểm biểu cảm đại diện của các đoạn:
+\begin{equation}
+    \bar q_{v,k}=\frac{1}{r_{v,k}}\sum_{j=1}^{r_{v,k}}q(e_{v,k,j}).
+    \label{eq:ch3_touchpoint_score}
+\end{equation}
+
+Gọi $O_v$ là tập điểm chạm đã quan sát được trong hành trình $v$. Điểm hành trình được tổng hợp bằng trung bình có trọng số, theo cách tổng hợp tuyến tính của OECD/JRC~\cite{oecd2008composite}:
+\begin{equation}
+    J_v=\frac{\displaystyle\sum_{k\in O_v}w_k\bar q_{v,k}}
+    {\displaystyle\sum_{k\in O_v}w_k},\qquad
+    \sum_{k\in O_v}w_k>0.
+    \label{eq:ch3_journey_score}
+\end{equation}
+Với điểm quy đổi thuộc $[0,1]$, giá trị $J_v$ cũng thuộc $[0,1]$. Trọng số của mỗi điểm chạm được sử dụng một lần trong phép tổng hợp. Đối với hành trình có đủ các điểm chạm và tổng trọng số bằng 1, công thức trở thành $J_v=\sum_k w_k\bar q_{v,k}$.
+
+Mỗi kết quả gồm điểm hành trình $J_v$, điểm của từng điểm chạm và phần đóng góp vào tổng điểm. Bảng điểm, trọng số và phiên bản cấu hình được lưu cùng lần tính điểm. Người quản lý chọn nguồn dữ liệu để tính điểm cho toàn bộ các chuỗi có ít nhất một trạng thái hợp lệ, sau đó xem và truy vết từng kết quả theo lần mua sắm.
+
 \subsection{Phân cụm chuỗi trạng thái và lựa chọn số cụm}
 \label{subsection:3.4.2}
 
@@ -285,7 +326,12 @@ Các khoảng cách OM giữa từng cặp chuỗi được tổng hợp thành 
 
 Tiếp theo, ma trận khoảng cách $D$ được đưa vào PAM để phân cụm các chuỗi trạng thái. Với mỗi giá trị $K$, kết quả gồm nhãn cụm của từng chuỗi và chuỗi medoid đại diện cho mỗi cụm. Trong phần cài đặt, luận văn sử dụng thư viện Sequenzo phiên bản 0.1.42: hàm \texttt{k\_medoids\_range} chạy PAM trên ma trận khoảng cách với từng giá trị $K$, còn hàm \texttt{observation\_silhouette} tính hệ số silhouette của từng chuỗi từ nhãn cụm và ma trận khoảng cách OM.
 
-Phương pháp khảo sát lần lượt các giá trị $K$ bắt đầu từ 2. Giới hạn trên của $K$ được xác định từ tổng số chuỗi, số chuỗi trạng thái phân biệt, kích thước cụm tối thiểu và giới hạn khảo sát đặt trước. Kích thước cụm tối thiểu được lấy theo giá trị lớn hơn giữa số lượng tối thiểu tuyệt đối và tỷ lệ tối thiểu trên tổng số chuỗi. Các phương án tạo ra cụm nhỏ hơn giới hạn này bị loại khỏi tập ứng viên.
+Phương pháp khảo sát lần lượt các giá trị $K$ bắt đầu từ 2. Giới hạn trên của $K$ được xác định từ tổng số chuỗi, số chuỗi trạng thái phân biệt, kích thước cụm tối thiểu và giới hạn khảo sát đặt trước. Với $N$ là tổng số chuỗi được đưa vào phân cụm, kích thước cụm tối thiểu được xác định theo
+\begin{equation}
+    n_{\min}=\max\left(2,\left\lceil0{,}05N\right\rceil\right).
+    \label{eq:ch3_min_cluster_size}
+\end{equation}
+Trong công thức này, 2 là số chuỗi tối thiểu tuyệt đối và 5\% là tỷ lệ tối thiểu trên tổng số chuỗi. Mốc 5\% được sử dụng để tránh việc tăng $K$ tạo ra các cụm chỉ chứa một vài hành trình cá biệt, có tỷ trọng quá nhỏ để đại diện cho một mẫu diễn biến biểu cảm trong tập dữ liệu. Với mỗi phương án $K$, ``cụm nhỏ nhất'' là cụm có số chuỗi ít nhất trong $K$ cụm, không phải chuỗi có độ dài ngắn nhất. Một phương án $K$ chỉ được giữ lại khi số chuỗi của cụm nhỏ nhất không thấp hơn $n_{\min}$; nếu không đạt giới hạn này thì phương án đó bị loại khỏi tập ứng viên.
 
 Với mỗi phương án còn lại, hệ thống lấy trung bình cộng các hệ số silhouette do Sequenzo trả về để tính ASW:
 \begin{equation}

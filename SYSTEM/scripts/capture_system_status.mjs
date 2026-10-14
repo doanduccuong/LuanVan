@@ -104,7 +104,7 @@ const page = await browser.newPage({ viewport: { width: 1700, height: 1050 }, de
 await page.setContent(html, { waitUntil: 'load' })
 await page.screenshot({ path: screenshotPath, fullPage: true })
 await browser.close()
-if (updateReport) await copyFile(screenshotPath, reportPath)
+if (updateReport && process.env.UPDATE_CHAPTER4 === 'true') await copyFile(screenshotPath, reportPath)
 if (updateReport) await copyFile(screenshotPath, chapter5ReportPath)
 await writeFile(manifestPath, JSON.stringify({ capturedAt, runId, allRuntimeChecksPass, containers, endpoints, screenshotPath, reportPath, chapter5ReportPath }, null, 2), 'utf8')
 

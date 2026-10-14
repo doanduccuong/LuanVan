@@ -17,6 +17,8 @@ from app.models import (
     SequenceAnalysisRun,
     SequenceClusterAssignment,
     SequenceClusterSummary,
+    SequenceJourneyScore,
+    JourneyScoringRun,
     Touchpoint,
     Visit,
 )
@@ -40,6 +42,10 @@ def main(confirm: str) -> None:
             if demo_visit_ids
             else []
         )
+        if demo_visit_ids:
+            scoring_ids = list(db.scalars(select(SequenceJourneyScore.run_id).where(SequenceJourneyScore.visit_id.in_(demo_visit_ids)).distinct()))
+            db.execute(delete(SequenceJourneyScore).where(SequenceJourneyScore.run_id.in_(scoring_ids)))
+            db.execute(delete(JourneyScoringRun).where(JourneyScoringRun.id.in_(scoring_ids)))
         if demo_analysis_ids:
             db.execute(delete(SequenceClusterAssignment).where(SequenceClusterAssignment.run_id.in_(demo_analysis_ids)))
             db.execute(delete(SequenceClusterSummary).where(SequenceClusterSummary.run_id.in_(demo_analysis_ids)))

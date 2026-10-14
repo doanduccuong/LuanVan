@@ -6,6 +6,7 @@ const apiDocsUrl = process.env.API_DOCS_URL ?? 'http://127.0.0.1:8000/docs'
 const sourceRunId = process.env.SOURCE_RUN_ID
 const sourceType = process.env.SOURCE_TYPE ?? 'SIMULATOR'
 const updateReport = process.env.UPDATE_REPORT !== 'false'
+const updateChapter4 = process.env.UPDATE_CHAPTER4 === 'true'
 const expectedVisits = Number(process.env.EXPECTED_USED_VISITS ?? 125)
 const expectedK = process.env.EXPECTED_K ? Number(process.env.EXPECTED_K) : null
 if (!sourceRunId) throw new Error('Thiếu SOURCE_RUN_ID')
@@ -46,14 +47,14 @@ async function saveScreenshot(artifactName, reportName, implementationName = nul
   const artifactPath = `${artifactOutput}/${artifactName}`
   await page.screenshot({ path: artifactPath, fullPage: false })
   if (updateReport) await copyFile(artifactPath, `${reportOutput}/${reportName}`)
-  if (updateReport && implementationName) await copyFile(artifactPath, `${implementationOutput}/${implementationName}`)
+  if (updateReport && updateChapter4 && implementationName) await copyFile(artifactPath, `${implementationOutput}/${implementationName}`)
 }
 
 async function saveElementScreenshot(locator, artifactName, reportName, implementationName = null) {
   const artifactPath = `${artifactOutput}/${artifactName}`
   await locator.screenshot({ path: artifactPath })
   if (updateReport) await copyFile(artifactPath, `${reportOutput}/${reportName}`)
-  if (updateReport && implementationName) await copyFile(artifactPath, `${implementationOutput}/${implementationName}`)
+  if (updateReport && updateChapter4 && implementationName) await copyFile(artifactPath, `${implementationOutput}/${implementationName}`)
 }
 
 await page.goto(`${baseUrl}/login`, { waitUntil: 'networkidle' })
@@ -151,7 +152,7 @@ await sequencePath.scrollIntoViewIfNeeded()
 await docsPage.waitForTimeout(300)
 const apiArtifactPath = `${artifactOutput}/E12_sequence_api_docs.png`
 await docsPage.screenshot({ path: apiArtifactPath, fullPage: false })
-if (updateReport) {
+if (updateReport && updateChapter4) {
   await copyFile(apiArtifactPath, `${implementationOutput}/4_24_tai_lieu_api_phan_cum_chuoi.png`)
 }
 

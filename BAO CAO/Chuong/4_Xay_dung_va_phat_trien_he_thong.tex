@@ -85,6 +85,8 @@ Hệ thống có hai tác nhân chính. Người quản lý sử dụng giao di�
         \node[usecase, below=of customer] (catalog) {Quản lý sản phẩm, đơn hàng và điểm chạm};
         \node[usecase, below=of catalog] (visit) {Theo dõi lần mua sắm};
         \node[usecase, below=of visit] (report) {Phân tích biểu cảm và phân cụm chuỗi};
+        \node[usecase, below=of report] (scoring) {Cấu hình điểm biểu cảm và trọng số điểm chạm};
+        \node[usecase, below=of scoring] (scorejourney) {Tính điểm từng chuỗi biểu cảm};
         \node[usecase, right=32mm of catalog] (observation) {Gửi ảnh và tạo bản ghi quan sát};
         \node[actor, right=of observation] (source) {Nguồn dữ liệu camera};
         \draw[relation] (manager) -- (login);
@@ -92,6 +94,8 @@ Hệ thống có hai tác nhân chính. Người quản lý sử dụng giao di�
         \draw[relation] (manager) -- (catalog);
         \draw[relation] (manager) -- (visit);
         \draw[relation] (manager) -- (report);
+        \draw[relation] (manager) -- (scoring);
+        \draw[relation] (manager) -- (scorejourney);
         \draw[relation] (source) -- (observation);
     \end{tikzpicture}%
     }
@@ -99,7 +103,7 @@ Hệ thống có hai tác nhân chính. Người quản lý sử dụng giao di�
     \label{fig:usecase_overview_ch4}
 \end{figure}
 
-Người quản lý đăng nhập trước khi sử dụng các chức năng nghiệp vụ. Nhóm quản lý dữ liệu gồm khách hàng, mẫu khuôn mặt, sản phẩm, đơn hàng và điểm chạm. Nhóm theo dõi trình bày các bản ghi theo từng lần mua sắm. Nhóm phân tích cung cấp phân bố biểu cảm, sự thay đổi giữa các điểm chạm, chất lượng dữ liệu và phân cụm chuỗi trạng thái. Nguồn dữ liệu camera tương tác với chức năng tạo bản ghi quan sát thông qua API.
+Người quản lý đăng nhập trước khi sử dụng các chức năng nghiệp vụ. Nhóm quản lý dữ liệu gồm khách hàng, mẫu khuôn mặt, sản phẩm, đơn hàng và điểm chạm. Nhóm theo dõi trình bày các bản ghi theo từng lần mua sắm. Nhóm phân tích cung cấp phân bố biểu cảm, sự thay đổi giữa các điểm chạm, cấu hình và tính điểm từng chuỗi, chất lượng dữ liệu và phân cụm chuỗi trạng thái. Nguồn dữ liệu camera tương tác với chức năng tạo bản ghi quan sát thông qua API.
 
 \subsection{Phân rã chức năng}
 \label{subsection:4.2.2}
@@ -122,7 +126,7 @@ Các chức năng của hệ thống được chia thành ba nhóm: quản lý d
         \node[group, below right=15mm and 42mm of system] (analysis) {Phân tích và báo cáo};
         \node[item, below=of crm] (crmitems) {Quản lý khách hàng và sự đồng ý; đăng ký, xóa và tìm mẫu khuôn mặt; quản lý nhóm sản phẩm, sản phẩm, đơn hàng và điểm chạm.};
         \node[item, below=of observation] (observationitems) {Tiếp nhận sự kiện ảnh; phát hiện và căn chỉnh khuôn mặt; phân loại biểu cảm; đối sánh danh tính; tạo bản ghi quan sát; liên kết và theo dõi lần mua sắm.};
-        \node[item, below=of analysis] (analysisitems) {Thống kê phân bố biểu cảm; theo dõi biến thiên theo thời gian; phân tích thay đổi giữa điểm chạm; báo cáo chất lượng; phân cụm chuỗi trạng thái.};
+        \node[item, below=of analysis] (analysisitems) {Thống kê phân bố biểu cảm; theo dõi biến thiên theo thời gian; phân tích thay đổi giữa điểm chạm; cấu hình và tính điểm hành trình; báo cáo chất lượng; phân cụm chuỗi trạng thái.};
         \draw[flow] (system) -- (crm);
         \draw[flow] (system) -- (observation);
         \draw[flow] (system) -- (analysis);
@@ -292,6 +296,54 @@ Các use case chính được đặc tả theo tác nhân, điều kiện thực
     \end{tabular}
 \end{table}
 
+\begin{table}[H]
+    \centering
+    \caption{Đặc tả UC07 -- Cấu hình điểm biểu cảm và trọng số điểm chạm}
+    \label{tab:uc07_journey_scoring_ch4}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{10.9cm}|}
+        \hline
+        \textbf{Mã use case} & UC07 \\
+        \hline
+        \textbf{Tên chức năng} & Cấu hình điểm biểu cảm và trọng số điểm chạm \\
+        \hline
+        \textbf{Tác nhân} & Người quản lý \\
+        \hline
+        \textbf{Sự kiện kích hoạt} & Người quản lý mở cấu hình điểm hành trình trong chức năng phân tích. \\
+        \hline
+        \textbf{Tiền điều kiện} & Người quản lý đã đăng nhập và các điểm chạm đã được khai báo. \\
+        \hline
+        \textbf{Luồng chính} & 1) Giao diện tải bảng điểm và trọng số hiện hành; 2) người quản lý nhập điểm từ 0 đến 1 cho bảy biểu cảm; 3) nhập trọng số không âm cho từng điểm chạm; 4) máy chủ kiểm tra tổng trọng số lớn hơn 0 và phiên bản cấu hình; 5) lưu cấu hình mới; 6) lần tính điểm tiếp theo sử dụng cấu hình vừa lưu. \\
+        \hline
+        \textbf{Luồng thay thế} & Khi điểm ngoài phạm vi, tổng trọng số bằng 0 hoặc cấu hình đã được cập nhật bởi phiên khác, hệ thống thông báo để người quản lý điều chỉnh hoặc tải lại. \\
+        \hline
+        \textbf{Kết quả} & Bảng điểm và trọng số được lưu. Mỗi lần tính điểm lưu một bản cấu hình kèm điểm tổng hợp và đóng góp của từng điểm chạm. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Đặc tả UC08 -- Tính điểm từng chuỗi biểu cảm}
+    \label{tab:uc08_journey_scores_ch4}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{10.9cm}|}
+        \hline
+        \textbf{Mã use case} & UC08 \\
+        \hline
+        \textbf{Tên chức năng} & Tính điểm từng chuỗi biểu cảm \\
+        \hline
+        \textbf{Tác nhân} & Người quản lý \\
+        \hline
+        \textbf{Tiền điều kiện} & Nguồn dữ liệu có chuỗi biểu cảm và cấu hình điểm hợp lệ. \\
+        \hline
+        \textbf{Luồng chính} & 1) Chọn nguồn dữ liệu; 2) hệ thống tạo chuỗi cho từng lần mua sắm; 3) quy đổi nhãn biểu cảm thành điểm; 4) tổng hợp theo trọng số điểm chạm; 5) lưu điểm và cấu hình đã sử dụng; 6) hiển thị danh sách và chi tiết đóng góp của các điểm chạm. \\
+        \hline
+        \textbf{Luồng thay thế} & Khi nguồn chưa có chuỗi hợp lệ hoặc cấu hình trọng số cần cập nhật, hệ thống thông báo nguyên nhân để người quản lý điều chỉnh. \\
+        \hline
+        \textbf{Kết quả} & Mỗi chuỗi biểu cảm có một kết quả tính điểm được lưu theo lần chạy và liên kết với lần mua sắm. \\
+        \hline
+    \end{tabular}
+\end{table}
+
 \section{Giao diện ứng dụng}
 \label{section:4.3}
 
@@ -412,6 +464,22 @@ Người quản lý có thể mở một bản ghi để xem mã sự kiện, th
     \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_10_chat_luong_du_lieu.png}
     \caption{Giao diện báo cáo chất lượng dữ liệu}
     \label{fig:data_quality_ch4}
+\end{figure}
+
+\textbf{Màn hình cấu hình và tính điểm hành trình.} Người quản lý thiết lập điểm quy đổi của từng biểu cảm và trọng số của từng điểm chạm. Giao diện hiển thị tỷ trọng chuẩn hóa và lưu cấu hình theo phiên bản. Bảng kết quả trình bày chuỗi biểu cảm và điểm tổng hợp của từng hành trình; khi mở một dòng, người dùng xem được điểm và đóng góp của từng điểm chạm.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_30_cau_hinh_diem_hanh_trinh.png}
+    \caption{Giao diện cấu hình điểm biểu cảm và trọng số điểm chạm}
+    \label{fig:journey_scoring_config_ch4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong4/4_31_diem_hanh_trinh.png}
+    \caption{Giao diện kết quả tính điểm từng hành trình}
+    \label{fig:journey_scoring_results_ch4}
 \end{figure}
 
 \textbf{Màn hình phân cụm chuỗi.} Người quản lý chọn nguồn dữ liệu và mã lần chạy để tạo một lần phân tích. Phần tổng quan hiển thị số chuỗi được sử dụng, số chuỗi bị loại, số cụm được chọn, ASW và kết quả theo từng giá trị $K$.

@@ -17,12 +17,18 @@ from sqlalchemy.orm import Session, selectinload
 from .config import get_settings
 from .database import Base, SessionLocal, engine, get_db
 from .logic import create_order_items, ensure_aware, find_visit_for_order, get_or_create_visit, load_face_threshold, match_customer
+from .journey_scoring import (
+    DEFAULT_EXPRESSION_VALUES, SCORING_VERSION, score_journey,
+    summarize_journey_scores, validate_scoring_config,
+)
 from .models import (
     AuditLog,
     CaptureEvent,
     Customer,
     FaceTemplate,
     IngestionIssue,
+    JourneyScoringSettings,
+    JourneyScoringRun,
     Observation,
     ObservationRevision,
     Order,
@@ -34,6 +40,7 @@ from .models import (
     SequenceAnalysisRun,
     SequenceClusterAssignment,
     SequenceClusterSummary,
+    SequenceJourneyScore,
     Touchpoint,
     User,
     Visit,
@@ -187,6 +194,17 @@ class SequenceAnalysisInput(BaseModel):
 
 class SequenceClusterPatch(BaseModel):
     display_name: str | None = Field(default=None, max_length=255)
+
+
+class JourneyScoringInput(BaseModel):
+    expression_values: dict[str, float]
+    touchpoint_weights: dict[str, float]
+    revision: int = Field(ge=0)
+
+
+class JourneyScoringRunInput(BaseModel):
+    source_type: str = Field(pattern="^(CAMERA|SIMULATOR)$")
+    source_run_id: str = Field(min_length=1, max_length=64)
 
 
 def to_dict(obj, *fields: str) -> dict:
@@ -1100,6 +1118,63 @@ def visit_analysis(visit_id: str, db: Session = Depends(get_db), _user: User = D
     }
 
 
+def load_journey_scoring_config(db: Session, *, require_complete: bool = True) -> dict:
+    settings = db.get(JourneyScoringSettings, "default")
+    points = db.scalars(select(Touchpoint).where(Touchpoint.active.is_(True)).order_by(Touchpoint.sequence_order)).all()
+    default_weights = [0.1, 0.2, 0.3, 0.4] if len(points) == 4 else [1.0] * len(points)
+    config = {
+        "version": SCORING_VERSION,
+        "revision": settings.revision if settings else 0,
+        "expression_values": dict(settings.expression_values) if settings else dict(DEFAULT_EXPRESSION_VALUES),
+        "value_basis": "USER_DEFINED_EXPERIMENTAL_CONVENTION",
+        "touchpoints": [
+            {"id": point.id, "code": point.touchpoint_code, "name": point.name,
+             "sequence_order": point.sequence_order,
+             "weight": settings.touchpoint_weights.get(point.id) if settings else default_weights[index]}
+            for index, point in enumerate(points)
+        ],
+    }
+    config["complete"] = all(point["weight"] is not None for point in config["touchpoints"])
+    if require_complete:
+        if not config["complete"]:
+            raise SequenceAnalysisError("Điểm chạm đã thay đổi; cần lưu lại cấu hình trọng số")
+        validate_scoring_config(config["expression_values"], {point["id"]: point["weight"] for point in config["touchpoints"]})
+    return config
+
+
+@app.get("/api/v1/journey-scoring-settings")
+def get_journey_scoring_settings(db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
+    return load_journey_scoring_config(db, require_complete=False)
+
+
+@app.put("/api/v1/journey-scoring-settings")
+def save_journey_scoring_settings(
+    payload: JourneyScoringInput, db: Session = Depends(get_db),
+    user: User = Depends(require_roles(Role.MANAGER, Role.ADMIN)),
+):
+    try:
+        validate_scoring_config(payload.expression_values, payload.touchpoint_weights)
+    except SequenceAnalysisError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    active_ids = set(db.scalars(select(Touchpoint.id).where(Touchpoint.active.is_(True))))
+    if set(payload.touchpoint_weights) != active_ids:
+        raise HTTPException(status_code=422, detail="Trọng số phải bao gồm đúng các điểm chạm đang hoạt động")
+    settings = db.get(JourneyScoringSettings, "default")
+    if (settings.revision if settings else 0) != payload.revision:
+        raise HTTPException(status_code=409, detail="Cấu hình đã thay đổi; tải lại trước khi lưu")
+    if settings is None:
+        settings = JourneyScoringSettings(id="default", revision=0)
+        db.add(settings)
+    settings.revision += 1
+    settings.expression_values = dict(payload.expression_values)
+    settings.touchpoint_weights = dict(payload.touchpoint_weights)
+    settings.updated_by = user.id
+    settings.updated_at = datetime.now(timezone.utc)
+    audit(db, user, "JOURNEY_SCORING_CONFIGURED", "journey_scoring_settings", "default", payload.model_dump())
+    db.commit()
+    return load_journey_scoring_config(db)
+
+
 def sequence_run_payload(run: SequenceAnalysisRun) -> dict:
     return {
         "id": run.id,
@@ -1359,6 +1434,83 @@ def list_sequence_assignments(
         "page_size": page_size,
         "total": total,
     }
+
+
+def journey_scoring_run_payload(run: JourneyScoringRun) -> dict:
+    return {
+        **to_dict(run, "id", "source_type", "source_run_id", "status", "scoring_config", "warnings", "created_at", "completed_at"),
+        "scoring_summary": run.summary,
+    }
+
+
+@app.post("/api/v1/journey-scoring-runs", status_code=201)
+def create_journey_scoring_run(
+    payload: JourneyScoringRunInput, db: Session = Depends(get_db),
+    user: User = Depends(require_roles(Role.MANAGER, Role.ADMIN)),
+):
+    try:
+        scoring_config = load_journey_scoring_config(db)
+        conditions = [Observation.source_type == payload.source_type,
+                      Observation.image_status == "VALID", Observation.expression_status == "VALID",
+                      Observation.visit_id.is_not(None), Observation.expression_label.in_(EXPRESSION_LABELS)]
+        conditions.append(Observation.experiment_run_id == payload.source_run_id if payload.source_type == "CAMERA" else Observation.simulation_run_id == payload.source_run_id)
+        observations = db.scalars(select(Observation).options(selectinload(Observation.touchpoint))
+                                  .where(*conditions).order_by(Observation.visit_id, Observation.observed_at, Observation.id)).all()
+        prepared = prepare_visit_sequences([
+            SequenceObservation(item.id, item.visit_id, item.touchpoint_id, item.touchpoint.name,
+                                item.observed_at, item.expression_label, item.expression_confidence)
+            for item in observations
+        ], min_states=1)
+        if not prepared.sequences:
+            raise SequenceAnalysisError("Nguồn dữ liệu chưa có chuỗi biểu cảm hợp lệ để tính điểm")
+        scores = [score_journey(sequence, scoring_config) for sequence in prepared.sequences]
+    except SequenceAnalysisError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    run = JourneyScoringRun(source_type=payload.source_type, source_run_id=payload.source_run_id,
+                            status="COMPLETED", scoring_config=scoring_config,
+                            summary=summarize_journey_scores(scores), warnings=prepared.warnings,
+                            created_by=user.id, completed_at=datetime.now(timezone.utc))
+    db.add(run)
+    db.flush()
+    for result in scores:
+        db.add(SequenceJourneyScore(run_id=run.id, **result))
+    audit(db, user, "JOURNEY_SCORING_COMPLETED", "journey_scoring_run", run.id, run.summary)
+    db.commit()
+    db.refresh(run)
+    return journey_scoring_run_payload(run)
+
+
+@app.get("/api/v1/journey-scoring-runs")
+def list_journey_scoring_runs(db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
+    return [journey_scoring_run_payload(run) for run in db.scalars(select(JourneyScoringRun).order_by(JourneyScoringRun.created_at.desc()))]
+
+
+@app.get("/api/v1/journey-scoring-runs/{run_id}")
+def get_journey_scoring_run(run_id: str, db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
+    run = db.get(JourneyScoringRun, run_id)
+    if not run:
+        raise HTTPException(status_code=404, detail="Không tìm thấy lần tính điểm")
+    return journey_scoring_run_payload(run)
+
+
+@app.get("/api/v1/journey-scoring-runs/{run_id}/scores")
+def list_journey_scores(
+    run_id: str, page: int = Query(1, ge=1), page_size: int = Query(50, ge=1, le=200),
+    db: Session = Depends(get_db), _user: User = Depends(get_current_user),
+):
+    if not db.get(JourneyScoringRun, run_id):
+        raise HTTPException(status_code=404, detail="Không tìm thấy lần phân tích")
+    condition = SequenceJourneyScore.run_id == run_id
+    total = db.scalar(select(func.count()).select_from(SequenceJourneyScore).where(condition)) or 0
+    rows = db.scalars(select(SequenceJourneyScore)
+                      .options(selectinload(SequenceJourneyScore.visit).selectinload(Visit.customer))
+                      .where(condition).order_by(SequenceJourneyScore.score.desc(), SequenceJourneyScore.visit_id)
+                      .offset((page - 1) * page_size).limit(page_size)).all()
+    return {"items": [{
+        **to_dict(item, "id", "run_id", "visit_id", "sequence", "sequence_metadata", "score", "breakdown"),
+        "visit_started_at": item.visit.started_at if item.visit else None,
+        "customer": to_dict(item.visit.customer, "id", "customer_code", "full_name") if item.visit and item.visit.customer else None,
+    } for item in rows], "page": page, "page_size": page_size, "total": total}
 
 
 @app.get("/api/v1/observations/{observation_id}/revisions")

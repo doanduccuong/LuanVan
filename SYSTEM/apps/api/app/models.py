@@ -339,6 +339,49 @@ class SequenceAnalysisRun(Base):
     )
 
 
+class JourneyScoringSettings(Base):
+    __tablename__ = "journey_scoring_settings"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default="default")
+    revision: Mapped[int] = mapped_column(Integer, default=1)
+    expression_values: Mapped[dict] = mapped_column(JSON)
+    touchpoint_weights: Mapped[dict] = mapped_column(JSON)
+    updated_by: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class JourneyScoringRun(Base):
+    __tablename__ = "journey_scoring_runs"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    source_type: Mapped[str] = mapped_column(String(32), index=True)
+    source_run_id: Mapped[str] = mapped_column(String(64), index=True)
+    status: Mapped[str] = mapped_column(String(32), default="RUNNING")
+    scoring_config: Mapped[dict] = mapped_column(JSON)
+    summary: Mapped[dict] = mapped_column(JSON, default=dict)
+    warnings: Mapped[list] = mapped_column(JSON, default=list)
+    created_by: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    journey_scores: Mapped[list[SequenceJourneyScore]] = relationship(back_populates="run", cascade="all, delete-orphan")
+
+
+class SequenceJourneyScore(Base):
+    __tablename__ = "sequence_journey_scores"
+    __table_args__ = (UniqueConstraint("run_id", "visit_id", name="uq_journey_score_run_visit"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    run_id: Mapped[str] = mapped_column(ForeignKey("journey_scoring_runs.id", ondelete="CASCADE"), index=True)
+    visit_id: Mapped[str] = mapped_column(ForeignKey("visits.id"), index=True)
+    sequence: Mapped[list] = mapped_column(JSON)
+    sequence_metadata: Mapped[list] = mapped_column(JSON)
+    score: Mapped[float | None] = mapped_column(nullable=True)
+    breakdown: Mapped[list] = mapped_column(JSON)
+
+    run: Mapped[JourneyScoringRun] = relationship(back_populates="journey_scores")
+    visit: Mapped[Visit] = relationship()
+
+
 class SequenceClusterSummary(Base):
     __tablename__ = "sequence_cluster_summaries"
     __table_args__ = (UniqueConstraint("run_id", "cluster_id", name="uq_sequence_cluster_run_cluster"),)

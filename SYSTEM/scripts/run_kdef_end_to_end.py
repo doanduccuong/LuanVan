@@ -67,6 +67,7 @@ def main() -> None:
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--emotion-weights", type=Path, required=True)
     parser.add_argument("--capture-all", action="store_true")
+    parser.add_argument("--resume-evidence", action="store_true", help="Tiếp tục xuất bằng chứng của lần chạy đã hoàn thành xử lý ảnh và kiểm tra dữ liệu.")
     parser.add_argument(
         "--update-report",
         action="store_true",
@@ -102,6 +103,16 @@ def main() -> None:
     run_root = ARTIFACT_ROOT / "experiment-runs" / args.run_id
     run_root.mkdir(parents=True, exist_ok=True)
     dataset_env = {"DEMO_DATASET_ROOT": str(dataset_root)}
+    if args.resume_evidence:
+        for relative_path in ("kdef_metrics.json", "sequence-analysis/run.json", "journey-scoring/run.json", "face-threshold.json", "input/kdef_demo_manifest.json"):
+            if not (run_root / relative_path).is_file():
+                raise SystemExit(f"Chưa có kết quả để tiếp tục: {relative_path}")
+        if json.loads((run_root / "input/kdef_demo_manifest.json").read_text()) != manifest:
+            raise SystemExit("Dữ liệu đầu vào không khớp bản đã lưu của lần chạy")
+        threshold = json.loads((run_root / "face-threshold.json").read_text())
+        collect_evidence(args, run_root, manifest, threshold, weight_digest)
+        return
+    preserve_inputs(dataset_root, run_root)
 
     compose_env = {
         "EMOTION_WEIGHTS_HOST_PATH": str(emotion_weights),
@@ -109,7 +120,7 @@ def main() -> None:
         "DEMO_DATASET_ROOT": str(dataset_root),
     }
     run(
-        ["docker", "compose", "up", "-d", "--wait", "--force-recreate"],
+        ["docker", "compose", "up", "-d", "--build", "--wait", "--force-recreate"],
         cwd=SYSTEM_ROOT,
         env=compose_env,
     )
@@ -131,6 +142,7 @@ def main() -> None:
         },
     )
     run(["uv", "run", "python", "../../scripts/seed_demo_crm.py"], cwd=VISION_ROOT, env=dataset_env)
+    run(["uv", "run", "python", "../../scripts/configure_journey_scoring.py"], cwd=VISION_ROOT, env=dataset_env)
     run(["uv", "run", "python", "../../scripts/enroll_demo_faces.py"], cwd=VISION_ROOT, env=dataset_env)
     run(
         [
@@ -153,6 +165,15 @@ def main() -> None:
             "uv",
             "run",
             "python",
+            "../../scripts/run_journey_scoring.py",
+            "--source-type", "CAMERA", "--source-run-id", args.run_id,
+        ], cwd=VISION_ROOT, env=dataset_env,
+    )
+    run(
+        [
+            "uv",
+            "run",
+            "python",
             "../../scripts/run_sequence_analysis.py",
             "--source-type",
             "CAMERA",
@@ -168,7 +189,10 @@ def main() -> None:
     run(verification_command, cwd=VISION_ROOT, env=dataset_env)
     run(["uv", "run", "python", "../../scripts/audit_camera_dataset.py"], cwd=VISION_ROOT, env=dataset_env)
     run(["uv", "run", "python", "../../scripts/audit_live_run.py"], cwd=VISION_ROOT, env=dataset_env)
+    collect_evidence(args, run_root, manifest, threshold, weight_digest)
 
+
+def collect_evidence(args, run_root: Path, manifest: dict, threshold: dict, weight_digest: str) -> None:
     metrics = json.loads((run_root / "kdef_metrics.json").read_text(encoding="utf-8"))
     sequence = json.loads(
         (run_root / "sequence-analysis" / "run.json").read_text(encoding="utf-8")
@@ -184,16 +208,18 @@ def main() -> None:
         "EXPECTED_USED_VISITS": str(sequence["used_visit_count"]),
         "EXPECTED_K": str(sequence["selected_k"]),
         "UPDATE_REPORT": "true" if args.update_report else "false",
+        "UPDATE_CHAPTER4": "true" if args.capture_all else "false",
     }
     run(["uv", "run", "python", "../../scripts/render_kdef_metrics.py"], cwd=VISION_ROOT, env=evidence_env)
     run(["node", "scripts/capture_kdef_live_demo.mjs"], cwd=SYSTEM_ROOT, env=evidence_env)
     run(["node", "scripts/capture_sequence_analysis.mjs"], cwd=SYSTEM_ROOT, env=evidence_env)
+    run(["node", "scripts/capture_journey_scoring.mjs"], cwd=SYSTEM_ROOT, env=evidence_env)
+    run(["uv", "run", "python", "../../scripts/render_journey_scores.py"], cwd=VISION_ROOT, env=evidence_env)
     run(["node", "scripts/capture_system_status.mjs"], cwd=SYSTEM_ROOT, env=evidence_env)
     if args.capture_all:
         run(["node", "scripts/capture_chapter4.mjs"], cwd=SYSTEM_ROOT, env=evidence_env)
         run(["node", "../../scripts/capture_chapter5.mjs"], cwd=WEB_ROOT, env=evidence_env)
 
-    preserve_inputs(dataset_root, run_root)
     summary = {
         "run_id": args.run_id,
         "threshold": threshold["threshold"],
@@ -206,6 +232,8 @@ def main() -> None:
         "complete_journeys": metrics["journeys"]["complete"],
         "selected_k": sequence["selected_k"],
         "average_silhouette_width": sequence["average_silhouette_width"],
+        "scoring_summary": json.loads((run_root / "journey-scoring/run.json").read_text())["result"]["scoring_summary"],
+        "scoring_config": json.loads((run_root / "journey-scoring/run.json").read_text())["result"]["scoring_config"],
     }
     (run_root / "end_to_end_summary.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"

@@ -326,9 +326,9 @@ Hệ thống được dựng lại bằng Docker Compose trên máy MacBook Pro 
     \end{tabular}}
 \end{table}
 
-Trước khi phát dữ liệu, cơ sở dữ liệu cũ được sao lưu, các bản ghi mang cờ dữ liệu thử nghiệm được xóa và dữ liệu CRM được nạp lại. Ngoài 35 hồ sơ khách hàng, hệ thống được khởi tạo với sáu nhóm sản phẩm, 24 sản phẩm và bốn điểm chạm gồm Cửa vào, Khu trưng bày sản phẩm, Khu tư vấn và Quầy thanh toán. Kịch bản không tạo đơn hàng. Ba mươi lăm ảnh được xử lý để tạo mẫu khuôn mặt. Tiếp theo, 245 ảnh thuộc 35 người riêng biệt được dùng để hiệu chỉnh ngưỡng ArcFace; 700 ảnh quan sát của 35 người thuộc phần dữ liệu giữ lại được gửi theo lịch đã tạo; hệ thống liên kết quan sát thành lần mua sắm và tạo chuỗi dự đoán; cuối cùng, Optimal Matching--PAM được chạy trên các chuỗi đủ điều kiện. Kết quả được kiểm tra về số lượng bản ghi, thứ tự điểm chạm, liên kết khách hàng và sự thống nhất giữa hành trình với chuỗi phân tích.
+Trước khi phát dữ liệu, cơ sở dữ liệu cũ được sao lưu, các bản ghi mang cờ dữ liệu thử nghiệm được xóa và dữ liệu CRM được nạp lại. Ngoài 35 hồ sơ khách hàng, hệ thống được khởi tạo với sáu nhóm sản phẩm, 24 sản phẩm và bốn điểm chạm gồm Cửa vào, Khu trưng bày sản phẩm, Khu tư vấn và Quầy thanh toán. Kịch bản không tạo đơn hàng. Ba mươi lăm ảnh được xử lý để tạo mẫu khuôn mặt. Ngưỡng ArcFace được xác định từ 245 ảnh thuộc 35 người riêng biệt và cố định trước khi chạy đầu cuối. Sau đó, 700 ảnh quan sát của 35 người thuộc phần dữ liệu giữ lại được gửi theo lịch đã tạo để hình thành lần mua sắm và tạo chuỗi dự đoán. Chức năng tính điểm sử dụng bảng điểm biểu cảm và trọng số điểm chạm để tính điểm cho từng chuỗi. Chức năng phân cụm chạy Optimal Matching--PAM trên các chuỗi đủ điều kiện. Kết quả được kiểm tra về số lượng bản ghi, thứ tự điểm chạm, liên kết khách hàng, điểm hành trình và sự thống nhất giữa hành trình với chuỗi phân tích.
 
-Hình~\ref{fig:system_runtime_status_ch5} ghi lại trạng thái các thành phần được đánh giá và các điểm kiểm tra HTTP. Ngoài kiểm tra khi chạy, 15 kiểm thử máy chủ nghiệp vụ và 14 kiểm thử dịch vụ xử lý ảnh, trong đó có các kiểm thử bộ lấy mẫu và tách dữ liệu camera, đều đạt; giao diện web biên dịch thành công bằng TypeScript và Vite. Sau khi kiểm tra trạng thái hệ thống và hoàn tất hiệu chỉnh ngưỡng ArcFace, toàn bộ 700 ảnh được phát qua các dịch vụ Docker để lấy kết quả thực nghiệm đầu cuối.
+Hình~\ref{fig:system_runtime_status_ch5} ghi lại trạng thái các thành phần được đánh giá và các điểm kiểm tra HTTP. Ngoài kiểm tra khi chạy, 28 kiểm thử máy chủ nghiệp vụ và 14 kiểm thử dịch vụ xử lý ảnh đều đạt; giao diện web biên dịch thành công bằng TypeScript và Vite. Các kiểm thử tính điểm bao gồm trung bình có trọng số, hành trình thiếu điểm chạm, quay lại điểm chạm, lưu phiên bản cấu hình và tính điểm cho một chuỗi chỉ có một trạng thái. Sau khi kiểm tra trạng thái hệ thống và cố định ngưỡng ArcFace, toàn bộ 700 ảnh được phát qua các dịch vụ Docker để lấy kết quả thực nghiệm đầu cuối.
 
 \begin{figure}[H]
     \centering
@@ -432,6 +432,87 @@ Nhãn do CNN Emotion dự đoán được đối chiếu với nhãn thư mục 
 
 Xét trên toàn bộ 700 ảnh đầu vào, hệ thống tạo được nhãn đúng cho 470 ảnh. \textit{Happy} có F1 cao nhất, bằng 0,907, tiếp theo là \textit{Surprise} với 0,878 và \textit{Disgust} với 0,756. \textit{Fear} có kết quả thấp nhất với F1 bằng 0,300: 24/110 ảnh được dự đoán đúng, trong khi 26 ảnh bị gán thành \textit{Neutral}, 16 ảnh thành \textit{Sad} và 14 ảnh thành \textit{Angry}. Ma trận nhầm lẫn cũng cho thấy 20 ảnh \textit{Angry} bị gán thành \textit{Sad} và 19 ảnh \textit{Sad} bị gán thành \textit{Neutral}. Kết quả cho thấy hiệu quả của mô hình khác nhau rõ rệt giữa các lớp biểu cảm.
 
+\subsection{Kết quả tính điểm từng chuỗi biểu cảm}
+\label{subsection:5.4.journey_scoring}
+
+Bảng điểm biểu cảm tại Bảng~\ref{tab:journey_expression_values_ch3} được sử dụng cùng các trọng số điểm chạm trong Bảng~\ref{tab:journey_touchpoint_weights_ch5}. Trọng số tăng theo thứ tự hành trình, trong đó Quầy thanh toán có mức đóng góp lớn nhất. Người quản lý nhập cấu hình và thực hiện tính điểm tại thẻ \textit{Điểm hành trình} trên giao diện.
+
+\begin{table}[H]
+    \centering
+    \caption{Trọng số điểm chạm trong thực nghiệm tính điểm hành trình}
+    \label{tab:journey_touchpoint_weights_ch5}
+    \begin{tabular}{|c|l|r|}
+        \hline
+        \textbf{Thứ tự} & \textbf{Điểm chạm} & \textbf{Trọng số $w_k$} \\
+        \hline
+        1 & Cửa vào & 0,10 \\
+        \hline
+        2 & Khu trưng bày sản phẩm & 0,20 \\
+        \hline
+        3 & Khu tư vấn & 0,30 \\
+        \hline
+        4 & Quầy thanh toán & 0,40 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_29_cau_hinh_diem_hanh_trinh.png}
+    \caption{Cấu hình điểm biểu cảm và trọng số từng điểm chạm}
+    \label{fig:journey_scoring_config_ch5}
+\end{figure}
+
+Hệ thống tính điểm cho toàn bộ 182 chuỗi đã hình thành. Mỗi kết quả được lưu cùng mã lần mua sắm, chuỗi biểu cảm, điểm tổng hợp và cấu hình đã sử dụng. Hình~\ref{fig:journey_scores_ch5} trình bày danh sách kết quả trên giao diện.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_30_diem_tung_hanh_trinh.png}
+    \caption{Điểm tổng hợp của từng chuỗi biểu cảm}
+    \label{fig:journey_scores_ch5}
+\end{figure}
+
+Trên 182 hành trình, điểm trung bình bằng 0,4216, trung vị bằng 0,3800, điểm nhỏ nhất bằng 0,1000 và lớn nhất bằng 1,0000. Hình~\ref{fig:journey_score_distribution_ch5} biểu diễn phân bố điểm của các hành trình này. Bảng~\ref{tab:journey_score_examples_ch5} trích một số kết quả tính điểm từ dữ liệu thực nghiệm.
+
+\begin{table}[H]
+    \centering
+    \caption{Một số kết quả tính điểm chuỗi biểu cảm}
+    \label{tab:journey_score_examples_ch5}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|l|r|}
+        \hline
+        \textbf{Khách hàng} & \textbf{Chuỗi biểu cảm dự đoán} & \textbf{Điểm $J_v$} \\
+        \hline
+        CUS-KDEF-016 & Angry $\rightarrow$ Disgust $\rightarrow$ Angry $\rightarrow$ Disgust & 0,1000 \\
+        \hline
+        CUS-KDEF-001 & Surprise $\rightarrow$ Neutral $\rightarrow$ Disgust $\rightarrow$ Surprise & 0,3800 \\
+        \hline
+        CUS-KDEF-010 & Neutral $\rightarrow$ Happy $\rightarrow$ Happy $\rightarrow$ Happy & 0,9500 \\
+        \hline
+    \end{tabular}}
+\end{table}
+
+Với chuỗi Neutral--Happy--Happy--Happy, bốn điểm biểu cảm lần lượt là 0,50; 1,00; 1,00 và 1,00. Áp dụng các trọng số đã thiết lập, điểm hành trình bằng
+\begin{equation}
+    J_v=0{,}10\times0{,}50+0{,}20\times1{,}00
+        +0{,}30\times1{,}00+0{,}40\times1{,}00=0{,}9500.
+\end{equation}
+Chuỗi chỉ ghi nhận Happy tại Khu tư vấn có điểm $J_v=(0{,}30\times1{,}00)/0{,}30=1{,}00$. Hình~\ref{fig:journey_score_breakdown_ch5} trình bày điểm quy đổi, trọng số gốc, trọng số chuẩn hóa và đóng góp của từng điểm chạm.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{Hinhve/Chuong5/5_31_phan_bo_diem_hanh_trinh.png}
+    \caption{Phân bố điểm tổng hợp của 182 hành trình}
+    \label{fig:journey_score_distribution_ch5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{Hinhve/Chuong5/5_32_chi_tiet_diem_hanh_trinh.png}
+    \caption{Chi tiết đóng góp của từng điểm chạm vào điểm hành trình}
+    \label{fig:journey_score_breakdown_ch5}
+\end{figure}
+
 \subsection{Kết quả tạo và phân cụm chuỗi trạng thái}
 \label{subsection:5.4.5}
 
@@ -508,6 +589,8 @@ Bảng~\ref{tab:end_to_end_effectiveness_ch5} tổng hợp kết quả theo từ
         Tạo lần mua sắm & Chuỗi có ít nhất bốn trạng thái & 167/182 & Mười lăm chuỗi bị loại do thiếu trạng thái. \\
         \hline
         Kết quả biểu cảm đầu cuối & Accuracy; Macro-F1 & 0,6714; 0,6572 & Cả 700 ảnh đều có kết quả được lưu. \\
+        \hline
+        Tính điểm từng chuỗi & Chuỗi có điểm tổng hợp & 182/182 & Điểm trung bình 0,4216 trên toàn bộ 182 hành trình. \\
         \hline
         Phân cụm chuỗi & Chuỗi được sử dụng; ASW & 167/182; 0,1224 & Hai cụm; 15 chuỗi bị loại. \\
         \hline
