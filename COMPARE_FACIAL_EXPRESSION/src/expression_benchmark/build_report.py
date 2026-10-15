@@ -8,7 +8,6 @@ from typing import Any
 
 import matplotlib.pyplot as plt
 import numpy as np
-import yaml
 
 from .constants import LABELS
 from .io import write_json
@@ -45,13 +44,16 @@ def build_comparison(run_dir: Path) -> list[dict[str, Any]]:
         rows.append(
             {
                 "method": payload["method"],
-                "seed": payload.get("seed", ""),
+                "sample_count": metrics["sample_count"],
                 "macro_f1": metrics["macro_f1"],
                 "accuracy": metrics["accuracy"],
                 "balanced_accuracy": metrics["balanced_accuracy"],
                 "latency_p50_ms": latency.get("latency_p50_ms", ""),
                 "latency_p95_ms": latency.get("latency_p95_ms", ""),
-                "model_size_bytes": payload["model_size_bytes"],
+                "throughput_images_per_second": latency.get(
+                    "throughput_images_per_second", ""
+                ),
+                "model_size_mib": payload["model_size_bytes"] / (1024 * 1024),
             }
         )
     if not rows:
@@ -76,7 +78,7 @@ def _write_diagnostics(run_dir: Path) -> None:
         axis.set_yticks(range(len(LABELS)), LABELS)
         axis.set_xlabel("Nhãn dự đoán")
         axis.set_ylabel("Nhãn thật")
-        axis.set_title(f"Normalized Confusion Matrix — {_display_name(run_name)}")
+        axis.set_title(f"Ma trận nhầm lẫn chuẩn hóa — {_display_name(run_name)}")
         for row_index in range(matrix.shape[0]):
             for column_index in range(matrix.shape[1]):
                 value = matrix[row_index, column_index]
@@ -106,13 +108,8 @@ def main() -> None:
     parser.add_argument("run_dir", type=Path)
     args = parser.parse_args()
     rows = build_comparison(args.run_dir)
-    config_text = (args.run_dir / "resolved_config.yaml").read_text(encoding="utf-8")
-    config = yaml.safe_load(config_text)
     aggregate = aggregate_runs(rows)
-    selection = select_method(
-        aggregate,
-        tie_margin=float(config["selection"]["tie_margin"]),
-    )
+    selection = select_method(aggregate)
     tables = args.run_dir / "tables"
     tables.mkdir(parents=True, exist_ok=True)
     fieldnames = list(rows[0])

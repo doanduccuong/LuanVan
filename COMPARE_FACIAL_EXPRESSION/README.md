@@ -82,7 +82,32 @@ Sau khi khóa cấu hình, sao chép cấu hình thành một tệp mới, đặ
   results/fer2013-final-001
 ```
 
-## So sánh LBP-SVM với Emotion CNN đã tinh chỉnh
+## Chạy toàn bộ thực nghiệm dùng cho luận văn
+
+Từ thư mục gốc của đồ án, chạy một lệnh sau để tinh chỉnh CNN, đánh giá đồng thời
+ba phương pháp trên `PrivateTest` và sinh bảng kết quả:
+
+```bash
+caffeinate -i ./run_fer2013_experiment.sh
+```
+
+Ba phương pháp gồm `lbp_svm`, `deepface_emotion` và
+`deepface_emotion_finetuned`. Kết quả tổng hợp được ghi tại:
+
+```text
+COMPARE_FACIAL_EXPRESSION/results/fer2013-expression-comparison-final/
+├── tables/comparison.md
+├── tables/per_class.csv
+├── figures/
+├── metrics/
+└── selection.json
+```
+
+`comparison.md` chứa Accuracy, Macro-F1, Balanced Accuracy, độ trễ P50/P95,
+thông lượng và kích thước mô hình. `per_class.csv` chứa Precision, Recall và
+F1-score của từng biểu cảm. Thư mục `figures` chứa ma trận nhầm lẫn chuẩn hóa.
+
+## Chạy riêng LBP-SVM với Emotion CNN đã tinh chỉnh
 
 Trước hết hoàn tất lần chạy `fer2013-emotion-finetune-001` trong thư mục
 `TRAIN_DEEPFACE_EMOTION`. Sau đó chạy benchmark cuối bằng cấu hình đã trỏ đến

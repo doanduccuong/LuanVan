@@ -118,16 +118,18 @@ RetinaFace sử dụng mạng nền MobileNet0.25 duy trì AP cao nhất ở c�
 \section{Thực nghiệm so sánh các phương pháp phân loại biểu cảm}
 \label{section:5.2}
 
-\subsection{Mục tiêu thực nghiệm}
+Thực nghiệm so sánh ba cấu hình phân loại biểu cảm trên FER-2013: LBP kết hợp SVM, mô hình CNN Emotion sử dụng trọng số ban đầu của DeepFace và chính mô hình CNN này sau khi được tinh chỉnh trên FER-2013. Mục tiêu là xác định ảnh hưởng của quá trình tinh chỉnh và lựa chọn cấu hình phù hợp dựa trên chất lượng phân loại cùng hiệu năng xử lý.
+
+\subsection{Tiêu chí đánh giá}
 \label{subsection:5.2.1}
 
-Thực nghiệm so sánh hai phương pháp phân loại biểu cảm trên cùng tập dữ liệu FER-2013. Phương pháp thứ nhất sử dụng đặc trưng LBP kết hợp với bộ phân loại SVM. Phương pháp thứ hai sử dụng mô hình CNN phân loại biểu cảm Emotion được tích hợp trong thư viện DeepFace. DeepFace là thư viện Python cung cấp giao diện để nạp và thực thi các mô hình phục vụ những tác vụ phân tích khuôn mặt. Trong thực nghiệm này, DeepFace được dùng để nạp kiến trúc CNN Emotion và bộ trọng số ban đầu; phép phân loại biểu cảm được thực hiện bởi mô hình CNN này \cite{serengil2021hyperextended,deepfaceEmotionModel}. Mô hình nhận ảnh khuôn mặt xám kích thước $48\times48$ pixel và tạo đầu ra gồm điểm dự đoán cho bảy lớp biểu cảm.
+Chất lượng phân loại được đánh giá bằng Accuracy, Precision, Recall, F1-score, Macro-F1, Balanced Accuracy và ma trận nhầm lẫn chuẩn hóa. Accuracy biểu thị tỷ lệ ảnh được dự đoán đúng trên toàn bộ tập kiểm tra. Precision, Recall và F1-score được tính riêng cho từng biểu cảm để xác định lớp nào được nhận dạng tốt và lớp nào thường bị bỏ sót hoặc gán nhầm. Macro-F1 là trung bình F1-score của bảy lớp, còn Balanced Accuracy là trung bình Recall của bảy lớp. Hai chỉ số này cho các lớp vai trò ngang nhau nên phù hợp với FER-2013, trong đó số ảnh giữa các lớp có sự chênh lệch đáng kể.
 
-Thực nghiệm được thực hiện theo hai giai đoạn. Giai đoạn thứ nhất đối chiếu LBP kết hợp SVM với mô hình CNN Emotion sử dụng bộ trọng số do DeepFace cung cấp, chưa được tinh chỉnh trên FER-2013. Giai đoạn thứ hai tinh chỉnh chính mô hình CNN này bằng tập \textit{Training} của FER-2013, sau đó đánh giá lại trên tập kiểm tra chưa được dùng trong huấn luyện hoặc lựa chọn epoch. Cách tổ chức này trả lời hai câu hỏi riêng: việc tinh chỉnh trên FER-2013 cải thiện mô hình CNN ở mức nào, và sau tinh chỉnh, mô hình CNN có ưu điểm hoặc hạn chế gì so với LBP kết hợp SVM.
+Macro-F1 được sử dụng làm tiêu chí chính để so sánh và lựa chọn phương pháp. Accuracy và Balanced Accuracy được dùng để bổ sung góc nhìn về tỷ lệ dự đoán đúng chung và mức độ đồng đều giữa các lớp. Ma trận nhầm lẫn chuẩn hóa được sử dụng để phân tích các cặp biểu cảm thường bị dự đoán sai.
 
-Các chỉ số được dùng để xem xét tỷ lệ dự đoán đúng chung, mức độ đồng đều giữa bảy lớp, độ trễ suy luận và kích thước mô hình. Phép đo tại mục này chỉ áp dụng cho bước phân loại trên ảnh khuôn mặt đã được cắt sẵn; nó không bao gồm phát hiện khuôn mặt, tạo véc-tơ ArcFace, đối sánh danh tính, truyền dữ liệu và ghi cơ sở dữ liệu. Vì vậy, kết quả tốc độ không được diễn giải thành độ trễ đầu cuối của hệ thống.
+Khả năng triển khai được đánh giá bằng độ trễ trung vị $T_{50}$, độ trễ phân vị 95 $T_{95}$, số ảnh xử lý trong một giây và kích thước mô hình. Các chỉ số này phản ánh tốc độ phản hồi, năng lực xử lý liên tục và yêu cầu lưu trữ của từng phương pháp.
 
-\subsection{Tập dữ liệu và giao thức đánh giá}
+\subsection{Phương pháp đánh giá}
 \label{subsection:5.2.2}
 
 Thực nghiệm sử dụng FER-2013, gồm ảnh khuôn mặt xám kích thước $48\times48$ pixel và bảy nhãn \textit{Angry}, \textit{Disgust}, \textit{Fear}, \textit{Happy}, \textit{Sad}, \textit{Surprise} và \textit{Neutral} \cite{goodfellow2013challenges}. Toàn bộ 35.887 ảnh được giữ theo cách chia chính thức thành 28.709 ảnh \textit{Training}, 3.589 ảnh \textit{PublicTest} và 3.589 ảnh \textit{PrivateTest}. Phân bố từng lớp được trình bày tại Bảng~\ref{tab:fer2013_distribution_ch5}.
@@ -150,53 +152,46 @@ Thực nghiệm sử dụng FER-2013, gồm ảnh khuôn mặt xám kích thư�
     \end{tabular}}
 \end{table}
 
-Tập \textit{Training} được dùng để huấn luyện LBP kết hợp SVM. Mỗi ảnh được mô tả bằng LBP với tám điểm lân cận, bán kính bằng 1 và lưới không gian $6\times6$. Hai cấu hình SVM được khảo sát trên \textit{PublicTest}: nhân tuyến tính với $C=1$ và nhân RBF với $C=10$, $\gamma$ được xác định theo quy tắc \textit{scale} của thư viện. Cấu hình RBF đạt Macro-F1 bằng 0,4493, cao hơn mức 0,3126 của cấu hình tuyến tính, nên được cố định trước khi đánh giá cuối trên \textit{PrivateTest}. Cách sử dụng LBP theo vùng và SVM phù hợp với hướng phương pháp được mô tả bởi Shan và cộng sự \cite{shan2009lbp}.
+Tập \textit{Training} được sử dụng để huấn luyện LBP kết hợp SVM và tinh chỉnh CNN Emotion. Tập \textit{PublicTest} được sử dụng để lựa chọn cấu hình SVM và checkpoint CNN. Sau khi hoàn thành quá trình lựa chọn, ba cấu hình được đánh giá trên cùng 3.589 ảnh thuộc \textit{PrivateTest}. Với mỗi ảnh, nhãn dự đoán được đối chiếu với nhãn thực tế để tính các chỉ số phân loại và ma trận nhầm lẫn.
 
-Trong giai đoạn thứ nhất, mô hình Emotion sử dụng trực tiếp trọng số do DeepFace cung cấp và không được huấn luyện trên FER-2013. Ảnh được chuyển qua bước tiền xử lý của mô hình; đầu ra là bảy điểm tương ứng với bảy lớp biểu cảm. Kết quả của cấu hình này tạo đường cơ sở để xác định việc tinh chỉnh ở giai đoạn sau thực sự làm thay đổi chất lượng như thế nào.
+LBP kết hợp SVM được huấn luyện hoàn toàn bằng \textit{Training}. CNN Emotion trước tinh chỉnh sử dụng trực tiếp kiến trúc và trọng số do DeepFace cung cấp \cite{serengil2021hyperextended,deepfaceEmotionModel}. CNN Emotion sau tinh chỉnh được khởi tạo từ cùng bộ trọng số, cập nhật trên \textit{Training} và chọn checkpoint theo Macro-F1 trên \textit{PublicTest}. Cách tổ chức này cho phép đánh giá riêng tác động của quá trình tinh chỉnh và so sánh CNN sau tinh chỉnh với phương pháp LBP kết hợp SVM.
 
-Trong giai đoạn thứ hai, mô hình Emotion được khởi tạo từ chính bộ trọng số nêu trên và toàn bộ các lớp của mạng được cho phép cập nhật. Mô hình được huấn luyện trên 28.709 ảnh \textit{Training} bằng bộ tối ưu Adam, tốc độ học $10^{-5}$, hàm mất mát entropy chéo cho nhãn số nguyên và kích thước lô bằng 128. Trọng số lớp được sử dụng để giảm ảnh hưởng của phân bố không cân bằng. Dữ liệu huấn luyện được tăng cường bằng phép lật ngang, xoay, tịnh tiến và thay đổi độ tương phản trong phạm vi đã cố định trước lần chạy.
+Các phép đo tốc độ được thực hiện trên cùng thiết bị và theo chế độ xử lý từng ảnh. Trước khi đo, mỗi phương pháp xử lý thử 20 ảnh; sau đó toàn bộ \textit{PrivateTest} được chạy ba lượt. Thời gian được tính cho bước chuẩn bị đầu vào và suy luận của bộ phân loại, không bao gồm đọc tệp hoặc phát hiện khuôn mặt.
 
-Số epoch tối đa được đặt bằng 20. Sau mỗi epoch, Macro-F1 được tính trên \textit{PublicTest}; trọng số chỉ được lưu khi chỉ số này tăng ít nhất 0,001. Quá trình dừng khi bốn epoch liên tiếp không tạo được mức cải thiện yêu cầu. Với giá trị khởi tạo ngẫu nhiên được cố định bằng 20261007 để có thể lặp lại lần chạy, mô hình tốt nhất xuất hiện tại epoch thứ nhất, đạt Macro-F1 bằng 0,4483 trên \textit{PublicTest}. Bốn epoch tiếp theo không vượt qua kết quả này nên quá trình kết thúc sau năm epoch huấn luyện và khôi phục trọng số của epoch thứ nhất. Tập \textit{PrivateTest} không được đọc để cập nhật trọng số, chọn epoch hoặc điều chỉnh siêu tham số; nó chỉ được sử dụng cho phép đánh giá cuối.
-
-Quá trình tinh chỉnh được thực hiện trên MacBook Pro sử dụng bộ xử lý Apple M4 Pro gồm 12 lõi CPU, trong đó có tám lõi hiệu năng và bốn lõi tiết kiệm năng lượng, cùng 24 GB bộ nhớ hợp nhất. Môi trường TensorFlow chỉ nhận diện thiết bị CPU và không nhận diện GPU; vì vậy, toàn bộ quá trình huấn luyện lại được thực hiện trên CPU.
-
-Ba cấu hình cuối cùng gồm LBP kết hợp SVM, CNN Emotion trước tinh chỉnh và CNN Emotion sau tinh chỉnh đều được đánh giá trên cùng 3.589 ảnh \textit{PrivateTest}. Môi trường thực nghiệm sử dụng macOS 26.5, Python 3.11.7, scikit-learn 1.6.1, DeepFace 0.0.101, TensorFlow 2.21.0 và OpenCV 4.11.0. Trước khi đo độ trễ, mỗi phương pháp xử lý thử 20 ảnh; sau đó toàn bộ tập kiểm tra được chạy ba lượt để ghi nhận thời gian suy luận.
-
-\subsection{Tiêu chí đánh giá}
+\subsection{Thiết lập thực nghiệm}
 \label{subsection:5.2.3}
 
-Độ chính xác tổng thể được tính bằng tỷ lệ số ảnh dự đoán đúng trên tổng số ảnh kiểm tra. Chỉ số này cho biết tỷ lệ đúng chung nhưng chịu ảnh hưởng của phân bố lớp: lớp \textit{Happy} có 879 ảnh trong \textit{PrivateTest}, trong khi lớp \textit{Disgust} chỉ có 55 ảnh. Vì vậy, chỉ sử dụng độ chính xác tổng thể có thể che khuất kết quả thấp ở lớp ít mẫu.
+Đối với phương pháp thứ nhất, đặc trưng LBP được tính với tám điểm lân cận, bán kính bằng 1 và chia ảnh thành lưới $6\times6$. Hai bộ phân loại được khảo sát trên \textit{PublicTest}: SVM nhân tuyến tính với $C=1$ và SVM nhân RBF với $C=10$, $\gamma$ theo chế độ \textit{scale}. Cấu hình RBF đạt Macro-F1 bằng 0,4493, cao hơn mức 0,3126 của cấu hình tuyến tính, nên được sử dụng cho phép đánh giá cuối. Cách mô tả khuôn mặt bằng LBP theo vùng và phân loại bằng SVM phù hợp với phương pháp của Shan và cộng sự \cite{shan2009lbp}.
 
-Đối với từng lớp, Precision, Recall và F1 được tính theo cách xem lớp đang xét là dương tính và sáu lớp còn lại là âm tính. Precision phản ánh mức độ hạn chế gán nhầm vào một biểu cảm; Recall phản ánh khả năng tìm đủ các ảnh thực sự thuộc biểu cảm đó; F1 mô tả sự cân bằng giữa hai đại lượng. Macro-F1 là trung bình cộng F1 của bảy lớp, còn Balanced Accuracy là trung bình Recall của bảy lớp. Hai chỉ số này cho mỗi lớp vai trò ngang nhau, do đó phù hợp hơn độ chính xác tổng thể khi FER-2013 có phân bố không cân bằng. Macro-F1 được chọn làm tiêu chí chất lượng chính. Normalized Confusion Matrix được dùng để xác định các cặp nhãn thường bị dự đoán sai; mỗi hàng biểu diễn nhãn thực tế, mỗi cột biểu diễn nhãn dự đoán và tổng các tỷ lệ trên một hàng bằng 1.
+Đối với CNN sau tinh chỉnh, toàn bộ mạng được cập nhật bằng bộ tối ưu Adam với tốc độ học $10^{-6}$, hàm mất mát entropy chéo cho nhãn số nguyên và kích thước lô bằng 128. Trọng số lớp được sử dụng để hạn chế ảnh hưởng của sự mất cân bằng dữ liệu và không áp dụng tăng cường dữ liệu. Số epoch tối đa là 20; sau mỗi epoch, Macro-F1 được tính trên \textit{PublicTest} để lưu checkpoint tốt nhất. Quá trình được thiết lập dừng nếu chỉ số này không tăng tối thiểu 0,0005 trong sáu epoch liên tiếp. Checkpoint tại epoch 19 đạt Macro-F1 bằng 0,5028 và được sử dụng cho phép đánh giá trên \textit{PrivateTest}.
 
-Chi phí thực thi được mô tả bằng độ trễ trung vị, độ trễ tại phân vị 95 và 99, số ảnh xử lý trong một giây, kích thước tệp mô hình và tỷ lệ ảnh xử lý thất bại. Quy tắc lựa chọn được xác định trước như sau: chọn phương pháp có Macro-F1 cao nhất; nếu các phương pháp cách giá trị cao nhất dưới 0,01 thì ưu tiên độ trễ phân vị 95 thấp hơn, sau đó ưu tiên mô hình nhỏ hơn. Quy tắc này bảo đảm tốc độ không được dùng để che khuất một chênh lệch chất lượng lớn giữa các phương pháp.
+Thực nghiệm được thực hiện trên máy sử dụng bộ xử lý Apple M4 Pro và 24 GB bộ nhớ. Môi trường phần mềm gồm macOS 26.5, Python 3.11.7, scikit-learn 1.6.1, DeepFace 0.0.101, TensorFlow 2.21.0 và OpenCV 4.11.0.
 
-\subsection{Kết quả thực nghiệm}
+\subsection{Kết quả và đánh giá}
 \label{subsection:5.2.4}
 
-Bảng~\ref{tab:fer_overall_results_ch5} trình bày kết quả trên \textit{PrivateTest}. Cả ba cấu hình đều xử lý đủ 3.589 ảnh và không phát sinh trường hợp lỗi. So với CNN Emotion trước tinh chỉnh, CNN Emotion sau tinh chỉnh giảm Accuracy từ 0,4848 xuống 0,4823, tương ứng 0,0025 điểm. Tuy nhiên, Macro-F1 tăng từ 0,4159 lên 0,4506 và Balanced Accuracy tăng từ 0,4178 lên 0,4576, tương ứng mức tăng 0,0347 và 0,0398 điểm. Như vậy, tinh chỉnh không làm tăng tỷ lệ đúng chung nhưng cải thiện rõ khả năng xử lý đồng đều giữa các lớp.
+Bảng~\ref{tab:fer_overall_results_ch5} trình bày kết quả trên \textit{PrivateTest}. CNN Emotion sau tinh chỉnh đạt Macro-F1 bằng 0,5040, cao nhất trong ba cấu hình. Mô hình này đồng thời đạt Accuracy bằng 0,5272 và Balanced Accuracy bằng 0,5159, cũng là các giá trị cao nhất. So với CNN trước tinh chỉnh, Macro-F1 tăng 0,0880 điểm, Accuracy tăng 0,0424 điểm và Balanced Accuracy tăng 0,0981 điểm. Kết quả cho thấy quá trình tinh chỉnh cải thiện cả tỷ lệ dự đoán đúng chung và khả năng nhận dạng đồng đều giữa các lớp.
 
 \begin{table}[H]
     \centering
-    \caption{Kết quả tổng thể của ba cấu hình phân loại biểu cảm trên PrivateTest}
+    \caption{Kết quả chất lượng phân loại của ba cấu hình trên PrivateTest}
     \label{tab:fer_overall_results_ch5}
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+    \begin{tabular}{|l|r|r|r|}
         \hline
-        \textbf{Phương pháp} & \textbf{Accuracy} & \textbf{Macro-F1} & \textbf{Balanced Accuracy} & \textbf{$T_{50}$ (ms)} & \textbf{$T_{95}$ (ms)} & \textbf{Ảnh/giây} & \textbf{Kích thước (MiB)} & \textbf{Tỷ lệ lỗi} \\
+        \textbf{Phương pháp} & \textbf{Accuracy} & \textbf{Macro-F1} & \textbf{Balanced Accuracy} \\
         \hline
-        LBP + SVM & 0,4572 & \textbf{0,4635} & 0,4459 & 3,48 & 3,53 & 287,58 & 77,12 & 0,0000 \\
+        LBP + SVM & 0,4572 & 0,4635 & 0,4459 \\
         \hline
-        CNN Emotion trước tinh chỉnh & \textbf{0,4848} & 0,4159 & 0,4178 & \textbf{2,32} & \textbf{2,62} & \textbf{428,72} & \textbf{5,70} & 0,0000 \\
+        CNN Emotion trước tinh chỉnh & 0,4848 & 0,4159 & 0,4178 \\
         \hline
-        CNN Emotion sau tinh chỉnh & 0,4823 & 0,4506 & \textbf{0,4576} & 2,35 & 2,62 & 422,51 & 5,70 & 0,0000 \\
+        CNN Emotion sau tinh chỉnh & \textbf{0,5272} & \textbf{0,5040} & \textbf{0,5159} \\
         \hline
-    \end{tabular}}
+    \end{tabular}
 \end{table}
 
-Khi đối chiếu với LBP kết hợp SVM, CNN Emotion sau tinh chỉnh có Accuracy cao hơn 0,0251 điểm và Balanced Accuracy cao hơn 0,0117 điểm. Ngược lại, Macro-F1 của LBP kết hợp SVM cao hơn 0,0129 điểm. Kết quả này không cho phép kết luận một phương pháp tốt hơn trên mọi tiêu chí. Mô hình CNN sau tinh chỉnh dự đoán đúng nhiều ảnh hơn xét trên toàn bộ tập kiểm tra, còn LBP kết hợp SVM vẫn đạt trung bình F1 giữa bảy lớp cao hơn một mức nhỏ.
+Khi đối chiếu với LBP kết hợp SVM, CNN sau tinh chỉnh cao hơn 0,0405 điểm Macro-F1, 0,0699 điểm Accuracy và 0,0700 điểm Balanced Accuracy. Do đó, theo tiêu chí chính đã xác định, CNN sau tinh chỉnh là phương pháp có chất lượng phân loại tốt nhất trong ba cấu hình.
 
-Kết quả F1 theo từng lớp tại Bảng~\ref{tab:fer_per_class_results_ch5} làm rõ tác động của quá trình tinh chỉnh. Mức cải thiện lớn nhất xuất hiện ở lớp \textit{Disgust}, từ 0,1563 lên 0,3738; F1 của \textit{Angry}, \textit{Happy} và \textit{Sad} cũng tăng. Ngược lại, F1 của \textit{Fear} và \textit{Neutral} giảm, còn \textit{Surprise} gần như không thay đổi. Vì vậy, mức tăng Macro-F1 không xuất phát từ việc tất cả các lớp cùng tốt lên, mà chủ yếu do mô hình giảm được kết quả quá thấp ở một số lớp.
+Kết quả F1 theo từng lớp tại Bảng~\ref{tab:fer_per_class_results_ch5} cho thấy quá trình tinh chỉnh cải thiện cả bảy lớp so với CNN ban đầu. Mức tăng lớn nhất xuất hiện ở \textit{Disgust}, từ 0,1563 lên 0,4409, tiếp theo là \textit{Sad}, từ 0,2688 lên 0,3690. CNN sau tinh chỉnh đạt F1 cao nhất ở sáu trong bảy lớp; riêng \textit{Disgust}, LBP kết hợp SVM đạt kết quả cao hơn.
 
 \begin{table}[H]
     \centering
@@ -207,19 +202,19 @@ Kết quả F1 theo từng lớp tại Bảng~\ref{tab:fer_per_class_results_ch5
         \hline
         \textbf{Lớp} & \textbf{Số ảnh} & \textbf{LBP + SVM} & \textbf{CNN trước tinh chỉnh} & \textbf{CNN sau tinh chỉnh} \\
         \hline
-        Angry & 491 & 0,3504 & 0,3951 & \textbf{0,4054} \\
+        Angry & 491 & 0,3504 & 0,3951 & \textbf{0,4413} \\
         \hline
-        Disgust & 55 & \textbf{0,5476} & 0,1563 & 0,3738 \\
+        Disgust & 55 & \textbf{0,5476} & 0,1563 & 0,4409 \\
         \hline
-        Fear & 528 & \textbf{0,3749} & 0,3387 & 0,3261 \\
+        Fear & 528 & 0,3749 & 0,3387 & \textbf{0,3801} \\
         \hline
-        Happy & 879 & 0,5857 & 0,7151 & \textbf{0,7202} \\
+        Happy & 879 & 0,5857 & 0,7151 & \textbf{0,7435} \\
         \hline
-        Sad & 594 & \textbf{0,3572} & 0,2688 & 0,2983 \\
+        Sad & 594 & 0,3572 & 0,2688 & \textbf{0,3690} \\
         \hline
-        Surprise & 416 & \textbf{0,6094} & 0,6041 & 0,6047 \\
+        Surprise & 416 & 0,6094 & 0,6041 & \textbf{0,6605} \\
         \hline
-        Neutral & 626 & 0,4190 & \textbf{0,4334} & 0,4256 \\
+        Neutral & 626 & 0,4190 & 0,4334 & \textbf{0,4924} \\
         \hline
     \end{tabular}}
 \end{table}
@@ -247,23 +242,32 @@ Kết quả F1 theo từng lớp tại Bảng~\ref{tab:fer_per_class_results_ch5
         \caption{CNN Emotion sau tinh chỉnh}
         \label{fig:fer_confusion_deepface_finetuned_ch5}
     \end{subfigure}
-    \caption{Normalized Confusion Matrix của ba cấu hình trên PrivateTest}
+    \caption{Ma trận nhầm lẫn chuẩn hóa của ba cấu hình trên PrivateTest}
 \end{figure}
 
-Normalized Confusion Matrix tại Hình~\ref{fig:fer_confusion_deepface_ch5} và Hình~\ref{fig:fer_confusion_deepface_finetuned_ch5} cho thấy sau tinh chỉnh, Recall của \textit{Disgust} tăng từ 0,0909 lên 0,3636 và Recall của \textit{Angry} tăng từ 0,3605 lên 0,4257. Đổi lại, Recall của \textit{Happy} giảm từ 0,7565 xuống 0,7042 và Recall của \textit{Neutral} giảm từ 0,4808 xuống 0,4137. Sự dịch chuyển này giải thích tại sao Balanced Accuracy và Macro-F1 tăng trong khi Accuracy giảm nhẹ.
+Ma trận nhầm lẫn tại Hình~\ref{fig:fer_confusion_deepface_ch5} và Hình~\ref{fig:fer_confusion_deepface_finetuned_ch5} cho thấy sau tinh chỉnh, Recall của \textit{Disgust} tăng từ 0,0909 lên 0,5091, \textit{Sad} tăng từ 0,2104 lên 0,3485 và \textit{Angry} tăng từ 0,3605 lên 0,4786. Recall của \textit{Happy} giảm từ 0,7565 xuống 0,7122, nhưng Precision tăng và làm F1 của lớp này tăng từ 0,7151 lên 0,7435. Sự cải thiện trên phần lớn các lớp giải thích mức tăng của Macro-F1 và Balanced Accuracy.
 
-Về hiệu năng, CNN Emotion sau tinh chỉnh có độ trễ phân vị 95 bằng 2,62 ms và thông lượng 422,51 ảnh mỗi giây, trong khi LBP kết hợp SVM lần lượt đạt 3,53 ms và 287,58 ảnh mỗi giây. Tệp trọng số của CNN Emotion có kích thước 5,70 MiB, còn mô hình SVM sau huấn luyện có kích thước 77,12 MiB. Việc tinh chỉnh gần như không làm thay đổi kích thước hoặc độ trễ của mạng, nhưng giúp thu hẹp khoảng cách Macro-F1 so với LBP kết hợp SVM từ 0,0475 xuống 0,0129.
+Kết quả hiệu năng tại Bảng~\ref{tab:fer_runtime_results_ch5} cho thấy CNN sau tinh chỉnh đạt $T_{95}$ bằng 2,66 ms và thông lượng 419,04 ảnh mỗi giây, trong khi LBP kết hợp SVM lần lượt đạt 3,62 ms và 286,04 ảnh mỗi giây. Mô hình CNN có kích thước 5,70 MiB, nhỏ hơn khoảng 13,5 lần so với mô hình SVM có kích thước 77,12 MiB. So với CNN ban đầu, quá trình tinh chỉnh gần như không làm thay đổi độ trễ hoặc kích thước mô hình.
 
-\subsection{Phạm vi diễn giải và giới hạn}
-\label{subsection:5.2.5}
+\begin{table}[H]
+    \centering
+    \caption{Kết quả hiệu năng của ba cấu hình trên PrivateTest}
+    \label{tab:fer_runtime_results_ch5}
+    \begin{tabular}{|l|r|r|r|r|}
+        \hline
+        \textbf{Phương pháp} & \textbf{$T_{50}$ (ms)} & \textbf{$T_{95}$ (ms)} & \textbf{Ảnh/giây} & \textbf{MiB} \\
+        \hline
+        LBP + SVM & 3,48 & 3,62 & 286,04 & 77,12 \\
+        \hline
+        CNN Emotion trước tinh chỉnh & \textbf{2,34} & \textbf{2,64} & \textbf{422,36} & \textbf{5,70} \\
+        \hline
+        CNN Emotion sau tinh chỉnh & 2,36 & 2,66 & 419,04 & \textbf{5,70} \\
+        \hline
+    \end{tabular}
+\end{table}
 
-Kết quả cho thấy tinh chỉnh CNN Emotion trên FER-2013 có hiệu quả đối với mục tiêu cải thiện sự cân bằng giữa các lớp: Macro-F1 và Balanced Accuracy đều tăng so với trước tinh chỉnh, trong khi Accuracy chỉ giảm 0,0025 điểm. Khi so với LBP kết hợp SVM, CNN Emotion sau tinh chỉnh có Accuracy và Balanced Accuracy cao hơn, đồng thời nhanh hơn và nhỏ hơn; LBP kết hợp SVM vẫn có Macro-F1 cao hơn 0,0129 điểm. Theo quy tắc lấy Macro-F1 làm tiêu chí chính và biên tương đương bằng 0,01, LBP kết hợp SVM vẫn được xếp cao hơn về tiêu chí chính, nhưng chênh lệch chỉ còn 0,0029 điểm ngoài biên tương đương. Nếu mục tiêu triển khai đồng thời ưu tiên tỷ lệ dự đoán đúng chung, độ trễ và kích thước mô hình, CNN Emotion sau tinh chỉnh là phương án phù hợp hơn trong ba cấu hình đã đo. Kết luận này chỉ áp dụng cho FER-2013 và môi trường thực nghiệm đã mô tả.
+Từ các kết quả trên, CNN Emotion sau tinh chỉnh được lựa chọn vì đạt Macro-F1 cao nhất, đồng thời dẫn đầu về Accuracy và Balanced Accuracy. Mô hình cũng có tốc độ xử lý và kích thước phù hợp hơn LBP kết hợp SVM. Các kết quả tại mục này phản ánh bước phân loại trên ảnh khuôn mặt $48\times48$ pixel của FER-2013; hiệu năng của toàn bộ hệ thống được đánh giá riêng ở phần tiếp theo.
 
-FER-2013 gồm các ảnh khuôn mặt đã được cắt sẵn, có độ phân giải thấp và không đại diện đầy đủ cho ảnh camera tại không gian mua sắm. Vì vậy, độ trễ tại mục này chỉ là thời gian của bộ phân loại và không thay thế phép đo độ trễ đầu cuối của hệ thống. Ngoài ra, bản kê khai dữ liệu phát hiện các ảnh trùng khớp hoàn toàn giữa các phần chia chính thức, gồm 278 cặp giữa \textit{Training} và \textit{PrivateTest}, cùng 43 cặp giữa \textit{PublicTest} và \textit{PrivateTest}. Thực nghiệm giữ nguyên cách chia chính thức để bảo đảm khả năng đối chiếu với FER-2013, nhưng hiện tượng này có thể làm kết quả của phương pháp được huấn luyện trên \textit{Training} lạc quan hơn so với một phép chia đã loại trùng.
-
-Mỗi cấu hình chỉ được đo bằng một lần chạy đầy đủ; vì vậy, kết quả chưa phản ánh độ biến thiên qua nhiều lần khởi tạo và huấn luyện. Mô hình sau tinh chỉnh mới được huấn luyện với một bộ siêu tham số và một giá trị khởi tạo ngẫu nhiên cố định. Ngoài ra, quyết định chọn cấu hình dựa trên nhiều tiêu chí phụ thuộc vào mục tiêu triển khai; Accuracy cao hơn không tự động đồng nghĩa chất lượng tốt hơn ở mọi lớp, còn Macro-F1 cao hơn cũng không tự động đồng nghĩa mô hình dự đoán đúng nhiều ảnh hơn. Các kết quả tại mục này được dùng để mô tả sự đánh đổi giữa ba cấu hình trong phạm vi FER-2013; trước khi thay đổi mô hình của hệ thống, cần kiểm tra tiếp trên dữ liệu camera phù hợp với môi trường mục tiêu.
-
-\clearpage
 \section{Thiết kế thực nghiệm đánh giá hệ thống đầu cuối}
 \label{section:5.3}
 
@@ -290,7 +294,7 @@ Sau khi tạo hồ sơ, ảnh được đưa qua luồng tạo mẫu khuôn mặ
 
 \textbf{Tạo hành trình mua sắm.} Mỗi khách hàng được xây dựng năm hành trình. Một hành trình gồm bốn điểm chạm theo thứ tự Cửa vào--Khu trưng bày--Khu tư vấn--Quầy thanh toán. Với 35 khách hàng, bộ dữ liệu dự kiến gồm 175 hành trình và 700 khung ảnh camera.
 
-\textbf{Lựa chọn ảnh ngẫu nhiên.} Tại mỗi điểm chạm, luận văn lựa chọn ngẫu nhiên một trong bảy nhãn biểu cảm, sau đó lấy ảnh camera gần chính diện đã dành cho nhãn đó của khách hàng tương ứng. Ảnh đã chọn vẫn có thể được dùng lại ở điểm chạm khác. Do đó, 700 lượt gửi ảnh được tạo từ 236 tệp ảnh nguồn khác nhau. Bộ sinh số ngẫu nhiên sử dụng giá trị khởi tạo 20261013 để có thể tái lập đúng danh sách ảnh, chuỗi biểu cảm và thời gian quan sát. Số cụm và chuỗi đại diện không được sắp xếp trước.
+\textbf{Lựa chọn ảnh ngẫu nhiên.} Tại mỗi điểm chạm, luận văn lựa chọn ngẫu nhiên một trong bảy nhãn biểu cảm, sau đó lấy ảnh camera gần chính diện đã dành cho nhãn đó của khách hàng tương ứng. Ảnh đã chọn vẫn có thể được dùng lại ở điểm chạm khác. Do đó, 700 lượt gửi ảnh được tạo từ 236 tệp ảnh nguồn khác nhau. Số cụm và chuỗi đại diện được xác định từ kết quả phân tích dữ liệu.
 
 \textbf{Giữ nguyên ảnh nguồn.} Ảnh camera được gửi ở độ phân giải nguồn $562\times762$ pixel, không đặt vào khung nền, không thay đổi kích thước và không điều chỉnh độ sáng. Lựa chọn này loại bỏ ảnh hưởng của phép biến đổi hình học khi đánh giá khả năng xử lý ảnh của hệ thống.
 

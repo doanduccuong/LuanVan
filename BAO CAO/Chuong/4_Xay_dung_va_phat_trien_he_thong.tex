@@ -112,18 +112,17 @@ Các chức năng của hệ thống được chia thành ba nhóm: quản lý d
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.98\textwidth}{!}{%
     \begin{tikzpicture}[
-        node distance=9mm and 9mm,
-        root/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=3.6cm, font=\small\bfseries},
-        group/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=4.2cm, font=\small\bfseries},
-        item/.style={draw, align=left, minimum height=28mm, text width=4.6cm, font=\scriptsize},
+        node distance=8mm,
+        root/.style={draw, rounded corners=2pt, align=center, minimum height=14mm, text width=3.4cm, inner sep=2mm, font=\normalsize\bfseries},
+        group/.style={draw, rounded corners=2pt, align=center, minimum height=14mm, text width=3.8cm, inner sep=2mm, font=\normalsize\bfseries},
+        item/.style={draw, align=left, minimum height=38mm, text width=4.0cm, inner sep=2mm, font=\small},
         flow/.style={-{Latex[length=2mm]}, thick}
     ]
         \node[root] (system) {Hệ thống CRM và phân tích biểu cảm};
-        \node[group, below left=15mm and 42mm of system] (crm) {Quản lý dữ liệu CRM};
+        \node[group, below left=15mm and 6mm of system] (crm) {Quản lý dữ liệu CRM};
         \node[group, below=15mm of system] (observation) {Quan sát và lần mua sắm};
-        \node[group, below right=15mm and 42mm of system] (analysis) {Phân tích và báo cáo};
+        \node[group, below right=15mm and 6mm of system] (analysis) {Phân tích và báo cáo};
         \node[item, below=of crm] (crmitems) {Quản lý khách hàng và sự đồng ý; đăng ký, xóa và tìm mẫu khuôn mặt; quản lý nhóm sản phẩm, sản phẩm, đơn hàng và điểm chạm.};
         \node[item, below=of observation] (observationitems) {Tiếp nhận sự kiện ảnh; phát hiện và căn chỉnh khuôn mặt; phân loại biểu cảm; đối sánh danh tính; tạo bản ghi quan sát; liên kết và theo dõi lần mua sắm.};
         \node[item, below=of analysis] (analysisitems) {Thống kê phân bố biểu cảm; theo dõi biến thiên theo thời gian; phân tích thay đổi giữa điểm chạm; cấu hình và tính điểm hành trình; báo cáo chất lượng; phân cụm chuỗi trạng thái.};
@@ -133,8 +132,7 @@ Các chức năng của hệ thống được chia thành ba nhóm: quản lý d
         \draw[flow] (crm) -- (crmitems);
         \draw[flow] (observation) -- (observationitems);
         \draw[flow] (analysis) -- (analysisitems);
-    \end{tikzpicture}%
-    }
+    \end{tikzpicture}
     \caption{Phân rã chức năng của hệ thống}
     \label{fig:function_decomposition_ch4}
 \end{figure}

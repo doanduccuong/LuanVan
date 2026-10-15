@@ -1,0 +1,42 @@
+run:
+  random_seed: 42
+  smoke_test: false
+  final_evaluation: true
+
+paths:
+  fer2013_csv: data/fer2013.csv
+  results_root: results
+
+dataset:
+  labels: [Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral]
+  expected_counts:
+    Training: 28709
+    PublicTest: 3589
+    PrivateTest: 3589
+  strict_counts: true
+  fail_on_cross_split_duplicates: false
+
+lbp_svm:
+  points: 8
+  radius: 1
+  grid_rows: 6
+  grid_cols: 6
+  candidates:
+    - {kernel: linear, C: 1.0}
+    - {kernel: rbf, C: 10.0, gamma: scale}
+
+deepface_emotion:
+  batch_size: 128
+  weights_path: ~/.deepface/weights/facial_expression_model_weights.h5
+
+deepface_emotion_finetuned:
+  batch_size: 128
+  weights_path: ../TRAIN_DEEPFACE_EMOTION/artifacts/fer2013-emotion-finetune-final/models/deepface_emotion_finetuned.weights.h5
+  training_manifest_path: ../TRAIN_DEEPFACE_EMOTION/artifacts/fer2013-emotion-finetune-final/training_manifest.json
+
+latency:
+  warmup_samples: 20
+  repeats: 3
+
+selection:
+  primary_metric: macro_f1

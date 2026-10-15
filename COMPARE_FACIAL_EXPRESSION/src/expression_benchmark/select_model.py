@@ -20,7 +20,10 @@ def aggregate_runs(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         latency_values = np.asarray(
             [row["latency_p95_ms"] for row in method_rows], dtype=np.float64
         )
-        size_values = np.asarray([row["model_size_bytes"] for row in method_rows], dtype=np.float64)
+        throughput_values = np.asarray(
+            [row["throughput_images_per_second"] for row in method_rows], dtype=np.float64
+        )
+        size_values = np.asarray([row["model_size_mib"] for row in method_rows], dtype=np.float64)
         output.append(
             {
                 "method": method,
@@ -32,7 +35,8 @@ def aggregate_runs(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "balanced_accuracy_mean": float(balanced_values.mean()),
                 "balanced_accuracy_std": float(balanced_values.std(ddof=0)),
                 "latency_p95_ms_mean": float(latency_values.mean()),
-                "model_size_bytes_mean": float(size_values.mean()),
+                "throughput_images_per_second_mean": float(throughput_values.mean()),
+                "model_size_mib_mean": float(size_values.mean()),
             }
         )
     return output
@@ -40,33 +44,20 @@ def aggregate_runs(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def select_method(
     aggregate_rows: list[dict[str, Any]],
-    *,
-    tie_margin: float,
 ) -> dict[str, Any]:
     if not aggregate_rows:
         raise ValueError("Không có kết quả để lựa chọn phương pháp.")
-    best_macro_f1 = max(float(row["macro_f1_mean"]) for row in aggregate_rows)
-    eligible = [
-        row
-        for row in aggregate_rows
-        if best_macro_f1 - float(row["macro_f1_mean"]) < tie_margin
-    ]
-    selected = min(
-        eligible,
+    selected = max(
+        aggregate_rows,
         key=lambda row: (
-            float(row["latency_p95_ms_mean"]),
-            float(row["model_size_bytes_mean"]),
-            str(row["method"]),
+            float(row["macro_f1_mean"]),
+            -float(row["latency_p95_ms_mean"]),
+            -float(row["model_size_mib_mean"]),
         ),
     )
     return {
         "selected_method": selected["method"],
-        "best_macro_f1": best_macro_f1,
-        "tie_margin": tie_margin,
-        "eligible_methods": [row["method"] for row in eligible],
-        "decision_rule": (
-            "Giữ các phương pháp cách Macro-F1 cao nhất ít hơn tie_margin; "
-            "nếu có nhiều phương pháp thì chọn P95 thấp hơn, sau đó mô hình nhỏ hơn."
-        ),
+        "best_macro_f1": float(selected["macro_f1_mean"]),
+        "decision_rule": "Chọn phương pháp có Macro-F1 cao nhất.",
         "selected_metrics": selected,
     }

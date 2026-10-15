@@ -46,9 +46,11 @@ Mỗi lần chạy lưu:
 - dự đoán từng ảnh và đủ bảy điểm đầu ra;
 - Accuracy, Balanced Accuracy, Macro-F1 và chỉ số từng lớp;
 - ma trận nhầm lẫn tuyệt đối và chuẩn hóa;
-- độ trễ P50, P95, P99 và thông lượng;
+- độ trễ P50, P95 và thông lượng;
 - cờ phân biệt smoke test với thực nghiệm chính thức.
 
-## Điều kiện chưa đáp ứng
+## Quy trình chạy cuối
 
-Kho mã chưa kèm FER-2013. Vì vậy, chỉ có thể hoàn tất kiểm thử đơn vị và smoke test trước khi dữ liệu chính thức được cung cấp. Không được suy diễn kết quả smoke test thành chất lượng của phương pháp.
+Tệp `data/fer2013.csv` phải được kiểm tra trước khi chạy. Lượt đánh giá cuối chạy
+đồng thời ba phương pháp trên cùng `PrivateTest` và sinh bảng tổng hợp, chỉ số từng
+lớp cùng ma trận nhầm lẫn chuẩn hóa.

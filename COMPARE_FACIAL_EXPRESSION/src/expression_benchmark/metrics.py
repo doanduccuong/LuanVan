@@ -51,5 +51,4 @@ def classification_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, 
         "confusion_matrix": matrix.tolist(),
         "confusion_matrix_normalized": normalized.tolist(),
         "sample_count": int(y_true.size),
-        "processing_failure_rate": 0.0,
     }

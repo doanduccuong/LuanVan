@@ -34,7 +34,7 @@ def _save_evaluation(
     split: Any,
     predictions: Any,
 ) -> dict[str, Any]:
-    suffix = method if seed is None else f"{method}_seed_{seed}"
+    suffix = method
     metrics = classification_metrics(split.labels, predictions.labels)
     write_json(run_dir / "metrics" / f"{suffix}.json", metrics)
     write_jsonl(
@@ -74,7 +74,7 @@ def _run_lbp(
             c=float(candidate["C"]),
             gamma=candidate.get("gamma", "scale"),
             class_weight=_weight_mapping(training.labels),
-            seed=int(config["run"].get("random_seed", 20261006)),
+            seed=int(config["run"].get("random_seed", 42)),
         )
         adapter.fit(training.images, training.labels)
         validation_predictions = adapter.predict(validation.images)

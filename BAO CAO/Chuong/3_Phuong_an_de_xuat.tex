@@ -275,11 +275,11 @@ Mỗi lần xuất hiện của một cặp điểm chạm được tính là m�
 \subsection{Tính điểm tổng hợp cho hành trình}
 \label{subsection:3.4.journey_scoring}
 
-Sau khi hình thành chuỗi trạng thái, mỗi lần mua sắm được gán một điểm tổng hợp từ các biểu cảm đã ghi nhận tại từng điểm chạm. Gọi $q(e)\in[0,1]$ là điểm quy đổi của biểu cảm $e$ và $w_k\geq0$ là trọng số của điểm chạm $k$. Người quản lý thiết lập bảng điểm và trọng số trên giao diện. Bảng điểm quy đổi được sử dụng trong cấu hình thực nghiệm được trình bày tại Bảng~\ref{tab:journey_expression_values_ch3}.
+Luận văn đề xuất phương pháp chấm điểm hành trình biểu cảm của khách hàng dựa trên chuỗi trạng thái đã hình thành. Mỗi lần mua sắm được gán một điểm tổng hợp từ các biểu cảm ghi nhận tại từng điểm chạm. Gọi $q(e)\in[0,1]$ là điểm quy đổi của biểu cảm $e$ và $w_k\geq0$ là trọng số của điểm chạm $k$. Điểm quy đổi của từng biểu cảm và trọng số của các điểm chạm có thể được thiết lập trước khi thực hiện chấm điểm. Bảng điểm quy đổi biểu cảm đề xuất được trình bày tại Bảng~\ref{tab:journey_expression_values_ch3}.
 
 \begin{table}[H]
     \centering
-    \caption{Bảng điểm quy đổi biểu cảm trong cấu hình thực nghiệm}
+    \caption{Bảng điểm quy đổi biểu cảm}
     \label{tab:journey_expression_values_ch3}
     \begin{tabular}{|l|r|l|r|}
         \hline
@@ -296,22 +296,16 @@ Sau khi hình thành chuỗi trạng thái, mỗi lần mua sắm được gán 
     \end{tabular}
 \end{table}
 
-Trong cấu hình này, Happy được gán điểm cao nhất; Neutral và Surprise nhận mức 0,50; các nhãn Angry, Disgust, Fear và Sad nhận mức thấp hơn. Khi một hành trình quay lại cùng điểm chạm $k$ nhiều lần, gọi $r_{v,k}$ là số đoạn quan sát tại điểm chạm đó. Điểm của điểm chạm được tính bằng trung bình các điểm biểu cảm đại diện của các đoạn:
+Trong bảng điểm này, Happy được gán điểm cao nhất; Neutral và Surprise nhận mức 0,50; các nhãn Angry, Disgust, Fear và Sad nhận mức thấp hơn. Với hành trình $v$ gồm $n_v$ điểm chạm, gọi $e_{v,i}$ là biểu cảm đại diện tại điểm chạm thứ $i$ và $w_i$ là trọng số tương ứng. Điểm hành trình được tính bằng trung bình có trọng số:
 \begin{equation}
-    \bar q_{v,k}=\frac{1}{r_{v,k}}\sum_{j=1}^{r_{v,k}}q(e_{v,k,j}).
-    \label{eq:ch3_touchpoint_score}
-\end{equation}
-
-Gọi $O_v$ là tập điểm chạm đã quan sát được trong hành trình $v$. Điểm hành trình được tổng hợp bằng trung bình có trọng số, theo cách tổng hợp tuyến tính của OECD/JRC~\cite{oecd2008composite}:
-\begin{equation}
-    J_v=\frac{\displaystyle\sum_{k\in O_v}w_k\bar q_{v,k}}
-    {\displaystyle\sum_{k\in O_v}w_k},\qquad
-    \sum_{k\in O_v}w_k>0.
+    J_v=\frac{\displaystyle\sum_{i=1}^{n_v}w_iq(e_{v,i})}
+    {\displaystyle\sum_{i=1}^{n_v}w_i},\qquad
+    \sum_{i=1}^{n_v}w_i>0.
     \label{eq:ch3_journey_score}
 \end{equation}
-Với điểm quy đổi thuộc $[0,1]$, giá trị $J_v$ cũng thuộc $[0,1]$. Trọng số của mỗi điểm chạm được sử dụng một lần trong phép tổng hợp. Đối với hành trình có đủ các điểm chạm và tổng trọng số bằng 1, công thức trở thành $J_v=\sum_k w_k\bar q_{v,k}$.
+Với điểm quy đổi thuộc $[0,1]$, giá trị $J_v$ cũng thuộc $[0,1]$. Khi tổng trọng số bằng 1, công thức trở thành $J_v=\sum_{i=1}^{n_v}w_iq(e_{v,i})$.
 
-Mỗi kết quả gồm điểm hành trình $J_v$, điểm của từng điểm chạm và phần đóng góp vào tổng điểm. Bảng điểm, trọng số và phiên bản cấu hình được lưu cùng lần tính điểm. Người quản lý chọn nguồn dữ liệu để tính điểm cho toàn bộ các chuỗi có ít nhất một trạng thái hợp lệ, sau đó xem và truy vết từng kết quả theo lần mua sắm.
+Mỗi kết quả gồm điểm hành trình $J_v$, điểm của từng điểm chạm và phần đóng góp vào tổng điểm. Bảng điểm, trọng số và phiên bản cấu hình được lưu cùng lần tính điểm. Phương pháp được áp dụng cho toàn bộ các chuỗi có ít nhất một trạng thái hợp lệ, đồng thời mỗi kết quả được liên kết với lần mua sắm tương ứng.
 
 \subsection{Phân cụm chuỗi trạng thái và lựa chọn số cụm}
 \label{subsection:3.4.2}
@@ -331,7 +325,7 @@ Phương pháp khảo sát lần lượt các giá trị $K$ bắt đầu từ 2
     n_{\min}=\max\left(2,\left\lceil0{,}05N\right\rceil\right).
     \label{eq:ch3_min_cluster_size}
 \end{equation}
-Trong công thức này, 2 là số chuỗi tối thiểu tuyệt đối và 5\% là tỷ lệ tối thiểu trên tổng số chuỗi. Mốc 5\% được sử dụng để tránh việc tăng $K$ tạo ra các cụm chỉ chứa một vài hành trình cá biệt, có tỷ trọng quá nhỏ để đại diện cho một mẫu diễn biến biểu cảm trong tập dữ liệu. Với mỗi phương án $K$, ``cụm nhỏ nhất'' là cụm có số chuỗi ít nhất trong $K$ cụm, không phải chuỗi có độ dài ngắn nhất. Một phương án $K$ chỉ được giữ lại khi số chuỗi của cụm nhỏ nhất không thấp hơn $n_{\min}$; nếu không đạt giới hạn này thì phương án đó bị loại khỏi tập ứng viên.
+Trong công thức này, 2 là số chuỗi tối thiểu tuyệt đối và 5\% là tỷ lệ tối thiểu trên tổng số chuỗi. Mốc 5\% được sử dụng để tránh việc tăng $K$ tạo ra các cụm chỉ chứa một vài hành trình cá biệt, có tỷ trọng quá nhỏ để đại diện cho một mẫu diễn biến biểu cảm trong tập dữ liệu. Một phương án $K$ chỉ được giữ lại khi mỗi cụm chứa ít nhất $n_{\min}$ chuỗi; nếu không, phương án đó bị loại khỏi tập ứng viên.
 
 Với mỗi phương án còn lại, hệ thống lấy trung bình cộng các hệ số silhouette do Sequenzo trả về để tính ASW:
 \begin{equation}

@@ -4,21 +4,23 @@
 \section{Kết luận}
 \label{section:6.1}
 
-Luận văn đã nghiên cứu và xây dựng hệ thống ghi nhận, liên kết và phân tích biểu cảm khuôn mặt của khách hàng tại nhiều điểm chạm trong quá trình mua sắm. Giải pháp kết nối kết quả xử lý ảnh với hồ sơ CRM để hình thành chuỗi trạng thái theo từng lần mua sắm, cung cấp thống kê và nhóm diễn biến có thể truy vết về quan sát nguồn. Những kết quả chính của luận văn gồm:
+Luận văn đã nghiên cứu và xây dựng hệ thống ghi nhận, liên kết và phân tích biểu cảm khuôn mặt của khách hàng tại nhiều điểm chạm trong quá trình mua sắm. Giải pháp kết nối kết quả xử lý ảnh với hồ sơ CRM để hình thành chuỗi trạng thái theo từng lần mua sắm, cung cấp thống kê, điểm hành trình và các nhóm diễn biến có thể truy vết về quan sát nguồn. Những kết quả chính của luận văn gồm:
 
 \begin{itemize}
     \item \textbf{Xây dựng quy trình tổ chức dữ liệu theo hành trình:} Xác định cách liên kết các quan sát theo khách hàng, lần mua sắm và thứ tự điểm chạm; thiết lập quy tắc xử lý dữ liệu thiếu, quan sát trùng và xung đột thời gian, đồng thời lựa chọn nhãn đại diện để hình thành chuỗi trạng thái.
 
     \item \textbf{Tích hợp xử lý ảnh với hồ sơ khách hàng:} Kết hợp phát hiện khuôn mặt, phân loại biểu cảm và đối sánh đặc trưng ArcFace trong cùng luồng xử lý. Kết quả nhận dạng được lưu cùng thông tin thời gian, điểm chạm và hồ sơ CRM, tạo đầu vào cho việc theo dõi hành trình.
 
+    \item \textbf{Đề xuất phương pháp chấm điểm hành trình biểu cảm của khách hàng:} Quy đổi từng nhãn biểu cảm thành điểm và tổng hợp theo trọng số của các điểm chạm. Người quản lý có thể thiết lập bảng điểm và trọng số; kết quả thể hiện điểm của toàn bộ hành trình cùng mức đóng góp của từng điểm chạm.
+
     \item \textbf{Phân tích diễn biến biểu cảm bằng chuỗi trạng thái:} Áp dụng Optimal Matching để xây dựng ma trận khoảng cách, PAM để phân cụm và Average Silhouette Width để lựa chọn số cụm đáp ứng điều kiện kích thước tối thiểu. Mỗi cụm được mô tả bằng chuỗi medoid, số lượng, tỷ lệ và hệ số silhouette, giúp quan sát các kiểu diễn biến trong tập dữ liệu.
 
-    \item \textbf{Xây dựng hệ thống quản lý và trực quan hóa:} Tích hợp giao diện web, máy chủ nghiệp vụ, dịch vụ xử lý ảnh và cơ sở dữ liệu; hỗ trợ quản lý khách hàng, điểm chạm, sản phẩm và đơn hàng. Giao diện hiển thị hành trình, thống kê biểu cảm và kết quả phân cụm, cho phép truy vết đến từng quan sát.
+    \item \textbf{Xây dựng hệ thống quản lý và trực quan hóa:} Tích hợp giao diện web, máy chủ nghiệp vụ, dịch vụ xử lý ảnh và cơ sở dữ liệu; hỗ trợ quản lý khách hàng, điểm chạm, sản phẩm và đơn hàng. Giao diện hiển thị hành trình, thống kê biểu cảm, điểm hành trình và kết quả phân cụm, cho phép truy vết đến từng quan sát.
 
-    \item \textbf{Kiểm nghiệm các thành phần và luồng xử lý đầu cuối:} So sánh các bộ phát hiện trên WIDER FACE và các cấu hình phân loại biểu cảm trên FER-2013. Trong thực nghiệm với 700 lượt ảnh của 35 người thuộc tập giữ lại, hệ thống ghép đúng danh tính ở 98,86\% lượt ảnh; phân loại biểu cảm đạt Accuracy bằng 0,6714 và Macro-F1 bằng 0,6572. Từ các hành trình đã hình thành, 167 chuỗi đủ điều kiện được phân thành hai cụm và liên kết được về các quan sát nguồn.
+    \item \textbf{Kiểm nghiệm các thành phần và luồng xử lý đầu cuối:} So sánh các bộ phát hiện trên WIDER FACE và các cấu hình phân loại biểu cảm trên FER-2013. Trong thực nghiệm với 700 lượt ảnh của 35 người thuộc tập giữ lại, hệ thống ghép đúng danh tính ở 98,86\% lượt ảnh; phân loại biểu cảm đạt Accuracy bằng 0,6714 và Macro-F1 bằng 0,6572. Hệ thống chấm điểm toàn bộ 182 hành trình với điểm trung bình 0,4216; đồng thời, 167 chuỗi đủ điều kiện được phân thành hai cụm và liên kết được về các quan sát nguồn.
 \end{itemize}
 
-Kết quả xác nhận khả năng xử lý đầu cuối trong kịch bản thử nghiệm, đồng thời chỉ ra các lỗi định danh, biểu cảm và mức phân tách cụm cần tiếp tục cải thiện.
+Kết quả xác nhận khả năng ghi nhận, chấm điểm và phân tích hành trình biểu cảm trong luồng xử lý đầu cuối, đồng thời chỉ ra các lỗi định danh, biểu cảm và mức phân tách cụm cần tiếp tục cải thiện.
 
 \clearpage
 \section{Hướng phát triển trong tương lai}
@@ -31,7 +33,9 @@ Hệ thống đã được kiểm nghiệm với dữ liệu ảnh công khai v�
 
     \item \textbf{Nâng cao chất lượng nhận dạng khách hàng và biểu cảm:} Khảo sát ngưỡng ArcFace ở nhiều quy mô hồ sơ, bổ sung mẫu khuôn mặt và tổng hợp kết quả từ các quan sát liên tiếp nhằm giảm lỗi ghép danh tính. Với phân loại biểu cảm, ưu tiên cải thiện các lớp có kết quả thấp như \textit{Fear}, \textit{Angry} và \textit{Sad}, đồng thời đánh giá tác động của các lỗi dự đoán đến chuỗi hành trình.
 
-    \item \textbf{Hoàn thiện phân tích chuỗi và đối chiếu dữ liệu nghiệp vụ:} Khảo sát chi phí OM, điều kiện kích thước cụm và mức ổn định của kết quả khi thay đổi dữ liệu; bổ sung thời lượng tại điểm chạm vào mô tả hành trình. Liên kết các mẫu diễn biến với dữ liệu giao dịch và phản hồi của khách hàng để đánh giá ý nghĩa của kết quả phân cụm đối với hoạt động quản lý.
+    \item \textbf{Hoàn thiện phân tích chuỗi:} Khảo sát chi phí OM, điều kiện kích thước cụm và mức ổn định của kết quả khi thay đổi dữ liệu; bổ sung thời lượng tại điểm chạm vào mô tả hành trình và liên kết các mẫu diễn biến với phản hồi của khách hàng.
+
+    \item \textbf{Liên kết hành trình biểu cảm với lịch sử mua hàng:} Kết nối chuỗi biểu cảm của từng lần mua sắm với đơn hàng, sản phẩm và nhóm sản phẩm tương ứng. Trên cơ sở đó, phân tích mối liên hệ giữa các kiểu hành trình biểu cảm và hành vi mua hàng để xác định từng nhóm khách hàng có xu hướng lựa chọn loại sản phẩm nào.
 
     \item \textbf{Mở rộng khả năng vận hành và quản lý dữ liệu:} Kiểm tra độ trễ, thông lượng và khả năng phục hồi khi nhiều camera gửi ảnh đồng thời; hoàn thiện cơ chế hàng đợi, giám sát lỗi và kiểm soát tải. Bổ sung quản lý quyền truy cập, thời gian lưu trữ và xóa dữ liệu khuôn mặt để hỗ trợ sử dụng hệ thống trong môi trường thực tế.
 \end{itemize}

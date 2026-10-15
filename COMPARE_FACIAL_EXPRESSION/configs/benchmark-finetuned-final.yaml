@@ -1,5 +1,5 @@
 run:
-  random_seed: 20261006
+  random_seed: 42
   smoke_test: false
   final_evaluation: true
 
@@ -36,5 +36,3 @@ latency:
 
 selection:
   primary_metric: macro_f1
-  tie_margin: 0.01
-  tie_breakers: [latency_p95_ms, model_size_bytes]

@@ -1,5 +1,5 @@
 run:
-  seed: 20261007
+  seed: 42
 
 paths:
   fer2013_csv: ../COMPARE_FACIAL_EXPRESSION/data/fer2013.csv
@@ -17,13 +17,13 @@ dataset:
 training:
   batch_size: 128
   epochs: 20
-  learning_rate: 0.00001
+  learning_rate: 0.000001
   patience: 6
-  min_delta: 0.001
+  min_delta: 0.0005
   use_class_weights: true
   deterministic_ops: true
   augmentation:
-    horizontal_flip: true
-    rotation_factor: 0.04
-    translation_factor: 0.05
-    contrast_factor: 0.10
+    horizontal_flip: false
+    rotation_factor: 0.0
+    translation_factor: 0.0
+    contrast_factor: 0.0

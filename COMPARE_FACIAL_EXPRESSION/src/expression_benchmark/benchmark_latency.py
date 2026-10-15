@@ -32,6 +32,5 @@ def measure_latency(
         "repeats": int(repeats),
         "latency_p50_ms": float(np.percentile(values, 50)),
         "latency_p95_ms": float(np.percentile(values, 95)),
-        "latency_p99_ms": float(np.percentile(values, 99)),
         "throughput_images_per_second": float(values.size / total_seconds),
     }
