@@ -21,14 +21,14 @@
 \contentsline {table}{\numberline {5.3}{\ignorespaces Phân bố ảnh theo lớp trong FER-2013}}{64}{table.caption.56}%
 \contentsline {table}{\numberline {5.4}{\ignorespaces Kết quả chất lượng phân loại của ba cấu hình trên PrivateTest}}{65}{table.caption.57}%
 \contentsline {table}{\numberline {5.5}{\ignorespaces F1 theo từng lớp của ba cấu hình trên PrivateTest}}{65}{table.caption.58}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Kết quả hiệu năng của ba cấu hình trên PrivateTest}}{67}{table.caption.60}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Môi trường triển khai tại thời điểm thực nghiệm đầu cuối}}{69}{table.caption.62}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Kết quả tiếp nhận và ghép định danh ảnh KDEF}}{72}{table.caption.65}%
-\contentsline {table}{\numberline {5.9}{\ignorespaces Kết quả biểu cảm của dữ liệu trong luồng đầu cuối}}{73}{table.caption.68}%
-\contentsline {table}{\numberline {5.10}{\ignorespaces Trọng số điểm chạm trong thực nghiệm tính điểm hành trình}}{74}{table.caption.70}%
-\contentsline {table}{\numberline {5.11}{\ignorespaces Một số kết quả tính điểm chuỗi biểu cảm}}{76}{table.caption.73}%
-\contentsline {table}{\numberline {5.12}{\ignorespaces Kết quả phân cụm 167 chuỗi trạng thái dự đoán đủ điều kiện}}{77}{table.caption.77}%
-\contentsline {table}{\numberline {5.13}{\ignorespaces Đánh giá hiệu quả của luồng hệ thống đầu cuối}}{80}{table.caption.81}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Kết quả hiệu năng của ba cấu hình trên PrivateTest}}{68}{table.caption.62}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Môi trường triển khai tại thời điểm thực nghiệm đầu cuối}}{71}{table.caption.64}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Kết quả tiếp nhận và ghép định danh ảnh KDEF}}{74}{table.caption.67}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces Kết quả biểu cảm của dữ liệu trong luồng đầu cuối}}{75}{table.caption.70}%
+\contentsline {table}{\numberline {5.10}{\ignorespaces Trọng số điểm chạm trong thực nghiệm tính điểm hành trình}}{76}{table.caption.72}%
+\contentsline {table}{\numberline {5.11}{\ignorespaces Một số kết quả tính điểm chuỗi biểu cảm}}{78}{table.caption.75}%
+\contentsline {table}{\numberline {5.12}{\ignorespaces Kết quả phân cụm 167 chuỗi trạng thái dự đoán đủ điều kiện}}{79}{table.caption.79}%
+\contentsline {table}{\numberline {5.13}{\ignorespaces Đánh giá hiệu quả của luồng hệ thống đầu cuối}}{82}{table.caption.83}%
 \addvspace {10\p@ }
 \contentsfinish 
 \contentsfinish 

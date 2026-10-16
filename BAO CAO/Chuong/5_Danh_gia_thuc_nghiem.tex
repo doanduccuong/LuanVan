@@ -221,28 +221,23 @@ Kết quả F1 theo từng lớp tại Bảng~\ref{tab:fer_per_class_results_ch5
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Hinhve/Chuong5/5_09_ma_tran_nham_lan_lbp_svm.png}
-        \caption{LBP kết hợp SVM}
-        \label{fig:fer_confusion_lbp_ch5}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Hinhve/Chuong5/5_10_ma_tran_nham_lan_deepface.png}
-        \caption{CNN Emotion trước tinh chỉnh}
-        \label{fig:fer_confusion_deepface_ch5}
-    \end{subfigure}
+    \includegraphics[width=0.88\textwidth]{Hinhve/Chuong5/5_09_ma_tran_nham_lan_lbp_svm.png}
+    \caption{Ma trận nhầm lẫn chuẩn hóa của LBP kết hợp SVM trên PrivateTest}
+    \label{fig:fer_confusion_lbp_ch5}
+\end{figure}
 
-    \vspace{0.5em}
-    \begin{subfigure}[t]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Hinhve/Chuong5/5_11_ma_tran_nham_lan_emotion_tinh_chinh.png}
-        \caption{CNN Emotion sau tinh chỉnh}
-        \label{fig:fer_confusion_deepface_finetuned_ch5}
-    \end{subfigure}
-    \caption{Ma trận nhầm lẫn chuẩn hóa của ba cấu hình trên PrivateTest}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.88\textwidth]{Hinhve/Chuong5/5_10_ma_tran_nham_lan_deepface.png}
+    \caption{Ma trận nhầm lẫn chuẩn hóa của CNN Emotion trước tinh chỉnh trên PrivateTest}
+    \label{fig:fer_confusion_deepface_ch5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.88\textwidth]{Hinhve/Chuong5/5_11_ma_tran_nham_lan_emotion_tinh_chinh.png}
+    \caption{Ma trận nhầm lẫn chuẩn hóa của CNN Emotion sau tinh chỉnh trên PrivateTest}
+    \label{fig:fer_confusion_deepface_finetuned_ch5}
 \end{figure}
 
 Ma trận nhầm lẫn tại Hình~\ref{fig:fer_confusion_deepface_ch5} và Hình~\ref{fig:fer_confusion_deepface_finetuned_ch5} cho thấy sau tinh chỉnh, Recall của \textit{Disgust} tăng từ 0,0909 lên 0,5091, \textit{Sad} tăng từ 0,2104 lên 0,3485 và \textit{Angry} tăng từ 0,3605 lên 0,4786. Recall của \textit{Happy} giảm từ 0,7565 xuống 0,7122, nhưng Precision tăng và làm F1 của lớp này tăng từ 0,7151 lên 0,7435. Sự cải thiện trên phần lớn các lớp giải thích mức tăng của Macro-F1 và Balanced Accuracy.
@@ -266,7 +261,7 @@ Kết quả hiệu năng tại Bảng~\ref{tab:fer_runtime_results_ch5} cho th�
     \end{tabular}
 \end{table}
 
-Từ các kết quả trên, CNN Emotion sau tinh chỉnh được lựa chọn vì đạt Macro-F1 cao nhất, đồng thời dẫn đầu về Accuracy và Balanced Accuracy. Mô hình cũng có tốc độ xử lý và kích thước phù hợp hơn LBP kết hợp SVM. Các kết quả tại mục này phản ánh bước phân loại trên ảnh khuôn mặt $48\times48$ pixel của FER-2013; hiệu năng của toàn bộ hệ thống được đánh giá riêng ở phần tiếp theo.
+Các kết quả trên cho thấy CNN Emotion sau tinh chỉnh đạt kết quả tốt nhất, với Macro-F1 cao nhất, đồng thời dẫn đầu về Accuracy và Balanced Accuracy. Mô hình cũng có tốc độ xử lý và kích thước phù hợp hơn LBP kết hợp SVM. Các kết quả tại mục này phản ánh bước phân loại trên ảnh khuôn mặt $48\times48$ pixel của FER-2013; hiệu năng của toàn bộ hệ thống được đánh giá riêng ở phần tiếp theo.
 
 \section{Thiết kế thực nghiệm đánh giá hệ thống đầu cuối}
 \label{section:5.3}

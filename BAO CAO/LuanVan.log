@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  15 OCT 2026 13:53
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.5.31)  16 OCT 2026 16:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1464,122 +1464,120 @@ LaTeX Warning: Citation `shan2009lbp' on page 64 undefined on input line 164.
 [64]
 File: Hinhve/Chuong5/5_09_ma_tran_nham_lan_lbp_svm.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_09_ma_tran_nham_lan_lbp_svm.png>
+ [65]
 File: Hinhve/Chuong5/5_10_ma_tran_nham_lan_deepface.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_10_ma_tran_nham_lan_deepface.png>
+ [66]
 File: Hinhve/Chuong5/5_11_ma_tran_nham_lan_emotion_tinh_chinh.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_11_ma_tran_nham_lan_emotion_tinh_chinh.png>
- [65]
+ [67] [68]
 
-LaTeX Warning: Reference `tab:fer_runtime_results_ch5' on page 66 undefined on input line 250.
-
-[66]
-
-LaTeX Warning: Citation `chenrich2024kdefkaggle' on page 67 undefined on input line 277.
+LaTeX Warning: Citation `chenrich2024kdefkaggle' on page 69 undefined on input line 272.
 
 
-LaTeX Warning: Citation `lundqvist1998kdef' on page 67 undefined on input line 277.
+LaTeX Warning: Citation `lundqvist1998kdef' on page 69 undefined on input line 272.
 
 File: Hinhve/Chuong5/5_16_du_lieu_khach_kdef.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_16_du_lieu_khach_kdef.png>
-[67] [68] [69]
+[69] [70] [71]
 File: Hinhve/Chuong5/5_27_trang_thai_he_thong.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_27_trang_thai_he_thong.png>
- [70]
+ [72]
 File: Hinhve/Chuong5/5_28_duong_cong_roc_arcface.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_28_duong_cong_roc_arcface.png>
- [71]
+ [73]
 File: Hinhve/Chuong5/5_18_hanh_trinh_kdef_bon_diem_cham.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_18_hanh_trinh_kdef_bon_diem_cham.png>
 File: Hinhve/Chuong5/5_19_chuoi_camera_kdef.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_19_chuoi_camera_kdef.png>
- [72]
+ [74]
 File: Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_20_kdef_ma_tran_nham_lan.png>
- [73]
+ [75]
 File: Hinhve/Chuong5/5_29_cau_hinh_diem_hanh_trinh.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_29_cau_hinh_diem_hanh_trinh.png>
- [74]
+ [76]
 File: Hinhve/Chuong5/5_30_diem_tung_hanh_trinh.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_30_diem_tung_hanh_trinh.png>
- [75]
+ [77]
 File: Hinhve/Chuong5/5_31_phan_bo_diem_hanh_trinh.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_31_phan_bo_diem_hanh_trinh.png>
 File: Hinhve/Chuong5/5_32_chi_tiet_diem_hanh_trinh.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_32_chi_tiet_diem_hanh_trinh.png>
- [76]
+ [78]
 File: Hinhve/Chuong5/5_22_kdef_tong_quan_phan_cum.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_22_kdef_tong_quan_phan_cum.png>
- [77]
+ [79]
 File: Hinhve/Chuong5/5_23_kdef_cum_medoid.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_23_kdef_cum_medoid.png>
 File: Hinhve/Chuong5/5_24_kdef_gan_cum.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_24_kdef_gan_cum.png>
 File: Hinhve/Chuong5/5_25_kdef_truy_vet.png Graphic file (type bmp)
 <Hinhve/Chuong5/5_25_kdef_truy_vet.png>
- [78]
-Underfull \hbox (badness 3942) in paragraph at lines 603--603
+ [80]
+Underfull \hbox (badness 3942) in paragraph at lines 598--598
 []|\TU/TimesNewRoman(0)/m/n/13 Ảnh tạo được kết
  []
 
 
-Underfull \hbox (badness 2744) in paragraph at lines 603--603
+Underfull \hbox (badness 2744) in paragraph at lines 598--598
 \TU/TimesNewRoman(0)/m/n/13 đầu vào của kịch
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 603--603
+Underfull \hbox (badness 10000) in paragraph at lines 598--598
 []|\TU/TimesNewRoman(0)/m/n/13 Tám ảnh ghép
  []
 
 
-Underfull \hbox (badness 3128) in paragraph at lines 603--603
+Underfull \hbox (badness 3128) in paragraph at lines 598--598
 []|\TU/TimesNewRoman(0)/m/n/13 Kết quả biểu cảm
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 603--603
+Underfull \hbox (badness 10000) in paragraph at lines 598--598
 []|\TU/TimesNewRoman(0)/m/n/13 Accuracy; Macro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 603--603
+Underfull \hbox (badness 10000) in paragraph at lines 598--598
 []|\TU/TimesNewRoman(0)/m/n/13 0,6714;
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 603--603
+Underfull \hbox (badness 10000) in paragraph at lines 598--598
 []|\TU/TimesNewRoman(0)/m/n/13 Tính điểm từng
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 603--603
+Underfull \hbox (badness 10000) in paragraph at lines 598--598
 []|\TU/TimesNewRoman(0)/m/n/13 Điểm trung bình
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 603--603
+Underfull \hbox (badness 10000) in paragraph at lines 598--598
 []|\TU/TimesNewRoman(0)/m/n/13 167/182;
  []
 
 
-Underfull \hbox (badness 1424) in paragraph at lines 603--603
+Underfull \hbox (badness 1424) in paragraph at lines 598--598
 []|\TU/TimesNewRoman(0)/m/n/13 Năm sai lệch liên
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 603--603
+Underfull \hbox (badness 10000) in paragraph at lines 598--598
 \TU/TimesNewRoman(0)/m/n/13 quan đến ghép
  []
 
-[79]) [80]
+[81]) [82]
 CHƯƠNG 6.
-(./Chuong/6_Ket_luan.tex [81
+(./Chuong/6_Ket_luan.tex [83
 
-] [82]) [83
+] [84]) [85
 
-] (./LuanVan.bbl [84
+] (./LuanVan.bbl [86
 
-] [85]) [86] (./LuanVan.aux)
+] [87]) [88] (./LuanVan.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1604,16 +1602,16 @@ Package rerunfilecheck Warning: File `LuanVan.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `LuanVan.out':
-(rerunfilecheck)             Before: 5D68BAE338D27BAC6DD42391E9CEEF76;18961
-(rerunfilecheck)             After:  90ED49F949144195A3F035679A7982A0;18649.
+(rerunfilecheck)             Before: 90ED49F949144195A3F035679A7982A0;18649
+(rerunfilecheck)             After:  05391351251812AD7FFAB79E4626DBC4;18649.
  ) 
 Here is how much of TeX's memory you used:
- 40248 strings out of 469709
- 840943 string characters out of 5466023
- 1380292 words of memory out of 5000000
- 68123 multiletter control sequences out of 15000+600000
+ 40230 strings out of 469709
+ 840626 string characters out of 5466023
+ 1378970 words of memory out of 5000000
+ 68105 multiletter control sequences out of 15000+600000
  644207 words of font info for 157 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  108i,12n,107p,2543b,1022s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on LuanVan.pdf (98 pages).
+Output written on LuanVan.pdf (100 pages).

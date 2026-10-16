@@ -35,21 +35,23 @@
 \contentsline {figure}{\numberline {4.20}{\ignorespaces Giao diện danh sách cụm và chuỗi medoid}}{56}{figure.caption.52}%
 \contentsline {figure}{\numberline {4.21}{\ignorespaces Giao diện danh sách lần mua sắm được gán cụm}}{57}{figure.caption.53}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Ma trận nhầm lẫn chuẩn hóa của ba cấu hình trên PrivateTest}}{66}{figure.caption.59}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Danh sách hồ sơ khách hàng sau khi khởi tạo từ ảnh KDEF}}{68}{figure.caption.61}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Trạng thái các thành phần của hệ thống tại thời điểm thực nghiệm}}{70}{figure.caption.63}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Đường cong ROC và vùng phóng đại quanh điểm vận hành của ngưỡng ArcFace}}{71}{figure.caption.64}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Một lần mua sắm có đủ bốn điểm chạm sau khi xử lý ảnh}}{72}{figure.caption.66}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Các quan sát nguồn Camera được sắp theo thời gian trong một lần mua sắm}}{73}{figure.caption.67}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Ma trận nhầm lẫn biểu cảm trên 700 ảnh của lần chạy đầu cuối}}{74}{figure.caption.69}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Cấu hình điểm biểu cảm và trọng số từng điểm chạm}}{75}{figure.caption.71}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Điểm tổng hợp của từng chuỗi biểu cảm}}{75}{figure.caption.72}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Phân bố điểm tổng hợp của 182 hành trình}}{76}{figure.caption.74}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Chi tiết đóng góp của từng điểm chạm vào điểm hành trình}}{76}{figure.caption.75}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Kết quả lựa chọn số cụm từ 167 chuỗi trạng thái trên giao diện}}{77}{figure.caption.76}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Medoid và thống kê của hai cụm trên giao diện hệ thống}}{78}{figure.caption.78}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Danh sách các lần mua sắm được gán cụm}}{78}{figure.caption.79}%
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Truy vết một kết quả gán cụm về các quan sát ban đầu}}{79}{figure.caption.80}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Ma trận nhầm lẫn chuẩn hóa của LBP kết hợp SVM trên PrivateTest}}{66}{figure.caption.59}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Ma trận nhầm lẫn chuẩn hóa của CNN Emotion trước tinh chỉnh trên PrivateTest}}{67}{figure.caption.60}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Ma trận nhầm lẫn chuẩn hóa của CNN Emotion sau tinh chỉnh trên PrivateTest}}{68}{figure.caption.61}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Danh sách hồ sơ khách hàng sau khi khởi tạo từ ảnh KDEF}}{70}{figure.caption.63}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Trạng thái các thành phần của hệ thống tại thời điểm thực nghiệm}}{72}{figure.caption.65}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Đường cong ROC và vùng phóng đại quanh điểm vận hành của ngưỡng ArcFace}}{73}{figure.caption.66}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Một lần mua sắm có đủ bốn điểm chạm sau khi xử lý ảnh}}{74}{figure.caption.68}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Các quan sát nguồn Camera được sắp theo thời gian trong một lần mua sắm}}{75}{figure.caption.69}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Ma trận nhầm lẫn biểu cảm trên 700 ảnh của lần chạy đầu cuối}}{76}{figure.caption.71}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Cấu hình điểm biểu cảm và trọng số từng điểm chạm}}{77}{figure.caption.73}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Điểm tổng hợp của từng chuỗi biểu cảm}}{77}{figure.caption.74}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Phân bố điểm tổng hợp của 182 hành trình}}{78}{figure.caption.76}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Chi tiết đóng góp của từng điểm chạm vào điểm hành trình}}{78}{figure.caption.77}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Kết quả lựa chọn số cụm từ 167 chuỗi trạng thái trên giao diện}}{79}{figure.caption.78}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Medoid và thống kê của hai cụm trên giao diện hệ thống}}{80}{figure.caption.80}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Danh sách các lần mua sắm được gán cụm}}{80}{figure.caption.81}%
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Truy vết một kết quả gán cụm về các quan sát ban đầu}}{81}{figure.caption.82}%
 \addvspace {10\p@ }
 \contentsfinish 
 \contentsfinish 
